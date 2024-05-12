@@ -1,0 +1,42 @@
+package com.UserManagement.business;
+
+import com.UserManagement.dao.entities.*;
+import com.UserManagement.dao.model.ProfilModel;
+import com.UserManagement.dao.model.UserLoginModel;
+import com.UserManagement.dao.model.VerifyOTPModel;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import java.time.LocalDate;
+import java.util.*;
+
+public interface IUserManagerBus {
+
+	User signin(String phone,String password) throws Exception;
+
+	boolean userExist(String phone) throws Exception;
+
+	User signup(String phone, String fullname, LocalDate birthDate,String gender,String password) throws Exception;
+
+	UserLoginModel getUserLoginDetails(String phone);
+
+	//boolean verifyPhone(String phone);
+
+	User disActivateAccount(String phone);
+
+	User disBlockAccount(String phone);
+
+	User activateAccount(String phone);
+
+    Validation VerifyAccount(String phone);
+
+	User blockAccount(String phone);
+
+	Validation enregistrer(User user);
+
+	User updateProfil(ProfilModel profilModel);
+
+
+	User VerifyOTP(VerifyOTPModel verifyOTPModel);
+
+}

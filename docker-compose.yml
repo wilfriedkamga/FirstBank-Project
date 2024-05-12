@@ -1,0 +1,97 @@
+version: '3'
+
+services:
+  db:
+    image: mariadb:10.6
+    environment:
+      MYSQL_ROOT_PASSWORD: 'root'
+      MYSQL_DATABASE: 'userdb'
+      MYSQL_USER: 'root'
+      MYSQL_PASSWORD: 'root'
+    volumes:
+      - ./data/mariadb:/docker-entrypoint-initdb.d
+    ports:
+      - "3306:3306"
+    networks:
+      microservice_network:
+        aliases:
+          - maria-server
+
+  discovery:
+    build: ./discovery
+    ports:
+      - "8761:8761"
+    networks:
+      microservice_network:
+        aliases:
+          - discovery
+
+  api_gateway:
+    build: ./api_gateway
+    ports:
+      - "8771:8771"
+    depends_on:
+      - discovery
+    environment:
+      eureka.client.serviceUrl.defaultZone: http://theusername:thepassword@discovery:8761/eureka/
+    networks:
+      microservice_network:
+        aliases:
+          - api_gateway
+
+  user_management:
+    build: ./user_management
+    ports:
+      - "8088:8088"
+    depends_on:
+      - discovery
+      - api_gateway
+      - db
+    environment:
+      eureka.client.serviceUrl.defaultZone: http://theusername:thepassword@discovery:8761/eureka/
+    networks:
+      microservice_network:
+        aliases:
+          - user_management
+          
+  tontine_management:
+    build: ./tontine_management
+    ports:
+      - "8081:8081"
+    depends_on:
+      - discovery
+      - api_gateway
+      - db
+    environment:
+      eureka.client.serviceUrl.defaultZone: http://theusername:thepassword@discovery:8761/eureka/
+    networks:
+      microservice_network:
+        aliases:
+          - tontine_management
+
+
+  notification_management:
+    build: ./notification_management
+    ports:
+      - "8089:8089"
+    depends_on:
+      - discovery
+      - api_gateway
+      - db
+    environment:
+      eureka.client.serviceUrl.defaultZone: http://theusername:thepassword@discovery:8761/eureka/
+    networks:
+      microservice_network:
+        aliases:
+          - notification_management
+          
+   
+  frontend:
+    build: ./frontend
+    ports:
+      - "80:80"
+
+networks:
+  microservice_network:
+    ipam:
+      driver: default
