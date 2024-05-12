@@ -30,9 +30,9 @@ import java.util.Properties;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-//import javax.mail.*;
-//import javax.mail.internet.InternetAddress;
-//import javax.mail.internet.MimeMessage;
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 import static java.time.temporal.ChronoUnit.MINUTES;
 
@@ -58,11 +58,15 @@ public class UserManagerBus  implements IUserManagerBus {
 	@Override
 	public User signin(String phone, String password) throws Exception {
 		Optional<User> user = userRepository.findByPhone(phone);
+
+		if(!user.get().getActivated())
+			throw new IllegalAccessException ("Votre compte n'est pas activé.");
+
 		if (!user.isPresent())
-			throw new Exception("User or Password incorrect");
+			throw new Exception("Ce compte n'existe pas dans notre base de données");
 
 		if (!passwordEncoder.matches(password, user.get().getPassword()))
-			throw new Exception("User or Password incorrect");
+			throw new Exception("Mot de passe incorrect");
 
 		return user.get();
 	}
@@ -71,7 +75,7 @@ public class UserManagerBus  implements IUserManagerBus {
 	public User signup(String phone, String fullname, LocalDate birthDate, String gender, String password) throws Exception {
 		Optional<User> user = userRepository.findByPhone(phone);
 		if (user.isPresent())
-			throw new Exception("User already exists");
+			throw new Exception("Ce numéro de télephone existe déjà dans notre base de données");
 
 		User obj = new User();
 		obj.setPhone(phone);
@@ -80,7 +84,7 @@ public class UserManagerBus  implements IUserManagerBus {
 		obj.setCreationDate(LocalDateTime.now());
 		obj.setGender(gender);
 		obj.setPassword(passwordEncoder.encode(password));
-
+        enregistrer(obj);
 		return userRepository.save(obj);
 	}
 
