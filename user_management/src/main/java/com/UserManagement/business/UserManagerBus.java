@@ -30,9 +30,6 @@ import java.util.Properties;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-import javax.mail.*;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 
 import static java.time.temporal.ChronoUnit.MINUTES;
 
