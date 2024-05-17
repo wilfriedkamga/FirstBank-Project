@@ -149,15 +149,7 @@ export default function Authentification() {
         />
       ) : null}
 
-      {setPasswordVisibility ? (
-        <SetPassword
-          fullName={fullName}
-          birthDate={birthDate}
-          phone={phone}
-          gender={gender}
-          toggleSignin={toggleSignupVisibility}
-        />
-      ) : null}
+      
       {setPassword2Visibility ? (
         <SetPassword2
           fullName={fullName}

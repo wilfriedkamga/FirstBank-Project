@@ -1,6 +1,5 @@
 import React, { useState, ChangeEvent, FocusEvent, useEffect } from "react";
 import "./SetPassword.css";
-import InputPassword from "../../Elementary/InputPassword/InputPassword";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Variable from "../../../../../Variable";
@@ -61,7 +60,7 @@ export default function SetPassword2({
     else{
       setDialogVisibility(false)
       setDialogMessage(messageError)
-      alert(phone)
+     
       const tempUser = {
         phone: phone,
         newPhone: phone,
@@ -77,8 +76,8 @@ export default function SetPassword2({
           navigate("/home");
         })
         .catch((error) => {
-          //alert("Identifiant Incorrect !!");
-          alert("Nous n'avons pas pu faire la mise à jour");
+       
+         
           console.log(error);
         });
 

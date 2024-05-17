@@ -1,6 +1,5 @@
 import React, { useState, ChangeEvent, FocusEvent, useEffect } from "react";
 import "./SetPassword.css";
-import InputPassword from "../../Elementary/InputPassword/InputPassword";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Variable from "../../../../../Variable";
@@ -117,14 +116,11 @@ export default function SetPassword({
     axios
       .post(`${route}`, tempUser)
       .then((response) => {
-        alert("Votre compte a ete creer avec success");
+     
         console.log(response);
         navigate("/home");
       })
       .catch((error) => {
-        //alert("Identifiant Incorrect !!");
-        alert("Utilisateur existe deja");
-        
         console.log(error);
       });
   };

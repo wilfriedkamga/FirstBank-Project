@@ -62,7 +62,7 @@ const Signup: React.FC<ChildComponentProps> = ({
       setTimeout(() => {
        
         const route=Variable.routeApi+"api/usermanagement/signin"
-        alert(route)
+       
         axios
           .post(`${route}`, {
             phone,
@@ -73,8 +73,10 @@ const Signup: React.FC<ChildComponentProps> = ({
             navigate("/home");
           })
           .catch((error) => {
+           
+            console.log(error)
             setErrorVisibility(true);
-            alert(error)
+           
           });
   
         setIsLoading(false); // Désactiver le chargement après l'exécution
@@ -89,6 +91,7 @@ const Signup: React.FC<ChildComponentProps> = ({
 
   return (
     <section className="bg-white w-full h-full shadow-xl lg:w-[28vw] lg:h-[90vh] relative p-5 dark:bg-gray-900 lg:rounded-xl z-3">
+      
       <div className="">
         <div className=" max-w-2xl mx-auto lg:w-4/5 ">
           <div className="w-full h-full  bg-gree-300 ">
