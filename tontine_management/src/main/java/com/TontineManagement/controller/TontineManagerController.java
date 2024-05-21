@@ -47,6 +47,26 @@ public class TontineManagerController {
 
 	}
 
+	@GetMapping(value = "/tontines")
+
+	public ResponseEntity getAllTontines() {
+		CommonResponseModel response = new CommonResponseModel();
+		try{
+			response.setMessage("Success");
+			response.setResponseCode("0");
+			response.setData(tontineManagerBus.getAllTontines());
+
+			return new ResponseEntity(response, HttpStatus.OK);
+
+		} catch ( Exception e) {
+			response.setResponseCode("1");
+			response.setMessage(e.getMessage());
+
+			return new ResponseEntity<>(response, HttpStatus.FORBIDDEN);
+		}
+
+	}
+
 
 
 	}

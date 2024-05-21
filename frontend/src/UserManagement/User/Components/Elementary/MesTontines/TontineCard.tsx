@@ -11,15 +11,14 @@ import UserInfo from './UserInfo';
 import { Link } from 'react-router-dom';
 
 type Tontine = {
-    id: string;
-    nom: string;
-    Description: string;
-    nbMembres: number;
-    type: string;
-    nbNotifications: number;
-    nbCaisses: number;
-    Admins: { nom: string; telephone: string }[];
-  };
+  id: string;
+  nom: string;
+  description: string;
+  type: string;
+  frequence: string;
+  jourReunion: string;
+ 
+};
 
   type ChildComponentProps={
     tontine:Tontine
@@ -51,15 +50,15 @@ const TontineCard = ({tontine}:ChildComponentProps) => {
             <div className='flex items-center gap-3'>
                 <div className='flex gap-1 items-center text-sm text-gray-600'>
                     <PeopleOutlineIcon />
-                    <span>{tontine.nbMembres}</span>
+                    <span>{/*tontine.nbMembres*/}10</span>
                 </div>
                 <div className='flex gap-1 items-center text-sm text-gray-600 '>
                     <SavingsOutlinedIcon />
-                    <span>{tontine.nbCaisses}</span>
+                    <span>{/*tontine.nbCaisses*/}10</span>
                 </div>
                 <div className='flex gap-1 items-center text-sm text-gray-600 '>
                     <NotificationsNoneIcon />
-                    <span>{tontine.nbNotifications}</span>
+                    <span>{/*tontine.nbNotifications*/}10</span>
                 </div>
             </div>
 

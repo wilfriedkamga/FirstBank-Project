@@ -1,20 +1,31 @@
 import axios from "axios";
 import Variable from "../Variable";
 
-const routes=Variable.routeApi +"api/usermanagement/signin"
-
-type TLoginModel={
-  phone:string,
-  password:string
+const routes=Variable.routeApiTontine +"/api/tontinemanagement/createTontine"
+const route_get_all_tontine=Variable.routeApiTontine +"/api/tontinemanagement/tontines"
+type TTontineModel={
+  name:string,
+  description:string,
+  type:string,
+  frequence:string,
+  jourReunion:string
 }
 
-class Authentication{
-    
-    CreateTontineService(loginModel:TLoginModel){
 
-        return axios.post(routes,loginModel) ;
+class TontineService{
+    
+    CreateTontine(tontineModel:TTontineModel){
+
+        return axios.post(routes,tontineModel) ;
+
      }
 
+     GetTontines(){
+      
+      return axios.get(route_get_all_tontine) ;
+      
+   }
+
 }
 
-export default new Authentication;
+export default new TontineService;

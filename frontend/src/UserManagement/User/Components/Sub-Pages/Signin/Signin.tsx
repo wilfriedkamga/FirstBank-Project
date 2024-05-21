@@ -73,7 +73,7 @@ const Signup: React.FC<ChildComponentProps> = ({
           password: password,
         };
 
-        const route = Variable.routeApi + "api/usermanagement/signin";
+       
         
         Authentication.loginService(tempUser)
           .then((response) => {

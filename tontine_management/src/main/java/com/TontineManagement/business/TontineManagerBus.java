@@ -8,6 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -31,12 +32,18 @@ public class TontineManagerBus implements ITontineManagerBus {
 
 	@Override
 	public Tontine creer(TontineModel tontineModel) throws Exception {
-       Tontine tontine =new Tontine();
-       tontine.setNom("Les jeunes de Bandjoun");
-       tontine.setDescription("Association des jeunes de bandjoun");
-       tontine.setJourReunion("Lundi");
-       tontine.setFrequence("Hebdomadaire");
+		Tontine tontine =new Tontine();
+		tontine.setNom(tontineModel.getNom());
+		tontine.setDescription(tontineModel.getDescription());
+		tontine.setJourReunion(tontineModel.getJourReunion());
+		tontine.setFrequence(tontineModel.getFrequence());
 		return tontineRepository.save(tontine);
+	}
+
+	@Override
+	public List<Tontine> getAllTontines() throws Exception {
+		List<Tontine> tontineList=tontineRepository.findAll();
+		return tontineList;
 	}
 
 }

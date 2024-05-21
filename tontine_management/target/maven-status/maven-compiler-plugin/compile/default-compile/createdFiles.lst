@@ -18,5 +18,6 @@ com\TontineManagement\dao\model\CommonResponseModel.class
 com\TontineManagement\config\WebSecurityConfig.class
 com\TontineManagement\config\JwtTokenUtil.class
 com\TontineManagement\dao\entities\Caisse.class
+com\TontineManagement\config\CorsConfig.class
 com\TontineManagement\dao\model\ProfilModel.class
 com\TontineManagement\dao\repositories\CaisseRepository.class
