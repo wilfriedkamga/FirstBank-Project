@@ -2,7 +2,7 @@ import React from 'react'
 import SideBar from '../../Components/Elementary/SideBar/SideBar'
 import { Outlet } from 'react-router-dom'
 import Navbar from '../../Components/Elementary/Navbar/Navbar'
-import Dashboard from '../../Components/Elementary/Dashboard/Dashboard'
+
 
 export default function TontineHomePage() {
   return (

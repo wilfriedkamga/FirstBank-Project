@@ -8,6 +8,7 @@ import RiceBowlIcon from '@mui/icons-material/RiceBowl';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import SavingsOutlinedIcon from '@mui/icons-material/SavingsOutlined';
 import UserInfo from './UserInfo';
+import { Link } from 'react-router-dom';
 
 type Tontine = {
     id: string;
@@ -23,6 +24,7 @@ type Tontine = {
   type ChildComponentProps={
     tontine:Tontine
   }
+ const add=(baseUrl:string, id:string)=>{return baseUrl+id}
 const TontineCard = ({tontine}:ChildComponentProps) => {
   return (
     <div className='w-full h-fit bg-white shadow-md p-4 rounded'>
@@ -68,7 +70,6 @@ const TontineCard = ({tontine}:ChildComponentProps) => {
                     <UserInfo />
                     <UserInfo />
                     </div>
-                
                 </div>
                
           </div>
@@ -76,13 +77,12 @@ const TontineCard = ({tontine}:ChildComponentProps) => {
             <h5 className='text-base line-clamp-1 text-black'>
               Prochaine réunion programmée
             </h5>
-
             <div className='p-4 space-x-8'>
               
               <span className='bg-blue-600/10 px-3 py-1 rounded0full text-blue-700 font-medium'>
               {formatDate(new Date())}
               
-              </span> <button className='bg-gray-600 hover:bg-red-700 mt-3 rounded-xl border-gray-600 border shadow-lg  w-2/5'>Visiter</button>
+              </span> <button className='bg-gray-600 hover:bg-red-700 mt-3 rounded-xl border-gray-600 border shadow-lg  w-2/5'><Link to={"/tontine/mestontines/"+tontine.id}> Visiter</Link></button>
             </div>
           </div>
          

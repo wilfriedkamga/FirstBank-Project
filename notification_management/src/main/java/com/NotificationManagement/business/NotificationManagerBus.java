@@ -17,4 +17,10 @@ public class NotificationManagerBus  implements INotificationManagerBus {
 		return true;
 	}
 
+	@Override
+	public boolean sendSms(String dest, String msg){
+		//todo implement logical business
+		return true;
+	}
+
 }

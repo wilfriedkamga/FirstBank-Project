@@ -85,9 +85,6 @@ const Signup3: React.FC<ChildComponentProps> = ({
         
         setDialogMessage("Ce numero de telephone existe déjà dans notre base de données")
         setDialogVisibility(true)
-
-       
-        
         console.log(error);
       });
 

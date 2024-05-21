@@ -3,10 +3,12 @@ import { BASE_URL } from "../API";
 import { METHODS } from "http";
 
 // FONCTION POUR FAIRE UN GET DES DONNEES
+
 export const useFetchData = (url: string) => {
   const [data, setData] = useState({});
   const [isLoading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const path="api/usermanagement/signin"
 
   useEffect(() => {
     if (!url) return;
@@ -35,6 +37,8 @@ export const useFetchData = (url: string) => {
 
   return { isLoading, data, error };
 };
+
+
 // FONCTION POUR FAIRE UN POST DES DONNEES
 export const usePostData = (url: string) => {
   const [data, setData] = useState(null);

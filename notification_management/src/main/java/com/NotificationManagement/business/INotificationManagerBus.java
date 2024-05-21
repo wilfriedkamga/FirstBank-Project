@@ -6,5 +6,6 @@ import java.util.*;
 public interface INotificationManagerBus {
 
 	boolean sendEmail(String dest, String msg);
+	boolean sendSms(String dest, String msg);
 
 }

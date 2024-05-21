@@ -2,24 +2,25 @@ import React, { useEffect, useState } from "react";
 import logo from "../../../Assets/Images/FBLogo.png";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import PhoneInput from 'react-phone-input-2'
-import 'react-phone-input-2/lib/style.css'
-import '../Signin/Signin.css'
-import Variable from "../../../../../Variable"
-
-
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
+import "../Signin/Signin.css";
+import Variable from "../../../../../Variable";
 
 type ChildComponentProps = {
   handleClick: () => void;
   toggleSinup2: () => void;
-  uploadOtpCodeToParent: (fullName: string,birthDate:string,gender:string) => void;
+  uploadOtpCodeToParent: (
+    fullName: string,
+    birthDate: string,
+    gender: string
+  ) => void;
 };
 const Signup2: React.FC<ChildComponentProps> = ({
   handleClick,
   toggleSinup2,
-  uploadOtpCodeToParent
+  uploadOtpCodeToParent,
 }) => {
-  
   const [name, setName] = useState("");
   const [gender, setGender] = useState("");
   const [birthDate, setBirthdate] = useState("");
@@ -32,21 +33,17 @@ const Signup2: React.FC<ChildComponentProps> = ({
     setIsPasswordVisible((prevState) => !prevState);
   }
 
-  
-  
   const handleGenderChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setGender(event.target.value);
   };
-  
+
   const navigate = useNavigate();
- 
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    uploadOtpCodeToParent(name,birthDate,gender);
-    toggleSinup2()
-    const route=Variable.routeApi+"api/usermanagement/signin"
-    
-
+    uploadOtpCodeToParent(name, birthDate, gender);
+    toggleSinup2();
+    const route = Variable.routeApi + "api/usermanagement/signin";
   };
 
   return (
@@ -57,13 +54,13 @@ const Signup2: React.FC<ChildComponentProps> = ({
             <h1 className="text-2xl font-semibold tracking-wider  mt-10 lg:mt-0 text-red-600 text-gray-800 text-center  capitalize dark:text-white">
               S'inscrire
             </h1>
-            
+
             <p className="mt-2 text-gray-700 dark:text-gray-400 text-center">
-            Please fill in these fields to log in.
+              Please fill in these fields to log in.
             </p>
-          
+
             <form className="gap-6 mt-4 " onSubmit={(e) => handleSubmit(e)}>
-            <div>
+              <div>
                 <label className="block mb-2 text-sm ">Full name</label>
                 <input
                   value={name}
@@ -96,19 +93,20 @@ const Signup2: React.FC<ChildComponentProps> = ({
                   Gender
                 </label>
                 <select
-                  
                   required
                   value={gender}
-                  onChange={(e:any) => 
-                    setGender(e.target.value)
-                  }
+                  onChange={(e: any) => setGender(e.target.value)}
                   id="countries"
                   className="bg-gray-50 border h-14 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-red-400 dark:focus:border-red-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                 >
-                  <option value="" disabled selected hidden>Choose your gender</option>
-                  <option value="Homme" selected>Homme</option>
+                  <option value="" disabled selected hidden>
+                    Choose your gender
+                  </option>
+                  <option value="Homme" selected>
+                    Homme
+                  </option>
                   <option value="Femme">Femme</option>
-              </select>
+                </select>
               </div>
 
               <button
@@ -120,7 +118,10 @@ const Signup2: React.FC<ChildComponentProps> = ({
               </button>
               <p className="flex items-center justify-center mt-2">
                 You already have an account?
-                <button className="signin text-red-600" onClick={() => handleClick()}>
+                <button
+                  className="signin text-red-600"
+                  onClick={() => handleClick()}
+                >
                   {" "}
                   Signin
                 </button>
