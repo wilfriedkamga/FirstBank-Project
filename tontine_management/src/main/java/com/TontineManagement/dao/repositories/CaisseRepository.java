@@ -10,6 +10,6 @@ import java.util.Optional;
 @Repository
 public interface CaisseRepository extends JpaRepository<Caisse, Integer> {
 
-
+  Optional<Caisse> findById(String id);
 
 }

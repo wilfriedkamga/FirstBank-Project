@@ -6,11 +6,11 @@ import UserAvatar from './UserAvatar';
 
 const Navbar = () => {
   return (
-    <div className=' relative flex justify-between items-center  bg-gray-50 px-4 py-3 2xl:py-4 sticky z-100 top-0'>
+    <div className=' relative rounded-right flex justify-between items-center bg-red-600 sm:bg-white px-4 py-3 2xl:py-4 sticky z-100 top-0'>
       <div className='flex gap-4'>
         <button
           onClick={()=>null}
-          className='text-2xl text-gray-500 block md:hidden'
+          className='text-2xl text-white pr-3 font-bold block md:hidden'
         >
           ☰
         </button>

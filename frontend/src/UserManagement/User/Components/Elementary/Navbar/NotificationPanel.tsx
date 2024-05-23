@@ -54,8 +54,8 @@ const NotificationPanel = () => {
 
   return (
     <div>
-        <div ref={butRef} onClick={handleToogle} className='cursor-pointer'>
-           <NotificationsNoneRoundedIcon />
+        <div ref={butRef} onClick={handleToogle} className='cursor-pointer '>
+           <NotificationsNoneRoundedIcon className='sm:text-transparent text-white font-extrabold' />
         </div>
         {toogle &&
                     <div ref={menuRef} className='absolute bg-gray-800 rounded-lg border-[2px] right-[20px] w-[150px]'>

@@ -5,7 +5,6 @@ import Home2 from "../UserManagement/User/Pages/Home/Home2";
 import Dashboard from "../UserManagement/User/Components/Elementary/Dashboard/Dashboard";
 import MesTontines from "../UserManagement/User/Components/Elementary/MesTontines/MesTontines";
 import ProtectedRoute from "./ProtectedRoutes";
-import Test from "../Utils/Hooks/Test";
 import { MaTontine } from "../UserManagement/User/Components/Elementary/maTontine/MaTontine";
 import BoardView from "../UserManagement/User/Components/Elementary/MesTontines/BoardView";
 import TontineContent from "../UserManagement/User/Components/Elementary/maTontine/TontineContent";

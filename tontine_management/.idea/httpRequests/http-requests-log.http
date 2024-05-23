@@ -1,0 +1,48 @@
+GET http://localhost:8081/api/tontinemanagement/tontines
+
+###
+
+GET http://localhost:8081/api/tontinemanagement/tontines
+Content-Type: application/json
+
+###
+
+GET http://localhost:8081/api/tontinemanagement/tontines
+Content-Type: application/json
+
+{
+  "nom":"Caisse",
+  "type":"statique",
+  "description":"n'est pas dynamique",
+  "creerPar":"650641633",
+  "tontine_id":"4da74684-3527-4164-be64-3451dd9e38d4"
+}
+
+###
+
+POST http://localhost:8081/api/tontinemanagement/createCaisse
+Content-Type: application/json
+
+{
+  "nom":"Caisse",
+  "type":"statique",
+  "description":"n'est pas dynamique",
+  "creerPar":"650641633",
+  "tontine_id":"4da74684-3527-4164-be64-3451dd9e38d4"
+}
+
+###
+
+POST http://localhost:8081/api/tontinemanagement/createCaisse
+Content-Type: application/json
+
+{
+  "nom":"Caisse",
+  "type":"statique",
+  "description":"n'est pas dynamique",
+  "creerPar":"650641633",
+  "tontine_id":"4da74684-3527-4164-be64-3451dd9e38d4"
+}
+
+###
+

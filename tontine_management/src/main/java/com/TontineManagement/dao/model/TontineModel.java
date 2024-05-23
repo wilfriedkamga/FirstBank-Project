@@ -1,12 +1,72 @@
 package com.TontineManagement.dao.model;
 
-public class TontineModel {
+import com.TontineManagement.dao.entities.Tontine;
 
+import java.util.Date;
+
+public class TontineModel {
+    private String id;
     private String nom;
     private String description;
     private String type;
     private String frequence;
     private String jourReunion;
+    private String create_par;
+    private Date dateCreation;
+    private int nbCaisse;
+    private int nbMembre;
+    private Date prochaineReunion;
+
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+
+
+    public String getCreate_par() {
+        return create_par;
+    }
+
+    public void setCreate_par(String create_par) {
+        this.create_par = create_par;
+    }
+
+    public Date getDateCreation() {
+        return dateCreation;
+    }
+
+    public void setDateCreation(Date dateCreation) {
+        this.dateCreation = dateCreation;
+    }
+
+    public int getNbCaisse() {
+        return nbCaisse;
+    }
+
+    public void setNbCaisse(int nbCaisse) {
+        this.nbCaisse = nbCaisse;
+    }
+
+    public int getNbMembre() {
+        return nbMembre;
+    }
+
+    public void setNbMembre(int nbMembre) {
+        this.nbMembre = nbMembre;
+    }
+
+    public Date getProchaineReunion() {
+        return prochaineReunion;
+    }
+
+    public void setProchaineReunion(Date prochaineReunion) {
+        this.prochaineReunion = prochaineReunion;
+    }
 
     public String getNom() {
         return nom;

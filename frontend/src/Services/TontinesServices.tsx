@@ -4,7 +4,7 @@ import Variable from "../Variable";
 const routes=Variable.routeApiTontine +"/api/tontinemanagement/createTontine"
 const route_get_all_tontine=Variable.routeApiTontine +"/api/tontinemanagement/tontines"
 type TTontineModel={
-  name:string,
+  nom:string,
   description:string,
   type:string,
   frequence:string,
@@ -15,6 +15,7 @@ type TTontineModel={
 class TontineService{
     
     CreateTontine(tontineModel:TTontineModel){
+       
 
         return axios.post(routes,tontineModel) ;
 

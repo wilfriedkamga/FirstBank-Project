@@ -1,13 +1,21 @@
 package com.TontineManagement.business;
 
 import com.TontineManagement.dao.entities.*;
+import com.TontineManagement.dao.model.CaisseModel;
+import com.TontineManagement.dao.model.MembreTontineModel;
 import com.TontineManagement.dao.model.TontineModel;
 import com.TontineManagement.dao.repositories.*;
+import org.hibernate.boot.model.naming.IllegalIdentifierException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,6 +37,10 @@ public class TontineManagerBus implements ITontineManagerBus {
 	PasswordEncoder passwordEncoder;
 	@Autowired
 	CaisseRepository caisseRepository;
+	@Autowired
+	MembreTontineRepository membreTontineRepository;
+
+	private static final Logger logger = LoggerFactory.getLogger(TontineManagerBus.class);
 
 	@Override
 	public Tontine creer(TontineModel tontineModel) throws Exception {
@@ -37,7 +49,17 @@ public class TontineManagerBus implements ITontineManagerBus {
 		tontine.setDescription(tontineModel.getDescription());
 		tontine.setJourReunion(tontineModel.getJourReunion());
 		tontine.setFrequence(tontineModel.getFrequence());
+
 		return tontineRepository.save(tontine);
+	}
+
+	@Override
+	public Tontine deleteTontine(String IdTontine) throws Exception {
+		Optional<Tontine> tontine=tontineRepository.findById(IdTontine);
+
+		if(!tontine.isPresent()) throw new IllegalArgumentException("Incorrect id");
+		else{ tontineRepository.deleteById(IdTontine);}
+		return tontine.get();
 	}
 
 	@Override
@@ -45,5 +67,70 @@ public class TontineManagerBus implements ITontineManagerBus {
 		List<Tontine> tontineList=tontineRepository.findAll();
 		return tontineList;
 	}
+
+	@Override
+	public MembresTontine addMembresTontine(MembreTontineModel membreTontineModel) throws Exception{
+
+		// Verifier l'existence de l'utiliateur qui est inscrit dans
+
+		// Verification de l'existence de la tontine
+		Optional<Tontine> tontine=tontineRepository.findById(membreTontineModel.getId_tontine());
+		if(tontine.isEmpty()) throw  new IllegalArgumentException("Cette tontine n'existe pas");
+
+		// Verifier l'existence de celui qui inscrit et de son role
+		//Optional<MembresTontine> membre=membreTontineRepository.findById_utiliateur(membreTontineModel.getId_utiliateur());
+        //if(membre.isEmpty() /*|| membre.get().getRole()!="ADMIN"*/)throw new IllegalArgumentException("Cett utilisateur n'existe pas ou n'a pas le droit d'ajouter un -mbembre");
+
+        // On incrémente le nombre de membres de cette tontine
+        Tontine tontine1=tontine.get();
+        tontine1.setNbMembre(tontine1.getNbMembre()+1);
+        tontineRepository.save(tontine1);
+
+        // On cree le nouveau membre dans membre_tontine
+		MembresTontine membresTontine=new MembresTontine();
+		membresTontine.setNomUtilisateur(membreTontineModel.getNomU());
+		membresTontine.setCreer_par(membreTontineModel.getCreate_par());
+		membresTontine.setId_utiliateur(membreTontineModel.getIdutiliateur());
+		membresTontine.setRole(membreTontineModel.getRole());
+		membresTontine.setId_tontine(membreTontineModel.getId_tontine());
+
+		return membreTontineRepository.save(membresTontine);
+	}
+
+	@Override
+	public Caisse createCaisse(CaisseModel caisseModel) throws Exception {
+		Optional<Tontine> optionalTontine = tontineRepository.findById(caisseModel.getTontine_id());
+		if (optionalTontine.isEmpty())
+			throw new IllegalIdentifierException("Cette tontine n'existe pas");
+
+			Tontine tontine = optionalTontine.get();
+            int nb=tontine.getNbCaisse();
+			Caisse caisse=new Caisse();
+		logger.info("**********************************Ma variable  : {}", nb);
+
+			// verification de l'unicite
+		    boolean verificateur=true;
+
+			while(verificateur){
+				Optional<Caisse> optionalCaisse=caisseRepository.findById(caisse.getId());
+				if(optionalCaisse.isPresent()) {caisse=new Caisse();}
+				else{verificateur=false;}
+			}
+
+			caisse.setNom(caisseModel.getNom());
+			caisse.setDescription(caisseModel.getDescription());
+			caisse.setType(caisseModel.getType());
+			caisse.setCreerPar(caisseModel.getCreerPar());
+			caisse.setTontine(tontine);
+
+			tontine.setNbCaisse( nb+1);
+
+			tontineRepository.save(tontine);
+
+			Caisse savedCaisse = caisseRepository.save(caisse);
+
+		return caisse;
+	}
+
 
 }

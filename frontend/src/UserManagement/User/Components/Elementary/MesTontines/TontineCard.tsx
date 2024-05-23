@@ -17,6 +17,8 @@ type Tontine = {
   type: string;
   frequence: string;
   jourReunion: string;
+  nbCaisse:number;
+  nbMembre:number;
  
 };
 
@@ -32,7 +34,7 @@ const TontineCard = ({tontine}:ChildComponentProps) => {
                 <span className='text-lg'><SearchRoundedIcon /></span>
                 <span className='uppercase'> {tontine.type}</span>
                 </div>
-                {true?<button>...</button>:null}
+                {true?<button className='text-black font-extrabold text-lg'>...</button>:null}
         </div>
         <>
           <div className='flex items-center gap-2'>
@@ -50,11 +52,11 @@ const TontineCard = ({tontine}:ChildComponentProps) => {
             <div className='flex items-center gap-3'>
                 <div className='flex gap-1 items-center text-sm text-gray-600'>
                     <PeopleOutlineIcon />
-                    <span>{/*tontine.nbMembres*/}10</span>
+                    <span>{tontine.nbMembre}</span>
                 </div>
                 <div className='flex gap-1 items-center text-sm text-gray-600 '>
                     <SavingsOutlinedIcon />
-                    <span>{/*tontine.nbCaisses*/}10</span>
+                    <span>{tontine.nbCaisse}</span>
                 </div>
                 <div className='flex gap-1 items-center text-sm text-gray-600 '>
                     <NotificationsNoneIcon />
@@ -81,7 +83,7 @@ const TontineCard = ({tontine}:ChildComponentProps) => {
               <span className='bg-blue-600/10 px-3 py-1 rounded0full text-blue-700 font-medium'>
               {formatDate(new Date())}
               
-              </span> <button className='bg-gray-600 hover:bg-red-700 mt-3 rounded-xl border-gray-600 border shadow-lg  w-2/5'><Link to={"/tontine/mestontines/"+tontine.id}> Visiter</Link></button>
+              </span> <button className='bg-red-600 hover:bg-red-800 mt-3 text-white font-bold rounded-xl border-[#666666] border-[1px] shadow-lg  w-2/5'><Link to={"/tontine/mestontines/"+tontine.id}> Visiter</Link></button>
             </div>
           </div>
          

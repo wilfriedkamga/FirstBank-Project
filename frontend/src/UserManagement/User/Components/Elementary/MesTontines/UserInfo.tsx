@@ -13,7 +13,7 @@ const UserInfo = () => {
       })
 
   return (
-    <div className='relative'>
+    <div className=''>
         <div onClick={()=>setToogle(!toogle)} ref={butRef} className='group inline-flex cursor-pointer justify-center font-bold items-center flex items-center w-7 h-7 bg-blue-600 rounded-full outline-none'>
             {getInitials("JUnior")}
         </div>
