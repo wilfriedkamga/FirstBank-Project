@@ -95,7 +95,7 @@ public class UserManagerController {
 	}
 	@PostMapping(value = "/userExist")
 	public ResponseEntity FindUser(@RequestBody UserExistModel userExistModel) throws Exception{
-
+        System.out.println(userExistModel.getPhone());
 		CommonResponseModel response = new CommonResponseModel();
 		boolean heExist=usermanagerBus.userExist(userExistModel.getPhone());
 

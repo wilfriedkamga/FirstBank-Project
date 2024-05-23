@@ -20,7 +20,7 @@ type AddTontineProps = {
 };
 
 
-const AddTontine = ({addTontine}:AddTontineProps) => {
+const AddCaisse = () => {
   
   const [nom, setNom] = useState("");
   const [description, setDescription] = useState("");
@@ -71,7 +71,7 @@ const AddTontine = ({addTontine}:AddTontineProps) => {
     .then((response)=>{
       
       setTontine(response.data.data)
-      addTontine(newTontine)
+      
     })
     .catch((error)=>{
         alert("error")
@@ -193,4 +193,5 @@ const AddTontine = ({addTontine}:AddTontineProps) => {
   );
 };
 
-export default AddTontine;
+
+export default AddCaisse

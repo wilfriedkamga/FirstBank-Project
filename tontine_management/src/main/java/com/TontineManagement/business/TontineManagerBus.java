@@ -50,7 +50,20 @@ public class TontineManagerBus implements ITontineManagerBus {
 		tontine.setJourReunion(tontineModel.getJourReunion());
 		tontine.setFrequence(tontineModel.getFrequence());
 
-		return tontineRepository.save(tontine);
+		// Enregistrement de la tontine
+		Tontine savedTontine = tontineRepository.save(tontine);
+
+		// Création du premier membre de la tontine
+		MembreTontineModel membreTontineModel = new MembreTontineModel();
+		membreTontineModel.setNomU("Nouveau");
+		membreTontineModel.setCreate_par(tontineModel.getCreate_par());
+		membreTontineModel.setId_utiliateur(tontineModel.getCreate_par());
+		membreTontineModel.setRole("ADMIN"); // ou tout autre rôle approprié
+		membreTontineModel.setId_tontine(savedTontine.getId());
+
+		addMembresTontine(membreTontineModel);
+
+		return savedTontine;
 	}
 
 	@Override

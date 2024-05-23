@@ -15,7 +15,7 @@ export default function TontineHomePage() {
         <div className='flex-1 overflow-y-auto'>
           <Navbar />
 
-          <div className=' bg-gray-400'>
+          <div className=' bg-[#828181] p-3 h-full'>
             <Outlet/>
           </div>
         

@@ -58,7 +58,7 @@ type Tontine = {
   }
     
   const addTontine=(tontine:TTontineModel)=>{
-    console.log(tontine)
+    
     setTontinesList(tontinesList.concat(tontine))
 
   }

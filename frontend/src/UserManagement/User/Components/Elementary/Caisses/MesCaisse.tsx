@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import SpaceDashboardSharpIcon from "@mui/icons-material/SpaceDashboardSharp";
 import { useNavigate, useLocation } from "react-router-dom";
+import AddTontine from '../MesTontines/AddTontine';
+import AddCaisse from './AddCaisse';
 
 
 
@@ -46,6 +48,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 const MesCaisse = () => {
     const navigate=useNavigate()
     const location = useLocation();
+    const [toogle,setToogle]=useState(false)
     
     const Card = ({ label, count, bg, icon }:any) => {
       
@@ -73,6 +76,9 @@ const MesCaisse = () => {
         navigate(path);
       };
 
+      const addCaisse=()=>{
+    
+  }
       const currentPath = location.pathname + "/";
   return (
     <div>
@@ -86,6 +92,13 @@ const MesCaisse = () => {
                 ))}
             
          </div>
+         <div onClick={()=>{setToogle(!toogle);}}   className='text-[20px] cursor-pointer absolute  sm:bottom-8 sm:right-8 right-8 bottom-[75px]  w-[70px] h-[70px] sm:h-[60px] sm:w-[60px] flex justify-center items-center  rounded-full  bg-red-700 text-white font-bold'>
+            +
+        </div>
+
+        {toogle &&<div  className='absolute h-[65vh] border-[1px] border-green sm:h-[55vh] sm:top-40 sm:w-[30vw] shadow-lg  bg-[#a09b9b] top-[13vh]  sm:right-[25vw] right-[1vw] rounded-lg   '>
+                    <AddCaisse />
+        </div>}
     </div>
   )
 }

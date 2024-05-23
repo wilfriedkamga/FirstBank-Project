@@ -14,6 +14,8 @@ import MaCaisse from "../UserManagement/User/Components/Elementary/Caisses/MaCai
 import UneCaisse from "../UserManagement/User/Components/Elementary/Caisses/UneCaisse";
 import UneCaisseContent from "../UserManagement/User/Components/Elementary/Caisses/UneCaisseContent";
 import Cotisation from "../UserManagement/User/Components/Elementary/Caisses/Cotisation";
+import CotisationMembre from "../UserManagement/User/Components/Elementary/Caisses/CotisationMembre";
+import MesCotisation from "../UserManagement/User/Components/Elementary/Dashboard/MesCotisation";
 
 
 export const router = createBrowserRouter([
@@ -137,7 +139,7 @@ export const router = createBrowserRouter([
           },
           {
             path: "/tontine/mescotisations",
-            element: <div>mes cotisations</div>,
+            element: <MesCotisation/>,
           },
           {
             path: "/tontine/messanctions",

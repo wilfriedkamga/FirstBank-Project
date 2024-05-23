@@ -83,7 +83,7 @@ const TontineCard = ({tontine}:ChildComponentProps) => {
               <span className='bg-blue-600/10 px-3 py-1 rounded0full text-blue-700 font-medium'>
               {formatDate(new Date())}
               
-              </span> <button className='bg-red-600 hover:bg-red-800 mt-3 text-white font-bold rounded-xl border-[#666666] border-[1px] shadow-lg  w-2/5'><Link to={"/tontine/mestontines/"+tontine.id}> Visiter</Link></button>
+              </span> <button  className='bg-red-600 hover:bg-red-800 mt-3 text-white font-bold rounded-xl border-[#666666] border-[1px] shadow-lg  w-2/5'><Link to={"/tontine/mestontines/"+tontine.id}> Visiter</Link></button>
             </div>
           </div>
          

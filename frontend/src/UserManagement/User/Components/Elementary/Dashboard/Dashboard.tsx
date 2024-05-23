@@ -8,22 +8,43 @@ function Dashboard() {
     
     {
       _id: "4",
-      label: "Mes dettes",
-      total: "3",
+      label: "Mes tontines",
+      total: "0",
+      icon: <SpaceDashboardSharpIcon />,
+      bg: "bg-[#be185d]" || 0,
+    },
+    {
+      _id: "4",
+      label: "Mes Caisses",
+      total: "0",
+      icon: <SpaceDashboardSharpIcon />,
+      bg: "bg-[#be185d]" || 0,
+    },
+    {
+      _id: "4",
+      label: "Mes cotisations",
+      total: "0",
       icon: <SpaceDashboardSharpIcon />,
       bg: "bg-[#be185d]" || 0,
     },
     {
       _id: "4",
       label: "Mes dettes",
-      total: "3",
+      total: "0",
       icon: <SpaceDashboardSharpIcon />,
       bg: "bg-[#be185d]" || 0,
     },
     {
       _id: "4",
-      label: "Mes dettes",
-      total: "3",
+      label: "Mes sanctions",
+      total: "0",
+      icon: <SpaceDashboardSharpIcon />,
+      bg: "bg-[#be185d]" || 0,
+    },
+    {
+      _id: "4",
+      label: "Mes Cagnottes",
+      total: "0",
       icon: <SpaceDashboardSharpIcon />,
       bg: "bg-[#be185d]" || 0,
     }
@@ -41,7 +62,7 @@ function Dashboard() {
         <div className='h-full flex flex-1 flex-col justify-between'>
           <p className='text-base text-gray-600'>{label}</p>
           <span className='text-2xl font-semibold'>{count}</span>
-          <span className='text-sm text-gray-400'>{"5 dernier mois"}</span>
+          <span className='text-sm text-gray-400'>{"12 avril 2023"}</span>
         </div>
         
         <div
