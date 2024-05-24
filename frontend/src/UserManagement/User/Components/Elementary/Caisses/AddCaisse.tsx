@@ -13,6 +13,7 @@ type TTontineModel={
   jourReunion:string,
   nbCaisse:number;
   nbMembre:number;
+  create_par:string;
 }
 
 type AddTontineProps = {
@@ -42,7 +43,8 @@ const AddCaisse = () => {
     frequence:"",
     jourReunion:"",
     nbCaisse:0,
-    nbMembre:0
+    nbMembre:0,
+    create_par:""
     
   }); 
 
@@ -63,6 +65,7 @@ const AddCaisse = () => {
       jourReunion:date,
       nbCaisse:0,
       nbMembre:0,
+      create_par:""
     }
 
    

@@ -4,6 +4,7 @@ import AddTontine from './AddTontine';
 import TontinesServices from '../../../../../Services/TontinesServices';
 import tontineStore from '../../../../../Store/Store';
 import TontineCardM from './TontineCardM';
+import Variable from '../../../../../Variable';
 
 
 type Tontine = {
@@ -37,24 +38,26 @@ type Tontine = {
     const useStoreTontine=tontineStore((state:any)=>state.tontine)
     const[tontinesList,setTontinesList]=useState<TTontineModel[]>([])
     const [tontine,setTontine]=useState<TTontineModel>()
+    const [addTontineVisibility,setAddTontineVisibility]=useState<boolean>(false)
+    
     
    useEffect(()=>{
-     Initializepage()
+    const user = Variable.getLocalStorageItem("user")
+     Initializepage(user.user.phone)
     
    },[])
 
-   const Initializepage=()=>{
-    TontinesServices.GetTontines()
+   const Initializepage=(phone:string)=>{
+    TontinesServices.GetTontines(phone)
     .then((response) => {
-      
       setTontinesList(response.data.data)
       console.log(response.data.data)
       
     })
     .catch((error) => {
       console.log(error);
-     
     });
+
   }
     
   const addTontine=(tontine:TTontineModel)=>{
@@ -79,12 +82,12 @@ type Tontine = {
       ))}
       {tontinesList==null || tontinesList.length==0?<div className='text-lg'> Vous n'êtes dans aucune tontine !</div>:null}
        </div>
-        <div ref={butRef} onClick={()=>{setToogle(!toogle);}}  className='text-xl cursor-pointer absolute  sm:bottom-8 sm:right-8 right-8 bottom-[75px]  w-[70px] h-[70px] sm:h-[60px] sm:w-[60px] flex justify-center items-center  rounded-full  bg-red-700 text-white font-bold'>
+        <div ref={butRef} onClick={()=>{setAddTontineVisibility(!addTontineVisibility);}}  className='text-xl cursor-pointer absolute  sm:bottom-8 sm:right-8 right-8 bottom-[75px]  w-[70px] h-[70px] sm:h-[60px] sm:w-[60px] flex justify-center items-center  rounded-full  bg-red-700 text-white font-bold'>
             +
         </div>
 
-        {toogle &&<div ref={menuRef} className='absolute h-[65vh] border-[1px] border-green sm:h-[55vh] sm:top-40 sm:w-[30vw] shadow-lg  bg-[#a09b9b] top-[13vh]  sm:right-[25vw] right-[1vw] rounded-lg   '>
-                    <AddTontine addTontine={addTontine}  />
+        {addTontineVisibility &&<div ref={menuRef} className='absolute h-[65vh] border-[1px] border-green sm:h-[55vh] sm:top-40 sm:w-[30vw] shadow-lg  bg-[#a09b9b] top-[13vh]  sm:right-[25vw] right-[1vw] rounded-lg   '>
+                    <AddTontine setVisibility={setAddTontineVisibility} addTontine={addTontine}  />
         </div>}
 
         

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import logo from "../../../Assets/Images/FBLogo.png";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Await, useNavigate } from "react-router-dom";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import "./Signin.css";
@@ -35,7 +35,7 @@ const Signup: React.FC<ChildComponentProps> = ({
   const [errorVisibility, setErrorVisibility] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [visible, setVisible] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isGood, setIsGood] = useState<boolean>(false);
   const [dialogMessage, setDialogMessage] = useState(
     "Incorrect password or phone"
   );
@@ -57,7 +57,8 @@ const Signup: React.FC<ChildComponentProps> = ({
     setPassword(event.target.value);
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  
+  const handleSubmit =async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (phone.length <= 3) {
@@ -65,9 +66,9 @@ const Signup: React.FC<ChildComponentProps> = ({
       setErrorVisibility(true);
     } else {
       setDialogMessage("Incorrect password or phone");
-      setIsLoading(true);
+    
 
-      setTimeout(() => {
+    
         const tempUser = {
           phone: phone,
           password: password,
@@ -78,16 +79,17 @@ const Signup: React.FC<ChildComponentProps> = ({
         Authentication.loginService(tempUser)
           .then((response) => {
             setErrorVisibility(false);
-            login();
-            navigate("/home");
+            const data=Variable.setLocalStorageItem("user",response.data.data)
+            navigate("/home")
+            
+            
           })
           .catch((error) => {
             console.log(error);
             setErrorVisibility(true);
           });
 
-        setIsLoading(false); // Désactiver le chargement après l'exécution
-      }, Variable.preTimeOut);
+      
     }
   };
 

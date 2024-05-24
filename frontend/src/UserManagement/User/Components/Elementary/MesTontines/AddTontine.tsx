@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TontinesServices from "../../../../../Services/TontinesServices";
 import tontineStore from "../../../../../Store/Store";
+import Variable from "../../../../../Variable";
 
 
 
@@ -13,14 +14,16 @@ type TTontineModel={
   jourReunion:string,
   nbCaisse:number;
   nbMembre:number;
+  create_par:string;
 }
 
 type AddTontineProps = {
   addTontine: (tontine: TTontineModel) => void;
+  setVisibility:(test:boolean)=>void;
 };
 
 
-const AddTontine = ({addTontine}:AddTontineProps) => {
+const AddTontine = ({addTontine,setVisibility}:AddTontineProps) => {
   
   const [nom, setNom] = useState("");
   const [description, setDescription] = useState("");
@@ -29,7 +32,7 @@ const AddTontine = ({addTontine}:AddTontineProps) => {
   const [contact1, setContact1] = useState("");
   const [contact2, setContact2] = useState("");
   const [type, setType] = useState("");
-  
+  const [creator,setCreator]=useState("")
 
   const [end, setEnd] = useState(false);
   const [view, setView]=useState(true)
@@ -42,13 +45,16 @@ const AddTontine = ({addTontine}:AddTontineProps) => {
     frequence:"",
     jourReunion:"",
     nbCaisse:0,
-    nbMembre:0
+    nbMembre:0,
+    create_par:""
     
   }); 
 
-  const handleSubmit=()=>{
-   
-  }
+  useEffect(()=>{
+    const user = Variable.getLocalStorageItem("user")
+    setCreator(user.user.phone)
+    
+   },[])
   const useStoreTontine=tontineStore((state:any)=>state.create)
 
   const HandleCreate=(e: React.FormEvent<HTMLFormElement>)=>{
@@ -63,6 +69,7 @@ const AddTontine = ({addTontine}:AddTontineProps) => {
       jourReunion:date,
       nbCaisse:0,
       nbMembre:0,
+      create_par:creator,
     }
 
    
@@ -70,6 +77,7 @@ const AddTontine = ({addTontine}:AddTontineProps) => {
     TontinesServices.CreateTontine(newTontine)
     .then((response)=>{
       
+      setVisibility(false)
       setTontine(response.data.data)
       addTontine(newTontine)
     })
@@ -129,10 +137,11 @@ const AddTontine = ({addTontine}:AddTontineProps) => {
 
               <div className="flex justify-end text-white mt-5 ">
 
-                <button  className="px-3 py-1 mr-2 hover:bg-red-900  bg-red-700 rounded-lg">
+                <button onClick={()=>setVisibility(false)} className="px-3 py-1 mr-2 hover:bg-red-900  bg-red-700 rounded-lg">
                   Annuler
                 </button>
                 <button
+                  type="submit"
                   onClick={() => { setEnd(true);}}
                   className="px-3 py-1  hover:bg-gray-800 bg-gray-500 rounded-lg"
                 >

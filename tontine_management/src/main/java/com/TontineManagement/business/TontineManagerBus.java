@@ -49,7 +49,7 @@ public class TontineManagerBus implements ITontineManagerBus {
 		tontine.setDescription(tontineModel.getDescription());
 		tontine.setJourReunion(tontineModel.getJourReunion());
 		tontine.setFrequence(tontineModel.getFrequence());
-
+        tontine.setCreate_par(tontineModel.getCreate_par());
 		// Enregistrement de la tontine
 		Tontine savedTontine = tontineRepository.save(tontine);
 
@@ -76,8 +76,21 @@ public class TontineManagerBus implements ITontineManagerBus {
 	}
 
 	@Override
-	public List<Tontine> getAllTontines() throws Exception {
-		List<Tontine> tontineList=tontineRepository.findAll();
+	public List<Tontine> getAllTontines(String phoneNumber) throws Exception {
+		// Récupérer toutes les occurrences de membreTontine par l'idutiliateur (le téléphone)
+		List<MembresTontine> membreTontineList = membreTontineRepository.findByIdutiliateur(phoneNumber);
+
+		// Initialiser la liste de tontines à retourner
+		List<Tontine> tontineList = new ArrayList<>();
+
+		// Pour chaque membreTontine, récupérer l'ID de la tontine et obtenir la tontine correspondante
+		for (MembresTontine membreTontine : membreTontineList) {
+			String idTontine = membreTontine.getId_tontine();
+			Tontine tontine = tontineRepository.findById(idTontine)
+					.orElseThrow(() -> new Exception("Tontine not found with id: " + idTontine));
+			tontineList.add(tontine);
+		}
+
 		return tontineList;
 	}
 

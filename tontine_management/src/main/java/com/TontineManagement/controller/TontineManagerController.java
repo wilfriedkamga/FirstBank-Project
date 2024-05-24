@@ -75,12 +75,12 @@ public class TontineManagerController {
 
 	@GetMapping(value = "/tontines")
 
-	public ResponseEntity getAllTontines() {
+	public ResponseEntity getAllTontines(@RequestParam String phone) {
 		CommonResponseModel response = new CommonResponseModel();
 		try{
 			response.setMessage("Success");
 			response.setResponseCode("0");
-			response.setData(convertTontineListToModelList(tontineManagerBus.getAllTontines()));
+			response.setData(convertTontineListToModelList(tontineManagerBus.getAllTontines(phone)));
 			return new ResponseEntity<>(response, HttpStatus.OK);
 
 		} catch ( Exception e) {
@@ -131,6 +131,8 @@ public class TontineManagerController {
 		}
 
 	}
+
+
 
 	public List<TontineModel> convertTontineListToModelList(List<Tontine> tontineList) {
 		List<TontineModel> tontineModelList = new ArrayList<>();

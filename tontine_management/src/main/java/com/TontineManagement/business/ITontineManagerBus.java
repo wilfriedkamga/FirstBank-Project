@@ -10,7 +10,7 @@ import java.util.List;
 public interface ITontineManagerBus {
 
 	Tontine creer(TontineModel tontineModel) throws Exception;
-	List<Tontine> getAllTontines() throws Exception;
+	List<Tontine> getAllTontines(String phoneNumber) throws Exception;
 	Tontine deleteTontine(String Idtontine) throws Exception;
 	Caisse createCaisse(CaisseModel caisseModel) throws Exception;
 	MembresTontine addMembresTontine(MembreTontineModel membreTontineModel) throws Exception;

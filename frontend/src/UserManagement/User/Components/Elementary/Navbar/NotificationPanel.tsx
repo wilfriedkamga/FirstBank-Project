@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import NotificationsNoneRoundedIcon from '@mui/icons-material/NotificationsNoneRounded';
 import SpaceDashboardSharpIcon from '@mui/icons-material/SpaceDashboardSharp';
 
@@ -40,22 +40,32 @@ const NotificationPanel = () => {
         const [toogle,setToogle]=useState(false)
         const butRef=useRef<HTMLDivElement | null>(null);
         const menuRef=useRef<HTMLDivElement | null>(null);
+        const [username, setUsername] = useState<string | null>(null);
+
+        useEffect(() => {
+            // Récupérer le nom de l'utilisateur à partir du localStorage
+            const user = JSON.parse(localStorage.getItem('user') || '{}');
+            setUsername(user?.name || ''); // Remplacez 'name' par le bon champ
+        }, []);
   
-        window.addEventListener('click',e=>{
+    window.addEventListener('click',e=>{
           if(e.target!=menuRef.current && e.target!=butRef.current){
               setToogle(false)
           }
           else{setToogle(false)}
         })
+
         const handleToogle=()=>{
             setToogle(true)
             console.log(toogle)
         }
 
+       
+
   return (
     <div>
         <div ref={butRef} onClick={handleToogle} className='cursor-pointer '>
-           <NotificationsNoneRoundedIcon className='sm:text-transparent text-white font-extrabold' />
+           <NotificationsNoneRoundedIcon className=' text-white font-extrabold' /> 
         </div>
         {toogle &&
                     <div ref={menuRef} className='absolute bg-gray-800 rounded-lg border-[2px] right-[20px] w-[150px]'>

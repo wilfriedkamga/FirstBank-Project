@@ -76,6 +76,7 @@ const Signup3: React.FC<ChildComponentProps> = ({
     axios
       .post(`${route}`, tempUser)
       .then((response) => {
+        const data=Variable.setLocalStorageItem("user",response.data.data)
         setDialogVisibility(true)
         uploadCodeToComponent(phone)
         toggleSinup2()

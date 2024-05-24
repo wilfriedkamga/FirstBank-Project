@@ -81,7 +81,17 @@ public class UserManagerController {
 		try{
 			response.setMessage("Success");
 			response.setResponseCode("0");
-			response.setData(usermanagerBus.signup(signupModel.getPhone(),signupModel.getFullname(),signupModel.getBirthDate(),signupModel.getGender(), signupModel.getPassword()));
+			usermanagerBus.signup(signupModel.getPhone(),signupModel.getFullname(),signupModel.getBirthDate(),signupModel.getGender(), signupModel.getPassword());
+
+			// Authentifier l'utilisateur
+
+			authenticate(signupModel.getPhone(), signupModel.getPassword());
+
+			final UserDetails userDetails = jwtInMemoryUserDetailsService
+					.loadUserByUsername(signupModel.getPhone());
+
+			final String token = jwtTokenUtil.generateToken(userDetails);
+			response.setData(new JwtResponse(token, usermanagerBus.getUserLoginDetails(signupModel.getPhone())));
 
 			return new ResponseEntity(response, HttpStatus.OK);
 

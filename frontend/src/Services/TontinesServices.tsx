@@ -8,7 +8,10 @@ type TTontineModel={
   description:string,
   type:string,
   frequence:string,
-  jourReunion:string
+  jourReunion:string,
+  nbCaisse:number,
+  nbMembre:number,
+  create_par:string,
 }
 
 
@@ -21,7 +24,13 @@ class TontineService{
 
      }
 
-     GetTontines(){
+     GetTontines(phone:string){
+      
+      return axios.get(route_get_all_tontine+"?phone="+phone) ;
+      
+   }
+
+   GetTontinesByPhone(telephone:string){
       
       return axios.get(route_get_all_tontine) ;
       

@@ -17,6 +17,12 @@ import Cotisation from "../UserManagement/User/Components/Elementary/Caisses/Cot
 import CotisationMembre from "../UserManagement/User/Components/Elementary/Caisses/CotisationMembre";
 import MesCotisation from "../UserManagement/User/Components/Elementary/Dashboard/MesCotisation";
 
+const isKeyInLocalStorage = (key: string): boolean => {
+  const token=localStorage.getItem(key)
+  console.log(`*-*-*-*-- token ${token}`)
+
+  return token != null && token != "";
+};
 
 export const router = createBrowserRouter([
   {
@@ -28,7 +34,7 @@ export const router = createBrowserRouter([
     element: <p>404 Error - Nothing here...</p>,
   },
   {
-    element: <ProtectedRoute isAuthenticated={true} />,
+    element: <ProtectedRoute isAuthenticated={isKeyInLocalStorage("user")} />,
     children: [
       {
         path: "/home",
