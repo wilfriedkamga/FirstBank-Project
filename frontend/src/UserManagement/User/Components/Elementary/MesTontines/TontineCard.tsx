@@ -28,28 +28,25 @@ type Tontine = {
  const add=(baseUrl:string, id:string)=>{return baseUrl+id}
 const TontineCard = ({tontine}:ChildComponentProps) => {
   return (
-    <div className='w-full h-fit bg-white shadow-md p-4 rounded'>
+    <div className='w-full  bg-white shadow-md px-2 rounded'>
         <div className='w-full flex justify-between'>
                 <div className="flex flex-1 gap-1 items-center text-sm font-medium">
-                <span className='text-lg'><SearchRoundedIcon /></span>
+                
                 <span className='uppercase'> {tontine.type}</span>
                 </div>
                 {true?<button className='text-black font-extrabold text-lg'>...</button>:null}
         </div>
         <>
           <div className='flex items-center gap-2'>
-            <div
-              className="w-4 h-4 bg-red-600 rounded-full"
-            />
-            <h4 className='line-clamp-1 text-black uppercase'>{tontine.nom}</h4>
+          
+            <h4 className='line-clamp-2 text-black uppercase'>{tontine.nom}</h4>
           </div>
           <span className='text-sm text-gray-600'>
             {formatDate(new Date())}
           </span>
         </>
         <div className='w-full border-t border-gray-200 my-2' />
-          <div className='flex items-center justify-between mb-2'>
-            <div className='flex items-center gap-3'>
+            <div className='flex justify-center items-center gap-9'>
                 <div className='flex gap-1 items-center text-sm text-gray-600'>
                     <PeopleOutlineIcon />
                     <span>{tontine.nbMembre}</span>
@@ -63,17 +60,7 @@ const TontineCard = ({tontine}:ChildComponentProps) => {
                     <span>{/*tontine.nbNotifications*/}10</span>
                 </div>
             </div>
-
-                <div className='flex flex-row-reverse'>
-                
-                    <div className="w-7 h-7 rounded-full text-white flex items-center justify-center mr-5">
-                    <UserInfo />
-                    <UserInfo />
-                    <UserInfo />
-                    </div>
-                </div>
-               
-          </div>
+         
           <div className='py-4 border-t border-gray-200'>
             <h5 className='text-base line-clamp-1 text-black'>
               Prochaine réunion programmée

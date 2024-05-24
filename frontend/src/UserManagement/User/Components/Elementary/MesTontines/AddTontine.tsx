@@ -82,14 +82,14 @@ const AddTontine = ({addTontine,setVisibility}:AddTontineProps) => {
       addTontine(newTontine)
     })
     .catch((error)=>{
-        alert("error")
+        
     })
   }
 
   return (
     <>
       {!end && view ? (
-        <div className="pl-4 ">
+        <div className=" ">
           <form>
             <div className="text-base  font-bold leading-6 text-gray-900 mb-2 mt-2 m-2 ">
               Créer une tontine
@@ -153,7 +153,7 @@ const AddTontine = ({addTontine,setVisibility}:AddTontineProps) => {
         </div>
       ) : view && (
         <div className="pl-4">
-          <form onSubmit={(e: React.FormEvent<HTMLFormElement>)=>HandleCreate(e)}>
+          <form onSubmit={(e: React.FormEvent<HTMLFormElement>)=>{HandleCreate(e);setVisibility(false)}}>
             <div className="text-base m-2 font-bold leading-6 text-gray-900 mb-2 mt-2">
               Créer une tontine
             </div>

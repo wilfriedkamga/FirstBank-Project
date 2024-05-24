@@ -1,44 +1,55 @@
 import React from "react";
 import SpaceDashboardSharpIcon from "@mui/icons-material/SpaceDashboardSharp";
 import { useNavigate, useLocation } from "react-router-dom";
+import  logo from "../../../../../Utils/Assets/logo384.png"
+import  logo_caisse from "../../../../../Utils/Assets/caisse.png"
+import  logo_membre from "../../../../../Utils/Assets/membre.png"
+import  logo_parametre from "../../../../../Utils/Assets/parametre.png"
+import  logo_reunion from "../../../../../Utils/Assets/reunion.png"
+import  logo_evenement from "../../../../../Utils/Assets/Evenement.png"
 
 export const MaTontine = () => {
   const stats = [
     {
       _id: "1",
       label: "caisses",
-      total: 4,
-      icon: <SpaceDashboardSharpIcon />,
-      bg: "bg-[#1d4ed8]",
+      lable_visible:"Caisses",
+      total: 0,
+      logo:logo_caisse,
+     
     },
     {
       _id: "2",
       label: "reunions",
-      total: 4,
-      icon: <SpaceDashboardSharpIcon />,
-      bg: "bg-[#0f766e]",
+      lable_visible:"Réunions",
+      total: 0,
+      logo:logo_reunion,
+     
     },
     {
       _id: "3",
       label: "evenements",
-      total: 12,
-      icon: <SpaceDashboardSharpIcon />,
-      bg: "bg-[#f59e0b]",
+      lable_visible:"Evenements",
+      total: 0,
+      logo:logo_evenement,
+
     },
     {
       _id: "4",
       label: "membres",
-      total: 5,
-      icon: <SpaceDashboardSharpIcon />,
-      bg: "bg-[#be185d]" || 0,
+      lable_visible:"Membres",
+      total: 0,
+      logo:logo_membre,
+  
     },
 
     {
       _id: "4",
       label: "parametres",
-      total: "3",
-      icon: <SpaceDashboardSharpIcon />,
-      bg: "bg-[#be185d]" || 0,
+      lable_visible:"Paramètres",
+      total: "",
+      logo:logo_parametre,
+      
     },
   ];
 
@@ -46,16 +57,13 @@ export const MaTontine = () => {
 
   const location = useLocation();
 
-  const Card = ({ label, count, bg, icon }: any) => {
+  const Card = ({ label, count, logo }: any) => {
     return (
-      <div className="w-full h-50 bg-white p-5 shadow-md rounded-md flex items-center justify-between">
-        <div className="h-full flex flex-1 flex-col justify-between">
-          <p className="text-base text-gray-600">{label}</p>
-          <span className="text-2xl font-semibold">{count}</span>
-          <span className="text-sm text-gray-400">{"5 dernier mois"}</span>
+      <div className="sm:w-[250px] sm:h-[200px] w-full h-[150px] bg-white flex flex-col items-center justify-center  shadow-md rounded-md">
+        <div className="h-10 flex justify-center items-center flex-col ">
+          <img src={logo} className=" w-[110px] mb-2 h-[120px] sm:w-[120px] sm:h-[120px]" alt="" />
+          <p className="text-base text-gray-800 font-bold">{label} {"("+count+")"}</p>
         </div>
-
-        <div className={bg}>{icon}</div>
       </div>
     );
   };
@@ -68,18 +76,18 @@ export const MaTontine = () => {
   const currentPath = location.pathname + "/";
   return (
     <div>
-      <div className="h-full  py-4">
-        <div className="grid p-4 grid-cols-1 md:grid-cols-4 gap-5">
-          {stats.map(({ icon, bg, label, total }, index) => (
+      <div className="h-full">
+        <div className="grid  grid-cols-2 md:grid-cols-4 gap-10">
+          {stats.map(({ logo, lable_visible,label, total }, index) => (
             <div
               onClick={() => viewCard(currentPath + label)}
               className="cursor-pointer "
             >
               <Card
                 key={index}
-                icon={icon}
-                bg="w-10 cursor-pointer h-10 rounded-full flex items-center bg-red-600 justify-center text-white"
-                label={label}
+                logo={logo}
+                bg="w-10 cursor-pointer rounded-full flex items-center bg-red-600 justify-center text-white"
+                label={lable_visible}
                 count={total}
               />
             </div>

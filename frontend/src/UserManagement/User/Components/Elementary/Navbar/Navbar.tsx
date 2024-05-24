@@ -1,15 +1,20 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { FaBars, FaBell, FaSearch, FaUserCircle } from 'react-icons/fa'
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import NotificationPanel from './NotificationPanel';
 import UserAvatar from './UserAvatar';
 
-const Navbar = () => {
+type ChildComponentProps={
+  setMobileSidebarVisibility:(test:boolean)=>void;
+  mobilesidebarVisivility:boolean
+}
+const Navbar = ({setMobileSidebarVisibility, mobilesidebarVisivility}:ChildComponentProps) => {
+  
   return (
     <div className=' relative rounded-right flex justify-between items-center bg-red-600  px-4 py-3 2xl:py-4 sticky z-100 top-0'>
       <div className='flex gap-4'>
         <button
-          onClick={()=>null}
+          onClick={()=>setMobileSidebarVisibility(!mobilesidebarVisivility)}
           className='text-2xl text-white pr-3 font-bold block md:hidden'
         >
           ☰
