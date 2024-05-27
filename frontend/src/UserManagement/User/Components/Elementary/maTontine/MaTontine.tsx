@@ -75,8 +75,8 @@ export const MaTontine = () => {
   };
   const currentPath = location.pathname + "/";
   return (
-    <div>
-      <div className="h-full">
+    <div className="mb-[20px]">
+      <div className="h-full ">
         <div className="grid  grid-cols-2 md:grid-cols-4 gap-10">
           {stats.map(({ logo, lable_visible,label, total }, index) => (
             <div

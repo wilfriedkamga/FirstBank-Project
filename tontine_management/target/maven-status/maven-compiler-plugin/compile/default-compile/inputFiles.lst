@@ -3,6 +3,7 @@ C:\Users\jorda\Desktop\Projet First Bank\tontine\tontine_management\src\main\jav
 C:\Users\jorda\Desktop\Projet First Bank\tontine\tontine_management\src\main\java\com\TontineManagement\config\JwtAuthenticationEntryPoint.java
 C:\Users\jorda\Desktop\Projet First Bank\tontine\tontine_management\src\main\java\com\TontineManagement\dao\model\TontineModel.java
 C:\Users\jorda\Desktop\Projet First Bank\tontine\tontine_management\src\main\java\com\TontineManagement\dao\repositories\MembreTontineRepository.java
+C:\Users\jorda\Desktop\Projet First Bank\tontine\tontine_management\src\main\java\com\TontineManagement\dao\entities\MembresCaisse.java
 C:\Users\jorda\Desktop\Projet First Bank\tontine\tontine_management\src\main\java\com\TontineManagement\TontineManagementApp.java
 C:\Users\jorda\Desktop\Projet First Bank\tontine\tontine_management\src\main\java\com\TontineManagement\dao\entities\Cagnotte.java
 C:\Users\jorda\Desktop\Projet First Bank\tontine\tontine_management\src\main\java\com\TontineManagement\dao\repositories\TontineRepository.java
@@ -19,9 +20,11 @@ C:\Users\jorda\Desktop\Projet First Bank\tontine\tontine_management\src\main\jav
 C:\Users\jorda\Desktop\Projet First Bank\tontine\tontine_management\src\main\java\com\TontineManagement\dao\entities\Cotisation.java
 C:\Users\jorda\Desktop\Projet First Bank\tontine\tontine_management\src\main\java\com\TontineManagement\business\ITontineManagerBus.java
 C:\Users\jorda\Desktop\Projet First Bank\tontine\tontine_management\src\main\java\com\TontineManagement\dao\entities\Remboursement.java
+C:\Users\jorda\Desktop\Projet First Bank\tontine\tontine_management\src\main\java\com\TontineManagement\dao\repositories\MembresCaisseRepository.java
 C:\Users\jorda\Desktop\Projet First Bank\tontine\tontine_management\src\main\java\com\TontineManagement\dao\entities\Caisse.java
 C:\Users\jorda\Desktop\Projet First Bank\tontine\tontine_management\src\main\java\com\TontineManagement\dao\model\CaisseDetails.java
 C:\Users\jorda\Desktop\Projet First Bank\tontine\tontine_management\src\main\java\com\TontineManagement\dao\model\MembreTontineModel.java
+C:\Users\jorda\Desktop\Projet First Bank\tontine\tontine_management\src\main\java\com\TontineManagement\dao\model\MembreCaisseModel.java
 C:\Users\jorda\Desktop\Projet First Bank\tontine\tontine_management\src\main\java\com\TontineManagement\dao\model\CommonResponseModel.java
 C:\Users\jorda\Desktop\Projet First Bank\tontine\tontine_management\src\main\java\com\TontineManagement\dao\model\JwtResponse.java
 C:\Users\jorda\Desktop\Projet First Bank\tontine\tontine_management\src\main\java\com\TontineManagement\config\CorsConfig.java

@@ -15,20 +15,30 @@ public class CaisseModel {
     private String description;
     private String creerPar;
     private String tontine_id;
+    private String montant;
 
     public CaisseModel() {
     }
 
-    public CaisseModel(String nom, String type, String description, String creerPar, String tontine_id) {
+    public CaisseModel(String nom, String type, String description, String creerPar, String tontine_id, String montant) {
         this.nom = nom;
         this.type = type;
         this.description = description;
         this.creerPar = creerPar;
         this.tontine_id = tontine_id;
+        this.montant = montant;
     }
 
     public String getNom() {
         return nom;
+    }
+
+    public String getMontant() {
+        return montant;
+    }
+
+    public void setMontant(String monstant) {
+        this.montant = monstant;
     }
 
     public void setNom(String nom) {

@@ -9,7 +9,12 @@ import { Link } from 'react-router-dom';
 const UserAvatar = () => {
     const userAvatarItems=[
         {
-            "label":"Profil",
+            "label":"Portail",
+            "link":"/home",
+            "Icon":<SpaceDashboardSharpIcon/>
+        },
+        {
+            "label":"Portail",
             "link":"#",
             "Icon":<SpaceDashboardSharpIcon/>
         },
@@ -47,7 +52,7 @@ const UserAvatar = () => {
    <> 
    
     <div className=''>
-        <div ref={butRef} onClick={()=>setToogle(!toogle)}className='w-[45px]  flex justify-center items-center font-bold h-[45px] rounded-full text-white  bg-gray-400 cursor-pointer'>
+        <div ref={butRef} onClick={()=>setToogle(!toogle)} className='w-[45px]  flex justify-center items-center font-bold h-[45px] rounded-full text-white bg-[#828181] cursor-pointer'>
                 {getInitials(user.user.fullName)}
         </div>
         {toogle?

@@ -2,6 +2,7 @@ package com.TontineManagement.business;
 
 import com.TontineManagement.dao.entities.*;
 import com.TontineManagement.dao.model.CaisseModel;
+import com.TontineManagement.dao.model.MembreCaisseModel;
 import com.TontineManagement.dao.model.TontineModel;
 import com.TontineManagement.dao.model.MembreTontineModel;
 
@@ -14,5 +15,6 @@ public interface ITontineManagerBus {
 	Tontine deleteTontine(String Idtontine) throws Exception;
 	Caisse createCaisse(CaisseModel caisseModel) throws Exception;
 	MembresTontine addMembresTontine(MembreTontineModel membreTontineModel) throws Exception;
-
+	MembresCaisse addMembresCaisse(MembreCaisseModel membreCaisseModel) throws Exception;
+	public List<Caisse> getAllCaisses(String idTontine) throws Exception;
 }

@@ -25,24 +25,24 @@ const sidebarItems = [
   {
     label: "Mes cotisations",
     link: "/tontine/mescotisations",
-    icon: SpaceDashboardSharpIcon,
+    icon: <SpaceDashboardSharpIcon/>,
   },
   ,
   {
     label: "Mes sanctions",
     link: "/tontine/messanctions",
-    icon: SpaceDashboardSharpIcon,
+    icon: <SpaceDashboardSharpIcon/>,
   },
   ,
   {
     label: "Mes dettes",
     link: "/tontine/mesdettes",
-    icon: SpaceDashboardSharpIcon,
+    icon: <SpaceDashboardSharpIcon/>,
   },
   {
     label: "Parametres",
     link: "/tontine/mesdettes",
-    icon: SpaceDashboardSharpIcon,
+    icon: <SpaceDashboardSharpIcon/>,
   },
 ];
 type sidebarItem = {

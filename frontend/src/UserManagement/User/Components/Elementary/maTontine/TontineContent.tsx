@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 
 const TontineContent = () => {
   return (
-    <div>
+    <div >
       <Outlet />
     </div>
   );

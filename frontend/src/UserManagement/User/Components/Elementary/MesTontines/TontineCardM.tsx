@@ -29,34 +29,27 @@ const add = (baseUrl: string, id: string) => {
 };
 const TontineCardM = ({ tontine }: ChildComponentProps) => {
   return (
-    <div className="w-full h-fit bg-white shadow-md p-2 rounded">
-      <div className="w-full flex justify-between">
-        <div className="flex flex-1 justify-between  gap-1 items-center text-sm font-medium">
-          <span className="uppercase text-[10px]"> {tontine.type}</span>
-          <button className="text-black pb-5  font-extrabold text-lg">...</button> 
-        </div>
-        
-      </div>
+    <div className="w-full h-fit border border-gray-400  bg-white shadow-lg p-1 rounded">
       <>
-        <div className="flex items-center gap-2">
-          <h4 className="line-clamp-1 font-semibold mt-2 mb-1 text-sm text-black">{tontine.nom}</h4>
+        <div className="flex items-center">
+          <h4 className="line-clamp-2 font-semibold mt-2 mb-1 text-lg text-black">{tontine.nom}  </h4>
         </div>
         <span className="text-[12px] text-gray-600"> {formatDate(new Date())}</span>
       </>
       <div className="w-full border-t border-gray-200 my-2" />
       <div className="flex items-center justify-between mb-2">
-        <div className="flex items-center gap-3">
-          <div className="flex gap-1 items-center text-sm text-black font-bold">
+        <div className="flex  items-center gap-2">
+          <div className="flex items-center text-sm text-black font-bold">
             <PeopleOutlineIcon />
-            <span>{/*tontine.nbMembres*/}10</span>
+            <span>{/*tontine.nbMembres*/}1000</span>
           </div>
-          <div className="flex gap-1 items-center text-sm text-black font-bold ">
+          <div className="flex items-center text-sm text-black font-bold ">
             <SavingsOutlinedIcon />
-            <span>{/*tontine.nbCaisses*/}10</span>
+            <span>{/*tontine.nbCaisses*/}0</span>
           </div>
-          <div className="flex gap-1 items-center text-sm text-black font-bold ">
+          <div className="flex items-center text-sm text-black font-bold ">
             <NotificationsNoneIcon />
-            <span>{/*tontine.nbNotifications*/}10</span>
+            <span>{/*tontine.nbNotifications*/}0</span>
           </div>
         </div>
       </div>

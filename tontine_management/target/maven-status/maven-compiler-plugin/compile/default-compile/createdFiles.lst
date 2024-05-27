@@ -6,6 +6,7 @@ com\TontineManagement\dao\entities\Dette.class
 com\TontineManagement\dao\repositories\TontineRepository.class
 com\TontineManagement\dao\entities\MembresTontine.class
 com\TontineManagement\dao\repositories\MembreTontineRepository.class
+com\TontineManagement\dao\entities\MembresCaisse.class
 com\TontineManagement\TontineManagementApp.class
 com\TontineManagement\dao\repositories\DetteRepository.class
 com\TontineManagement\dao\repositories\CotisationRepository.class
@@ -20,10 +21,12 @@ com\TontineManagement\dao\entities\Cagnotte.class
 com\TontineManagement\dao\model\TontineModel.class
 com\TontineManagement\dao\entities\Sanction.class
 com\TontineManagement\dao\model\DeleteTontineModel.class
+com\TontineManagement\dao\repositories\MembresCaisseRepository.class
 com\TontineManagement\dao\model\CommonResponseModel.class
 com\TontineManagement\config\WebSecurityConfig.class
 com\TontineManagement\config\JwtTokenUtil.class
 com\TontineManagement\dao\entities\Caisse.class
 com\TontineManagement\config\CorsConfig.class
 com\TontineManagement\dao\model\ProfilModel.class
+com\TontineManagement\dao\model\MembreCaisseModel.class
 com\TontineManagement\dao\repositories\CaisseRepository.class

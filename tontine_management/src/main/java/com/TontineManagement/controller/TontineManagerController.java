@@ -91,6 +91,25 @@ public class TontineManagerController {
 		}
 	}
 
+
+    @GetMapping(value = "/caisses")
+
+    public ResponseEntity getAllCaisse(@RequestParam String idTontine) {
+        CommonResponseModel response = new CommonResponseModel();
+        try{
+            response.setMessage("Success");
+            response.setResponseCode("0");
+            response.setData(convertToCaisseDetails(tontineManagerBus.getAllCaisses(idTontine)));
+            return new ResponseEntity<>(response, HttpStatus.OK);
+
+        } catch ( Exception e) {
+            response.setResponseCode("1");
+            response.setMessage(e.getMessage());
+
+            return new ResponseEntity<>(response, HttpStatus.FORBIDDEN);
+        }
+    }
+
 		@PostMapping(value = "/createCaisse")
 		public ResponseEntity createCaisse(@RequestBody CaisseModel caisseModel) {
 
@@ -100,7 +119,7 @@ public class TontineManagerController {
 						"dont l'id est : ");
 				response.setResponseCode("0");
 				Caisse caisse=tontineManagerBus.createCaisse(caisseModel);
-				CaisseDetails caisseDetails=new CaisseDetails(caisseModel,caisse.getNbMembres(),caisse.getDateCreation());
+				CaisseDetails caisseDetails=new CaisseDetails(caisse.getId(), caisseModel,caisse.getNbMembres(),caisse.getDateCreation());
 				response.setData(caisseDetails);
 				return new ResponseEntity<>(response, HttpStatus.OK);
 
@@ -114,13 +133,32 @@ public class TontineManagerController {
 		}
 
 	@PostMapping(value = "/ajout_membre_tontine")
-	public ResponseEntity upDateCaisse(@RequestBody MembreTontineModel membreTontineModel) {
+	public ResponseEntity addMembreTontine(@RequestBody MembreTontineModel membreTontineModel) {
 
 		CommonResponseModel response = new CommonResponseModel();
 		try{
 			response.setMessage("Success de la mise a jour de la caisse");
 			response.setResponseCode("0");
 			response.setData(tontineManagerBus.addMembresTontine(membreTontineModel));
+			return new ResponseEntity<>(response, HttpStatus.OK);
+
+		} catch ( Exception e) {
+			response.setResponseCode("1");
+			response.setMessage(e.getMessage());
+
+			return new ResponseEntity<>(response, HttpStatus.FORBIDDEN);
+		}
+
+	}
+
+	@PostMapping(value = "/ajout_membre_caisse")
+	public ResponseEntity addMembreCaisse(@RequestBody MembreCaisseModel membreCaisseModel) {
+
+		CommonResponseModel response = new CommonResponseModel();
+		try{
+			response.setMessage("Success de la mise a jour de la caisse");
+			response.setResponseCode("0");
+			response.setData(tontineManagerBus.addMembresCaisse(membreCaisseModel));
 			return new ResponseEntity<>(response, HttpStatus.OK);
 
 		} catch ( Exception e) {
@@ -157,7 +195,25 @@ public class TontineManagerController {
 		return tontineModelList;
 	}
 
-	}
+    public List<CaisseDetails> convertToCaisseDetails(List<Caisse> caisses) {
+        List<CaisseDetails> caisseDetailsList = new ArrayList<>();
+        for (Caisse caisse : caisses) {
+
+            CaisseDetails details = new CaisseDetails();
+            details.setId(caisse.getId());
+            details.setNom(caisse.getNom());
+            details.setType(caisse.getType());
+            details.setDescription(caisse.getDescription());
+            details.setCreerPar(caisse.getCreerPar());
+            details.setTontine_id(caisse.getTontine().getId());
+            details.setNbMembres(caisse.getNbMembres());
+            details.setDateCreation(caisse.getDateCreation());
+            details.setMontant(caisse.getMontant());
+            caisseDetailsList.add(details);
+        }
+        return caisseDetailsList;
+    }
+}
 
 
 

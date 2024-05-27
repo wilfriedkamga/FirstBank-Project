@@ -50,6 +50,23 @@ static removeFromLocalStorage = (key: string): void => {
   localStorage.removeItem(key);
 };
 
+
+static getParentPath=(url: string): string => {
+   
+  // Crée un objet URL à partir de la chaîne fournie
+  
+  const lastSlashIndex = url.lastIndexOf('/');
+
+  // Si '/' est trouvé, retourne la sous-chaîne jusqu'à cette position
+  if (lastSlashIndex !== -1) {
+      return url.substring(0, lastSlashIndex);
+  }
+
+  // Si '/' n'est pas trouvé, retourne l'URL originale (ou vous pouvez gérer cela différemment)
+  return url;
+}
+  
+
 }
 
 export default Variable;

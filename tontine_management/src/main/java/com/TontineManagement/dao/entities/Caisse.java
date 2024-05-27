@@ -23,6 +23,16 @@ public class Caisse {
     private String creerPar;
     private Date dateCreation;
 
+    public String getMontant() {
+        return montant;
+    }
+
+    public void setMontant(String montant) {
+        this.montant = montant;
+    }
+
+    private String montant;
+
     @ManyToOne
     @JoinColumn(name = "tontine_id")
     private Tontine tontine;
@@ -34,7 +44,7 @@ public class Caisse {
         this.dateCreation=new Date();
     }
 
-    public Caisse(String id, String nom, String type, String description, int nbMembres, String creerPar, Date dateCreation, Tontine tontine) {
+    public Caisse(String id, String nom, String type, String description, int nbMembres, String creerPar, Date dateCreation, String montant, Tontine tontine) {
         this.id = UUID.randomUUID().toString();
         this.nom = nom;
         this.type = type;
@@ -42,9 +52,9 @@ public class Caisse {
         this.nbMembres = nbMembres;
         this.creerPar = creerPar;
         this.dateCreation = dateCreation;
+        this.montant = montant;
         this.tontine = tontine;
     }
-
 
     public String getId() {
         return id;

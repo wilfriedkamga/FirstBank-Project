@@ -65,12 +65,12 @@ const TontineCard = ({tontine}:ChildComponentProps) => {
             <h5 className='text-base line-clamp-1 text-black'>
               Prochaine réunion programmée
             </h5>
-            <div className='p-4 space-x-8'>
+            <div className='flex flex-col justify-center items-center'>
               
-              <span className='bg-blue-600/10 px-3 py-1 rounded0full text-blue-700 font-medium'>
+              <span className='bg-blue-600/10 px-3 py-1 w-4/5 rounded0full text-red-700 font-medium text-center'>
               {formatDate(new Date())}
               
-              </span> <button  className='bg-red-600 hover:bg-red-800 mt-3 text-white font-bold rounded-xl border-[#666666] border-[1px] shadow-lg  w-2/5'><Link to={"/tontine/mestontines/"+tontine.id}> Visiter</Link></button>
+              </span> <button  className='bg-red-600 w-4/5 hover:bg-red-800 mt-3 text-white font-bold rounded-xl border-[#666666] border-[1px] shadow-lg  w-2/5'><Link to={"/tontine/mestontines/"+tontine.id}> Visiter</Link></button>
             </div>
           </div>
          

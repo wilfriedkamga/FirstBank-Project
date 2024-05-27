@@ -1,9 +1,7 @@
 package com.TontineManagement.business;
 
 import com.TontineManagement.dao.entities.*;
-import com.TontineManagement.dao.model.CaisseModel;
-import com.TontineManagement.dao.model.MembreTontineModel;
-import com.TontineManagement.dao.model.TontineModel;
+import com.TontineManagement.dao.model.*;
 import com.TontineManagement.dao.repositories.*;
 import org.hibernate.boot.model.naming.IllegalIdentifierException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -39,6 +38,9 @@ public class TontineManagerBus implements ITontineManagerBus {
 	CaisseRepository caisseRepository;
 	@Autowired
 	MembreTontineRepository membreTontineRepository;
+
+	@Autowired
+	MembresCaisseRepository membresCaisseRepository;
 
 	private static final Logger logger = LoggerFactory.getLogger(TontineManagerBus.class);
 
@@ -95,6 +97,19 @@ public class TontineManagerBus implements ITontineManagerBus {
 	}
 
 	@Override
+	public List<Caisse> getAllCaisses(String idTontine) throws Exception {
+
+		boolean tontineExists = tontineRepository.existsById(idTontine);
+		if (!tontineExists) {
+			throw new IllegalArgumentException("Tontine with ID " + idTontine + " not found.");
+		}
+
+		return caisseRepository.findByTontineId(idTontine);
+
+
+	}
+
+	@Override
 	public MembresTontine addMembresTontine(MembreTontineModel membreTontineModel) throws Exception{
 
 		// Verifier l'existence de l'utiliateur qui est inscrit dans
@@ -124,6 +139,34 @@ public class TontineManagerBus implements ITontineManagerBus {
 	}
 
 	@Override
+	public MembresCaisse addMembresCaisse(MembreCaisseModel membreCaisseModel) throws Exception{
+
+		// Verification de l'existence de la caisse
+
+		Optional<Caisse> caisse=caisseRepository.findById(membreCaisseModel.getId_caisse());
+		if(caisse.isEmpty()) throw  new IllegalArgumentException("Cette caisse n'existe pas");
+
+		// Verifier l'existence de celui qui inscrit et de son role
+		//Optional<MembresTontine> membre=membreTontineRepository.findById_utiliateur(membreTontineModel.getId_utiliateur());
+		//if(membre.isEmpty() /*|| membre.get().getRole()!="ADMIN"*/)throw new IllegalArgumentException("Cett utilisateur n'existe pas ou n'a pas le droit d'ajouter un -mbembre");
+
+		// On incrémente le nombre de membres de cette caisse
+		Caisse caisse1=caisse.get();
+		caisse1.setNbMembres(caisse1.getNbMembres()+1);
+		caisseRepository.save(caisse1);
+
+		// On cree le nouveau membre dans membre_caisse
+		MembresCaisse membresCaisse=new MembresCaisse();
+		membresCaisse.setNomUtilisateur(membreCaisseModel.getNomUtilisateur());
+		membresCaisse.setCreer_par(membreCaisseModel.getCreer_par());
+		membresCaisse.setIdutiliateur(membreCaisseModel.getIdutiliateur());
+		membresCaisse.setRole(membreCaisseModel.getRole());
+		membresCaisse.setId_caisse(membreCaisseModel.getId_caisse());
+
+		return membresCaisseRepository.save(membresCaisse);
+	}
+
+	@Override
 	public Caisse createCaisse(CaisseModel caisseModel) throws Exception {
 		Optional<Tontine> optionalTontine = tontineRepository.findById(caisseModel.getTontine_id());
 		if (optionalTontine.isEmpty())
@@ -132,8 +175,6 @@ public class TontineManagerBus implements ITontineManagerBus {
 			Tontine tontine = optionalTontine.get();
             int nb=tontine.getNbCaisse();
 			Caisse caisse=new Caisse();
-		logger.info("**********************************Ma variable  : {}", nb);
-
 			// verification de l'unicite
 		    boolean verificateur=true;
 
@@ -148,15 +189,42 @@ public class TontineManagerBus implements ITontineManagerBus {
 			caisse.setType(caisseModel.getType());
 			caisse.setCreerPar(caisseModel.getCreerPar());
 			caisse.setTontine(tontine);
+			caisse.setMontant(caisseModel.getMontant());
+			caisse.setNbMembres(1);
 
-			tontine.setNbCaisse( nb+1);
+			// Ajout du premier membre de la caisse
+		MembreCaisseModel membreCaisseModel = new MembreCaisseModel();
+		membreCaisseModel.setNomUtilisateur(caisseModel.getCreerPar());
+		membreCaisseModel.setCreer_par(caisseModel.getCreerPar());
+		membreCaisseModel.setIdutiliateur(caisseModel.getCreerPar());
+		membreCaisseModel.setRole("ADMIN"); // ou tout autre rôle approprié
+		membreCaisseModel.setId_caisse(caisse.getId());
 
-			tontineRepository.save(tontine);
 
-			Caisse savedCaisse = caisseRepository.save(caisse);
 
-		return caisse;
+		tontineRepository.save(tontine);
+
+		Caisse savedCaisse = caisseRepository.save(caisse);
+
+		addMembresCaisse(membreCaisseModel);
+
+		return savedCaisse;
 	}
-
-
+	public List<CaisseDetails> convertToCaisseDetails(List<Caisse> caisses) {
+		List<CaisseDetails> caisseDetailsList = new ArrayList<>();
+		for (Caisse caisse : caisses) {
+			CaisseDetails details = new CaisseDetails();
+			details.setNom(caisse.getNom());
+			details.setType(caisse.getType());
+			details.setDescription(caisse.getDescription());
+			details.setCreerPar(caisse.getCreerPar());
+			details.setTontine_id(caisse.getTontine().getId());
+			details.setNbMembres(caisse.getNbMembres());
+			details.setDateCreation(caisse.getDateCreation());
+			details.setMontant(caisse.getMontant());
+			caisseDetailsList.add(details);
+		}
+		return caisseDetailsList;
+	}
 }
+

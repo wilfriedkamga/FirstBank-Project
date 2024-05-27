@@ -58,11 +58,11 @@ function Dashboard() {
    
     return (
       
-      <div className='w-full h-32 bg-white p-5 shadow-md rounded-md flex items-center justify-between'>
+      <div className='w-full sm:h-32 shadow-lg bg-white p-5 border border-gray-400 rounded-md flex items-center justify-between'>
         <div className='h-full flex flex-1 flex-col justify-between'>
           <p className='text-base text-gray-600'>{label}</p>
           <span className='text-2xl font-semibold'>{count}</span>
-          <span className='text-sm text-gray-400'>{"12 avril 2023"}</span>
+          
         </div>
         
         <div
@@ -79,8 +79,8 @@ function Dashboard() {
 
   return (
     <div>
-        <div className='h-full py-4'>
-            <div className='grid p-4 grid-cols-2 md:grid-cols-4 gap-5'>
+        <div className='h-full py-4 mb-9'>
+            <div className='grid p-4 grid-cols-1 md:grid-cols-4 sm:gap-5 gap-2'>
               {stats.map(({ icon, bg, label, total }, index) => (
                 <Card key={index} icon={icon} bg="w-10 h-10 rounded-full flex items-center bg-red-700 justify-center text-white" label={label} count={total} />
               ))}

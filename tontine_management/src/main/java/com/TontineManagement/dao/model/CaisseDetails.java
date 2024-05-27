@@ -3,7 +3,7 @@ package com.TontineManagement.dao.model;
 import java.util.Date;
 
 public class CaisseDetails {
-
+    private  String id;
     private String nom;
     private String type;
     private String description;
@@ -11,8 +11,13 @@ public class CaisseDetails {
     private String tontine_id;
     private int nbMembres;
     private Date dateCreation;
+    private String montant;
 
-    public CaisseDetails(CaisseModel caisseModel,int nbMembres,Date dateCreation){
+    public CaisseDetails() {
+    }
+
+    public CaisseDetails(String id,CaisseModel caisseModel, int nbMembres, Date dateCreation){
+        this.id=id;
         this.nom=caisseModel.getNom();
         this.type=caisseModel.getType();
         this.description=caisseModel.getDescription();
@@ -20,7 +25,26 @@ public class CaisseDetails {
         this.tontine_id=caisseModel.getTontine_id();
         this.dateCreation=dateCreation;
         this.nbMembres=nbMembres;
+        this.montant=caisseModel.getMontant();
+
     }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getMontant() {
+        return montant;
+    }
+
+    public void setMontant(String montant) {
+        this.montant = montant;
+    }
+
     public String getNom() {
         return nom;
     }

@@ -69,7 +69,7 @@ type Tontine = {
 
   return (
     <div className=''>
-      <div className='w-full grid sm:bg-transparent grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 2xl:gap-10 '>
+      <div className='w-full grid  grid-cols-2 sm:grid-cols-2 md:grid-cols-4 mb-5 gap-4 2xl:gap-10 '>
          { tontinesList.map((tontine: Tontine, index: number) => (
           <>
             <div className='hidden sm:block lg:block'>
@@ -86,7 +86,7 @@ type Tontine = {
             +
         </div>
 
-        {addTontineVisibility &&<div ref={menuRef} className='absolute shadow-sm shadow-white h-[65vh]  border-[1px] border-green-800 sm:h-[55vh] sm:top-40 sm:w-[30vw] shadow-lg  bg-[#a09b9b] top-[13vh]  sm:right-[25vw] right-[1vw] rounded-lg   '>
+        {addTontineVisibility &&<div ref={menuRef} className='absolute shadow-sm shadow-white h-[65vh] w-[90vw] mr-4 mx-auto  border-[1px] border-green-800 sm:h-[55vh] sm:top-40 sm:w-[30vw] shadow-lg bg-white  sm:bg-[#a09b9b] top-[13vh]  sm:right-[25vw] right-[1vw] rounded-lg   '>
                     <AddTontine setVisibility={setAddTontineVisibility} addTontine={addTontine}  />
         </div>}
 
