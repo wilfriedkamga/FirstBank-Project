@@ -1,7 +1,8 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+@import "../src/Variable.css";
 
-body{
-    background-color: rgb(7, 3, 3);
+body {
+  background-color: rgb(7, 3, 3);
 }

@@ -7,6 +7,7 @@ import UserAvatar from "./UserAvatar";
 import SpaceDashboardSharpIcon from "@mui/icons-material/SpaceDashboardSharp";
 import Variable from "../../../../../Variable";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 
 const Navbar = () => {
   const userAvatarItems = [
@@ -65,13 +66,22 @@ const Navbar = () => {
         >
           ☰
         </div>
-
+        
+        <div
+          onClick={() => navigate("/saving")}
+          className="text-2xl text-white hover:text-[#828181] cursor-pointer p-2   font-bold block md:block hidden"
+        >
+          <AccountBalanceWalletIcon style={{ fontSize: "3rem" }} />
+        </div>
+        
         <div
           onClick={() => navigate(Variable.getParentPath(location.pathname))}
           className="text-2xl text-white hover:text-[#828181] cursor-pointer p-2   font-bold block md:block hidden"
         >
           <ArrowCircleLeftIcon style={{ fontSize: "3rem" }} />
         </div>
+
+        
 
         {toogle ? (
           <div

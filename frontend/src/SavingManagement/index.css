@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base{
+    @font-face {
+        font-family: 'concord';
+        src: url(/public/assets/fonts/Poppins-Medium.ttf);
+    }
+    @font-face {
+        font-family: 'Truculenta';
+        src: url(/public/assets/fonts/Truculenta-Medium.ttf)
+    }
+}

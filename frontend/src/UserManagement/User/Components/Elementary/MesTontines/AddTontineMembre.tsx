@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import TontinesServices from "../../../../../Services/TontinesServices";
-import tontineStore from "../../../../../Store/Store";
 import Variable from "../../../../../Variable";
 import { useLocation } from "react-router-dom";
 
@@ -28,13 +27,9 @@ const AddTontineMembre = ({
   visibility,
 }: ChildComponentProps) => {
   const [contact, setContact] = useState("");
-  const [contact1, setContact1] = useState("");
   const [nom, setNom] = useState("");
   const [role, setRole] = useState("");
-  const [nbNom, setNbNom] = useState("");
   const [end, setEnd] = useState<boolean>(false);
-  const [choose, setChoose] = useState<boolean>(false);
-  const [membreCaisseModel, setMembreCaisseModel] =
     useState<TMembreCaisseModel>();
   const [phone, setPhone] = useState("");
   const location = useLocation();

@@ -18,10 +18,16 @@ import CotisationMembre from "../UserManagement/User/Components/Elementary/Caiss
 import MesCotisation from "../UserManagement/User/Components/Elementary/Dashboard/MesCotisation";
 import MembresCaisseContent from "../UserManagement/User/Components/Elementary/Caisses/MembresCaisseContent";
 import MembresTontine from "../UserManagement/User/Components/Elementary/MesTontines/MembresTontine";
+import Portal from "../SavingManagement/pages/dashboard/Portal";
+import ProfileSettings from "../SavingManagement/pages/ProfileSettings/ProfileSettings";
+import Notifications from "../SavingManagement/pages/nootifications/Notifications";
+import Search from "../SavingManagement/pages/search/Search";
+import SavingsDash from "../SavingManagement/pages/savingsApp/dashboard/SavingsDash";
+import CreatePlan from "../SavingManagement/pages/savingsApp/plan/CreatePlan";
 
 const isKeyInLocalStorage = (key: string): boolean => {
-  const token=localStorage.getItem(key)
-  console.log(`*-*-*-*-- token ${token}`)
+  const token = localStorage.getItem(key);
+  console.log(`*-*-*-*-- token ${token}`);
 
   return token != null && token != "";
 };
@@ -42,6 +48,7 @@ export const router = createBrowserRouter([
         path: "/home",
         element: <Home2 />,
       },
+      /***************** Les routes pour le module de tontine */
       {
         path: "/tontine",
         element: <TontineHomePage />,
@@ -68,66 +75,64 @@ export const router = createBrowserRouter([
                   },
                   {
                     path: "/tontine/mestontines/:idTontine/caisses",
-                    element: <CaisseContent/>,
-                    children:[
+                    element: <CaisseContent />,
+                    children: [
                       {
                         path: "/tontine/mestontines/:idTontine/caisses/",
-                        element: <MaCaisse/>,
-                        children:[
+                        element: <MaCaisse />,
+                        children: [
                           {
                             path: "/tontine/mestontines/:idTontine/caisses/",
-                            element: <MesCaisse/>,
-
+                            element: <MesCaisse />,
                           },
                           {
                             path: "/tontine/mestontines/:idTontine/caisses/:idCaisse",
-                            element: <CaisseContent/>,
-                            children:[
-                              { 
+                            element: <CaisseContent />,
+                            children: [
+                              {
                                 path: "/tontine/mestontines/:idTontine/caisses/:idCaisse",
-                                element: <UneCaisseContent/>,
-                                children:[
+                                element: <UneCaisseContent />,
+                                children: [
                                   {
                                     path: "/tontine/mestontines/:idTontine/caisses/:idCaisse/",
-                                    element: <UneCaisse/>, 
+                                    element: <UneCaisse />,
                                   },
                                   {
                                     path: "/tontine/mestontines/:idTontine/caisses/:idCaisse/parametres",
-                                    element: <div>parametres de la caisse</div>, 
-                                  }
-                                  ,
+                                    element: <div>parametres de la caisse</div>,
+                                  },
                                   {
                                     path: "/tontine/mestontines/:idTontine/caisses/:idCaisse/cotisations",
-                                    element: <Cotisation/>, 
+                                    element: <Cotisation />,
                                   },
-                                  
+
                                   {
                                     path: "/tontine/mestontines/:idTontine/caisses/:idCaisse/dettes",
-                                    element: <div>les dettes de la caisse</div>, 
-                                  }
-                                  ,
+                                    element: <div>les dettes de la caisse</div>,
+                                  },
                                   {
                                     path: "/tontine/mestontines/:idTontine/caisses/:idCaisse/sanctions",
-                                    element: <div>les sanctions de la caisse</div>, 
-                                  }
-                                  ,
+                                    element: (
+                                      <div>les sanctions de la caisse</div>
+                                    ),
+                                  },
                                   {
                                     path: "/tontine/mestontines/:idTontine/caisses/:idCaisse/cagnotte",
-                                    element: <div>Les cagnottes de la caisse</div>, 
+                                    element: (
+                                      <div>Les cagnottes de la caisse</div>
+                                    ),
                                   },
                                   {
                                     path: "/tontine/mestontines/:idTontine/caisses/:idCaisse/membre",
-                                    element: <MembresCaisseContent/>, 
-                                   
-                                  }
-                                ]
-                              }
-                            ]
-
-                          }
-                        ]
-                      }
-                    ]
+                                    element: <MembresCaisseContent />,
+                                  },
+                                ],
+                              },
+                            ],
+                          },
+                        ],
+                      },
+                    ],
                   },
                   {
                     path: "/tontine/mestontines/:idTontine/reunions",
@@ -139,7 +144,7 @@ export const router = createBrowserRouter([
                   },
                   {
                     path: "/tontine/mestontines/:idTontine/membres",
-                    element: <MembresTontine/>,
+                    element: <MembresTontine />,
                   },
                   {
                     path: "/tontine/mestontines/:idTontine/parametres",
@@ -152,7 +157,7 @@ export const router = createBrowserRouter([
           },
           {
             path: "/tontine/mescotisations",
-            element: <MesCotisation/>,
+            element: <MesCotisation />,
           },
           {
             path: "/tontine/messanctions",
@@ -163,6 +168,31 @@ export const router = createBrowserRouter([
             element: <div>mes dettes</div>,
           },
         ],
+      },
+      /***************** Les routes pour le module de Saving */
+      {
+        path:"/saving",
+        element:<Portal/>
+      },
+      {
+        path: "/settings",
+        element: <ProfileSettings/>,
+      },
+      {
+        path: "/notifications",
+        element: <Notifications />,
+      },
+      {
+        path: "/search",
+        element: <Search />,
+      },
+      {
+        path: "/savings",
+        element: <SavingsDash />,
+      },
+      {
+        path: "/newPlan",
+        element: <CreatePlan />,
       },
     ],
   },

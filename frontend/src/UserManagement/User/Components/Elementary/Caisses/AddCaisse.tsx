@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import TontinesServices from "../../../../../Services/TontinesServices";
-import tontineStore from "../../../../../Store/Store";
 import Variable from "../../../../../Variable";
 import { useLocation } from "react-router-dom";
 
@@ -33,7 +32,6 @@ type AddCaisseProps = {
 const AddCaisse = ({ addCaisse, setVisibility }: AddCaisseProps) => {
   const [nom, setNom] = useState("");
   const [description, setDescription] = useState("");
-  const [frequence, setFrequence] = useState("hebdomadaire");
   const [montant, setMontant] = useState("");
   const [contact1, setContact1] = useState("");
   const [contact2, setContact2] = useState("");

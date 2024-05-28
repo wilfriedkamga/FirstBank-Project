@@ -18,12 +18,12 @@ export default function Home2() {
   return (
     <>
       <div className="bg-red-800">
-        <Navbar/>
+        <Navbar />
         <Hero handleClick={() => navigate("/tontine")} />
         <Cards />
         <Hero2
           handleClick={() => {
-            navigate("/");
+            navigate("/saving");
           }}
         />
         <Cards />
