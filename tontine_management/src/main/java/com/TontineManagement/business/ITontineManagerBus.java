@@ -17,4 +17,6 @@ public interface ITontineManagerBus {
 	MembresTontine addMembresTontine(MembreTontineModel membreTontineModel) throws Exception;
 	MembresCaisse addMembresCaisse(MembreCaisseModel membreCaisseModel) throws Exception;
 	public List<Caisse> getAllCaisses(String idTontine) throws Exception;
+	List<MembresCaisse> getAllMembreCaisse(String idCaisse) throws Exception;
+	public List<MembresTontine> getAllMembreTontine(String idTontine) throws Exception;
 }

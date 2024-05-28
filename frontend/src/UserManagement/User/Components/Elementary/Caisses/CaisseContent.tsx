@@ -4,7 +4,7 @@ import { Outlet } from 'react-router-dom'
 const CaisseContent = () => {
   return (
     
-    <div className='h-full  py-4'>
+    <div className='h-full '>
      <Outlet/>
     </div>
   )

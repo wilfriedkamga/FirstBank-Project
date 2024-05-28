@@ -16,6 +16,7 @@ type TCaisseModel = {
   bg: string;
   tontine_id:string;
   creerPar:string;
+  nbMembres:number;
 };
 
 const stats: TCaisseModel[] = [
@@ -28,6 +29,7 @@ const stats: TCaisseModel[] = [
     bg: "bg-[#1d4ed8]",
     tontine_id:"",
     creerPar:"",
+    nbMembres:3,
   }
 ];
 
@@ -63,7 +65,7 @@ const MesCaisse = () => {
       });
   };
 
-  const Card = ({ label, count, bg, type, montant }: any) => {
+  const Card = ({ label, nbMembre, bg, type, montant }: any) => {
     return (
       <div className="sm:w-[250px] w-full h-[150px] bg-white p-5 shadow-md rounded-md flex  items-center">
         <div className="h-full flex  flex-1 flex-col">
@@ -72,7 +74,7 @@ const MesCaisse = () => {
             <p className="text-lg font-normal ">{type}</p>
           </p>
 
-          <span className="text-sm mt-2 text-gray-400">{count} membres</span>
+          <span className="text-sm mt-2 text-gray-400"> {"("+nbMembre+")"} membres</span>
           <span className="text-lg mt-2 font-semibold text-gray-800">
             {montant}
           </span>
@@ -97,7 +99,7 @@ const MesCaisse = () => {
     <div>
       <div className="grid p-4 grid-cols-1 md:grid-cols-4 gap-5">
         {caisseList.map(
-          ({ type, bg, nom, montant, total, id }, index) => (
+          ({ type, bg, nom,nbMembres, montant, total, id }, index) => (
             <div
               className="cursor-pointer"
               onClick={() => viewCard(currentPath + id)}
@@ -108,7 +110,8 @@ const MesCaisse = () => {
                 type={type}
                 bg="w-10 h-10 rounded-full flex items-center bg-red-700 justify-center text-white"
                 label={nom}
-                count={total}
+                nbMembre={nbMembres}
+                
               />
             </div>
           )

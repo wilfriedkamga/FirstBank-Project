@@ -11,8 +11,18 @@ type TCaisseModel = {
   type: string;
   montant: string;
   bg: string;
-  tontine_id:string;
-  creerPar:string;
+  tontine_id: string;
+  creerPar: string;
+  nbMembres: number;
+};
+
+type TCaisseMembreModel = {
+  id: string;
+  nomUtilisateur: string;
+  role: string;
+  id_caisse: string;
+  idutiliateur: string;
+  creer_par: string;
 };
 
 type AddCaisseProps = {
@@ -29,10 +39,14 @@ const AddCaisse = ({ addCaisse, setVisibility }: AddCaisseProps) => {
   const [contact2, setContact2] = useState("");
   const [type, setType] = useState("");
   const [creator, setCreator] = useState("");
-  const location=useLocation();
+  const location = useLocation();
 
   const [end, setEnd] = useState(false);
   const [view, setView] = useState(true);
+  const [tontineMembreList, setTontineMembreList] = useState<
+    TCaisseMembreModel[]
+  >([]);
+
   const [caisse, setCaisse] = useState<TCaisseModel>({
     id: "",
     nom: "",
@@ -40,15 +54,30 @@ const AddCaisse = ({ addCaisse, setVisibility }: AddCaisseProps) => {
     type: "",
     montant: "",
     bg: "",
-    tontine_id:"",
-    creerPar:'',
+    tontine_id: "",
+    creerPar: "",
+    nbMembres: 0,
   });
 
   useEffect(() => {
     const user = Variable.getLocalStorageItem("user");
     setCreator(user.user.phone);
   }, []);
-  
+
+  useEffect(() => {
+    console.log(location.pathname)
+    tontineMembreListInit(extractTontineId(location.pathname));
+  }, []);
+
+  const tontineMembreListInit = (idTontine: string) => {
+    TontinesServices.GetMembresTontine(idTontine)
+      .then((response) => {
+        console.log(response.data.data);
+        setTontineMembreList(response.data.data);
+      })
+      .catch((error) => {});
+  };
+
   const HandleCreate = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -59,24 +88,19 @@ const AddCaisse = ({ addCaisse, setVisibility }: AddCaisseProps) => {
       type: type,
       montant: montant,
       bg: "",
-      tontine_id:extractTontineId(location.pathname),
-      creerPar:creator,
+      tontine_id: extractTontineId(location.pathname),
+      creerPar: creator,
+      nbMembres: 1,
     };
-    
-    
+
     TontinesServices.CreateCaisse(newCaisse)
-    .then((response)=>{
-      console.log("passe par ici")
-      setVisibility(false)
-      setCaisse(response.data.data)
-      newCaisse.id=response.data.data.id
-      addCaisse(newCaisse)
-      
-    })
-    .catch((error)=>{
-      console.log("passe par ici")
-        
-    })
+      .then((response) => {
+        setVisibility(false);
+        setCaisse(response.data.data);
+        newCaisse.id = response.data.data.id;
+        addCaisse(newCaisse);
+      })
+      .catch((error) => {console.log("Passe ici")});
   };
   const extractTontineId = (url: string): string => {
     const parts = url.split("/");
@@ -118,7 +142,9 @@ const AddCaisse = ({ addCaisse, setVisibility }: AddCaisseProps) => {
               />
               <div className="w-full flex gap-4 justify-between ">
                 <div className="w-1/2 pr-2">
-                  <label className="block mb-2 text-sm mt-3 ">Type de la caisse</label>
+                  <label className="block mb-2 text-sm mt-3 ">
+                    Type de la caisse
+                  </label>
                   <select
                     value={type}
                     onChange={(e) => {
@@ -126,18 +152,16 @@ const AddCaisse = ({ addCaisse, setVisibility }: AddCaisseProps) => {
                     }}
                     className="bg-transparent w-full rounded-lg px-3 py-2.5 2xl:py-3 border border-gray-300 placeholder-gray-400 text-gray-900 outline-none text-base focus:ring-2 ring-blue-300"
                   >
-                    <option value=""  className="text-gray-300">
+                    <option value="" className="text-gray-300">
                       choisir le type de la caisse
                     </option>
-                    <option value="Statique">
-                      Statique
-                    </option>
+                    <option value="Statique">Statique</option>
                     <option value="Dyanamique">Dynamique</option>
                   </select>
                 </div>
                 <div className="  w-1/2 pr-2">
                   <label className="block mb-2 text-sm mt-3 ">
-                    Montant des contributions 
+                    Montant des contributions
                   </label>
                   <input
                     required
@@ -181,29 +205,39 @@ const AddCaisse = ({ addCaisse, setVisibility }: AddCaisseProps) => {
               Créer une Caisse
             </div>
             <div className=" flex mx-4 flex-col gap-1">
-              <label className="block mb-2 text-sm mt-3 ">
-                Validateur 1
-              </label>
+              <label className="block mb-2 text-sm mt-3 ">Validateur 1</label>
               <select
                 value={contact1}
                 onChange={(e) => setContact1(e.target.value)}
                 className="bg-transparent rounded-lg px-3 py-2.5 2xl:py-3 border border-gray-300 placeholder-gray-400 text-gray-900 outline-none text-base focus:ring-2 ring-blue-300"
               >
-                <option value="value1">contact1</option>
-                <option value="value2">contact2</option>
-                <option value="value2">contact3</option>
+                {tontineMembreList &&
+                  tontineMembreList.map(
+                    (item: TCaisseMembreModel, index: number) => (
+                      <option key={index} value={item.idutiliateur}>
+                        {"Nom: "+item.nomUtilisateur}{" Phone:"+item.idutiliateur}
+                      </option>
+                    )
+                  )}
               </select>
-              <label className="block mb-2 text-sm mt-3 ">
-                Validateur 2
-              </label>
+              <label className="block mb-2 text-sm mt-3 ">Validateur 2</label>
               <select
                 value={contact2}
                 onChange={(e) => setContact2(e.target.value)}
                 className="bg-transparent rounded-lg px-3 py-2.5 2xl:py-3 border border-gray-300 placeholder-gray-400 text-gray-900 outline-none text-base focus:ring-2 ring-blue-300"
               >
-                <option value="value1">wilfried 237640641633</option>
-                <option value="value2">contact2</option>
-                <option value="value2">contact3</option>
+                {tontineMembreList &&
+                  tontineMembreList.map(
+                    (item: TCaisseMembreModel, index: number) => (
+                      <option
+                        key={index}
+                        value={item.nomUtilisateur}
+                        disabled={item.idutiliateur == contact1}
+                      >
+                        {"Nom: "+item.nomUtilisateur}{" Phone:"+item.idutiliateur}
+                      </option>
+                    )
+                  )}
               </select>
               <div className="flex justify-end mt-[100px] text-white mt-2">
                 <button

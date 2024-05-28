@@ -9,6 +9,6 @@ import java.util.Optional;
 @Repository
 public interface TontineRepository extends JpaRepository<Tontine, String> {
 
-   Optional<Tontine> findById(String IdTontine);
+    Optional<Tontine> findById(String IdTontine);
 
 }

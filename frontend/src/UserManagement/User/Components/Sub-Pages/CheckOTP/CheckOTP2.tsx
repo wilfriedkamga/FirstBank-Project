@@ -13,7 +13,7 @@ type ChildComponentProps = {
   phone: string;
   gender: string;
   handleClick: () => void;
-  tooglePassword:()=>void;
+  tooglePassword: () => void;
 };
 export default function CheckOTP2({
   OtpCode,
@@ -22,108 +22,88 @@ export default function CheckOTP2({
   birthDate,
   phone,
   gender,
-  tooglePassword
+  tooglePassword,
 }: ChildComponentProps) {
-  const messageError="Invalid otp code"
+  const messageError = "Invalid otp code";
   const [token, setTokens] = useState("");
   const [inputOTP, setInputOTP] = useState("");
-  const [yet,setYet]=useState(false)
+  const [yet, setYet] = useState(false);
   const [dialogVisibility, setDialogVisibility] = useState(false);
   const [dialogMessage, setDialogMessage] = useState(messageError);
-  
 
   const handleCloseDialog = () => {
     setDialogVisibility(false);
   };
 
- 
-  const verify=(e: React.FormEvent<HTMLFormElement>)=>{
+  const verify = (e: React.FormEvent<HTMLFormElement>) => {
+    if (inputOTP.length != 5) {
+      setDialogMessage("Otp must have 5 digits");
+      setDialogVisibility(true);
+    } else {
+      setDialogVisibility(false);
+      setDialogMessage(messageError);
 
-    if(inputOTP.length!=5){
-      setDialogMessage("Otp must have 5 digits")
-      setDialogVisibility(true)
+      if (yet) {
+        verifyOTP1(e);
+      } else verifyOTP(e);
     }
-
-else{
-  setDialogVisibility(false)
-  setDialogMessage(messageError)
-
-  if(yet){verifyOTP1(e)}
-
-  else verifyOTP(e)
-
-    }
-   
-  }
+  };
 
   const verifyOTP = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    setYet(true);
 
-    setYet(true)
-    
-    const route=Variable.routeApi+"api/usermanagement/verifyOTP"
+    const route = Variable.routeApi + "api/usermanagement/verifyOTP";
 
-    const tempUser={
-      phone:phone,
-      code:inputOTP
-    }  
-axios
-    .post(`${route}`, tempUser)
-    .then((response) => {
-
-      handleClick()
-     
-})
-    .catch((error) => {
-      setDialogVisibility(true)
-  });
-
+    const tempUser = {
+      phone: phone,
+      code: inputOTP,
+    };
+    axios
+      .post(`${route}`, tempUser)
+      .then((response) => {
+        handleClick();
+      })
+      .catch((error) => {
+        setDialogVisibility(true);
+      });
   };
 
   const verifyOTP1 = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    const route = Variable.routeApi + "api/usermanagement/verifyOTP";
 
-    const route=Variable.routeApi+"api/usermanagement/verifyOTP"
-
-    const tempUser={
-      phone:phone,
-      code:inputOTP
-    }
-axios
-    .post(`${route}`, tempUser)
-    .then((response) => {
-      handleClick();
-      
-    })
-    .catch((error) => {
-      setDialogVisibility(true)
-  });
-
+    const tempUser = {
+      phone: phone,
+      code: inputOTP,
+    };
+    axios
+      .post(`${route}`, tempUser)
+      .then((response) => {
+        handleClick();
+      })
+      .catch((error) => {
+        setDialogVisibility(true);
+      });
   };
 
- 
-
-
   const resendOTP = () => {
-    
-    const route=Variable.routeApi+"api/usermanagement/sendOTP"
+    const route = Variable.routeApi + "api/usermanagement/sendOTP";
 
-    const tempUser={
-      phone:phone
-    }
-   
-  
-axios
-    .post(`${route}`, tempUser)
-    .then((response) => {
-      const otp=response.data.data.code
-      setTokens(otp)
-      // Un nouveau code otp vous a ete envoye
-    })
-    .catch((error) => {
-  });
+    const tempUser = {
+      phone: phone,
+    };
+
+    axios
+      .post(`${route}`, tempUser)
+      .then((response) => {
+        const otp = response.data.data.code;
+        setTokens(otp);
+        // Un nouveau code otp vous a ete envoye
+      })
+      .catch((error) => {});
   };
   return (
     <section className="bg-white h-full w-full p-4 relative lg:w-[28vw] lg:h-[90vh] dark:bg-gray-900 rounded-xl">
@@ -135,8 +115,12 @@ axios
             </h1>
 
             <div className="absolute z-20 ml-4 lg:ml-0  mt-20 lg:mt-20 lg:mr-15 w-4/5">
-              {dialogVisibility?<SimpleDialog message={dialogMessage} handleClose={()=>handleCloseDialog()} />:null}
-              
+              {dialogVisibility ? (
+                <SimpleDialog
+                  message={dialogMessage}
+                  handleClose={() => handleCloseDialog()}
+                />
+              ) : null}
             </div>
 
             <p className="mt-4 text-gray-500 dark:text-gray-400 text-center">
@@ -167,21 +151,23 @@ axios
               >
                 <span className="">Verify </span>
               </button>
-              
             </form>
             <p className="mt-3 text-center">
-                Havn't receive it?
-                <button className="signin text-red-600" onClick={resendOTP}>
-                  {" "}
-                  Resend
-                </button>
-              </p>
-              <p className="mt-3 inline flex justify-center">
-                Back to &nbsp; 
-                <button className="signin text-red-400" onClick={() => tooglePassword}>
-                  Signin
-                </button>
-              </p>
+              Havn't receive it?
+              <button className="signin text-red-600" onClick={resendOTP}>
+                {" "}
+                Resend
+              </button>
+            </p>
+            <p className="mt-3 inline flex justify-center">
+              Back to &nbsp;
+              <button
+                className="signin text-red-400"
+                onClick={() => tooglePassword}
+              >
+                Signin
+              </button>
+            </p>
             <img
               src={logo}
               alt="Logo Afriland First Bank"

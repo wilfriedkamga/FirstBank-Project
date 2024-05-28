@@ -110,6 +110,45 @@ public class TontineManagerBus implements ITontineManagerBus {
 	}
 
 	@Override
+	public List<MembresCaisse> getAllMembreCaisse(String idCaisse) throws Exception {
+
+		boolean CaisseExists = caisseRepository.existsById(idCaisse);
+		if (!CaisseExists) {
+			throw new IllegalArgumentException("Caisse with ID " + idCaisse + " not found.");
+		}
+		List<MembresCaisse> allMembres = getAll_in_MembresCaisse();
+
+		return allMembres.stream()
+				.filter(membre -> idCaisse.equals(membre.getId_caisse()))
+				.collect(Collectors.toList());
+	}
+
+	@Override
+	public List<MembresTontine> getAllMembreTontine(String idTontine) throws Exception {
+
+		Optional<Tontine> tontine = tontineRepository.findById(idTontine);
+		if (tontine.isEmpty()) {
+			throw new IllegalArgumentException("Tontine with ID " + idTontine + " not found.");
+		}
+
+		List<MembresTontine> allMembres = getAll_in_MembresTontine();
+
+		return allMembres.stream()
+				.filter(membre -> idTontine.equals(membre.getId_tontine()))
+				.collect(Collectors.toList());
+	}
+
+
+
+	public List<MembresCaisse> getAll_in_MembresCaisse() {
+		return membresCaisseRepository.findAll();
+	}
+
+	public List<MembresTontine> getAll_in_MembresTontine() {
+		return membreTontineRepository.findAll();
+	}
+
+	@Override
 	public MembresTontine addMembresTontine(MembreTontineModel membreTontineModel) throws Exception{
 
 		// Verifier l'existence de l'utiliateur qui est inscrit dans
@@ -155,6 +194,9 @@ public class TontineManagerBus implements ITontineManagerBus {
 		caisse1.setNbMembres(caisse1.getNbMembres()+1);
 		caisseRepository.save(caisse1);
 
+		// verifier qu'il est membre de la tontine
+		List<MembresTontine> membresTontine=membreTontineRepository.findByIdutiliateur(membreCaisseModel.getIdutiliateur());
+
 		// On cree le nouveau membre dans membre_caisse
 		MembresCaisse membresCaisse=new MembresCaisse();
 		membresCaisse.setNomUtilisateur(membreCaisseModel.getNomUtilisateur());
@@ -190,7 +232,7 @@ public class TontineManagerBus implements ITontineManagerBus {
 			caisse.setCreerPar(caisseModel.getCreerPar());
 			caisse.setTontine(tontine);
 			caisse.setMontant(caisseModel.getMontant());
-			caisse.setNbMembres(1);
+			caisse.setNbMembres(0);
 
 			// Ajout du premier membre de la caisse
 		MembreCaisseModel membreCaisseModel = new MembreCaisseModel();

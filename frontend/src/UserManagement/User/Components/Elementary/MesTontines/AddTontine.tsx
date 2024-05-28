@@ -103,8 +103,8 @@ const AddTontine = ({addTontine,setVisibility}:AddTontineProps) => {
                 value={nom}
                 onChange={(e)=>{setNom(e.target.value)}}
                 type="text"
-                placeholder="Enter your password"
-                className="bg-transparent rounded-lg px-3 py-2.5 2xl:py-3 border border-gray-300 placeholder-gray-400 text-gray-900 outline-none text-base focus:ring-2 ring-blue-300"
+                placeholder="Nom de la tontine"
+                className="bg-transparent rounded-lg px-3 py-2.5 2xl:py-3 border border-gray-300 placeholder-gray-500 text-gray-900 outline-none text-base focus:ring-2 ring-blue-300"
                 required
               />
               <label className="block mb-2 text-sm mt-3 ">Description</label>
@@ -112,8 +112,8 @@ const AddTontine = ({addTontine,setVisibility}:AddTontineProps) => {
                 value={description}
                 onChange={(e)=>{setDescription(e.target.value)}}
                 type="text"
-                placeholder="Enter your password"
-                className="bg-transparent rounded-lg px-3 py-2.5 2xl:py-3 border border-gray-300 placeholder-gray-400 text-gray-900 outline-none text-base focus:ring-2 ring-blue-300"
+                placeholder="Entrer la description"
+                className="bg-transparent rounded-lg px-3 py-2.5 2xl:py-3 border border-gray-300 placeholder-gray-500 text-gray-900 outline-none text-base focus:ring-2 ring-blue-300"
                 required
               />
               <div className="w-full flex gap-4 justify-between ">

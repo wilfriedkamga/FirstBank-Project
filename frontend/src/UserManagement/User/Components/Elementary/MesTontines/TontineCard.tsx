@@ -39,7 +39,7 @@ const TontineCard = ({tontine}:ChildComponentProps) => {
         <>
           <div className='flex items-center gap-2'>
           
-            <h4 className='line-clamp-2 text-black uppercase'>{tontine.nom}</h4>
+            <h4 className='line-clamp-2 text-black font-bold uppercase'>{tontine.nom}</h4>
           </div>
           <span className='text-sm text-gray-600'>
             {formatDate(new Date())}

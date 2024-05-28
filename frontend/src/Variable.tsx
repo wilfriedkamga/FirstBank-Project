@@ -1,4 +1,3 @@
-import { AES, enc } from "crypto-ts";
 
 class Variable {
   static routeApi: string = "http://localhost:8088/";
@@ -9,15 +8,8 @@ class Variable {
   static key_localStorage = "";
   static secret_key = "your_secret_key";
   static local_storage_key = "userFB";
+  
 
-  static stocker_dans_localStorage = (datas: any, key:string) => {
-    const encryptedData = AES.encrypt(
-      JSON.stringify(datas),
-      this.secret_key
-    ).toString();
-    // Stocker les informations chiffrées dans le localStorage
-    localStorage.setItem(key, datas);
-  };
 
   static recupérer_du_localStorage = (key: string) => {
     const encryptedData = localStorage.getItem(this.local_storage_key);
@@ -30,6 +22,8 @@ class Variable {
     }
     return null;
   };
+
+  
 
   static getLocalStorageItem = (key: string): any => {
     const item = localStorage.getItem(key);

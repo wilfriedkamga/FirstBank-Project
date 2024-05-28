@@ -16,6 +16,8 @@ import UneCaisseContent from "../UserManagement/User/Components/Elementary/Caiss
 import Cotisation from "../UserManagement/User/Components/Elementary/Caisses/Cotisation";
 import CotisationMembre from "../UserManagement/User/Components/Elementary/Caisses/CotisationMembre";
 import MesCotisation from "../UserManagement/User/Components/Elementary/Dashboard/MesCotisation";
+import MembresCaisseContent from "../UserManagement/User/Components/Elementary/Caisses/MembresCaisseContent";
+import MembresTontine from "../UserManagement/User/Components/Elementary/MesTontines/MembresTontine";
 
 const isKeyInLocalStorage = (key: string): boolean => {
   const token=localStorage.getItem(key)
@@ -112,6 +114,11 @@ export const router = createBrowserRouter([
                                   {
                                     path: "/tontine/mestontines/:idTontine/caisses/:idCaisse/cagnotte",
                                     element: <div>Les cagnottes de la caisse</div>, 
+                                  },
+                                  {
+                                    path: "/tontine/mestontines/:idTontine/caisses/:idCaisse/membre",
+                                    element: <MembresCaisseContent/>, 
+                                   
                                   }
                                 ]
                               }
@@ -132,7 +139,7 @@ export const router = createBrowserRouter([
                   },
                   {
                     path: "/tontine/mestontines/:idTontine/membres",
-                    element: <div> les évènements</div>,
+                    element: <MembresTontine/>,
                   },
                   {
                     path: "/tontine/mestontines/:idTontine/parametres",

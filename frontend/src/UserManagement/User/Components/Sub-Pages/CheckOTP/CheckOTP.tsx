@@ -39,7 +39,7 @@ export default function CheckOTP({
  
   const verify=(e: React.FormEvent<HTMLFormElement>)=>{
     
-    alert(phone+inputOTP)
+  
     if(inputOTP.length!=5){
       setDialogMessage("Otp must have 5 digits")
       setDialogVisibility(true)
