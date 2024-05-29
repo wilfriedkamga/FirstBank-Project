@@ -2,21 +2,20 @@ package com.TontineManagement.controller;
 
 import com.TontineManagement.business.ITontineManagerBus;
 import com.TontineManagement.config.JwtTokenUtil;
-import com.TontineManagement.dao.entities.User;
-import com.TontineManagement.dao.entities.Validation;
-import com.TontineManagement.dao.model.*;
 
+import com.TontineManagement.dao.entities.Caisse;
+import com.TontineManagement.dao.entities.Tontine;
+import com.TontineManagement.dao.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.DisabledException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.http.*;
 
-import java.util.Objects;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -32,23 +31,15 @@ public class TontineManagerController {
 	@Autowired
 	private JwtTokenUtil jwtTokenUtil;
 
-	@Autowired
-	private UserDetailsService jwtInMemoryUserDetailsService;
 
-	@PostMapping(value = "/signin")
-	public ResponseEntity createAuthenticationToken(@RequestBody SigninModel authenticationRequest) {
+
+	@PostMapping(value = "/createTontine")
+	public ResponseEntity createTontine(@RequestBody TontineModel tontineModel) {
 		CommonResponseModel response = new CommonResponseModel();
 		try{
-			authenticate(authenticationRequest.getPhone(), authenticationRequest.getPassword());
-
-			final UserDetails userDetails = jwtInMemoryUserDetailsService
-					.loadUserByUsername(authenticationRequest.getPhone());
-
-			final String token = jwtTokenUtil.generateToken(userDetails);
-
 			response.setMessage("Success");
 			response.setResponseCode("0");
-			response.setData(new JwtResponse(token, tontineManagerBus.signin(authenticationRequest.getPhone(),authenticationRequest.getPassword())/*,authenticationRequest.getPassword()*/));
+			response.setData(tontineManagerBus.creer(tontineModel));
 
 			return new ResponseEntity(response, HttpStatus.OK);
 
@@ -61,217 +52,208 @@ public class TontineManagerController {
 
 	}
 
-	public void authenticate(String username, String password) throws Exception {
-		Objects.requireNonNull(username);
-		Objects.requireNonNull(password);
+	@PostMapping(value = "/deleteTontine")
+	public ResponseEntity deleteTontine(@RequestBody String id) {
+		System.out.println(id);
+		CommonResponseModel response = new CommonResponseModel();
+		try{
 
-		try {
-			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-		} catch (DisabledException e) {
-			throw new Exception("USER_DISABLED", e);
-		} catch (BadCredentialsException e) {
-			throw new Exception("INVALID_CREDENTIALS", e);
+			response.setMessage("Tontine supprimer avec succèss");
+			response.setResponseCode("0");
+			response.setData(tontineManagerBus.deleteTontine(id));
+
+			return new ResponseEntity<>(response, HttpStatus.OK);
+
+		} catch ( Exception e) {
+			response.setResponseCode("1");
+			response.setMessage(e.getMessage());
+
+			return new ResponseEntity<>(response, HttpStatus.FORBIDDEN);
 		}
+
 	}
 
-	@PostMapping(value = "/signup")
-	public ResponseEntity signup(@RequestBody SignupModel signupModel){
+	@GetMapping(value = "/tontines")
 
+	public ResponseEntity getAllTontines(@RequestParam String phone) {
 		CommonResponseModel response = new CommonResponseModel();
-
 		try{
 			response.setMessage("Success");
 			response.setResponseCode("0");
-			response.setData(tontineManagerBus.signup(signupModel.getPhone(),signupModel.getFullname(),signupModel.getBirthDate(),signupModel.getGender(), signupModel.getPassword()));
+			response.setData(convertTontineListToModelList(tontineManagerBus.getAllTontines(phone)));
+			return new ResponseEntity<>(response, HttpStatus.OK);
 
-			return new ResponseEntity(response, HttpStatus.OK);
-
-		} catch (Exception e) {
+		} catch ( Exception e) {
 			response.setResponseCode("1");
 			response.setMessage(e.getMessage());
+
 			return new ResponseEntity<>(response, HttpStatus.FORBIDDEN);
 		}
-
-	}
-	@PostMapping(value = "/userExist")
-	public ResponseEntity FindUser(@RequestBody UserExistModel userExistModel) throws Exception{
-
-		CommonResponseModel response = new CommonResponseModel();
-		boolean heExist= tontineManagerBus.userExist(userExistModel.getPhone());
-
-		if(heExist){
-			response.setMessage("User Exist");
-			response.setResponseCode("0");
-			response.setData(tontineManagerBus.getUserLoginDetails(userExistModel.getPhone()));
-			return new ResponseEntity(response, HttpStatus.OK);
-		}
-		else{
-			response.setMessage("User not  Exist");
-			response.setResponseCode("1");
-			return new ResponseEntity<>(response, HttpStatus.OK);
-		}
 	}
 
-	@PostMapping(value = "/sendSMS")
-	public ResponseEntity sendSMS(@RequestBody String phone,String message) throws Exception{
 
-		CommonResponseModel response = new CommonResponseModel();
-		boolean heExist= tontineManagerBus.userExist(phone);
+    @GetMapping(value = "/caisses")
 
-		if(heExist){
-			response.setMessage("User Exist");
-			response.setResponseCode("0");
-			return new ResponseEntity(response, HttpStatus.OK);
-		}
-		else{
-			response.setMessage("User not  Exist");
-			response.setResponseCode("1");
-			return new ResponseEntity<>(response, HttpStatus.OK);
-		}}
-		@PostMapping("/blockaccount")
-		public ResponseEntity blockAccount(@RequestBody UserExistModel userExistModel) {
-
-			CommonResponseModel response = new CommonResponseModel();
-
-			try {
-				response.setMessage("User have been blocked successfully");
-				response.setResponseCode("0");
-				User blockedUser = tontineManagerBus.blockAccount(userExistModel.getPhone());
-				response.setData(blockedUser);
-				return new ResponseEntity<>(response, HttpStatus.OK);
-
-			} catch (IllegalArgumentException e) {
-				response.setMessage("User not exist");
-				response.setResponseCode("1");
-				response.setData(e.getMessage());
-				return new ResponseEntity<>(response, HttpStatus.FORBIDDEN);
-
-			}
-		}
-
-	@PostMapping("/activateaccount")
-	public ResponseEntity activateAccount(@RequestBody UserExistModel userExistModel) {
-
-		CommonResponseModel response = new CommonResponseModel();
-
-		try {
-			response.setMessage("User have been activated successfully");
-			response.setResponseCode("0");
-			User blockedUser = tontineManagerBus.activateAccount(userExistModel.getPhone());
-			response.setData(blockedUser);
-			return new ResponseEntity<>(response, HttpStatus.OK);
-
-		} catch (IllegalArgumentException e) {
-			response.setMessage("User not exist");
-			response.setResponseCode("1");
-			response.setData(e.getMessage());
-			return new ResponseEntity<>(response, HttpStatus.FORBIDDEN);
-
-		}
-	}
-    @PostMapping("/sendOTP")
-    public ResponseEntity sendOTP(@RequestBody UserExistModel userExistModel) {
-
+    public ResponseEntity getAllCaisse(@RequestParam String idTontine) {
         CommonResponseModel response = new CommonResponseModel();
-
-        try {
-            response.setMessage("OTP has been sent successfully");
+        try{
+            response.setMessage("Success");
             response.setResponseCode("0");
-            Validation validation = tontineManagerBus.VerifyAccount(userExistModel.getPhone());
-            response.setData(validation);
+            response.setData(convertToCaisseDetails(tontineManagerBus.getAllCaisses(idTontine)));
             return new ResponseEntity<>(response, HttpStatus.OK);
 
-        } catch (IllegalArgumentException e) {
-            response.setMessage("User not exist");
+        } catch ( Exception e) {
             response.setResponseCode("1");
-            response.setData(e.getMessage());
-            return new ResponseEntity<>(response, HttpStatus.FORBIDDEN);
+            response.setMessage(e.getMessage());
 
+            return new ResponseEntity<>(response, HttpStatus.FORBIDDEN);
         }
     }
 
-	@PostMapping("/verifyOTP")
-	public ResponseEntity VerifyOTP(@RequestBody VerifyOTPModel verifyOTPModel){
-		CommonResponseModel response = new CommonResponseModel();
+	@GetMapping(value = "/membres_caisse")
 
-		try {
-			response.setMessage("OTP Verification Successes");
+	public ResponseEntity getAllMembreCaisse(@RequestParam String idCaisse) {
+		CommonResponseModel response = new CommonResponseModel();
+		try{
+			response.setMessage("Success");
 			response.setResponseCode("0");
-			User user = tontineManagerBus.VerifyOTP(verifyOTPModel);
-			response.setData(user);
+			response.setData(tontineManagerBus.getAllMembreCaisse(idCaisse));
 			return new ResponseEntity<>(response, HttpStatus.OK);
 
-		} catch (IllegalArgumentException e) {
-			response.setMessage("OTP Verification failed");
+		} catch ( Exception e) {
 			response.setResponseCode("1");
-			response.setData(e.getMessage());
+			response.setMessage(e.getMessage());
+
 			return new ResponseEntity<>(response, HttpStatus.FORBIDDEN);
-
-		}
-	}
-	@PostMapping("/disactivateaccount")
-	public ResponseEntity disActivateAccount(@RequestBody UserExistModel userExistModel) {
-
-		CommonResponseModel response = new CommonResponseModel();
-
-		try {
-			response.setMessage("User have been disactivated successfully");
-			response.setResponseCode("0");
-			User blockedUser = tontineManagerBus.disActivateAccount(userExistModel.getPhone());
-			response.setData(blockedUser);
-			return new ResponseEntity<>(response, HttpStatus.OK);
-
-		} catch (IllegalArgumentException e) {
-			response.setMessage("User not exist");
-			response.setResponseCode("1");
-			response.setData(e.getMessage());
-			return new ResponseEntity<>(response, HttpStatus.FORBIDDEN);
-
 		}
 	}
 
-	@PostMapping("/disblockaccount")
-	public ResponseEntity disBlockAccount(@RequestBody UserExistModel userExistModel) {
+	@GetMapping(value = "/membres_tontine")
 
+	public ResponseEntity getAllMembreTontine(@RequestParam String idTontine) {
 		CommonResponseModel response = new CommonResponseModel();
-
-		try {
-			response.setMessage("User have been disblocked successfully");
+		try{
+			response.setMessage("Success");
 			response.setResponseCode("0");
-			User blockedUser = tontineManagerBus.disBlockAccount(userExistModel.getPhone());
-			response.setData(blockedUser);
+			response.setData(tontineManagerBus.getAllMembreTontine(idTontine));
 			return new ResponseEntity<>(response, HttpStatus.OK);
 
-		} catch (IllegalArgumentException e) {
-			response.setMessage("User not exist");
+		} catch ( Exception e) {
 			response.setResponseCode("1");
-			response.setData(e.getMessage());
+			response.setMessage(e.getMessage());
+
 			return new ResponseEntity<>(response, HttpStatus.FORBIDDEN);
-
-		}
-	}
-	@PostMapping("/updateprofil")
-	public ResponseEntity updateProfil(@RequestBody ProfilModel profilModel) {
-
-		CommonResponseModel response = new CommonResponseModel();
-
-		try {
-			response.setMessage("User profil has been updated successfully");
-			response.setResponseCode("0");
-			User updateUser= tontineManagerBus.updateProfil(profilModel);
-			response.setData(updateUser);
-			return new ResponseEntity<>(response, HttpStatus.OK);
-
-		} catch (IllegalArgumentException e) {
-			response.setMessage("User not exist");
-			response.setResponseCode("1");
-			response.setData(e.getMessage());
-			return new ResponseEntity<>(response, HttpStatus.FORBIDDEN);
-
 		}
 	}
 
+		@PostMapping(value = "/createCaisse")
+		public ResponseEntity createCaisse(@RequestBody CaisseModel caisseModel) {
+
+			CommonResponseModel response = new CommonResponseModel();
+			try{
+				response.setMessage("Success de la creation de la caisse dans la tontine " +
+						"dont l'id est : ");
+				response.setResponseCode("0");
+				Caisse caisse=tontineManagerBus.createCaisse(caisseModel);
+				CaisseDetails caisseDetails=new CaisseDetails(caisse.getId(), caisseModel,caisse.getNbMembres(),caisse.getDateCreation());
+				response.setData(caisseDetails);
+				return new ResponseEntity<>(response, HttpStatus.OK);
+
+			} catch ( Exception e) {
+				response.setResponseCode("1");
+				response.setMessage(e.getMessage());
+
+				return new ResponseEntity<>(response, HttpStatus.FORBIDDEN);
+			}
+
+		}
+
+	@PostMapping(value = "/ajout_membre_tontine")
+	public ResponseEntity addMembreTontine(@RequestBody MembreTontineModel membreTontineModel) {
+
+		CommonResponseModel response = new CommonResponseModel();
+		try{
+			response.setMessage("Success de la mise a jour de la caisse");
+			response.setResponseCode("0");
+			response.setData(tontineManagerBus.addMembresTontine(membreTontineModel));
+			return new ResponseEntity<>(response, HttpStatus.OK);
+
+		} catch ( Exception e) {
+			response.setResponseCode("1");
+			response.setMessage(e.getMessage());
+
+			return new ResponseEntity<>(response, HttpStatus.FORBIDDEN);
+		}
+
 	}
+
+	@PostMapping(value = "/ajout_membre_caisse")
+	public ResponseEntity addMembreCaisse(@RequestBody MembreCaisseModel membreCaisseModel) {
+
+		CommonResponseModel response = new CommonResponseModel();
+		try{
+			response.setMessage("Success de la mise a jour de la caisse");
+			response.setResponseCode("0");
+			response.setData(tontineManagerBus.addMembresCaisse(membreCaisseModel));
+			return new ResponseEntity<>(response, HttpStatus.OK);
+
+		} catch ( Exception e) {
+			response.setResponseCode("1");
+			response.setMessage(e.getMessage());
+
+			return new ResponseEntity<>(response, HttpStatus.FORBIDDEN);
+		}
+
+	}
+
+
+
+	public List<TontineModel> convertTontineListToModelList(List<Tontine> tontineList) {
+		List<TontineModel> tontineModelList = new ArrayList<>();
+
+		for (Tontine tontine : tontineList) {
+			TontineModel tontineModel = new TontineModel();
+			tontineModel.setNom(tontine.getNom());
+			tontineModel.setDescription(tontine.getDescription());
+			tontineModel.setType(tontine.getType());
+			tontineModel.setFrequence(tontine.getFrequence());
+			tontineModel.setJourReunion(tontine.getJourReunion());
+			tontineModel.setCreate_par(tontine.getCreate_par());
+			tontineModel.setDateCreation(tontine.getDateCreation());
+			tontineModel.setNbCaisse(tontine.getNbCaisse());
+			tontineModel.setNbMembre(tontine.getNbMembre());
+			tontineModel.setProchaineReunion(tontine.getProchaineReunion());
+			tontineModel.setId(tontine.getId());
+
+			tontineModelList.add(tontineModel);
+		}
+
+		return tontineModelList;
+	}
+
+    public List<CaisseDetails> convertToCaisseDetails(List<Caisse> caisses) {
+        List<CaisseDetails> caisseDetailsList = new ArrayList<>();
+        for (Caisse caisse : caisses) {
+
+            CaisseDetails details = new CaisseDetails();
+            details.setId(caisse.getId());
+            details.setNom(caisse.getNom());
+            details.setType(caisse.getType());
+            details.setDescription(caisse.getDescription());
+            details.setCreerPar(caisse.getCreerPar());
+            details.setTontine_id(caisse.getTontine().getId());
+            details.setNbMembres(caisse.getNbMembres());
+            details.setDateCreation(caisse.getDateCreation());
+            details.setMontant(caisse.getMontant());
+            caisseDetailsList.add(details);
+        }
+        return caisseDetailsList;
+    }
+}
+
+
+
+
 
 
 

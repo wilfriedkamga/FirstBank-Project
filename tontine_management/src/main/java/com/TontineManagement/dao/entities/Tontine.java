@@ -1,0 +1,146 @@
+package com.TontineManagement.dao.entities;
+
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
+
+@Entity
+@Table(name = "Tontine")
+@Setter
+@Getter
+public class Tontine {
+
+    @Id
+    private String id;
+
+    private String nom;
+    private String description;
+    private String type;
+    private String frequence;
+    private String jourReunion;
+    private String create_par;
+    private Date  dateCreation;
+    private int nbCaisse;
+    private int nbMembre;
+    private Date prochaineReunion;
+
+    @OneToMany(mappedBy = "tontine")
+    private List<Caisse> caisses;
+
+
+
+    // Constructeurs, getters et setters supplémentaires
+
+    public Tontine() {
+        // Constructeur par défaut
+        this.id = UUID.randomUUID().toString();
+        this.nbCaisse=0;
+        this.nbMembre=0;
+        this.dateCreation=new Date();
+
+    }
+
+    public Tontine(String uuid, String nom, String description, String type, String frequence, String jourReunion) {
+        this.id = UUID.randomUUID().toString();
+        this.nom = nom;
+        this.description = description;
+        this.type = type;
+        this.frequence = frequence;
+        this.jourReunion = jourReunion;
+    }
+
+    public String getCreate_par() {
+        return create_par;
+    }
+
+    public void setCreate_par(String create_par) {
+        this.create_par = create_par;
+    }
+
+    public Date getDateCreation() {
+        return dateCreation;
+    }
+
+    public void setDateCreation(Date dateCreation) {
+        this.dateCreation = dateCreation;
+    }
+
+    public int getNbCaisse() {
+        return nbCaisse;
+    }
+
+    public void setNbCaisse(int nbCaisse) {
+        this.nbCaisse = nbCaisse;
+    }
+
+    public int getNbMembre() {
+        return nbMembre;
+    }
+
+    public void setNbMembre(int nbMembre) {
+        this.nbMembre = nbMembre;
+    }
+
+    public Date getProchaineReunion() {
+        return prochaineReunion;
+    }
+
+    public void setProchaineReunion(Date prochaineReunion) {
+        this.prochaineReunion = prochaineReunion;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String uuid) {
+        this.id = uuid;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getFrequence() {
+        return frequence;
+    }
+
+    public void setFrequence(String frequence) {
+        this.frequence = frequence;
+    }
+
+    public String getJourReunion() {
+        return jourReunion;
+    }
+
+    public void setJourReunion(String jourReunion) {
+        this.jourReunion = jourReunion;
+    }
+}

@@ -57,7 +57,7 @@ public class User {
 
 	@Column(name = "CreationDate")
 	private LocalDateTime CreationDate;
-	
+
 	@OneToMany(mappedBy="user")
 	private List<Privilege> privilegelist = new ArrayList<Privilege>();
 

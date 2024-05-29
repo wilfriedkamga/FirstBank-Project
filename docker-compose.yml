@@ -10,6 +10,7 @@ services:
       MYSQL_PASSWORD: 'root'
     volumes:
       - ./data/mariadb:/docker-entrypoint-initdb.d
+      - ./data/mariadb_data:/var/lib/mysql
     ports:
       - "3306:3306"
     networks:
@@ -84,6 +85,37 @@ services:
       microservice_network:
         aliases:
           - notification_management
+          
+  operation_management:
+    build: ./operation_management
+    ports:
+      - "8082:8082"
+    depends_on:
+      - discovery
+      - api_gateway
+      - db
+    environment:
+      eureka.client.serviceUrl.defaultZone: http://theusername:thepassword@discovery:8761/eureka/
+    networks:
+      microservice_network:
+        aliases:
+          - operation_management      
+
+  savings_plan_management:
+    build: ./savings_plan_management
+    ports:
+      - "8085:8085"
+    depends_on:
+      - discovery
+      - api_gateway
+      - db
+    environment:
+      eureka.client.serviceUrl.defaultZone: http://theusername:thepassword@discovery:8761/eureka/
+    networks:
+      microservice_network:
+        aliases:
+          - savings_plan_management    
+   
           
    
   frontend:

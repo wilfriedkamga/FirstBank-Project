@@ -81,7 +81,17 @@ public class UserManagerController {
 		try{
 			response.setMessage("Success");
 			response.setResponseCode("0");
-			response.setData(usermanagerBus.signup(signupModel.getPhone(),signupModel.getFullname(),signupModel.getBirthDate(),signupModel.getGender(), signupModel.getPassword()));
+			usermanagerBus.signup(signupModel.getPhone(),signupModel.getFullname(),signupModel.getBirthDate(),signupModel.getGender(), signupModel.getPassword());
+
+			// Authentifier l'utilisateur
+
+			authenticate(signupModel.getPhone(), signupModel.getPassword());
+
+			final UserDetails userDetails = jwtInMemoryUserDetailsService
+					.loadUserByUsername(signupModel.getPhone());
+
+			final String token = jwtTokenUtil.generateToken(userDetails);
+			response.setData(new JwtResponse(token, usermanagerBus.getUserLoginDetails(signupModel.getPhone())));
 
 			return new ResponseEntity(response, HttpStatus.OK);
 
@@ -95,7 +105,7 @@ public class UserManagerController {
 	}
 	@PostMapping(value = "/userExist")
 	public ResponseEntity FindUser(@RequestBody UserExistModel userExistModel) throws Exception{
-
+        System.out.println(userExistModel.getPhone());
 		CommonResponseModel response = new CommonResponseModel();
 		boolean heExist=usermanagerBus.userExist(userExistModel.getPhone());
 
@@ -114,20 +124,22 @@ public class UserManagerController {
 
 	@PostMapping(value = "/sendSMS")
 	public ResponseEntity sendSMS(@RequestBody String phone,String message) throws Exception{
-
+        System.out.println(phone);
 		CommonResponseModel response = new CommonResponseModel();
 		boolean heExist=usermanagerBus.userExist(phone);
 
 		if(heExist){
 			response.setMessage("User Exist");
 			response.setResponseCode("0");
+            usermanagerBus.sendSmsToApi(phone,message);
 			return new ResponseEntity(response, HttpStatus.OK);
 		}
 		else{
 			response.setMessage("User not  Exist");
 			response.setResponseCode("1");
 			return new ResponseEntity<>(response, HttpStatus.OK);
-		}}
+		}
+	}
 		@PostMapping("/blockaccount")
 		public ResponseEntity blockAccount(@RequestBody UserExistModel userExistModel) {
 

@@ -16,7 +16,7 @@ public class NotificationManagerController{
 	@Autowired
 	INotificationManagerBus notificationmanagerBus;
 
-	@PostMapping(value = "/sendemail")
+	@PostMapping(value = "/sendSMS")
 	public ResponseEntity sendEmail(@RequestBody SendEmailModel sendEmailModel){
 
 		CommonResponseModel response = new CommonResponseModel();

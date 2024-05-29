@@ -1,23 +1,23 @@
 package com.TontineManagement.business;
 
 import com.TontineManagement.dao.entities.*;
-import com.TontineManagement.dao.model.ProfilModel;
-import com.TontineManagement.dao.model.UserLoginModel;
-import com.TontineManagement.dao.model.VerifyOTPModel;
+import com.TontineManagement.dao.model.*;
 import com.TontineManagement.dao.repositories.*;
+import org.hibernate.boot.model.naming.IllegalIdentifierException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.web.client.RestTemplate;
 
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Optional;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
-
-import static java.time.temporal.ChronoUnit.MINUTES;
 
 
 @Service
@@ -25,247 +25,251 @@ import static java.time.temporal.ChronoUnit.MINUTES;
 public class TontineManagerBus implements ITontineManagerBus {
 
 	@Autowired
-	UserRepository userRepository;
+	TontineRepository tontineRepository;
 
 	@Autowired
-	RoleRepository roleRepository;
+	DetteRepository detteRepository;
 
 	@Autowired
-	PrivilegeRepository privilegeRepository;
+	CotisationRepository cotisationRepository;
 
 	@Autowired
 	PasswordEncoder passwordEncoder;
 	@Autowired
-	ValidationRepository validationRepository;
+	CaisseRepository caisseRepository;
+	@Autowired
+	MembreTontineRepository membreTontineRepository;
+
+	@Autowired
+	MembresCaisseRepository membresCaisseRepository;
+
+	private static final Logger logger = LoggerFactory.getLogger(TontineManagerBus.class);
 
 	@Override
-	public User signin(String phone, String password) throws Exception {
-		Optional<User> user = userRepository.findByPhone(phone);
-		if (!user.isPresent())
-			throw new Exception("User or Password incorrect");
+	public Tontine creer(TontineModel tontineModel) throws Exception {
+		Tontine tontine =new Tontine();
+		tontine.setNom(tontineModel.getNom());
+		tontine.setDescription(tontineModel.getDescription());
+		tontine.setJourReunion(tontineModel.getJourReunion());
+		tontine.setFrequence(tontineModel.getFrequence());
+        tontine.setCreate_par(tontineModel.getCreate_par());
+		// Enregistrement de la tontine
+		Tontine savedTontine = tontineRepository.save(tontine);
 
-		if (!passwordEncoder.matches(password, user.get().getPassword()))
-			throw new Exception("User or Password incorrect");
+		// Création du premier membre de la tontine
+		MembreTontineModel membreTontineModel = new MembreTontineModel();
+		membreTontineModel.setNomU("Nouveau");
+		membreTontineModel.setCreate_par(tontineModel.getCreate_par());
+		membreTontineModel.setId_utiliateur(tontineModel.getCreate_par());
+		membreTontineModel.setRole("ADMIN"); // ou tout autre rôle approprié
+		membreTontineModel.setId_tontine(savedTontine.getId());
 
-		return user.get();
-	}
+		addMembresTontine(membreTontineModel);
 
-	@Override
-	public User signup(String phone, String fullname, LocalDate birthDate, String gender, String password) throws Exception {
-		Optional<User> user = userRepository.findByPhone(phone);
-		if (user.isPresent())
-			throw new Exception("User already exists");
-
-		User obj = new User();
-		obj.setPhone(phone);
-		obj.setFullName(fullname);
-		obj.setBirthDate(birthDate);
-		obj.setCreationDate(LocalDateTime.now());
-		obj.setGender(gender);
-		obj.setPassword(passwordEncoder.encode(password));
-        User user1=userRepository.save(obj);
-        VerifyAccount(phone);
-		return user1;
-	}
-
-	@Override
-	public UserLoginModel getUserLoginDetails(String phone) {
-		Optional<User> optionalUser = userRepository.findByPhone(phone);
-
-		UserLoginModel userLoginModel = null;
-
-		if (optionalUser.isPresent()) {
-			User user = optionalUser.get();
-
-			userLoginModel = new UserLoginModel(user.getPhone(), user.getFullName(), user.getBirthDate()
-					, user.getGender(), user.getPassword(), user.getEmail(), user.getIdCardImage(), user.getPhoto(), user.getPrivilegelist().stream().map(x -> x.getRole()).map(x -> x.getRoleName()).collect(Collectors.toList()));
-		}
-
-		return userLoginModel;
+		return savedTontine;
 	}
 
 	@Override
-	public boolean userExist(String phone) throws Exception {
-		Optional<User> optionalUser = userRepository.findByPhone(phone);
+	public Tontine deleteTontine(String IdTontine) throws Exception {
+		Optional<Tontine> tontine=tontineRepository.findById(IdTontine);
 
-		if (optionalUser.isPresent())
-			return true;
-		else return false;
+		if(!tontine.isPresent()) throw new IllegalArgumentException("Incorrect id");
+		else{ tontineRepository.deleteById(IdTontine);}
+		return tontine.get();
 	}
 
 	@Override
-	public User activateAccount(String phone) {
-		Optional<User> user = userRepository.findByPhone(phone);
-		if (!user.isPresent()) {
-			throw new IllegalArgumentException("User not found with phone number: " + phone);
+	public List<Tontine> getAllTontines(String phoneNumber) throws Exception {
+		// Récupérer toutes les occurrences de membreTontine par l'idutiliateur (le téléphone)
+		List<MembresTontine> membreTontineList = membreTontineRepository.findByIdutiliateur(phoneNumber);
+
+		// Initialiser la liste de tontines à retourner
+		List<Tontine> tontineList = new ArrayList<>();
+
+		// Pour chaque membreTontine, récupérer l'ID de la tontine et obtenir la tontine correspondante
+		for (MembresTontine membreTontine : membreTontineList) {
+			String idTontine = membreTontine.getId_tontine();
+			Tontine tontine = tontineRepository.findById(idTontine)
+					.orElseThrow(() -> new Exception("Tontine not found with id: " + idTontine));
+			tontineList.add(tontine);
 		}
 
-		User user1 = user.get();
-		user1.setActivated(true);
-		User updatedUser = userRepository.save(user1);
-		return updatedUser;
+		return tontineList;
 	}
 
 	@Override
-	public Validation VerifyAccount(String phone) {
-		Optional<User> user = userRepository.findByPhone(phone);
-		if (!user.isPresent()) {
-			throw new IllegalArgumentException("User not found with phone number: " + phone);
+	public List<Caisse> getAllCaisses(String idTontine) throws Exception {
+
+		boolean tontineExists = tontineRepository.existsById(idTontine);
+		if (!tontineExists) {
+			throw new IllegalArgumentException("Tontine with ID " + idTontine + " not found.");
 		}
-		User user1 = user.get();
-		// Send otp code to user
-		return enregistrer(user1);
+
+		return caisseRepository.findByTontineId(idTontine);
+
+
 	}
 
 	@Override
-	public User VerifyOTP(VerifyOTPModel verifyOTPModel) {
-		Optional<User> user = userRepository.findByPhone(verifyOTPModel.getPhone());
-		if (!user.isPresent()) {
-			throw new IllegalArgumentException("User not found with phone number: " + verifyOTPModel.getPhone());
-		}
+	public List<MembresCaisse> getAllMembreCaisse(String idCaisse) throws Exception {
 
-		Optional<Validation> validation=validationRepository.findByPhone(verifyOTPModel.getPhone());
-		if (!validation.isPresent()) {
-			throw new IllegalArgumentException("This code don't exist: " + verifyOTPModel.getPhone());
+		boolean CaisseExists = caisseRepository.existsById(idCaisse);
+		if (!CaisseExists) {
+			throw new IllegalArgumentException("Caisse with ID " + idCaisse + " not found.");
 		}
-        if(! validation.get().getCode().equals(verifyOTPModel.getCode())){
-        	throw new IllegalArgumentException("verification failed: Your code is " + verifyOTPModel.getCode() +"The correct code is: "+validation.get().getCode());
-		}
-		if(validation.get().getExpiration().isBefore(Instant.now())){
-			throw new IllegalArgumentException("Delay Depasses " + verifyOTPModel.getCode());
-		}
+		List<MembresCaisse> allMembres = getAll_in_MembresCaisse();
 
-		activateAccount(verifyOTPModel.getPhone());
-		Optional<User> user1 = userRepository.findByPhone(verifyOTPModel.getPhone());
-		return user1.get();
+		return allMembres.stream()
+				.filter(membre -> idCaisse.equals(membre.getId_caisse()))
+				.collect(Collectors.toList());
 	}
 
 	@Override
-	public User disActivateAccount(String phone) {
-		Optional<User> user = userRepository.findByPhone(phone);
-		if (!user.isPresent()) {
-			throw new IllegalArgumentException("User not found with phone number: " + phone);
+	public List<MembresTontine> getAllMembreTontine(String idTontine) throws Exception {
+
+		Optional<Tontine> tontine = tontineRepository.findById(idTontine);
+		if (tontine.isEmpty()) {
+			throw new IllegalArgumentException("Tontine with ID " + idTontine + " not found.");
 		}
 
-		User user1 = user.get();
-		user1.setActivated(false);
-		User updatedUser = userRepository.save(user1);
-		return updatedUser;
+		List<MembresTontine> allMembres = getAll_in_MembresTontine();
+
+		return allMembres.stream()
+				.filter(membre -> idTontine.equals(membre.getId_tontine()))
+				.collect(Collectors.toList());
+	}
+
+
+
+	public List<MembresCaisse> getAll_in_MembresCaisse() {
+		return membresCaisseRepository.findAll();
+	}
+
+	public List<MembresTontine> getAll_in_MembresTontine() {
+		return membreTontineRepository.findAll();
 	}
 
 	@Override
-	public User blockAccount(String phone) {
-		Optional<User> user = userRepository.findByPhone(phone);
-		if (!user.isPresent()) {
-			throw new IllegalArgumentException("User not found with phone number: " + phone);
-		}
+	public MembresTontine addMembresTontine(MembreTontineModel membreTontineModel) throws Exception{
 
+		// Verifier l'existence de l'utiliateur qui est inscrit dans
 
-		User user1 = user.get();
+		// Verification de l'existence de la tontine
+		Optional<Tontine> tontine=tontineRepository.findById(membreTontineModel.getId_tontine());
+		if(tontine.isEmpty()) throw  new IllegalArgumentException("Cette tontine n'existe pas");
 
-		user1.setBlocked(true);
-		User updatedUser = userRepository.save(user1);
-		return updatedUser;
+		// Verifier l'existence de celui qui inscrit et de son role
+		//Optional<MembresTontine> membre=membreTontineRepository.findById_utiliateur(membreTontineModel.getId_utiliateur());
+        //if(membre.isEmpty() /*|| membre.get().getRole()!="ADMIN"*/)throw new IllegalArgumentException("Cett utilisateur n'existe pas ou n'a pas le droit d'ajouter un -mbembre");
+
+        // On incrémente le nombre de membres de cette tontine
+        Tontine tontine1=tontine.get();
+        tontine1.setNbMembre(tontine1.getNbMembre()+1);
+        tontineRepository.save(tontine1);
+
+        // On cree le nouveau membre dans membre_tontine
+		MembresTontine membresTontine=new MembresTontine();
+		membresTontine.setNomUtilisateur(membreTontineModel.getNomU());
+		membresTontine.setCreer_par(membreTontineModel.getCreate_par());
+		membresTontine.setId_utiliateur(membreTontineModel.getIdutiliateur());
+		membresTontine.setRole(membreTontineModel.getRole());
+		membresTontine.setId_tontine(membreTontineModel.getId_tontine());
+
+		return membreTontineRepository.save(membresTontine);
 	}
 
 	@Override
-	public User disBlockAccount(String phone) {
-		Optional<User> user = userRepository.findByPhone(phone);
-		if (!user.isPresent()) {
-			throw new IllegalArgumentException("User not found with phone number: " + phone);
-		}
+	public MembresCaisse addMembresCaisse(MembreCaisseModel membreCaisseModel) throws Exception{
 
-		User user1 = user.get();
-		user1.setBlocked(false);
-		User updatedUser = userRepository.save(user1);
-		return updatedUser;
+		// Verification de l'existence de la caisse
+
+		Optional<Caisse> caisse=caisseRepository.findById(membreCaisseModel.getId_caisse());
+		if(caisse.isEmpty()) throw  new IllegalArgumentException("Cette caisse n'existe pas");
+
+		// Verifier l'existence de celui qui inscrit et de son role
+		//Optional<MembresTontine> membre=membreTontineRepository.findById_utiliateur(membreTontineModel.getId_utiliateur());
+		//if(membre.isEmpty() /*|| membre.get().getRole()!="ADMIN"*/)throw new IllegalArgumentException("Cett utilisateur n'existe pas ou n'a pas le droit d'ajouter un -mbembre");
+
+		// On incrémente le nombre de membres de cette caisse
+		Caisse caisse1=caisse.get();
+		caisse1.setNbMembres(caisse1.getNbMembres()+1);
+		caisseRepository.save(caisse1);
+
+		// verifier qu'il est membre de la tontine
+		List<MembresTontine> membresTontine=membreTontineRepository.findByIdutiliateur(membreCaisseModel.getIdutiliateur());
+
+		// On cree le nouveau membre dans membre_caisse
+		MembresCaisse membresCaisse=new MembresCaisse();
+		membresCaisse.setNomUtilisateur(membreCaisseModel.getNomUtilisateur());
+		membresCaisse.setCreer_par(membreCaisseModel.getCreer_par());
+		membresCaisse.setIdutiliateur(membreCaisseModel.getIdutiliateur());
+		membresCaisse.setRole(membreCaisseModel.getRole());
+		membresCaisse.setId_caisse(membreCaisseModel.getId_caisse());
+
+		return membresCaisseRepository.save(membresCaisse);
 	}
+
+
 
 	@Override
-	public User updateProfil(ProfilModel updateProfil) {
-		Optional<User> user = userRepository.findByPhone(updateProfil.getPhone());
-		if (!user.isPresent()) {
-			throw new IllegalArgumentException("User not found with phone number: " + updateProfil.getPhone());
-		}
+	public Caisse createCaisse(CaisseModel caisseModel) throws Exception {
+		Optional<Tontine> optionalTontine = tontineRepository.findById(caisseModel.getTontine_id());
+		if (optionalTontine.isEmpty())
+			throw new IllegalIdentifierException("Cette tontine n'existe pas");
 
-		User user1 = user.get();
-		if(!(updateProfil.getFullName()==null))
-		user1.setFullName(updateProfil.getFullName());
+			Tontine tontine = optionalTontine.get();
+            int nb=tontine.getNbCaisse();
+			Caisse caisse=new Caisse();
+			// verification de l'unicite
+		    boolean verificateur=true;
 
-        if(!(updateProfil.getBirthDate()==null))
-		user1.setBirthDate(updateProfil.getBirthDate());
+			while(verificateur){
+				Optional<Caisse> optionalCaisse=caisseRepository.findById(caisse.getId());
+				if(optionalCaisse.isPresent()) {caisse=new Caisse();}
+				else{verificateur=false;}
+			}
 
-        if(!(updateProfil.getGender()==null))
-		user1.setGender(updateProfil.getGender());
+			caisse.setNom(caisseModel.getNom());
+			caisse.setDescription(caisseModel.getDescription());
+			caisse.setType(caisseModel.getType());
+			caisse.setCreerPar(caisseModel.getCreerPar());
+			caisse.setTontine(tontine);
+			caisse.setMontant(caisseModel.getMontant());
+			caisse.setNbMembres(0);
 
-        if(!(updateProfil.getEmail()==null))
-		user1.setEmail(updateProfil.getEmail());
-
-        if(!(updateProfil.getIdCardImage()==null))
-		user1.setIdCardImage(updateProfil.getIdCardImage());
-
-        if(!(updateProfil.getIdCardExpirationDate()==null))
-		user1.setIdCardExpirationDate(updateProfil.getIdCardExpirationDate());
-
-        if(!(updateProfil.getSignature()==null))
-		user1.setSignature(updateProfil.getSignature());
-
-        if(!(updateProfil.getPhoto()==null))
-		user1.setPhoto(updateProfil.getPhoto());
-
-        if(!(updateProfil.getNewPhone()==null))
-		user1.setPhone(updateProfil.getNewPhone());
-
-        if(!(updateProfil.getPassword()==null))
-		user1.setPassword(passwordEncoder.encode(updateProfil.getPassword()));
+			// Ajout du premier membre de la caisse
+		MembreCaisseModel membreCaisseModel = new MembreCaisseModel();
+		membreCaisseModel.setNomUtilisateur(caisseModel.getCreerPar());
+		membreCaisseModel.setCreer_par(caisseModel.getCreerPar());
+		membreCaisseModel.setIdutiliateur(caisseModel.getCreerPar());
+		membreCaisseModel.setRole("ADMIN"); // ou tout autre rôle approprié
+		membreCaisseModel.setId_caisse(caisse.getId());
 
 
-		User updatedUser = userRepository.save(user1);
-		return updatedUser;
+
+		tontineRepository.save(tontine);
+
+		Caisse savedCaisse = caisseRepository.save(caisse);
+
+		addMembresCaisse(membreCaisseModel);
+
+		return savedCaisse;
 	}
-
-	@Override
-	public Validation enregistrer(User user) {
-		Validation validation = new Validation();
-		Instant creation=Instant.now();
-		Instant expiration=creation.plus(2,MINUTES);
-		validation.setUser(user);
-		String code="12345";//OTPGenerator(5);
-        validation.setPhone(user.getPhone());
-		validation.setCode(code);
-		String message="YOur activation code is: "+ code;
-		validation.setMessage(message);
-
-		Optional<Validation> validation1=validationRepository.findByPhone(user.getPhone());
-
-		if(validation1.isPresent()){
-			System.out.println(validation1.get().getId()+"  "+validation1.get().getPhone());
-			validationRepository.deleteByPhone(user.getPhone());
+	public List<CaisseDetails> convertToCaisseDetails(List<Caisse> caisses) {
+		List<CaisseDetails> caisseDetailsList = new ArrayList<>();
+		for (Caisse caisse : caisses) {
+			CaisseDetails details = new CaisseDetails();
+			details.setNom(caisse.getNom());
+			details.setType(caisse.getType());
+			details.setDescription(caisse.getDescription());
+			details.setCreerPar(caisse.getCreerPar());
+			details.setTontine_id(caisse.getTontine().getId());
+			details.setNbMembres(caisse.getNbMembres());
+			details.setDateCreation(caisse.getDateCreation());
+			details.setMontant(caisse.getMontant());
+			caisseDetailsList.add(details);
 		}
-        validationRepository.save(validation);
-		// Envoyer le message message a user.getPhone().
-
-		return validation;
+		return caisseDetailsList;
 	}
-
-	public  String OTPGenerator(int nbdigit) {
-		if (nbdigit <= 0) {
-			throw new IllegalArgumentException("Le nombre de chiffres doit être supérieur à zéro.");
-		}
-
-		Random random = new Random();
-		StringBuilder otp = new StringBuilder();
-
-		for (int i = 0; i < nbdigit; i++) {
-			int digit = random.nextInt(10); // Génère un chiffre aléatoire entre 0 et 9
-			otp.append(digit);
-		}
-
-		return otp.toString();
-	}
-
-
-
-
-
 }
+

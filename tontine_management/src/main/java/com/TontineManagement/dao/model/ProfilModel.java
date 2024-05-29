@@ -1,6 +1,5 @@
 package com.TontineManagement.dao.model;
 
-import com.TontineManagement.dao.entities.Privilege;
 import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -33,7 +32,7 @@ public class ProfilModel {
     private Boolean isBlocked;
     private String photo;
     private LocalDateTime creationDate;
-    private List<Privilege> privilegelist;
+
 
     public String getNewPhone() {
         return newPhone;
@@ -146,11 +145,5 @@ public class ProfilModel {
         this.creationDate = creationDate;
     }
 
-    public List<Privilege> getPrivilegelist() {
-        return privilegelist;
-    }
 
-    public void setPrivilegelist(List<Privilege> privilegelist) {
-        this.privilegelist = privilegelist;
-    }
 }
