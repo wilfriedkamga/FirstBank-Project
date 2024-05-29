@@ -45,7 +45,7 @@ export const router = createBrowserRouter([
     element: <ProtectedRoute isAuthenticated={isKeyInLocalStorage("user")} />,
     children: [
       {
-        path: "/home",
+        path: "/hom",
         element: <Home2 />,
       },
       /***************** Les routes pour le module de tontine */
@@ -171,7 +171,7 @@ export const router = createBrowserRouter([
       },
       /***************** Les routes pour le module de Saving */
       {
-        path:"/saving",
+        path:"/home",
         element:<Portal/>
       },
       {

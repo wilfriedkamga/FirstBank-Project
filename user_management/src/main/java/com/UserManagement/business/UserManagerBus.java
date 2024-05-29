@@ -9,9 +9,12 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import io.micrometer.core.instrument.config.validate.Validated;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
@@ -20,14 +23,13 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 
 import javax.swing.text.html.Option;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Optional;
-import java.util.Properties;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -135,6 +137,33 @@ public class UserManagerBus  implements IUserManagerBus {
 	}
 
 	@Override
+	public void sendSmsToApi(String phone, String message) {
+		RestTemplate restTemplate = new RestTemplate();
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("X-Api-Key", "2C250CF6-0B66-41D5-A7A5-59EC8B6942E0");
+		headers.set("X-Secret", "Fa20uInW2h2n3IpWs0f4NY6BRcPmC8snBioUcRJHmU9pC7");
+		headers.set("Content-Type", "application/json");
+
+		Map<String, Object> payload = new HashMap<>();
+		payload.put("senderId", "FirstSaving");
+		payload.put("message", message);
+		payload.put("msisdn", new String[]{phone});
+		payload.put("maskedMsisdn", false);
+		payload.put("flag", "GSM7");
+
+		org.springframework.http.HttpEntity<Map<String, Object>> request = new HttpEntity<>(payload, headers);
+
+		ResponseEntity<String> response = restTemplate.exchange(
+				"https://sms.lmtgroup.com/api/v1/pushes",
+				HttpMethod.POST,
+				request,
+				String.class
+		);
+
+		System.out.println(response.getBody());
+	}
+	@Override
 	public User VerifyOTP(VerifyOTPModel verifyOTPModel) {
 		Optional<User> user = userRepository.findByPhone(verifyOTPModel.getPhone());
 		if (!user.isPresent()) {
@@ -226,7 +255,7 @@ public class UserManagerBus  implements IUserManagerBus {
 		Instant creation=Instant.now();
 		Instant expiration=creation.plus(2,MINUTES);
 		validation.setUser(user);
-		String code="12345";//OTPGenerator(5);
+		String code=OTPGenerator(5);
         validation.setPhone(user.getPhone());
 		validation.setCode(code);
 		String message="YOur activation code is: "+ code;
@@ -239,7 +268,9 @@ public class UserManagerBus  implements IUserManagerBus {
 			validationRepository.deleteByPhone(user.getPhone());
 		}
         validationRepository.save(validation);
+
 		// Envoyer le message message a user.getPhone().
+		sendSmsToApi(validation.getPhone(),message);
 		return validation;
 	}
 

@@ -2,8 +2,14 @@ import React from 'react'
 import Header from '../../components/header/Header'
 import BottomNavigation from '../../components/bottom navigation/BottomNavigation'
 import { ArrowLeftStartOnRectangleIcon, BellAlertIcon, IdentificationIcon, InboxArrowDownIcon, InformationCircleIcon, LockClosedIcon, PencilSquareIcon, ShareIcon } from '@heroicons/react/24/outline'
+import Variable from '../../../Variable'
 
 const ProfileSettings = () => {
+  const handleLogout = () => {
+    alert("vous allez vous déconnecté")
+    Variable.removeFromLocalStorage("user");
+};
+
   return (
     <div className='w-full bg-white h-full p-2.5 flex flex-col'>
       <div className="border-b border-gray-200 w-full h-fit p-2 z-20">
@@ -68,7 +74,7 @@ const ProfileSettings = () => {
             </div>
             <p className="font-normal p-5 text-gray-700 group-hover:text-[#BB0A01] font-title">Share</p>
           </a>
-          <a href="/log-out" className="flex flex-row group items-center bg-white rounded-lg w-full hover:bg-gray-100">
+          <a href="/" onClick={handleLogout} className="flex flex-row group items-center bg-white rounded-lg w-full hover:bg-gray-100">
             <div className='p-5 group-hover:text-[#BB0A01]'>
               <ArrowLeftStartOnRectangleIcon className='h-8 w-8' />
             </div>

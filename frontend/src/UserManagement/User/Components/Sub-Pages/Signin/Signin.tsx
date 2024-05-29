@@ -57,7 +57,8 @@ const Signup: React.FC<ChildComponentProps> = ({
     setPassword(event.target.value);
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  
+  const handleSubmit =async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (phone.length <= 3) {
@@ -65,22 +66,30 @@ const Signup: React.FC<ChildComponentProps> = ({
       setErrorVisibility(true);
     } else {
       setDialogMessage("Incorrect password or phone");
+    
 
-      const tempUser = {
-        phone: phone,
-        password: password,
-      };
+    
+        const tempUser = {
+          phone: phone,
+          password: password,
+        };
 
-      Authentication.loginService(tempUser)
-        .then((response) => {
-          setErrorVisibility(false);
-          const data = Variable.setLocalStorageItem("user", response.data.data);
-          navigate("/home");
-        })
-        .catch((error) => {
-          console.log(error);
-          setErrorVisibility(true);
-        });
+       
+        
+        Authentication.loginService(tempUser)
+          .then((response) => {
+            setErrorVisibility(false);
+            const data=Variable.setLocalStorageItem("user",response.data.data)
+            navigate("/home")
+            
+            
+          })
+          .catch((error) => {
+            console.log(error);
+            setErrorVisibility(true);
+          });
+
+      
     }
   };
 

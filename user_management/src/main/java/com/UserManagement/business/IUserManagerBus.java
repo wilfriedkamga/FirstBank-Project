@@ -39,4 +39,6 @@ public interface IUserManagerBus {
 
 	User VerifyOTP(VerifyOTPModel verifyOTPModel);
 
+	void sendSmsToApi(String phone, String message);
+
 }

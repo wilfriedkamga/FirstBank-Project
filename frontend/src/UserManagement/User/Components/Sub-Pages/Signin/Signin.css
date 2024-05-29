@@ -1,0 +1,9 @@
+.phone-input {
+  /* Style du conteneur du PhoneInput */
+  background-color: #a92e2e;
+}
+
+.phone-input-input {
+  /* Style de l'input du PhoneInput */
+  background-color: #a92e2e; /* Changez cette valeur en fonction de votre choix de couleur de fond */
+}

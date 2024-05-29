@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import BottomNavigation from '../../components/bottom navigation/BottomNavigation'
 import Header from '../../components/header/Header'
 import AccountBalanceBox from '../../components/accountBalance/AccountBalanceBox';
@@ -6,8 +6,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCoins, faHandHoldingUsd, faHeadset, faPeopleGroup, faPiggyBank, faComment } from '@fortawesome/free-solid-svg-icons';
 import RecentTontine from '../../components/recentTontine/RecentTontine';
 import { Link } from 'react-router-dom';
+import Variable from '../../../Variable';
 
 const Portal = () => {
+  useEffect(()=>{
+    const user=Variable.getLocalStorageItem('user')
+    console.log(user.user.fullName)
+  })
   return (
     <div className='w-full bg-white h-full p-2 flex flex-col'>
       <div className="border-b border-gray-200 w-full h-fit p-2 z-20">
@@ -36,13 +41,13 @@ const Portal = () => {
           <h3 className='font-title font-semibold text-[#0C1013] text-md'>Tontine App Services</h3>
         </div>
         <div className="flex flex-row w-full justify-start space-x-6 md:space-x-24">
-          <Link to="/tontine/app/tontine/new" className='w-18 justify-center'>
+          <Link to="/tontine/mestontines" className='w-18 justify-center'>
             <div className="rounded-lg h-16 w-16 mb-1 mx-5 md:h-24 md:w-24 p-2.5 md:p-3.5">
               <FontAwesomeIcon icon={faPeopleGroup} size='lg' className="text-[#0C1013] bg-gray-400 rounded-full md:p-5 p-2.5" />
             </div>
             <span className='font-account text-center block'>Create a Tontine</span>
           </Link>
-          <Link to="/tontine/app/contribute/fund" className='w-18 ml-3 justify-center'>
+          <Link to="/tontine/mestontines" className='w-18 ml-3 justify-center'>
             <div className="rounded-lg h-16 w-16 mb-1 mx-5 md:h-24 md:w-24 p-2.5 md:p-3.5">
               <FontAwesomeIcon icon={faCoins} size='lg' className="text-[#0C1013] bg-gray-400 rounded-full md:p-5 p-2.5" />
             </div>

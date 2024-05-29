@@ -5,17 +5,18 @@ import com.TontineManagement.dao.model.*;
 import com.TontineManagement.dao.repositories.*;
 import org.hibernate.boot.model.naming.IllegalIdentifierException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -207,6 +208,8 @@ public class TontineManagerBus implements ITontineManagerBus {
 
 		return membresCaisseRepository.save(membresCaisse);
 	}
+
+
 
 	@Override
 	public Caisse createCaisse(CaisseModel caisseModel) throws Exception {

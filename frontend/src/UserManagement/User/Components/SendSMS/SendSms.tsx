@@ -1,33 +1,26 @@
 import axios from "axios";
 import Variable from "../../../../Variable";
 
-export default function sendSMS(message: string, recipientNumber: string) {
+export default async function sendSms(message: string, recipientNumbers: string[]) {
   try {
     const headers = {
-      Authorization:
-        "App c9ecf0786292a16fa8671605d96bc296-bc6da9b6-907c-4328-9e2a-d0601b55ffd4",
+      "X-Api-Key": "2C250CF6-0B66-41D5-A7A5-59EC8B6942E0",
+      "X-Secret": "Fa20uInW2h2n3IpWs0f4NY6BRcPmC8snBioUcRJHmU9pC7",
       "Content-Type": "application/json",
-      Accept: "application/json",
     };
 
     const payload = {
-      messages: [
-        {
-          destinations: [{ to: recipientNumber }],
-          from: "ServiceSMS",
-          text: message,
-        },
-      ],
+      senderId: "FirstSaving",
+      message: message,
+      msisdn: recipientNumbers,
+      maskedMsisdn: false,
+      flag: "GSM7",
     };
 
-    const route = Variable.pathSmsAPI;
+    const route = Variable.pathSmsAPI || "https://sms.lmtgroup.com/api/v1/pushes";
 
-    const response = axios.post(
-      "https://9lmmqr.api.infobip.com/sms/2/text/advanced",
-      payload,
-      { headers }
-    );
-    console.log(response);
+    const response = await axios.post(route, payload, { headers });
+    console.log(response.data);
   } catch (error) {
     console.error(error);
   }

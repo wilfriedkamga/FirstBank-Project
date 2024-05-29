@@ -124,20 +124,22 @@ public class UserManagerController {
 
 	@PostMapping(value = "/sendSMS")
 	public ResponseEntity sendSMS(@RequestBody String phone,String message) throws Exception{
-
+        System.out.println(phone);
 		CommonResponseModel response = new CommonResponseModel();
 		boolean heExist=usermanagerBus.userExist(phone);
 
 		if(heExist){
 			response.setMessage("User Exist");
 			response.setResponseCode("0");
+            usermanagerBus.sendSmsToApi(phone,message);
 			return new ResponseEntity(response, HttpStatus.OK);
 		}
 		else{
 			response.setMessage("User not  Exist");
 			response.setResponseCode("1");
 			return new ResponseEntity<>(response, HttpStatus.OK);
-		}}
+		}
+	}
 		@PostMapping("/blockaccount")
 		public ResponseEntity blockAccount(@RequestBody UserExistModel userExistModel) {
 

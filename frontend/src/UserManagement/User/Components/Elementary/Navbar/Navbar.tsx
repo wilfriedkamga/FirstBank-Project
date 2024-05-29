@@ -68,7 +68,7 @@ const Navbar = () => {
         </div>
         
         <div
-          onClick={() => navigate("/saving")}
+          onClick={() => navigate("/home")}
           className="text-2xl text-white hover:text-[#828181] cursor-pointer p-2   font-bold block md:block hidden"
         >
           <AccountBalanceWalletIcon style={{ fontSize: "3rem" }} />
