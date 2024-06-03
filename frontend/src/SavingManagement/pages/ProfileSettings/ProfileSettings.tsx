@@ -93,7 +93,7 @@ const ProfileSettings = () => {
               <UserAvatar dropdownVisibility={false} />
             </div>
           ) : (
-            <div className="w-[60px] ml-4 flex justify-center items-center font-bold h-[60px] rounded-full text-white bg-[#828181] cursor-pointer">
+            <div className="w-[60px] ml-4 flex justify-center text-3xl items-center font-bold h-[60px] rounded-full text-white bg-[#828181] cursor-pointer">
               {getInitials(user.user.fullName)}
             </div>
           )}
@@ -102,7 +102,7 @@ const ProfileSettings = () => {
             <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">
               {user.user.fullName}
             </h5>
-            <p className="mb-3 font-normal text-gray-700">Utilisteur normal</p>
+            <p className="mb-3 font-normal text-gray-700">Simple utilisateur</p>
           </div>
           <div>
              

@@ -6,7 +6,7 @@ const route_verify_password = Variable.routeApi + "api/usermanagement/testPasswo
 const route_update_profil = Variable.routeApi + "api/usermanagement/updateprofil";
 const route_update_send_mailOtp = Variable.routeApi + "api/usermanagement/SendOtpMail";
 const route_verfy_mail_otp=Variable.routeApi +"api/usermanagement/verifyOTPMail"
-const route_upload_file=Variable.routeApi+"api/usermangement/uploadFile"
+const route_upload_file=Variable.routeApi+"api/usermanagement/uploadFile"
 
 
 type TLoginModel = {

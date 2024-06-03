@@ -96,6 +96,7 @@ const EditProfil = () => {
           fullName: nom,
           gender: gender,
           birthDate: birthDate,
+          emailIsVallid:mail?false:true
         };
         Variable.setLocalStorageItem("user", { user: updatedUser });
         alert("succèss");

@@ -3,6 +3,7 @@ import Header from "../../components/header/Header";
 import { useNavigate } from "react-router-dom";
 import Variable from "../../../Variable";
 import Authentications from "../../../Services/Authentications";
+import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 
 const EmailVerification = () => {
     const navigate=useNavigate()
@@ -17,7 +18,14 @@ const EmailVerification = () => {
      e.preventDefault()
      Authentications.VerifyMailOtp(mail,inputOtp)
      .then((response)=>{
-        alert("Success de la vérification")
+        const user = Variable.getLocalStorageItem("user");
+        const updatedUser = {
+          ...user.user,
+          emailIsVallid: true,
+          mail:mail
+        };
+        Variable.setLocalStorageItem("user", { user: updatedUser });
+        alert("succèss");
 
      })
      .then((error)=>{
@@ -38,14 +46,14 @@ const EmailVerification = () => {
                   className="bg-green-400 px-2 rounded-lg "
                   onClick={() => navigate("/settings")}
                 >
-                  back
+                  <KeyboardBackspaceIcon style={{ fontSize: "3rem" }} />
                 </button>
               </div>
               <div className=" bg-white w-full flex justify-center items-center  shadow h-[10vh]">
                 Vérification de l'adresse mail
               </div>
             </div>
-            <div className="flex flex-col bg-white mt-2 rounded-lg mb-2 mx-auto w-full md:w-2/5 p-2 md:p-5 shadow-lg border h-full">
+            <div className="flex flex-col font-semibold bg-white mt-2 rounded-lg mb-2 mx-auto w-full md:w-2/5 p-2 md:p-5 shadow-lg border h-full">
               <div className="flex w-full flex-col  ">
                 <label className="block mb-2 text-sm mt-3 ">
                   Entrez le code otp que vous avez reçu

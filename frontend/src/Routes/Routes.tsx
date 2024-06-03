@@ -22,15 +22,11 @@ import Portal from "../SavingManagement/pages/dashboard/Portal";
 import ProfileSettings from "../SavingManagement/pages/ProfileSettings/ProfileSettings";
 import Notifications from "../SavingManagement/pages/nootifications/Notifications";
 import Search from "../SavingManagement/pages/search/Search";
-import SavingsDash from "../SavingManagement/pages/savingsApp/dashboard/SavingsDash";
-import CreatePlan from "../SavingManagement/pages/savingsApp/plan/CreatePlan";
 import EditProfil from "../SavingManagement/pages/ProfileSettings/EditProfil";
 import ModifyPassword from "../SavingManagement/pages/ProfileSettings/ModifyPassword";
 import AddCNI from "../SavingManagement/pages/ProfileSettings/AddCNI";
 import ChangePhone from "../SavingManagement/pages/ProfileSettings/ChangePhone";
 import EmailVerification from "../SavingManagement/pages/ProfileSettings/EmailVerification";
-
-
 
 const isKeyInLocalStorage = (key: string): boolean => {
   const token = localStorage.getItem(key);
@@ -212,17 +208,10 @@ export const router = createBrowserRouter([
         element: <Search />,
       },
       {
-        path: "/savings",
-        element: <SavingsDash />,
-      },
-      {
-        path: "/newPlan",
-        element: <CreatePlan />,
-      },
-      {
         path: "/verifyEmail",
-        element: <EmailVerification/>,
+        element: <EmailVerification />,
       },
+
     ],
   },
 ]);

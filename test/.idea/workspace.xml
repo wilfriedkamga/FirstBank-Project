@@ -2,77 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4e6f8fda-6e54-4bd1-88b4-06259e8ed402" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/UploadFileModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../user_management/.idea/libraries/Maven__com_sun_mail_javax_mail_1_6_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../user_management/.idea/libraries/Maven__javax_activation_activation_1_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../user_management/src/main/java/com/UserManagement/dao/entities/Validation_Email.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../user_management/src/main/java/com/UserManagement/dao/model/SendOtpMailModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../user_management/src/main/java/com/UserManagement/dao/model/UploadFileModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../user_management/src/main/java/com/UserManagement/dao/model/VerifyOtpMailModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../user_management/src/main/java/com/UserManagement/dao/repositories/ValidationEmailRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/src/SavingManagement/components/user profile card/UserProfileCard.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/Routes/Routes.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/Routes/Routes.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/SavingManagement/components/accountBalance/AccountBalanceBox.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/SavingManagement/components/accountBalance/AccountBalanceBox.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/SavingManagement/components/header/Header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/SavingManagement/components/header/Header.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/SavingManagement/pages/ProfileSettings/EmailVerification.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/SavingManagement/pages/ProfileSettings/EmailVerification.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/SavingManagement/pages/ProfileSettings/ProfileSettings.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/SavingManagement/pages/ProfileSettings/ProfileSettings.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/SavingManagement/pages/dashboard/Portal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/SavingManagement/pages/dashboard/Portal.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/Services/Authentications.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/Services/Authentications.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/Services/TontinesServices.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/Services/TontinesServices.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/UserManagement/User/Components/Elementary/MesTontines/AddTontine.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/UserManagement/User/Components/Elementary/MesTontines/AddTontine.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/UserManagement/User/Components/Elementary/MesTontines/BoardView.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/UserManagement/User/Components/Elementary/MesTontines/BoardView.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/UserManagement/User/Components/Elementary/MesTontines/TontineCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/UserManagement/User/Components/Elementary/MesTontines/TontineCard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/UserManagement/User/Components/Elementary/Navbar/Navbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/UserManagement/User/Components/Elementary/Navbar/Navbar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/UserManagement/User/Components/Elementary/Navbar/UserAvatar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/UserManagement/User/Components/Elementary/Navbar/UserAvatar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/UserManagement/User/Components/Sub-Pages/Signup2/Signup2.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/UserManagement/User/Components/Sub-Pages/Signup2/Signup2.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/UserManagement/User/Components/Sub-Pages/Signup2/Signup3.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/UserManagement/User/Components/Sub-Pages/Signup2/Signup3.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/UserManagement/User/Pages/Authentification/Authentification.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/UserManagement/User/Pages/Authentification/Authentification.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/UserManagement/User/Pages/TontineHomePage/TontineHomePage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/UserManagement/User/Pages/TontineHomePage/TontineHomePage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../tontine_management/src/main/java/com/TontineManagement/business/TontineManagerBus.java" beforeDir="false" afterPath="$PROJECT_DIR$/../tontine_management/src/main/java/com/TontineManagement/business/TontineManagerBus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../tontine_management/src/main/java/com/TontineManagement/dao/entities/Tontine.java" beforeDir="false" afterPath="$PROJECT_DIR$/../tontine_management/src/main/java/com/TontineManagement/dao/entities/Tontine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../tontine_management/src/main/java/com/TontineManagement/dao/model/TontineModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/../tontine_management/src/main/java/com/TontineManagement/dao/model/TontineModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../tontine_management/target/classes/com/TontineManagement/business/TontineManagerBus.class" beforeDir="false" afterPath="$PROJECT_DIR$/../tontine_management/target/classes/com/TontineManagement/business/TontineManagerBus.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../tontine_management/target/classes/com/TontineManagement/dao/entities/Tontine.class" beforeDir="false" afterPath="$PROJECT_DIR$/../tontine_management/target/classes/com/TontineManagement/dao/entities/Tontine.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../tontine_management/target/classes/com/TontineManagement/dao/model/TontineModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/../tontine_management/target/classes/com/TontineManagement/dao/model/TontineModel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../user_management/.idea/UserManagementapp.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../user_management/.idea/UserManagementapp.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../user_management/.idea/aws.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../user_management/.idea/aws.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../user_management/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/../user_management/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../user_management/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../user_management/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../user_management/src/main/java/com/UserManagement/UserManagementApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/../user_management/src/main/java/com/UserManagement/UserManagementApp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../user_management/src/main/java/com/UserManagement/business/IUserManagerBus.java" beforeDir="false" afterPath="$PROJECT_DIR$/../user_management/src/main/java/com/UserManagement/business/IUserManagerBus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../user_management/src/main/java/com/UserManagement/business/JwtUserDetailsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../user_management/src/main/java/com/UserManagement/business/JwtUserDetailsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../user_management/src/main/java/com/UserManagement/business/UserManagerBus.java" beforeDir="false" afterPath="$PROJECT_DIR$/../user_management/src/main/java/com/UserManagement/business/UserManagerBus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../user_management/src/main/java/com/UserManagement/controller/UserManagerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../user_management/src/main/java/com/UserManagement/controller/UserManagerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../user_management/src/main/java/com/UserManagement/dao/entities/Privilege.java" beforeDir="false" afterPath="$PROJECT_DIR$/../user_management/src/main/java/com/UserManagement/dao/entities/Privilege.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../user_management/src/main/java/com/UserManagement/dao/entities/Role.java" beforeDir="false" afterPath="$PROJECT_DIR$/../user_management/src/main/java/com/UserManagement/dao/entities/Role.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../user_management/src/main/java/com/UserManagement/dao/entities/Tontine.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../user_management/src/main/java/com/UserManagement/dao/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/../user_management/src/main/java/com/UserManagement/dao/entities/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../user_management/src/main/java/com/UserManagement/dao/entities/Validation.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../user_management/src/main/java/com/UserManagement/dao/model/CommonResponseModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/../user_management/src/main/java/com/UserManagement/dao/model/CommonResponseModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../user_management/src/main/java/com/UserManagement/dao/model/PhoneModel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../user_management/src/main/java/com/UserManagement/dao/model/ProfilModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/../user_management/src/main/java/com/UserManagement/dao/model/ProfilModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../user_management/src/main/java/com/UserManagement/dao/model/SigninModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/../user_management/src/main/java/com/UserManagement/dao/model/SigninModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../user_management/src/main/java/com/UserManagement/dao/model/SignupModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/../user_management/src/main/java/com/UserManagement/dao/model/SignupModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../user_management/src/main/java/com/UserManagement/dao/model/UserLoginModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/../user_management/src/main/java/com/UserManagement/dao/model/UserLoginModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../user_management/src/main/java/com/UserManagement/dao/repositories/PrivilegeRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../user_management/src/main/java/com/UserManagement/dao/repositories/PrivilegeRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../user_management/src/main/java/com/UserManagement/dao/repositories/RoleRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../user_management/src/main/java/com/UserManagement/dao/repositories/RoleRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../user_management/src/main/java/com/UserManagement/dao/repositories/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../user_management/src/main/java/com/UserManagement/dao/repositories/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../user_management/src/main/java/com/UserManagement/dao/repositories/ValidationPhoneRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../user_management/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../user_management/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../user_management/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../user_management/target/classes/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../user_management/target/classes/com/UserManagement/business/IUserManagerBus.class" beforeDir="false" afterPath="$PROJECT_DIR$/../user_management/target/classes/com/UserManagement/business/IUserManagerBus.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../user_management/target/classes/com/UserManagement/business/UserManagerBus.class" beforeDir="false" afterPath="$PROJECT_DIR$/../user_management/target/classes/com/UserManagement/business/UserManagerBus.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../user_management/target/classes/com/UserManagement/controller/UserManagerController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../user_management/target/classes/com/UserManagement/controller/UserManagerController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../user_management/target/classes/com/UserManagement/dao/entities/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/../user_management/target/classes/com/UserManagement/dao/entities/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../user_management/target/classes/com/UserManagement/dao/model/ProfilModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/../user_management/target/classes/com/UserManagement/dao/model/ProfilModel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../user_management/target/classes/com/UserManagement/dao/model/SignupModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/../user_management/target/classes/com/UserManagement/dao/model/SignupModel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../user_management/target/classes/com/UserManagement/dao/model/UserLoginModel$UserLoginModelBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/../user_management/target/classes/com/UserManagement/dao/model/UserLoginModel$UserLoginModelBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../user_management/target/classes/com/UserManagement/dao/model/UserLoginModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/../user_management/target/classes/com/UserManagement/dao/model/UserLoginModel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../user_management/target/classes/com/UserManagement/dao/repositories/UserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/../user_management/target/classes/com/UserManagement/dao/repositories/UserRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../user_management/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/../user_management/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../user_management/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/../user_management/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -182,7 +118,7 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="width" value="1920" />
     <option name="height" value="1020" />
   </component>
@@ -215,7 +151,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1717399671277" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1717406869820" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="project.structure.last.edited" value="Modules" />
@@ -266,7 +202,7 @@
     <option name="totallyTimeSpent" value="2956000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="830" extended-state="6" />
+    <frame x="-7" y="-7" width="1550" height="830" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Image Layers" />

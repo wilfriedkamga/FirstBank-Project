@@ -356,27 +356,49 @@ public class UserManagerBus  implements IUserManagerBus {
 	}
 
 	@Override
-	public User updateProfil(ProfilModel updateProfil) {
-		Optional<User> user = userRepository.findByPhone(updateProfil.getPhone());
-		if (!user.isPresent()) {
-			throw new IllegalArgumentException("User not found with phone number: " + updateProfil.getPhone());
-		}
+    public User updateProfil(ProfilModel updateProfil) {
+        Optional<User> user = userRepository.findByPhone(updateProfil.getPhone());
+        if (!user.isPresent()) {
+            throw new IllegalArgumentException("User not found with phone number: " + updateProfil.getPhone());
+        }
 
-		User user1 = user.get();
-		user1.setFullName(updateProfil.getFullName());
-		user1.setBirthDate(updateProfil.getBirthDate());
-		user1.setGender(updateProfil.getGender());
-		user1.setEmail(updateProfil.getEmail());
-		user1.setCniRecto(updateProfil.getCniRecto());
-		user1.setCniVerso(updateProfil.getCniVerso());
-		user1.setEmailIsVallid(updateProfil.getEmailIsValid());
-		user1.setSignature(updateProfil.getSignature());
-		user1.setPhoto(updateProfil.getPhoto());
-		user1.setPhone(updateProfil.getNewPhone());
-		user1.setPassword(passwordEncoder.encode(updateProfil.getPassword()));
-		User updatedUser = userRepository.save(user1);
-		return updatedUser;
-	}
+        User user1 = user.get();
+
+        if (updateProfil.getFullName() != null) {
+            user1.setFullName(updateProfil.getFullName());
+        }
+        if (updateProfil.getBirthDate() != null) {
+            user1.setBirthDate(updateProfil.getBirthDate());
+        }
+        if (updateProfil.getGender() != null) {
+            user1.setGender(updateProfil.getGender());
+        }
+        if (updateProfil.getEmail() != null) {
+            user1.setEmail(updateProfil.getEmail());
+            user1.setEmailIsVallid(false);
+        }
+        if (updateProfil.getCniRecto() != null) {
+            user1.setCniRecto(updateProfil.getCniRecto());
+        }
+        if (updateProfil.getCniVerso() != null) {
+            user1.setCniVerso(updateProfil.getCniVerso());
+        }
+        if (updateProfil.getSignature() != null) {
+            user1.setSignature(updateProfil.getSignature());
+        }
+        if (updateProfil.getPhoto() != null) {
+            user1.setPhoto(updateProfil.getPhoto());
+        }
+        if (updateProfil.getNewPhone() != null) {
+            user1.setPhone(updateProfil.getNewPhone());
+        }
+        if (updateProfil.getPassword() != null) {
+            user1.setPassword(passwordEncoder.encode(updateProfil.getPassword()));
+        }
+
+        User updatedUser = userRepository.save(user1);
+        return updatedUser;
+    }
 
 	@Override
 	public Validation enregistrer(User user) {
