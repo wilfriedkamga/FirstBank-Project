@@ -11,6 +11,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mock.web.MockMultipartFile;
@@ -406,7 +407,7 @@ public class UserManagerBus  implements IUserManagerBus {
 		Instant creation=Instant.now();
 		Instant expiration=creation.plus(2,MINUTES);
 		validation.setUser(user);
-		String code="12345";//OTPGenerator(5);
+		String code=OTPGenerator(5);
         validation.setPhone(user.getPhone());
 		validation.setCode(code);
 		String message="YOur activation code is: "+ code;

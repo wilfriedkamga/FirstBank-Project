@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Variable from "../../../Variable";
 import Authentications from "../../../Services/Authentications";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
+import AlertDialog from "../../components/Dialog/AlertDialog";
 
 const EmailVerification = () => {
     const navigate=useNavigate()
@@ -38,6 +39,7 @@ const EmailVerification = () => {
       <div className="border-b border-gray-200 w-full h-fit p-2 z-20">
         <Header />
       </div>
+      
       <form action="" onSubmit={(e) => handleSubmit(e)}>
           <div className="flex mt-5 flex-col justify-center items-center  h-50vh bg-white w-full  md:w-4/5 mx-auto">
             <div className="flex flex-row w-full md:w-2/5">

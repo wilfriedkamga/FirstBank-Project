@@ -29,6 +29,7 @@ public class TontineModel {
         this.id = id;
     }
 
+
     public String getId_admin1() {
         return id_admin1;
     }
@@ -52,6 +53,7 @@ public class TontineModel {
     public void setId_admin3(String id_admin3) {
         this.id_admin3 = id_admin3;
     }
+
 
     public String getCreate_par() {
         return create_par;

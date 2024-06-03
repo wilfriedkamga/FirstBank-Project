@@ -2,7 +2,6 @@ import React, { CSSProperties, useEffect, useRef, useState } from 'react'
 import TontineCard from './TontineCard';
 import AddTontine from './AddTontine';
 import TontinesServices from '../../../../../Services/TontinesServices';
-import tontineStore from '../../../../../Store/Store';
 import TontineCardM from './TontineCardM';
 import Variable from '../../../../../Variable';
 import PropagateLoader from 'react-spinners/PropagateLoader';
@@ -41,8 +40,6 @@ type Tontine = {
     const [toogle,setToogle]=useState(false)
     const butRef=useRef<HTMLDivElement | null>(null);
     const menuRef=useRef<HTMLDivElement | null>(null);
-
-    const useStoreTontine=tontineStore((state:any)=>state.tontine)
     const[tontinesList,setTontinesList]=useState<TTontineModel[]>([])
     const [tontine,setTontine]=useState<TTontineModel>()
     const [addTontineVisibility,setAddTontineVisibility]=useState<boolean>(false)

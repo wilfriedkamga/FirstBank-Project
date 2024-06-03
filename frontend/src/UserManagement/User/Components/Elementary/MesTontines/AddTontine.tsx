@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import TontinesServices from "../../../../../Services/TontinesServices";
-import tontineStore from "../../../../../Store/Store";
 import Variable from "../../../../../Variable";
 
 type TTontineModel = {
@@ -58,8 +57,6 @@ const AddTontine = ({ addTontine, setVisibility }: AddTontineProps) => {
     const user = Variable.getLocalStorageItem("user");
     setCreator(user.user.phone);
   }, []);
-  const useStoreTontine = tontineStore((state: any) => state.create);
-
   const HandleCreate = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 

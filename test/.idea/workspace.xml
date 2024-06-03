@@ -2,7 +2,131 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4e6f8fda-6e54-4bd1-88b4-06259e8ed402" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../notification_management/src/main/resources/application-prod.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../operation_management/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../operation_management/.mvn/wrapper/maven-wrapper.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../operation_management/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../operation_management/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../operation_management/mvnw" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../operation_management/mvnw.cmd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../operation_management/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../operation_management/pom.xml.bak" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../operation_management/src/main/java/com/afb/intern/operationmanagement/OperationManagementApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../operation_management/src/main/java/com/afb/intern/operationmanagement/controller/OperationController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../operation_management/src/main/java/com/afb/intern/operationmanagement/dto/ContributeToSavingsPlanDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../operation_management/src/main/java/com/afb/intern/operationmanagement/dto/CreationDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../operation_management/src/main/java/com/afb/intern/operationmanagement/dto/DepositDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../operation_management/src/main/java/com/afb/intern/operationmanagement/dto/SavingsDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../operation_management/src/main/java/com/afb/intern/operationmanagement/dto/TransactionDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../operation_management/src/main/java/com/afb/intern/operationmanagement/dto/UserDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../operation_management/src/main/java/com/afb/intern/operationmanagement/dto/UserType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../operation_management/src/main/java/com/afb/intern/operationmanagement/dto/WalletDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../operation_management/src/main/java/com/afb/intern/operationmanagement/dto/WithdrawDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../operation_management/src/main/java/com/afb/intern/operationmanagement/dto/WithdrawFromSavingsDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../operation_management/src/main/java/com/afb/intern/operationmanagement/exceptions/AppException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../operation_management/src/main/java/com/afb/intern/operationmanagement/models/Payment_Method.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../operation_management/src/main/java/com/afb/intern/operationmanagement/models/Transaction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../operation_management/src/main/java/com/afb/intern/operationmanagement/models/Wallet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../operation_management/src/main/java/com/afb/intern/operationmanagement/repository/PaymentMethodRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../operation_management/src/main/java/com/afb/intern/operationmanagement/repository/TransactionRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../operation_management/src/main/java/com/afb/intern/operationmanagement/repository/WalletRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../operation_management/src/main/java/com/afb/intern/operationmanagement/service/BankAgentWithdrawFromSavingsPlan.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../operation_management/src/main/java/com/afb/intern/operationmanagement/service/CollectorContributeToSavingsPlanStrategy.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../operation_management/src/main/java/com/afb/intern/operationmanagement/service/ContributeToSavingsPlanStrategy.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../operation_management/src/main/java/com/afb/intern/operationmanagement/service/OperationService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../operation_management/src/main/java/com/afb/intern/operationmanagement/service/SimpleUserContributeToSavingsPlanStrategy.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../operation_management/src/main/java/com/afb/intern/operationmanagement/service/WithdrawFromSavingsPlanStrategy.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../operation_management/src/main/resources/application-prod.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../operation_management/src/main/resources/application.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../operation_management/src/main/resources/application.properties.bak" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../operation_management/src/test/java/com/afb/intern/operationmanagement/OperationManagementApplicationTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../savings_plan_management/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../savings_plan_management/.mvn/wrapper/maven-wrapper.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../savings_plan_management/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../savings_plan_management/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../savings_plan_management/Dockerfile.bak" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../savings_plan_management/mvnw" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../savings_plan_management/mvnw.cmd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../savings_plan_management/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../savings_plan_management/pom.xml.bak" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../savings_plan_management/src/main/java/com/afb/intern/savingsplanmanagement/SavingsPlanManagementApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../savings_plan_management/src/main/java/com/afb/intern/savingsplanmanagement/config/WebConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../savings_plan_management/src/main/java/com/afb/intern/savingsplanmanagement/controllers/SavingsPlanController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../savings_plan_management/src/main/java/com/afb/intern/savingsplanmanagement/dto/SavingsDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../savings_plan_management/src/main/java/com/afb/intern/savingsplanmanagement/exceptions/AppException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../savings_plan_management/src/main/java/com/afb/intern/savingsplanmanagement/models/Saving.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../savings_plan_management/src/main/java/com/afb/intern/savingsplanmanagement/repository/SavingsPlanRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../savings_plan_management/src/main/java/com/afb/intern/savingsplanmanagement/service/SavingsPlanService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../savings_plan_management/src/main/resources/application-prod.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../savings_plan_management/src/main/resources/application.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../savings_plan_management/src/test/java/com/afb/intern/savingsplanmanagement/SavingsPlanManagementApplicationTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../tontine_management/src/main/resources/application-prod.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../notification_management/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/../notification_management/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tontine_management/.idea/TontineManagementapp.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../tontine_management/.idea/TontineManagementapp.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tontine_management/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../tontine_management/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tontine_management/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/../tontine_management/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tontine_management/src/main/java/com/TontineManagement/business/TontineManagerBus.java" beforeDir="false" afterPath="$PROJECT_DIR$/../tontine_management/src/main/java/com/TontineManagement/business/TontineManagerBus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tontine_management/src/main/java/com/TontineManagement/config/CorsConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../tontine_management/src/main/java/com/TontineManagement/config/CorsConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tontine_management/src/main/java/com/TontineManagement/controller/Test.rest" beforeDir="false" afterPath="$PROJECT_DIR$/../tontine_management/src/main/java/com/TontineManagement/controller/Test.rest" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tontine_management/src/main/java/com/TontineManagement/dao/entities/Cagnotte.java" beforeDir="false" afterPath="$PROJECT_DIR$/../tontine_management/src/main/java/com/TontineManagement/dao/entities/Cagnotte.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tontine_management/src/main/java/com/TontineManagement/dao/entities/Caisse.java" beforeDir="false" afterPath="$PROJECT_DIR$/../tontine_management/src/main/java/com/TontineManagement/dao/entities/Caisse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tontine_management/src/main/java/com/TontineManagement/dao/entities/Cotisation.java" beforeDir="false" afterPath="$PROJECT_DIR$/../tontine_management/src/main/java/com/TontineManagement/dao/entities/Cotisation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tontine_management/src/main/java/com/TontineManagement/dao/entities/Dette.java" beforeDir="false" afterPath="$PROJECT_DIR$/../tontine_management/src/main/java/com/TontineManagement/dao/entities/Dette.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tontine_management/src/main/java/com/TontineManagement/dao/entities/MembresCaisse.java" beforeDir="false" afterPath="$PROJECT_DIR$/../tontine_management/src/main/java/com/TontineManagement/dao/entities/MembresCaisse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tontine_management/src/main/java/com/TontineManagement/dao/entities/MembresTontine.java" beforeDir="false" afterPath="$PROJECT_DIR$/../tontine_management/src/main/java/com/TontineManagement/dao/entities/MembresTontine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tontine_management/src/main/java/com/TontineManagement/dao/entities/Remboursement.java" beforeDir="false" afterPath="$PROJECT_DIR$/../tontine_management/src/main/java/com/TontineManagement/dao/entities/Remboursement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tontine_management/src/main/java/com/TontineManagement/dao/entities/Sanction.java" beforeDir="false" afterPath="$PROJECT_DIR$/../tontine_management/src/main/java/com/TontineManagement/dao/entities/Sanction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tontine_management/src/main/java/com/TontineManagement/dao/entities/Tontine.java" beforeDir="false" afterPath="$PROJECT_DIR$/../tontine_management/src/main/java/com/TontineManagement/dao/entities/Tontine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tontine_management/src/main/java/com/TontineManagement/dao/model/CaisseDetails.java" beforeDir="false" afterPath="$PROJECT_DIR$/../tontine_management/src/main/java/com/TontineManagement/dao/model/CaisseDetails.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tontine_management/src/main/java/com/TontineManagement/dao/model/CaisseModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/../tontine_management/src/main/java/com/TontineManagement/dao/model/CaisseModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tontine_management/src/main/java/com/TontineManagement/dao/model/DeleteTontineModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/../tontine_management/src/main/java/com/TontineManagement/dao/model/DeleteTontineModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tontine_management/src/main/java/com/TontineManagement/dao/model/MembreCaisseModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/../tontine_management/src/main/java/com/TontineManagement/dao/model/MembreCaisseModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tontine_management/src/main/java/com/TontineManagement/dao/model/MembreTontineModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/../tontine_management/src/main/java/com/TontineManagement/dao/model/MembreTontineModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tontine_management/src/main/java/com/TontineManagement/dao/model/TontineModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/../tontine_management/src/main/java/com/TontineManagement/dao/model/TontineModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tontine_management/src/main/java/com/TontineManagement/dao/repositories/CaisseRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../tontine_management/src/main/java/com/TontineManagement/dao/repositories/CaisseRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tontine_management/src/main/java/com/TontineManagement/dao/repositories/CotisationRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../tontine_management/src/main/java/com/TontineManagement/dao/repositories/CotisationRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tontine_management/src/main/java/com/TontineManagement/dao/repositories/DetteRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../tontine_management/src/main/java/com/TontineManagement/dao/repositories/DetteRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tontine_management/src/main/java/com/TontineManagement/dao/repositories/MembreTontineRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../tontine_management/src/main/java/com/TontineManagement/dao/repositories/MembreTontineRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tontine_management/src/main/java/com/TontineManagement/dao/repositories/MembresCaisseRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../tontine_management/src/main/java/com/TontineManagement/dao/repositories/MembresCaisseRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tontine_management/src/main/java/com/TontineManagement/dao/repositories/TontineRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../tontine_management/src/main/java/com/TontineManagement/dao/repositories/TontineRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tontine_management/target/classes/com/TontineManagement/TontineManagementApp.class" beforeDir="false" afterPath="$PROJECT_DIR$/../tontine_management/target/classes/com/TontineManagement/TontineManagementApp.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tontine_management/target/classes/com/TontineManagement/business/ITontineManagerBus.class" beforeDir="false" afterPath="$PROJECT_DIR$/../tontine_management/target/classes/com/TontineManagement/business/ITontineManagerBus.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tontine_management/target/classes/com/TontineManagement/business/TontineManagerBus.class" beforeDir="false" afterPath="$PROJECT_DIR$/../tontine_management/target/classes/com/TontineManagement/business/TontineManagerBus.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tontine_management/target/classes/com/TontineManagement/config/CorsConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/../tontine_management/target/classes/com/TontineManagement/config/CorsConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tontine_management/target/classes/com/TontineManagement/config/JwtAuthenticationEntryPoint.class" beforeDir="false" afterPath="$PROJECT_DIR$/../tontine_management/target/classes/com/TontineManagement/config/JwtAuthenticationEntryPoint.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tontine_management/target/classes/com/TontineManagement/config/JwtTokenUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/../tontine_management/target/classes/com/TontineManagement/config/JwtTokenUtil.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tontine_management/target/classes/com/TontineManagement/config/WebSecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/../tontine_management/target/classes/com/TontineManagement/config/WebSecurityConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tontine_management/target/classes/com/TontineManagement/controller/TontineManagerController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../tontine_management/target/classes/com/TontineManagement/controller/TontineManagerController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tontine_management/target/classes/com/TontineManagement/dao/entities/Cagnotte.class" beforeDir="false" afterPath="$PROJECT_DIR$/../tontine_management/target/classes/com/TontineManagement/dao/entities/Cagnotte.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tontine_management/target/classes/com/TontineManagement/dao/entities/Caisse.class" beforeDir="false" afterPath="$PROJECT_DIR$/../tontine_management/target/classes/com/TontineManagement/dao/entities/Caisse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tontine_management/target/classes/com/TontineManagement/dao/entities/Cotisation.class" beforeDir="false" afterPath="$PROJECT_DIR$/../tontine_management/target/classes/com/TontineManagement/dao/entities/Cotisation.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tontine_management/target/classes/com/TontineManagement/dao/entities/Dette.class" beforeDir="false" afterPath="$PROJECT_DIR$/../tontine_management/target/classes/com/TontineManagement/dao/entities/Dette.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tontine_management/target/classes/com/TontineManagement/dao/entities/MembresCaisse.class" beforeDir="false" afterPath="$PROJECT_DIR$/../tontine_management/target/classes/com/TontineManagement/dao/entities/MembresCaisse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tontine_management/target/classes/com/TontineManagement/dao/entities/MembresTontine.class" beforeDir="false" afterPath="$PROJECT_DIR$/../tontine_management/target/classes/com/TontineManagement/dao/entities/MembresTontine.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tontine_management/target/classes/com/TontineManagement/dao/entities/Remboursement.class" beforeDir="false" afterPath="$PROJECT_DIR$/../tontine_management/target/classes/com/TontineManagement/dao/entities/Remboursement.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tontine_management/target/classes/com/TontineManagement/dao/entities/Sanction.class" beforeDir="false" afterPath="$PROJECT_DIR$/../tontine_management/target/classes/com/TontineManagement/dao/entities/Sanction.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tontine_management/target/classes/com/TontineManagement/dao/entities/Tontine.class" beforeDir="false" afterPath="$PROJECT_DIR$/../tontine_management/target/classes/com/TontineManagement/dao/entities/Tontine.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tontine_management/target/classes/com/TontineManagement/dao/model/CaisseDetails.class" beforeDir="false" afterPath="$PROJECT_DIR$/../tontine_management/target/classes/com/TontineManagement/dao/model/CaisseDetails.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tontine_management/target/classes/com/TontineManagement/dao/model/CaisseModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/../tontine_management/target/classes/com/TontineManagement/dao/model/CaisseModel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tontine_management/target/classes/com/TontineManagement/dao/model/CommonResponseModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/../tontine_management/target/classes/com/TontineManagement/dao/model/CommonResponseModel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tontine_management/target/classes/com/TontineManagement/dao/model/DeleteTontineModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/../tontine_management/target/classes/com/TontineManagement/dao/model/DeleteTontineModel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tontine_management/target/classes/com/TontineManagement/dao/model/JwtResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/../tontine_management/target/classes/com/TontineManagement/dao/model/JwtResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tontine_management/target/classes/com/TontineManagement/dao/model/MembreCaisseModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/../tontine_management/target/classes/com/TontineManagement/dao/model/MembreCaisseModel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tontine_management/target/classes/com/TontineManagement/dao/model/MembreTontineModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/../tontine_management/target/classes/com/TontineManagement/dao/model/MembreTontineModel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tontine_management/target/classes/com/TontineManagement/dao/model/ProfilModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/../tontine_management/target/classes/com/TontineManagement/dao/model/ProfilModel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tontine_management/target/classes/com/TontineManagement/dao/model/TontineModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/../tontine_management/target/classes/com/TontineManagement/dao/model/TontineModel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tontine_management/target/classes/com/TontineManagement/dao/repositories/CaisseRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/../tontine_management/target/classes/com/TontineManagement/dao/repositories/CaisseRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tontine_management/target/classes/com/TontineManagement/dao/repositories/MembreTontineRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/../tontine_management/target/classes/com/TontineManagement/dao/repositories/MembreTontineRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tontine_management/target/classes/com/TontineManagement/dao/repositories/TontineRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/../tontine_management/target/classes/com/TontineManagement/dao/repositories/TontineRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tontine_management/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/../tontine_management/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../user_management/src/main/java/com/UserManagement/business/UserManagerBus.java" beforeDir="false" afterPath="$PROJECT_DIR$/../user_management/src/main/java/com/UserManagement/business/UserManagerBus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../user_management/src/main/java/com/UserManagement/controller/UserManagerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../user_management/src/main/java/com/UserManagement/controller/UserManagerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../user_management/src/main/resources/application-prod.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../user_management/src/main/resources/application-prod.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../user_management/target/classes/application-prod.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../user_management/target/classes/application-prod.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../user_management/target/classes/com/UserManagement/business/UserManagerBus.class" beforeDir="false" afterPath="$PROJECT_DIR$/../user_management/target/classes/com/UserManagement/business/UserManagerBus.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../user_management/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/../user_management/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -15,6 +139,7 @@
     <session id="769600182">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
+          <entry key="project.closed" value="1" />
           <entry key="project.open.time.3" value="1" />
           <entry key="project.opened" value="1" />
         </counts>
@@ -46,7 +171,7 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/test.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
+            <state relative-caret-position="137">
               <caret line="10" column="22" lean-forward="true" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="117" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -112,7 +237,7 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="width" value="1920" />
     <option name="height" value="1020" />
   </component>
@@ -145,7 +270,8 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1717413587457" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1717417861648" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../notification_management" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="project.structure.last.edited" value="Modules" />
@@ -188,15 +314,15 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1717395711909</updated>
-      <workItem from="1717395715861" duration="2956000" />
+      <workItem from="1717395715861" duration="3038000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2956000" />
+    <option name="totallyTimeSpent" value="3038000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="830" extended-state="7" />
+    <frame x="-7" y="-7" width="1550" height="830" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Image Layers" />
@@ -213,7 +339,7 @@
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3295129" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3295129" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -267,7 +393,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
+        <state relative-caret-position="137">
           <caret line="10" column="22" lean-forward="true" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="117" />
           <folding>
             <element signature="imports" expanded="true" />

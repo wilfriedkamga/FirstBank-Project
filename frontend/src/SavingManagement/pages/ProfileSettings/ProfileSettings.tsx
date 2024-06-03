@@ -19,6 +19,7 @@ import UserAvatar from "../../../UserManagement/User/Components/Elementary/Navba
 import { Link, useNavigate } from "react-router-dom";
 import Authentications from "../../../Services/Authentications";
 import { getInitials } from "../../../../src/UserManagement/User/Components/Elementary/Utils";
+import AlertDialog from "../../components/Dialog/AlertDialog";
 
 const ProfileSettings = () => {
   const navigate = useNavigate();
@@ -82,6 +83,10 @@ const ProfileSettings = () => {
     <div className="w-full bg-white h-full p-2.5 flex flex-col">
       <div className="border-b border-gray-200 w-full h-fit p-2 z-20">
         <Header />
+        
+      </div>
+      <div className="">
+      <AlertDialog />
       </div>
       <div className="flex flex-col pt-5 md:px-5 h-full w-full space-y-8 overflow-auto">
         <div className="ml-5 border-b border-gray-200">
