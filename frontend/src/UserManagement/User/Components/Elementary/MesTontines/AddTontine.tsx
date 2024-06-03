@@ -15,6 +15,9 @@ type TTontineModel = {
   nbCaisse: number;
   nbMembre: number;
   create_par: string;
+  id_admin1:string;
+  id_admin2:string;
+  id_admin3:string;
 };
 
 type AddTontineProps = {
@@ -44,13 +47,12 @@ const AddTontine = ({ addTontine, setVisibility }: AddTontineProps) => {
     nbCaisse: 0,
     nbMembre: 0,
     create_par: "",
+    id_admin1:"",
+    id_admin2:"",
+    id_admin3:""
   });
 
-  const isValidPhoneNumber = (phoneNumber: string): boolean => {
-    // Expression régulière pour valider un numéro de téléphone avec indicatif de pays
-    const phoneRegex = /^\+[1-9]\d{1,14}$/;
-    return phoneRegex.test(phoneNumber);
-  };
+  
 
   useEffect(() => {
     const user = Variable.getLocalStorageItem("user");
@@ -70,13 +72,15 @@ const AddTontine = ({ addTontine, setVisibility }: AddTontineProps) => {
         type: type,
         jourReunion: date,
         nbCaisse: 0,
-        nbMembre: 0,
+        nbMembre: 1,
         create_par: creator,
+        id_admin1:creator,
+        id_admin2:contact1,
+        id_admin3:contact2
       };
 
       TontinesServices.CreateTontine(newTontine)
         .then((response) => {
-          
           setVisibility(false);
           setTontine(response.data.data);
           newTontine.id = response.data.data.id;
@@ -84,7 +88,7 @@ const AddTontine = ({ addTontine, setVisibility }: AddTontineProps) => {
         })
         .catch((error) => {});
     } else {
-      alert("Il faut remplir les contacts")
+      alert("Il faut remplir les contacts");
       // Handle missing contacts
     }
   };
@@ -238,9 +242,10 @@ const AddTontine = ({ addTontine, setVisibility }: AddTontineProps) => {
                 onChange={(e) => setType(e.target.value)}
                 className="bg-transparent rounded-lg px-3 py-2.5 2xl:py-3 border border-gray-300 placeholder-gray-400 text-gray-900 outline-none text-base focus:ring-2 ring-blue-300"
               >
-                <option>En ligne</option>
-                <option>En présentiel</option>
-                <option>Mixte</option>
+                <option unselectable="off" disabled hidden>Type des réunions</option>
+                <option value="En ligne">En ligne</option>
+                <option value="En Présentiel">En présentiel</option>
+                <option value="Mixte">Mixte</option>
               </select>
 
               <div className="flex justify-end text-white mt-2">

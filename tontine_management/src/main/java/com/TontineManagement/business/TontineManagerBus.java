@@ -47,12 +47,19 @@ public class TontineManagerBus implements ITontineManagerBus {
 
 	@Override
 	public Tontine creer(TontineModel tontineModel) throws Exception {
+
+		// Verifier que les deux numeros sont bien des utilisateurs
+
 		Tontine tontine =new Tontine();
 		tontine.setNom(tontineModel.getNom());
 		tontine.setDescription(tontineModel.getDescription());
 		tontine.setJourReunion(tontineModel.getJourReunion());
 		tontine.setFrequence(tontineModel.getFrequence());
         tontine.setCreate_par(tontineModel.getCreate_par());
+        tontine.setType(tontineModel.getType());
+        tontine.setId_admin1(tontineModel.getId_admin1());
+        tontine.setId_admin2(tontineModel.getId_admin2());
+        tontine.setId_admin3(tontineModel.getId_admin3());
 		// Enregistrement de la tontine
 		Tontine savedTontine = tontineRepository.save(tontine);
 
@@ -64,11 +71,36 @@ public class TontineManagerBus implements ITontineManagerBus {
 		membreTontineModel.setRole("ADMIN"); // ou tout autre rôle approprié
 		membreTontineModel.setId_tontine(savedTontine.getId());
 
-		addMembresTontine(membreTontineModel);
+		// Creation du secon Admin
+		MembreTontineModel membreTontineModel1 = new MembreTontineModel();
+		membreTontineModel1.setNomU("Nouveau");
+		membreTontineModel1.setCreate_par(tontineModel.getCreate_par());
+		membreTontineModel1.setId_utiliateur(tontineModel.getCreate_par());
+		membreTontineModel1.setRole("ADMIN"); // ou tout autre rôle approprié
+		membreTontineModel1.setId_tontine(savedTontine.getId());
+		addMembresTontine(membreTontineModel1);
+
+		// Creation du secon Admin
+		MembreTontineModel membreTontineModel2 = new MembreTontineModel();
+		membreTontineModel2.setNomU("Nouveau");
+		membreTontineModel2.setCreate_par(tontineModel.getCreate_par());
+		membreTontineModel2.setId_utiliateur(tontineModel.getCreate_par());
+		membreTontineModel2.setRole("ADMIN"); // ou tout autre rôle approprié
+		membreTontineModel2.setId_tontine(savedTontine.getId());
+		addMembresTontine(membreTontineModel2);
 
 		return savedTontine;
 	}
+	public MembreTontineModel Creer_membreTontineModel(String nom, String creer_par, String id_utilisteur,String role,String id_tontine){
 
+		MembreTontineModel membreTontineModel = new MembreTontineModel();
+		membreTontineModel.setNomU(nom);
+		membreTontineModel.setCreate_par(creer_par);
+		membreTontineModel.setId_utiliateur(id_utilisteur);
+		membreTontineModel.setRole(role); // ou tout autre rôle approprié
+		membreTontineModel.setId_tontine(id_tontine);
+		return membreTontineModel;
+	}
 	@Override
 	public Tontine deleteTontine(String IdTontine) throws Exception {
 		Optional<Tontine> tontine=tontineRepository.findById(IdTontine);

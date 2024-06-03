@@ -24,6 +24,13 @@ import Notifications from "../SavingManagement/pages/nootifications/Notification
 import Search from "../SavingManagement/pages/search/Search";
 import SavingsDash from "../SavingManagement/pages/savingsApp/dashboard/SavingsDash";
 import CreatePlan from "../SavingManagement/pages/savingsApp/plan/CreatePlan";
+import EditProfil from "../SavingManagement/pages/ProfileSettings/EditProfil";
+import ModifyPassword from "../SavingManagement/pages/ProfileSettings/ModifyPassword";
+import AddCNI from "../SavingManagement/pages/ProfileSettings/AddCNI";
+import ChangePhone from "../SavingManagement/pages/ProfileSettings/ChangePhone";
+import EmailVerification from "../SavingManagement/pages/ProfileSettings/EmailVerification";
+
+
 
 const isKeyInLocalStorage = (key: string): boolean => {
   const token = localStorage.getItem(key);
@@ -31,6 +38,8 @@ const isKeyInLocalStorage = (key: string): boolean => {
 
   return token != null && token != "";
 };
+
+
 
 export const router = createBrowserRouter([
   {
@@ -176,7 +185,23 @@ export const router = createBrowserRouter([
       },
       {
         path: "/settings",
-        element: <ProfileSettings/>,
+        element: <ProfileSettings/>
+      },
+      {
+        path: "/modifyPassword",
+        element: <ModifyPassword/>
+      },
+      {
+        path: "/addCNI",
+        element: <AddCNI/>
+      },
+      {
+        path: "/editProfil",
+        element: <EditProfil/>
+      },
+      {
+        path: "/changePhone",
+        element: <ChangePhone/>
       },
       {
         path: "/notifications",
@@ -193,6 +218,10 @@ export const router = createBrowserRouter([
       {
         path: "/newPlan",
         element: <CreatePlan />,
+      },
+      {
+        path: "/verifyEmail",
+        element: <EmailVerification/>,
       },
     ],
   },

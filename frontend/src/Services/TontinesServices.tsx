@@ -9,16 +9,20 @@ const route_get_all_membre_tontine=Variable.routeApiTontine+"/api/tontinemanagem
 const route_get_all_membre_caisse=Variable.routeApiTontine+"/api/tontinemanagement/membres_caisse"
 const route_add_membre_caisse=Variable.routeApiTontine+"/api/tontinemanagement/ajout_membre_caisse"
 
-type TTontineModel={
-  nom:string,
-  description:string,
-  type:string,
-  frequence:string,
-  jourReunion:string,
-  nbCaisse:number,
-  nbMembre:number,
-  create_par:string,
-}
+type TTontineModel = {
+   id: string;
+   nom: string;
+   description: string;
+   type: string;
+   frequence: string;
+   jourReunion: string;
+   nbCaisse: number;
+   nbMembre: number;
+   create_par: string;
+   id_admin1:string;
+   id_admin2:string;
+   id_admin3:string;
+ };
 
 type TMembreCaisseModel={
     id:string;
@@ -46,7 +50,7 @@ class TontineService{
     
    // Créer une tontine
     CreateTontine(tontineModel:TTontineModel){
-       
+       console.log(JSON.stringify(tontineModel))
 
         return axios.post(routes,tontineModel) ;
 

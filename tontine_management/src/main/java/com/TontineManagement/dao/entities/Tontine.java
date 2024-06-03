@@ -30,6 +30,9 @@ public class Tontine {
     private int nbCaisse;
     private int nbMembre;
     private Date prochaineReunion;
+    private String id_admin1;
+    private String id_admin2;
+    private String id_admin3;
 
     @OneToMany(mappedBy = "tontine")
     private List<Caisse> caisses;
@@ -47,13 +50,37 @@ public class Tontine {
 
     }
 
-    public Tontine(String uuid, String nom, String description, String type, String frequence, String jourReunion) {
-        this.id = UUID.randomUUID().toString();
-        this.nom = nom;
-        this.description = description;
-        this.type = type;
-        this.frequence = frequence;
-        this.jourReunion = jourReunion;
+
+    public String getId_admin1() {
+        return id_admin1;
+    }
+
+    public void setId_admin1(String id_admin1) {
+        this.id_admin1 = id_admin1;
+    }
+
+    public String getId_admin2() {
+        return id_admin2;
+    }
+
+    public void setId_admin2(String id_admin2) {
+        this.id_admin2 = id_admin2;
+    }
+
+    public String getId_admin3() {
+        return id_admin3;
+    }
+
+    public void setId_admin3(String id_admin3) {
+        this.id_admin3 = id_admin3;
+    }
+
+    public List<Caisse> getCaisses() {
+        return caisses;
+    }
+
+    public void setCaisses(List<Caisse> caisses) {
+        this.caisses = caisses;
     }
 
     public String getCreate_par() {

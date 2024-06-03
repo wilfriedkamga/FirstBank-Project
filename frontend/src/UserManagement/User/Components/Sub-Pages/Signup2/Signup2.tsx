@@ -12,6 +12,7 @@ type ChildComponentProps = {
   toggleSinup2: () => void;
   uploadOtpCodeToParent: (
     fullName: string,
+    mail:string,
     birthDate: string,
     gender: string
   ) => void;
@@ -22,6 +23,7 @@ const Signup2: React.FC<ChildComponentProps> = ({
   uploadOtpCodeToParent,
 }) => {
   const [name, setName] = useState("");
+  const [mail, setMail] = useState("");
   const [gender, setGender] = useState("");
   const [birthDate, setBirthdate] = useState("");
   const [password, setPassword] = useState("");
@@ -41,7 +43,7 @@ const Signup2: React.FC<ChildComponentProps> = ({
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    uploadOtpCodeToParent(name, birthDate, gender);
+    uploadOtpCodeToParent(name,mail, birthDate, gender);
     toggleSinup2();
     const route = Variable.routeApi + "api/usermanagement/signin";
   };
@@ -70,6 +72,19 @@ const Signup2: React.FC<ChildComponentProps> = ({
                   required
                   type="text"
                   placeholder="John"
+                  className="block w-full h-13  px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-red-400 dark:focus:border-red-400 focus:ring-red-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                />
+              </div>
+              <div>
+                <label className="block mb-2 text-sm ">Email</label>
+                <input
+                  value={mail}
+                  onChange={(e) => {
+                    setMail(e.target.value);
+                  }}
+                  required
+                  type="text"
+                  placeholder="mail@gmail.com"
                   className="block w-full h-13  px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-red-400 dark:focus:border-red-400 focus:ring-red-400 focus:outline-none focus:ring focus:ring-opacity-40"
                 />
               </div>
@@ -130,7 +145,7 @@ const Signup2: React.FC<ChildComponentProps> = ({
             <img
               src={logo}
               alt="Logo Afriland First Bank"
-              className="lg:pb-8 p-5 lg:w-50 lg:h-25 lg:relative lg:t-10 "
+              className="lg:mb-2 p-5 lg:w-50 lg:h-25 lg:relative "
             ></img>
           </div>
         </div>

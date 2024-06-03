@@ -1,9 +1,7 @@
 package com.UserManagement.business;
 
 import com.UserManagement.dao.entities.*;
-import com.UserManagement.dao.model.ProfilModel;
-import com.UserManagement.dao.model.UserLoginModel;
-import com.UserManagement.dao.model.VerifyOTPModel;
+import com.UserManagement.dao.model.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -16,7 +14,7 @@ public interface IUserManagerBus {
 
 	boolean userExist(String phone) throws Exception;
 
-	User signup(String phone, String fullname, LocalDate birthDate,String gender,String password) throws Exception;
+	User signup(String phone, String fullname,String email, LocalDate birthDate,String gender,String password) throws Exception;
 
 	UserLoginModel getUserLoginDetails(String phone);
 
@@ -31,6 +29,14 @@ public interface IUserManagerBus {
     Validation VerifyAccount(String phone);
 
 	User blockAccount(String phone);
+
+	Validation_Email enregistrer_validation_email(User user);
+
+	User VerifyOTPMail(VerifyOtpMailModel verifyOTPModel);
+
+	Validation_Email VerifyEmail(String email);
+
+    public User uploadFiles(UploadFileModel fileModel) throws Exception;
 
 	Validation enregistrer(User user);
 

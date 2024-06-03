@@ -4,6 +4,7 @@ import com.UserManagement.business.IUserManagerBus;
 import com.UserManagement.config.JwtTokenUtil;
 import com.UserManagement.dao.entities.User;
 import com.UserManagement.dao.entities.Validation;
+import com.UserManagement.dao.entities.Validation_Email;
 import com.UserManagement.dao.model.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,6 +74,23 @@ public class UserManagerController {
 		}
 	}
 
+	@PostMapping(value = "/testPassword")
+	public ResponseEntity TestPassword(@RequestBody SigninModel signinModel) {
+		CommonResponseModel response = new CommonResponseModel();
+		try{
+			response.setMessage("Success");
+			response.setResponseCode("0");
+			response.setData(usermanagerBus.signin(signinModel.getPhone(),signinModel.getPassword()));
+
+			return new ResponseEntity(response, HttpStatus.OK);
+
+		} catch ( Exception e) {
+			response.setResponseCode("1");
+			response.setMessage(e.getMessage());
+			return new ResponseEntity<>(response, HttpStatus.FORBIDDEN);
+		}
+	}
+
 	@PostMapping(value = "/signup")
 	public ResponseEntity signup(@RequestBody SignupModel signupModel){
 
@@ -81,7 +99,7 @@ public class UserManagerController {
 		try{
 			response.setMessage("Success");
 			response.setResponseCode("0");
-			usermanagerBus.signup(signupModel.getPhone(),signupModel.getFullname(),signupModel.getBirthDate(),signupModel.getGender(), signupModel.getPassword());
+			usermanagerBus.signup(signupModel.getPhone(),signupModel.getFullname(),signupModel.getEmail(),signupModel.getBirthDate(),signupModel.getGender(), signupModel.getPassword());
 
 			// Authentifier l'utilisateur
 
@@ -202,6 +220,28 @@ public class UserManagerController {
         }
     }
 
+
+	@PostMapping("/SendOtpMail")
+	public ResponseEntity sendOTPEmail(@RequestBody SendOtpMailModel sendOtpMailModel) {
+
+		CommonResponseModel response = new CommonResponseModel();
+
+
+		try {
+			response.setMessage("OTP has been sent successfully");
+			response.setResponseCode("0");
+			Validation_Email validation = usermanagerBus.VerifyEmail(sendOtpMailModel.getEmail());
+			response.setData(validation);
+			return new ResponseEntity<>(response, HttpStatus.OK);
+
+		} catch (IllegalArgumentException e) {
+			response.setMessage("User not exist");
+			response.setResponseCode("1");
+			response.setData(e.getMessage());
+			return new ResponseEntity<>(response, HttpStatus.FORBIDDEN);
+
+		}
+	}
 	@PostMapping("/verifyOTP")
 	public ResponseEntity VerifyOTP(@RequestBody VerifyOTPModel verifyOTPModel){
 		CommonResponseModel response = new CommonResponseModel();
@@ -211,6 +251,26 @@ public class UserManagerController {
 			response.setResponseCode("0");
 			User user = usermanagerBus.VerifyOTP(verifyOTPModel);
 			response.setData(user);
+			return new ResponseEntity<>(response, HttpStatus.OK);
+
+		} catch (IllegalArgumentException e) {
+			response.setMessage("OTP Verification failed");
+			response.setResponseCode("1");
+			response.setData(e.getMessage());
+			return new ResponseEntity<>(response, HttpStatus.FORBIDDEN);
+
+		}
+	}
+
+	@PostMapping("/verifyOTPMail")
+	public ResponseEntity VerifyOTPMail(@RequestBody VerifyOtpMailModel verifyOTPModel){
+		CommonResponseModel response = new CommonResponseModel();
+
+		try {
+			response.setMessage("OTP Verification Successes");
+			response.setResponseCode("0");
+			User user = usermanagerBus.VerifyOTPMail(verifyOTPModel);
+			//response.setData(user);
 			return new ResponseEntity<>(response, HttpStatus.OK);
 
 		} catch (IllegalArgumentException e) {
@@ -271,6 +331,27 @@ public class UserManagerController {
 			response.setMessage("User profil has been updated successfully");
 			response.setResponseCode("0");
 			User updateUser=usermanagerBus.updateProfil(profilModel);
+			response.setData(updateUser);
+			return new ResponseEntity<>(response, HttpStatus.OK);
+
+		} catch (IllegalArgumentException e) {
+			response.setMessage("User not exist");
+			response.setResponseCode("1");
+			response.setData(e.getMessage());
+			return new ResponseEntity<>(response, HttpStatus.FORBIDDEN);
+
+		}
+	}
+
+	@PostMapping("/uploadFile")
+	public ResponseEntity uploadFile(@RequestBody UploadFileModel uploadFileModel) throws Exception {
+
+		CommonResponseModel response = new CommonResponseModel();
+
+		try {
+			response.setMessage("Upload file success profil has been updated successfully");
+			response.setResponseCode("0");
+			User updateUser=usermanagerBus.uploadFiles(uploadFileModel);
 			response.setData(updateUser);
 			return new ResponseEntity<>(response, HttpStatus.OK);
 

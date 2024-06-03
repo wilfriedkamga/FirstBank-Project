@@ -26,7 +26,9 @@ public class ProfilModel {
     private String gender;
     private String password;
     private String email;
-    private String idCardImage;
+    private String cniRecto;
+    private String cniVerso;
+    private boolean emailIsValid;
     private LocalDate idCardExpirationDate;
     private String signature;
     private Boolean isActivated;
@@ -90,14 +92,6 @@ public class ProfilModel {
         this.email = email;
     }
 
-    public String getIdCardImage() {
-        return idCardImage;
-    }
-
-    public void setIdCardImage(String idCardImage) {
-        this.idCardImage = idCardImage;
-    }
-
     public LocalDate getIdCardExpirationDate() {
         return idCardExpirationDate;
     }
@@ -152,5 +146,29 @@ public class ProfilModel {
 
     public void setPrivilegelist(List<Privilege> privilegelist) {
         this.privilegelist = privilegelist;
+    }
+
+    public String getCniRecto() {
+        return cniRecto;
+    }
+
+    public void setCniRecto(String cniRecto) {
+        this.cniRecto = cniRecto;
+    }
+
+    public String getCniVerso() {
+        return cniVerso;
+    }
+
+    public void setCniVerso(String cniVerso) {
+        this.cniVerso = cniVerso;
+    }
+
+    public boolean getEmailIsValid() {
+        return emailIsValid;
+    }
+
+    public void setEmailIsValid(boolean emailIsValid) {
+        this.emailIsValid = emailIsValid;
     }
 }

@@ -15,6 +15,8 @@ public class SignupModel {
 
 	private String fullname;
 
+	private String email;
+
 	private LocalDate birthDate;
 
 	public String getGender() {
@@ -59,5 +61,13 @@ public class SignupModel {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 }

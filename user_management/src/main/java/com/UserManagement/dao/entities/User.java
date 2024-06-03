@@ -34,14 +34,16 @@ public class User {
 	@Column(name = "password")
 	private String password;
 
-	@Column(name = "email")
+	@Column(name = "email",unique = true)
 	private String email;
 
-	@Column(name = "idCardImage")
-	private String idCardImage;
+	@Column(name = "emailIsValid")
+	private boolean emailIsVallid;
 
-	@Column(name = "idCardExpirationDate")
-	private LocalDate idCardExpirationDate;
+	@Column(name = "cni_recto")
+	private String cniRecto;
+	@Column(name = "cni_verso")
+	private String cniVerso;
 
 	@Column(name = "signature")
 	private String Signature;
@@ -109,20 +111,28 @@ public class User {
 		this.email = email;
 	}
 
-	public String getIdCardImage() {
-		return idCardImage;
+	public String getCniRecto() {
+		return cniRecto;
 	}
 
-	public void setIdCardImage(String idCardImage) {
-		this.idCardImage = idCardImage;
+	public boolean isEmailIsVallid() {
+		return emailIsVallid;
 	}
 
-	public LocalDate getIdCardExpirationDate() {
-		return idCardExpirationDate;
+	public void setEmailIsVallid(boolean emailIsVallid) {
+		this.emailIsVallid = emailIsVallid;
 	}
 
-	public void setIdCardExpirationDate(LocalDate idCardExpirationDate) {
-		this.idCardExpirationDate = idCardExpirationDate;
+	public void setCniRecto(String cniRecto) {
+		this.cniRecto = cniRecto;
+	}
+
+	public String getCniVerso() {
+		return cniVerso;
+	}
+
+	public void setCniVerso(String cniVerso) {
+		this.cniVerso = cniVerso;
 	}
 
 	public String getSignature() {

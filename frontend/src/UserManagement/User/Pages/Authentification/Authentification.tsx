@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { CSSProperties, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Signin from "../../Components/Sub-Pages/Signin/Signin";
 import CheckOTP from "../../Components/Sub-Pages/CheckOTP/CheckOTP";
@@ -9,6 +9,8 @@ import CheckOTP2 from "../../Components/Sub-Pages/CheckOTP/CheckOTP2";
 import Signup2 from "../../Components/Sub-Pages/Signup2/Signup2";
 import Signup3 from "../../Components/Sub-Pages/Signup2/Signup3";
 import Dialog from "../../Components/Elementary/Dialog/SimpleDialog";
+import PropagateLoader from "react-spinners/PropagateLoader";
+import logo from "../../Assets/Images/FBLogo.png"
 
 export default function Authentification() {
   const [signinVisibility, setSigninVisibility] = useState(true);
@@ -23,6 +25,7 @@ export default function Authentification() {
 
   // for Signup
   const [fullName, setFullName] = useState("");
+  const [mail, setMail] = useState("");
   const [phone, setPhone] = useState("");
   const [gender, setGender] = useState("");
   const [birthDate, setBirthdate] = useState("");
@@ -112,12 +115,30 @@ export default function Authentification() {
     setSignup2Visibility(false);
   };
   let table: string[];
-  return (
-    <div className="h-[100vh] w-full bg-black-100 flex justify-center content-center items-center">
-      <div>
 
-      </div>
-  
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const override: CSSProperties = {
+    display: "block",
+    margin: "0 auto",
+    borderColor: "red",
+
+    fontWeight: "bold",
+  };
+
+  useEffect(() => {
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+  }, []);
+
+  return <div>
+    {isLoading?
+    <div className="text-[50px] h-[100vh]  flex flex-col justify-center items-center text-white font-bold">
+      <img src={logo} className="bg-white rounded-lg" alt="" />
+      <span className="font-bold text-red-600">Welcome page</span>
+      </div>:
+     <div className="h-[100vh] w-full bg-black-100 flex justify-center content-center items-center">
       {signinVisibility ? (
         <Signin
           handleClick={toggleSignupVisibility}
@@ -128,12 +149,11 @@ export default function Authentification() {
         <Signup2
           handleClick={toggleSigninVisibility}
           toggleSinup2={toggleSignup2Visibility}
-          uploadOtpCodeToParent={(value1,value2,value3) => {
+          uploadOtpCodeToParent={(value1,value2,value3,value4) => {
             setFullName(value1);
-            setBirthdate(value2);
-            setGender(value3)
-
-            console.log("*-*-*-*-*-*-*-* " + value1 +"*a****" +value2+"****"+value3);
+            setBirthdate(value3);
+            setGender(value4)
+            setMail(value2);
           }}
         />
       ) : null}
@@ -143,6 +163,7 @@ export default function Authentification() {
           handleClick={toggleSigninVisibility}
           toggleSinup2={toggleCheckOTPVisibility}
           fullName={fullName}
+          mail={mail}
           birthDate={birthDate}
           gender={gender}
           uploadCodeToComponent={(value)=>setPhone(value)}
@@ -191,6 +212,6 @@ export default function Authentification() {
           }}
         />
       ) : null}
-    </div>
-  );
+    </div>}
+  </div>;
 }

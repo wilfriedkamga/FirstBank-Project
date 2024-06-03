@@ -3,11 +3,16 @@ com\UserManagement\dao\entities\Privilege.class
 com\UserManagement\dao\entities\Role.class
 com\UserManagement\controller\UserManagerController.class
 com\UserManagement\config\WebSecurityConfig.class
+com\UserManagement\dao\model\SendOtpMailModel.class
 com\UserManagement\business\JwtUserDetailsService.class
+com\UserManagement\config\CorsConfig.class
 com\UserManagement\dao\model\ProfilModel.class
 com\UserManagement\dao\model\SignupModel.class
+com\UserManagement\dao\entities\Validation_Email.class
 com\UserManagement\dao\model\VerifyOTPModel.class
+com\UserManagement\dao\model\UploadFileModel.class
 com\UserManagement\dao\model\UserLoginModel$UserLoginModelBuilder.class
+com\UserManagement\dao\repositories\ValidationEmailRepository.class
 com\UserManagement\config\JwtAuthenticationEntryPoint.class
 com\UserManagement\business\IUserManagerBus.class
 com\UserManagement\dao\repositories\UserRepository.class
@@ -15,6 +20,7 @@ com\UserManagement\dao\repositories\PrivilegeRepository.class
 com\UserManagement\dao\model\UserLoginModel.class
 com\UserManagement\dao\repositories\RoleRepository.class
 com\UserManagement\UserManagementApp.class
+com\UserManagement\dao\model\VerifyOtpMailModel.class
 com\UserManagement\dao\entities\Tontine.class
 com\UserManagement\dao\model\UserExistModel.class
 com\UserManagement\dao\entities\User.class

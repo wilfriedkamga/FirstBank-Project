@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,9 +20,44 @@ public class UserLoginModel {
     private String gender;
     private String password;
     private String email;
-    private String idCard;
+    private boolean emailIsVallid;
+    private String cniRecto;
+    private String cniVerso;
+    private String signature;
     private String photo;
     private List<String> privilegelist = new ArrayList<String>();
+
+    public boolean isEmailIsVallid() {
+        return emailIsVallid;
+    }
+
+    public void setEmailIsVallid(boolean emailIsVallid) {
+        this.emailIsVallid = emailIsVallid;
+    }
+
+    public String getCniRecto() {
+        return cniRecto;
+    }
+
+    public void setCniRecto(String cniRecto) {
+        this.cniRecto = cniRecto;
+    }
+
+    public String getCniVerso() {
+        return cniVerso;
+    }
+
+    public void setCniVerso(String cniVerso) {
+        this.cniVerso = cniVerso;
+    }
+
+    public String getSignature() {
+        return signature;
+    }
+
+    public void setSignature(String signature) {
+        this.signature = signature;
+    }
 
     public String getPhone() {
         return phone;
@@ -71,14 +107,6 @@ public class UserLoginModel {
         this.email = email;
     }
 
-    public String getIdCard() {
-        return idCard;
-    }
-
-    public void setIdCard(String idCard) {
-        this.idCard = idCard;
-    }
-
     public String getPhoto() {
         return photo;
     }
@@ -95,14 +123,17 @@ public class UserLoginModel {
         this.privilegelist = privilegelist;
     }
 
-    public UserLoginModel(String phone, String fullName, LocalDate birthDate, String gender, String password, String email, String idCard, String photo, List<String> privilegelist) {
+    public UserLoginModel(String phone, String fullName, LocalDate birthDate, String gender, String password, String email, boolean emailIsVallid, String cniRecto, String cniVerso, String signature, String photo, List<String> privilegelist) {
         this.phone = phone;
         this.fullName = fullName;
         this.birthDate = birthDate;
         this.gender = gender;
         this.password = password;
         this.email = email;
-        this.idCard = idCard;
+        this.emailIsVallid = emailIsVallid;
+        this.cniRecto = cniRecto;
+        this.cniVerso = cniVerso;
+        this.signature = signature;
         this.photo = photo;
         this.privilegelist = privilegelist;
     }

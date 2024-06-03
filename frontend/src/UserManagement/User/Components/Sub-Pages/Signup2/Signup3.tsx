@@ -14,6 +14,7 @@ type ChildComponentProps = {
   handleClick: () => void;
   toggleSinup2: () => void;
   fullName:string;
+  mail:string;
   birthDate:string;
   gender:string;
   uploadCodeToComponent:(value:string)=>void;
@@ -22,6 +23,7 @@ const Signup3: React.FC<ChildComponentProps> = ({
   handleClick,
   toggleSinup2,
   fullName,
+  mail,
   birthDate,
   gender,
   uploadCodeToComponent
@@ -66,6 +68,7 @@ const Signup3: React.FC<ChildComponentProps> = ({
     setDialogMessage(messageError)
     const tempUser = {
       phone: phone,
+      mail:mail,
       fullname: fullName,
       birthDate: birthDate,
       gender: gender,

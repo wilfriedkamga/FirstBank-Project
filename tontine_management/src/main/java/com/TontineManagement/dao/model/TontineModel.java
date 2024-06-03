@@ -16,6 +16,9 @@ public class TontineModel {
     private int nbCaisse;
     private int nbMembre;
     private Date prochaineReunion;
+    private String id_admin1;
+    private String id_admin2;
+    private String id_admin3;
 
 
     public String getId() {
@@ -26,7 +29,29 @@ public class TontineModel {
         this.id = id;
     }
 
+    public String getId_admin1() {
+        return id_admin1;
+    }
 
+    public void setId_admin1(String id_admin1) {
+        this.id_admin1 = id_admin1;
+    }
+
+    public String getId_admin2() {
+        return id_admin2;
+    }
+
+    public void setId_admin2(String id_admin2) {
+        this.id_admin2 = id_admin2;
+    }
+
+    public String getId_admin3() {
+        return id_admin3;
+    }
+
+    public void setId_admin3(String id_admin3) {
+        this.id_admin3 = id_admin3;
+    }
 
     public String getCreate_par() {
         return create_par;
