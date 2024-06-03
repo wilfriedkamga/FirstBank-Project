@@ -6,6 +6,7 @@ import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import Variable from "../../../Variable";
 import Authentications from "../../../Services/Authentications";
 
+
 type TUploadFileModel = {
   cniRecto: string;
   cniVerso: string;

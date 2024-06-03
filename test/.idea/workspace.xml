@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4e6f8fda-6e54-4bd1-88b4-06259e8ed402" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../frontend/src/SavingManagement/components/user profile card/UserProfileCard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/Routes/Routes.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/Routes/Routes.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/SavingManagement/pages/ProfileSettings/EmailVerification.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/SavingManagement/pages/ProfileSettings/EmailVerification.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/SavingManagement/pages/ProfileSettings/ProfileSettings.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/SavingManagement/pages/ProfileSettings/ProfileSettings.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../user_management/src/main/java/com/UserManagement/business/UserManagerBus.java" beforeDir="false" afterPath="$PROJECT_DIR$/../user_management/src/main/java/com/UserManagement/business/UserManagerBus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../user_management/target/classes/com/UserManagement/business/UserManagerBus.class" beforeDir="false" afterPath="$PROJECT_DIR$/../user_management/target/classes/com/UserManagement/business/UserManagerBus.class" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -151,7 +145,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1717406869820" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1717413587457" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="project.structure.last.edited" value="Modules" />

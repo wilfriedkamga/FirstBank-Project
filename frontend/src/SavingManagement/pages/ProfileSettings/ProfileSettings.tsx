@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Header from "../../components/header/Header";
 import BottomNavigation from "../../components/bottom navigation/BottomNavigation";
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
 import {
   ArrowLeftStartOnRectangleIcon,
   BellAlertIcon,
