@@ -8,6 +8,7 @@ import com.UserManagement.dao.entities.Validation_Email;
 import com.UserManagement.dao.model.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
@@ -16,7 +17,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Objects;
 
 
@@ -35,6 +42,9 @@ public class UserManagerController {
 
 	@Autowired
 	private UserDetailsService jwtInMemoryUserDetailsService;
+
+	@Value("${UPLOAD_DIR}")
+	private String UPLOAD_DIR;
 
 	@PostMapping(value = "/signin")
 	public ResponseEntity createAuthenticationToken(@RequestBody SigninModel authenticationRequest) {
@@ -101,7 +111,7 @@ public class UserManagerController {
 			response.setResponseCode("0");
 			usermanagerBus.signup(signupModel.getPhone(),signupModel.getFullname(),signupModel.getEmail(),signupModel.getBirthDate(),signupModel.getGender(), signupModel.getPassword());
 
-			// Authentifier l'utilisateur
+			 //Authentifier l'utilisateur
 
 			authenticate(signupModel.getPhone(), signupModel.getPassword());
 
@@ -343,14 +353,22 @@ public class UserManagerController {
 		}
 	}
 
-	@PostMapping("/uploadFile")
-	public ResponseEntity uploadFile(@RequestBody UploadFileModel uploadFileModel) throws Exception {
+	@PostMapping(path="/uploadFile",consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
+	public ResponseEntity uploadFile(@RequestPart String phone,@RequestPart MultipartFile cniRecto,
+									 @RequestPart MultipartFile cniVerso,@RequestPart MultipartFile photo
+	,@RequestPart MultipartFile signature) throws Exception {
 
 		CommonResponseModel response = new CommonResponseModel();
-
+		System.out.println("*-*-*--*-*-*-*- passe ici");
 		try {
 			response.setMessage("Upload file success profil has been updated successfully");
 			response.setResponseCode("0");
+			UploadFileModel uploadFileModel=new UploadFileModel();
+			uploadFileModel.setPhone(phone);
+			uploadFileModel.setCniRecto(cniRecto);
+			uploadFileModel.setCniVerso(cniVerso);
+			uploadFileModel.setPhoto(photo);
+			uploadFileModel.setSignature(signature);
 			User updateUser=usermanagerBus.uploadFiles(uploadFileModel);
 			response.setData(updateUser);
 			return new ResponseEntity<>(response, HttpStatus.OK);
@@ -362,6 +380,25 @@ public class UserManagerController {
 			return new ResponseEntity<>(response, HttpStatus.FORBIDDEN);
 
 		}
+	}
+
+
+
+	@PostMapping("/upload")
+	public ResponseEntity<String> uploadImage(@RequestParam("image") MultipartFile file) {
+		try {
+
+			saveImage(file);
+			return new ResponseEntity<>("Image uploaded successfully", HttpStatus.OK);
+		} catch (IOException e) {
+			e.printStackTrace();
+			return new ResponseEntity<>("Failed to upload image", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	public void saveImage(MultipartFile file) throws IOException {
+		String filePath=UPLOAD_DIR+file.getOriginalFilename();
+		file.transferTo(new File(filePath));
 	}
 
 	}

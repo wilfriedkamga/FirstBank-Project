@@ -25,7 +25,9 @@ public class Validation_Email {
     private Instant creation=Instant.now();
     private Instant expiration=Instant.now().plus(2, MINUTES);
     private Instant activation;
+
     @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
     private User user;
 
     public int getId() {

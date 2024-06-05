@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -23,16 +24,18 @@ public class JwtUserDetailsService implements UserDetailsService {
 	IUserManagerBus usermanagerBus;
 
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException{
 
-		UserLoginModel userLoginModel = usermanagerBus.getUserLoginDetails(username);
 
-		if(userLoginModel == null)
-			throw new UsernameNotFoundException("User not found with username: " + username);
 
-		return new User(userLoginModel.getPhone(), userLoginModel.getPassword(),
+
+			UserLoginModel userLoginModel = usermanagerBus.getUserLoginDetails(username);
+
+			if(userLoginModel == null)
+				throw new UsernameNotFoundException("User not found with username: " + username);
+
+			return new User(userLoginModel.getPhone(), userLoginModel.getPassword(),
 					getAuthorities(userLoginModel.getPrivilegelist()));
-
 
 	}
 

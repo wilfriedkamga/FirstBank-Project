@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Variable from "../../../Variable";
 import Authentications from "../../../Services/Authentications";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
-import AlertDialog from "../../components/Dialog/AlertDialog";
+
 
 const EmailVerification = () => {
     const navigate=useNavigate()

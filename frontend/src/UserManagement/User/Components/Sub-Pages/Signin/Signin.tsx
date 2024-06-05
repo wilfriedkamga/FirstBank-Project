@@ -80,6 +80,7 @@ const Signup: React.FC<ChildComponentProps> = ({
           .then((response) => {
             setErrorVisibility(false);
             const data=Variable.setLocalStorageItem("user",response.data.data)
+            
             navigate("/home")
             
             

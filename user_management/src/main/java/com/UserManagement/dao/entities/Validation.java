@@ -44,6 +44,10 @@ public class Validation{
 	private Instant expiration=Instant.now().plus(2, MINUTES);
 	private Instant activation;
 
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
     public int getId() {
         return id;
     }
@@ -110,7 +114,6 @@ public class Validation{
         this.user = user;
     }
 
-    @OneToOne(cascade = CascadeType.ALL)
-	private User user;
+
 
 }

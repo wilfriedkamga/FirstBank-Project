@@ -3,10 +3,17 @@ package com.UserManagement.dao.model;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.commons.io.IOUtils;
+import org.springframework.util.ResourceUtils;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.persistence.Column;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 @Setter
@@ -137,4 +144,6 @@ public class UserLoginModel {
         this.photo = photo;
         this.privilegelist = privilegelist;
     }
+
+
 }

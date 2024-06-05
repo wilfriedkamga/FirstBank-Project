@@ -22,20 +22,19 @@ import Portal from "../SavingManagement/pages/dashboard/Portal";
 import ProfileSettings from "../SavingManagement/pages/ProfileSettings/ProfileSettings";
 import Notifications from "../SavingManagement/pages/nootifications/Notifications";
 import Search from "../SavingManagement/pages/search/Search";
-import EditProfil from "../SavingManagement/pages/ProfileSettings/EditProfil";
+import SavingsDash from "../SavingManagement/pages/savingsApp/dashboard/SavingsDash";
+import CreatePlan from "../SavingManagement/pages/savingsApp/plan/CreatePlan";
+import EditProfile from "../SavingManagement/pages/ProfileSettings/EditProfile";
+import Settings from "../SavingManagement/pages/Settings/Settings";
 import ModifyPassword from "../SavingManagement/pages/ProfileSettings/ModifyPassword";
-import AddCNI from "../SavingManagement/pages/ProfileSettings/AddCNI";
-import ChangePhone from "../SavingManagement/pages/ProfileSettings/ChangePhone";
 import EmailVerification from "../SavingManagement/pages/ProfileSettings/EmailVerification";
+import AddCNI from "../SavingManagement/pages/ProfileSettings/AddCNI";
 
 const isKeyInLocalStorage = (key: string): boolean => {
   const token = localStorage.getItem(key);
-  console.log(`*-*-*-*-- token ${token}`);
 
   return token != null && token != "";
 };
-
-
 
 export const router = createBrowserRouter([
   {
@@ -181,23 +180,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/settings",
-        element: <ProfileSettings/>
+        element: <Settings/>,
       },
       {
-        path: "/modifyPassword",
-        element: <ModifyPassword/>
-      },
-      {
-        path: "/addCNI",
-        element: <AddCNI/>
-      },
-      {
-        path: "/editProfil",
-        element: <EditProfil/>
-      },
-      {
-        path: "/changePhone",
-        element: <ChangePhone/>
+        path: "/profile",
+        element:<ProfileSettings/>
       },
       {
         path: "/notifications",
@@ -208,10 +195,39 @@ export const router = createBrowserRouter([
         element: <Search />,
       },
       {
-        path: "/verifyEmail",
-        element: <EmailVerification />,
+        path: "/savings",
+        element: <SavingsDash />,
       },
-
+      {
+        path: "/newPlan",
+        element: <CreatePlan />,
+      },
+      {
+        path: "/profile/edit-profile",
+        element: <EditProfile />,
+      }
+      ,
+      {
+        path: "/modify_password",
+        element: <ModifyPassword />,
+      }
+      ,
+      {
+        path: "/verify_email",
+        element: <EmailVerification />,
+      }
+      ,
+      {
+        path: "/add_cni",
+        element: <AddCNI />,
+      }
+      ,
+      {
+        path: "/add_signature",
+        element: <AddCNI />,
+      }
+      
+      
     ],
   },
 ]);

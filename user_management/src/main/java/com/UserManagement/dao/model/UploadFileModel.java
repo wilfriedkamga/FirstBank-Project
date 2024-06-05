@@ -1,46 +1,50 @@
 package com.UserManagement.dao.model;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.persistence.Column;
 
 public class UploadFileModel {
 
-    private String cniRecto;
-    private String cniVerso;
-    private String Signature;
-    private String photo;
-    private String phone;
+        private MultipartFile cniRecto;
+        private MultipartFile cniVerso;
+        private MultipartFile photo;
+        private MultipartFile signature;
+        private String phone;
 
-    public String getCniRecto() {
-        return cniRecto;
-    }
+        // Constructeur, getters et setters
 
-    public void setCniRecto(String cniRecto) {
-        this.cniRecto = cniRecto;
-    }
+        public MultipartFile getCniRecto() {
+            return cniRecto;
+        }
 
-    public String getCniVerso() {
-        return cniVerso;
-    }
+        public void setCniRecto(MultipartFile cniRecto) {
+            this.cniRecto = cniRecto;
+        }
 
-    public void setCniVerso(String cniVerso) {
-        this.cniVerso = cniVerso;
-    }
+        public MultipartFile getCniVerso() {
+            return cniVerso;
+        }
 
-    public String getSignature() {
-        return Signature;
-    }
+        public void setCniVerso(MultipartFile cniVerso) {
+            this.cniVerso = cniVerso;
+        }
 
-    public void setSignature(String signature) {
-        Signature = signature;
-    }
+        public MultipartFile getPhoto() {
+            return photo;
+        }
 
-    public String getPhoto() {
-        return photo;
-    }
+        public void setPhoto(MultipartFile photo) {
+            this.photo = photo;
+        }
 
-    public void setPhoto(String photo) {
-        this.photo = photo;
-    }
+        public MultipartFile getSignature() {
+            return signature;
+        }
+
+        public void setSignature(MultipartFile signature) {
+            this.signature = signature;
+        }
 
     public String getPhone() {
         return phone;
