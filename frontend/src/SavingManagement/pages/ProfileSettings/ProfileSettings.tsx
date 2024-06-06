@@ -23,10 +23,10 @@ const ProfileSettings = () => {
 
   return (
     <div className="w-full h-full flex flex-col">
-      <div className="border-b border-gray-200 w-full h-fit  z-20">
+      <div className="border-b border-gray-500 w-full   z-20">
         <Header />
       </div>
-      <div className="flex flex-col pt-5 md:px-5 h-full w-full space-y-8 overflow-auto">
+      <div className="flex  flex-col pt-5 md:px-5 h-full w-full space-y-8 overflow-auto">
         <div className="font-medium bg-gray-400 w-full space-y-2">
           <UserProfileCard />
           <p className="font-title text-lg md:text-2xl ml-36 md:ml-56">

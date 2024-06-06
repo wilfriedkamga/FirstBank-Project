@@ -19,8 +19,8 @@ const Header = () => {
   };
 
   return (
-    <div className="flex justify-between  border-[2px p-3">
-      <div className="h-10 right-5 relative bottom-6 ">
+    <div className="flex fixed   bg-white border-gray-500 border-b justify-between w-full border-[2px p-3">
+      <div className="h-10 right-1 relative bottom-6 ">
         <img src={logo} alt="logo" width={200} height={30} />
       </div>
       <div className="h-10 flex space-x-1">

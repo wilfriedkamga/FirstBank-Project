@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 const BottomNavigation = () => {
     const [active, setActive] = useState(0)
   return (
-    <div className="px-5 bg-white shadow-2xl rounded-2xl md:rounded h-18">
+    <div className="px-5 bg-white shadow-2xl fixed bottom-0 block md:hidden rounded-2xl md:rounded h-18">
         <div className={`flex space-x-5`}>
             {tabs.map((tab, index) => 
                 <div key={index} className='flex-1 group'>

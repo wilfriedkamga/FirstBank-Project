@@ -14,11 +14,10 @@ const Portal = () => {
     console.log(user.user.fullName)
   })
   return (
-    <div className='w-full bg-white h-full p-2 flex flex-col'>
-      <div className="border-b border-gray-200 w-full h-fit p-2 z-20">
+    <div className='w-full bg-white h-full flex flex-col'>
         <Header />
-      </div>
-      <div className="flex flex-col pt-5 h-full w-full space-y-8 overflow-auto">
+      
+      <div className="flex mt-[10vh] p-4 flex-col pt-5 h-full w-full space-y-8 overflow-auto">
         <AccountBalanceBox />
         <div className="mb-5 ml-5 border-b border-gray-200">
           <h3 className='font-title font-semibold text-[#0C1013] text-md'>Savings App Services</h3>

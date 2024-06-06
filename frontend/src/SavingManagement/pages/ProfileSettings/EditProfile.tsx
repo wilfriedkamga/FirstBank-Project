@@ -116,8 +116,8 @@ const EditProfile: React.FC = () => {
   };
 
   return (
-    <div className="w-full h-full p-2 flex flex-col">
-      <div className="border-b border-gray-200 w-full h-fit p-2 z-20">
+    <div className="w-full h-full  flex flex-col">
+      <div className="border-b border-2 border-gray-200 w-full h-fit p-2 z-100">
         <Header />
       </div>
       <div className="flex  justify-center flex-col  h-full w-full space-y-6 ">
