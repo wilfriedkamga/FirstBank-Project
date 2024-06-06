@@ -30,7 +30,7 @@ const Carousel = () => {
         try {
           const response = await axios({
             method: 'GET',
-            url: 'http://localhost:8085/api/operationService/get-account-balance',
+            url: 'http://62.169.22.170:8085/api/operationService/get-account-balance',
             params : {
               owner: owner,
             }

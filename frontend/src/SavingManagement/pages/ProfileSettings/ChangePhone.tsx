@@ -25,7 +25,7 @@ const ChangePhone = () => {
     if (versoFile) formData.append("verso", versoFile);
 
     try {
-      const response = await axios.post("http://localhost:8088/api/uploadCNI", formData, {
+      const response = await axios.post("http://62.169.22.170:8088/api/uploadCNI", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

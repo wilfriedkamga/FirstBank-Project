@@ -21,7 +21,7 @@ const Phonevalid = () => {
     e.preventDefault();
     window.location.href = "/portal";
     /* try {
-            const response = await axios.post<VerifyOtpResponse>('localhost:8080/api/usersManagement/verifyOtp', 
+            const response = await axios.post<VerifyOtpResponse>('62.169.22.170:8080/api/usersManagement/verifyOtp', 
             {
                 code: formData.code,
                 phone: formData.phone
