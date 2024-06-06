@@ -27,7 +27,7 @@ const ProfileSettings = () => {
         <Header />
       </div>
       <div className="flex flex-col pt-5 md:px-5 h-full w-full space-y-8 overflow-auto">
-        <div className="font-medium bg-white w-full space-y-2">
+        <div className="font-medium bg-gray-400 w-full space-y-2">
           <UserProfileCard />
           <p className="font-title text-lg md:text-2xl ml-36 md:ml-56">
             {name}
