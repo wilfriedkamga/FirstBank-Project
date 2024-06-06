@@ -22,12 +22,6 @@ const userAvatarItems2: userAvatarItem[] = [
     link: "/settings",
     Icon: <Settings fontSize="small" />,
   },
-
-  {
-    label: "Déconnexion",
-    link: "/",
-    Icon: <Logout fontSize="small" />,
-  },
 ];
 const userAvatarItems1: userAvatarItem[] = [
   {
@@ -56,6 +50,11 @@ export default function AccountMenu() {
 
   const stringAvatar = (name: string) => {
     return name.split(" ")[0].charAt(0) + name.split(" ")[1].charAt(0);
+  };
+  const handleLogout = () => {
+    alert("vous allez vous déconnecté");
+    Variable.removeFromLocalStorage("user");
+    navigate("/")
   };
 
   React.useEffect(() => {
@@ -98,6 +97,7 @@ export default function AccountMenu() {
         open={open}
         onClose={handleClose}
         onClick={handleClose}
+        color="#000000"
         PaperProps={{
           elevation: 0,
           sx: {
@@ -144,6 +144,14 @@ export default function AccountMenu() {
             </MenuItem>
           </Link>
         ))}
+        
+            <MenuItem onClick={()=>handleLogout()} >
+              <ListItemIcon>
+                <Logout/>
+              </ListItemIcon>
+              Logout
+            </MenuItem>
+          
       </Menu>
     </React.Fragment>
   );

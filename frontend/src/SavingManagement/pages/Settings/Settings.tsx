@@ -7,12 +7,10 @@ import UserProfileCard from '../../components/user profile card/UserProfileCard'
 const Settings = () => {
   const [name, setName] = useState('John Kennyston')
   return (
-    <div className='w-full h-full p-2.5 flex flex-col'>
-      <div className="border-b border-gray-200 w-full h-fit p-2 z-20">
+    <div className='w-full h-full bg-white  flex flex-col'>
         <Header />
-      </div>
-      <div className="flex flex-col pt-5 md:px-5 h-full w-full space-y-8 overflow-auto">
-        <div className="font-medium bg-white w-full p-2 space-y-2">
+      <div className="flex flex-col mt-[10vh] pt-5 md:px-5 h-full w-full space-y-8 overflow-auto">
+        <div className="font-medium bg-gray-400 w-full space-y-2">
           <UserProfileCard />
           <p className="font-title text-lg ml-36 md:ml-56">{name}</p>
         </div>

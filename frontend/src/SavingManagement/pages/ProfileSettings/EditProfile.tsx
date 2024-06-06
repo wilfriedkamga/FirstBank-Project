@@ -116,15 +116,15 @@ const EditProfile: React.FC = () => {
   };
 
   return (
-    <div className="w-full h-full  flex flex-col">
-      <div className="border-b border-2 border-gray-200 w-full h-fit p-2 z-100">
+    <div className="w-full h-full bg-white flex flex-col">
+      
         <Header />
-      </div>
-      <div className="flex  justify-center flex-col  h-full w-full space-y-6 ">
-        <div className="rounded-t-lg h-[15vh] flex items-center font-bold text-white text-3xl pl-6 overflow-hidden bg-white">
+     
+      <div className="flex mt-[10vh] p-4 justify-center flex-col  h-full w-full space-y-6 ">
+        <div className="rounded-t-lg h-[15vh] flex items-center font-bold text-white text-3xl pl-6 overflow-hidden bg-red-700">
           Edit profil
         </div>
-        <div className="ml-10 md:mx-auto  w-60 h-60 relative  border-4 border-white rounded-full overflow-hidden">
+        <div className="ml-10 md:mx-auto  w-60 h-60   border-4 border-gray-400 rounded-full overflow-hidden">
           <img
             className="object-cover  h-60 w-60 rounded-full object-center p-3"
             src={photo}

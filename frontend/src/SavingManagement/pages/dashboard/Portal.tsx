@@ -24,13 +24,13 @@ const Portal = () => {
         </div>
         <div className="flex flex-row w-full justify-start space-x-6 md:space-x-24">
           <Link to="/newPlan" className='w-18 justify-center'>
-            <div className="rounded-lg h-16 w-16 mb-1 mx-5 md:h-24 md:w-24 p-2.5 md:p-3.5">
+            <div className="rounded-lg border-gray-500 border-[2px] h-16 w-16 mb-1 mx-5 md:h-24 md:w-24 p-2.5 md:p-3.5">
               <FontAwesomeIcon icon={faPiggyBank} size='lg' className="text-[#0C1013] bg-gray-400 rounded-full md:p-5 p-2.5" />
             </div>
             <span className='font-account text-center block'>Create a plan</span>
           </Link>
           <Link to="/savings/app/contribute/plan" className='w-18 justify-center'>
-            <div className="rounded-lg h-16 w-16 mb-1 mx-5 md:h-24 md:w-24 p-2.5 md:p-3.5">
+            <div className="rounded-lg border-gray-500 border-[2px] h-16 w-16 mb-1 mx-5 md:h-24 md:w-24 p-2.5 md:p-3.5">
               <FontAwesomeIcon icon={faHandHoldingUsd} size='lg' className="text-[#0C1013] bg-gray-400 rounded-full md:p-5 p-2.5" />
             </div>
             <span className='font-account text-center block'>Contribute for a plan</span>
@@ -41,13 +41,13 @@ const Portal = () => {
         </div>
         <div className="flex flex-row w-full justify-start space-x-6 md:space-x-24">
           <Link to="/tontine/mestontines" className='w-18 justify-center'>
-            <div className="rounded-lg h-16 w-16 mb-1 mx-5 md:h-24 md:w-24 p-2.5 md:p-3.5">
+            <div className="rounded-lg border-gray-500 border-[2px] h-16 w-16 mb-1 mx-5 md:h-24 md:w-24 p-2.5 md:p-3.5">
               <FontAwesomeIcon icon={faPeopleGroup} size='lg' className="text-[#0C1013] bg-gray-400 rounded-full md:p-5 p-2.5" />
             </div>
             <span className='font-account text-center block'>Create a Tontine</span>
           </Link>
           <Link to="/tontine/mestontines" className='w-18 ml-3 justify-center'>
-            <div className="rounded-lg h-16 w-16 mb-1 mx-5 md:h-24 md:w-24 p-2.5 md:p-3.5">
+            <div className="rounded-lg border-gray-500 border-[2px] h-16 w-16 mb-1 mx-5 md:h-24 md:w-24 p-2.5 md:p-3.5">
               <FontAwesomeIcon icon={faCoins} size='lg' className="text-[#0C1013] bg-gray-400 rounded-full md:p-5 p-2.5" />
             </div>
             <span className='font-account text-center block'>Contribute to a fund</span>
