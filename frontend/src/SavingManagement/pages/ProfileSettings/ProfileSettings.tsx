@@ -26,7 +26,7 @@ const ProfileSettings = () => {
       <div className="border-b border-gray-500 w-full   z-20">
         <Header />
       </div>
-      <div className="flex mt-[50px] flex-col pt-5 md:px-5 h-full w-full space-y-8 overflow-auto">
+      <div className="flex mt-[10vh] flex-col pt-5 md:px-5 h-full w-full space-y-8 overflow-auto">
         <div className="font-medium bg-gray-400 w-full space-y-2">
           <UserProfileCard />
           <p className="font-title text-lg md:text-2xl ml-36 md:ml-56">
@@ -41,7 +41,7 @@ const ProfileSettings = () => {
         <div className="flex flex-col bg-white w-full p-2 space-y-2">
           <a
             href="/profile/edit-profile"
-            className="flex flex-row group border  items-center justify-start bg-white rounded-lg w-full hover:bg-gray-100"
+            className="flex flex-row group  items-center justify-start bg-white rounded-lg w-full hover:bg-gray-100"
           >
             <div className="p-5 group-hover:text-[#BB0A01]">
               <PencilSquareIcon className="h-8 w-8" />

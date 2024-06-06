@@ -10,7 +10,7 @@ const UserProfileCard = () => {
   },[])
   return (
     <div className='w-full'>
-       <div className="rounded-t-lg md:h-40 h-30 overflow-hidden bg-red-700">
+       <div className="rounded-t-lg md:h-40 h-40 overflow-hidden bg-red-700">
        </div>
        <div className="ml-5 md:ml-16 w-36 h-36 relative -mt-16  border-2 border-white rounded-full overflow-hidden">
         {photo?<img className="object-cover object-center h-30" src={photo} alt='Woman looking front' />:
