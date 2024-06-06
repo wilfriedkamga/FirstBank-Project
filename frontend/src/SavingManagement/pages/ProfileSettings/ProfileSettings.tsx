@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../../components/header/Header";
 import BottomNavigation from "../../components/bottom navigation/BottomNavigation";
 import {
@@ -12,12 +12,18 @@ import {
   ShareIcon,
 } from "@heroicons/react/24/outline";
 import UserProfileCard from "../../components/user profile card/UserProfileCard";
+import Variable from "../../../Variable";
 
 const ProfileSettings = () => {
+  useEffect(()=>{
+    const user=Variable.getLocalStorageItem("user")
+    setName(user.user.fullName)
+  })
   const [name, setName] = useState("John Kennyston");
+
   return (
-    <div className="w-full h-full p-2.5 flex flex-col">
-      <div className="border-b border-gray-200 w-full h-fit p-2 z-20">
+    <div className="w-full h-full flex flex-col">
+      <div className="border-b border-gray-200 w-full h-fit  z-20">
         <Header />
       </div>
       <div className="flex flex-col pt-5 md:px-5 h-full w-full space-y-8 overflow-auto">

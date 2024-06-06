@@ -16,10 +16,10 @@ const EditProfile: React.FC = () => {
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [birthdate, setBirthdate] = useState("");
-  const [birthDateEditable, setBirthdateEditable] = useState<boolean>(false);
-  const [emailEditable, setEmailEditable] = useState<boolean>(false);
-  const [phoneEditable, setPhoneEditable] = useState<boolean>(false);
-  const [fullnameEditable, setFullnameEditable] = useState<boolean>(false);
+  const [birthDateEditable, setBirthdateEditable] = useState<boolean>(true);
+  const [emailEditable, setEmailEditable] = useState<boolean>(true);
+  const [phoneEditable, setPhoneEditable] = useState<boolean>(true);
+  const [fullnameEditable, setFullnameEditable] = useState<boolean>(true);
   const [photo, setPhoto] = useState<string>("");
   const [showUploadText, setShowUploadText] = useState(false);
 
@@ -120,8 +120,8 @@ const EditProfile: React.FC = () => {
       <div className="border-b border-gray-200 w-full h-fit p-2 z-20">
         <Header />
       </div>
-      <div className="flex  justify-center flex-col pt- h-full w-full space-y-6 overflow-auto">
-        <div className="rounded-t-lg h-[20vh] flex items-center font-bold text-white text-3xl pl-6 overflow-hidden bg-[#BB0A01]">
+      <div className="flex  justify-center flex-col  h-full w-full space-y-6 ">
+        <div className="rounded-t-lg h-[15vh] flex items-center font-bold text-white text-3xl pl-6 overflow-hidden bg-white">
           Edit profil
         </div>
         <div className="ml-10 md:mx-auto  w-60 h-60 relative  border-4 border-white rounded-full overflow-hidden">
@@ -175,7 +175,7 @@ const EditProfile: React.FC = () => {
                     setFullnameEditable(!fullnameEditable);
                   }}
                 >
-                  {!fullnameEditable ? (
+                  {fullnameEditable ? (
                     <FontAwesomeIcon icon={faLock} />
                   ) : (
                     <FontAwesomeIcon icon={faUnlock} />
@@ -198,7 +198,7 @@ const EditProfile: React.FC = () => {
                     setPhoneEditable(false);
                   }}
                 >
-                  {!phoneEditable ? (
+                  {phoneEditable ? (
                     <FontAwesomeIcon icon={faLock} />
                   ) : (
                     <FontAwesomeIcon icon={faUnlock} />
@@ -230,7 +230,7 @@ const EditProfile: React.FC = () => {
                     setEmailEditable(!emailEditable);
                   }}
                 >
-                  {!emailEditable ? (
+                  {emailEditable ? (
                     <FontAwesomeIcon icon={faLock} />
                   ) : (
                     <FontAwesomeIcon icon={faUnlock} />
@@ -263,7 +263,7 @@ const EditProfile: React.FC = () => {
                     setBirthdateEditable(!birthDateEditable);
                   }}
                 >
-                  {!birthDateEditable ? (
+                  {birthDateEditable ? (
                     <FontAwesomeIcon icon={faLock} />
                   ) : (
                     <FontAwesomeIcon icon={faUnlock} />
