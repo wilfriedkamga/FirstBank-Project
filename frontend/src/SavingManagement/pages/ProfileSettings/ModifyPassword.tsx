@@ -63,12 +63,12 @@ const ModifyPassword = () => {
   };
 
   return (
-    <div className="w-full bg-white h-[100vh] p-2.5 flex flex-col">
-      <div className="border-b border-gray-200 w-full h-fit p-2 z-20">
+    <div className="w-full bg-white h-[100vh] flex flex-col">
+      
         <Header />
-      </div>
+     
       <form action="" onSubmit={(e) => handleClick(e)}>
-        <div className="flex mt-5 flex-col justify-center items-center  h-50vh bg-white w-full  md:w-4/5 mx-auto">
+        <div className="flex p-2 mt-[10vh] flex-col justify-center items-center  h-50vh bg-white w-full  md:w-4/5 mx-auto">
           <div className="flex flex-row w-full md:w-2/5">
             <div className=" bg-white w-[15vw] sm:w-[10vw]  flex justify-center items-center border  shadow h-[10vh]">
               <button

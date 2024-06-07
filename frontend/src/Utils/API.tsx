@@ -1,1 +1,3 @@
-export const BASE_URL = "http://localhost:8000";
+import Variable from "../Variable";
+
+export const BASE_URL = Variable.notification_baseUrlc

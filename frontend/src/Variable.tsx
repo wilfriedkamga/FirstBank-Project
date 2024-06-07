@@ -8,7 +8,9 @@ class Variable {
   static key_localStorage = "";
   static secret_key = "your_secret_key";
   static local_storage_key = "userFB";
-  
+  static saving_base_url="http://localhost:8085";
+  static operation_service_base_url="http://localhost:8082";
+  static notification_baseUrlc ="http://localhost:8000"
 
 
   static recupérer_du_localStorage = (key: string) => {

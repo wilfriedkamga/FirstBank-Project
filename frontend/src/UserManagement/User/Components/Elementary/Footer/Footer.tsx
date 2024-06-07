@@ -12,27 +12,28 @@ const Footer = () => {
   const location = useLocation();
 
   return (
-    <div className="flex justify-between bg-red-600   items-center px-4 py-2  ">
-      <div 
-      onClick={() => navigate("/home")}
-      className="text-white hover:bg-red-800  px-4 py-2  font-bold">
-        <AccountBalanceWalletIcon style={{ fontSize: '2rem' }} />
+    <div className=" fixed bottom-0 w-full  md:hidden flex justify-between bg-red-600   items-center px-4 py-2  ">
+      <div
+        onClick={() => navigate("/home")}
+        className="text-white hover:bg-red-800  px-4 py-2  font-bold"
+      >
+        <AccountBalanceWalletIcon style={{ fontSize: "2rem" }} />
       </div>
       <div
         onClick={() => navigate(Variable.getParentPath(location.pathname))}
         className="text-white hover:bg-red-800 px-4 py-2 font-bold"
       >
-        <ArrowCircleLeftIcon style={{ fontSize: '2rem' }} />
+        <ArrowCircleLeftIcon style={{ fontSize: "2rem" }} />
       </div>
       <div
         onClick={() => navigate("/tontine/mestontines")}
         className="text-white hover:bg-red-800  px-4 py-2  font-bold"
       >
-        <PaidIcon style={{ fontSize: '2rem' }} />
+        <PaidIcon style={{ fontSize: "2rem" }} />
       </div>
 
       <div className="text-white hover:bg-red-800  px-4 py-2 font-bold">
-        <ModeCommentIcon style={{ fontSize: '2rem' }} />
+        <ModeCommentIcon style={{ fontSize: "2rem" }} />
       </div>
     </div>
   );

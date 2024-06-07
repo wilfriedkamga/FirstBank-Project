@@ -11,6 +11,7 @@ const route_update_send_mailOtp =
 const route_verfy_mail_otp =
   Variable.routeApi + "api/usermanagement/verifyOTPMail";
 const route_upload_file = Variable.routeApi + "api/usermanagement/uploadFile";
+const route_download_imageBase64 = Variable.routeApi + "api/usermanagement/imageBase64";
 
 type TLoginModel = {
   phone: string;
@@ -72,6 +73,11 @@ class Authentication {
         "Content-Type": "multipart/form-data",
       }
     });
+  }
+
+  downloadImageBase64(profilModel: any) {
+     console.log(profilModel)
+    return axios.post(route_download_imageBase64, profilModel);
   }
 
   SendMailOtp(mail: string) {

@@ -86,6 +86,7 @@ const PutPhone: React.FC<ChildComponentProps> = ({
      
     })
     .catch((error) => {
+      console.log(error)
       setDialogMessage(dialogMessage)
       setDialogVisibility(true)
       

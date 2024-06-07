@@ -37,6 +37,7 @@ import org.apache.commons.io.IOUtils;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import javax.swing.text.html.Option;
+import javax.ws.rs.GET;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -81,6 +82,9 @@ public class UserManagerBus  implements IUserManagerBus {
 
 	@Value("${UPLOAD_DIR}")
 	private String UPLOAD_DIR;
+
+	@Value("${GET_IMAGE_BASE_URL}")
+    private String GET_IMAGE_BASE_URL;
 
 	@Override
 	public User signin(String phone, String password) throws Exception {
@@ -172,7 +176,7 @@ public class UserManagerBus  implements IUserManagerBus {
 		}
 
 		User user1 = user.get();
-		user1.setIsActivated(true);
+		user1.setActivated(true);
 		User updatedUser = userRepository.save(user1);
 		return updatedUser;
 	}
@@ -264,20 +268,20 @@ public class UserManagerBus  implements IUserManagerBus {
 
 		// Base directory where files will be stored
 		String baseDir = UPLOAD_DIR;
-
+        System.out.println("-*-*-*-*-*-*-*-*-*--*-*-*-*"+baseDir);
 //		// Check and upload cniRecto file
 		MultipartFile cniRectoFile = fileModel.getCniRecto();
 		if (cniRectoFile != null && !cniRectoFile.isEmpty()) {
 			String fileName = "recto_" + UUID.randomUUID().toString() +"."+ getExtension(cniRectoFile.getOriginalFilename());
-			File file=new File(baseDir + "CNI\\" + fileName);
-            String filePath=baseDir + "CNI\\" + fileName;
+			File file=new File(baseDir  + fileName);
+            String filePath=baseDir + fileName;
             try {
                 copyMultipartFileToFile(filePath, cniRectoFile);
             } catch (IOException e) {
                 // Gérer l'exception en conséquence
             }
-			user.setCniRecto(baseDir + "CNI\\" + fileName);
-			UploadFile uploadFile = new UploadFile(fileName, baseDir + "CNI\\" + fileName);
+			user.setCniRecto(GET_IMAGE_BASE_URL + fileName);
+			UploadFile uploadFile = new UploadFile(fileName, baseDir  + fileName);
 			uploadFileRepository.save(uploadFile);
 		}
 //
@@ -286,38 +290,38 @@ public class UserManagerBus  implements IUserManagerBus {
 		if (cniVersoFile != null && !cniVersoFile.isEmpty()) {
 
 			String fileName = "verso_" + UUID.randomUUID().toString() +"."+ getExtension(cniVersoFile.getOriginalFilename());
-			File file=new File(baseDir + "CNI\\" + fileName);
-            String filePath=baseDir + "CNI\\" + fileName;
+			File file=new File(baseDir + fileName);
+            String filePath=baseDir+ fileName;
 			try {
                 copyMultipartFileToFile(filePath, cniVersoFile);
             } catch (IOException e) {
                 // Gérer l'exception en conséquence
             }
-			user.setCniVerso(baseDir + "CNI\\" + fileName);
-			UploadFile uploadFile = new UploadFile(fileName, baseDir + "CNI\\" + fileName);
+			user.setCniVerso(GET_IMAGE_BASE_URL+ fileName);
+			UploadFile uploadFile = new UploadFile(fileName, baseDir + fileName);
 			uploadFileRepository.save(uploadFile);
 		}
-//
-		// Check and upload photo file
+////
+//		// Check and upload photo file
 		MultipartFile photoFile = fileModel.getPhoto();
 		if (photoFile != null && !photoFile.isEmpty()) {
 			String fileName = "photo_" + UUID.randomUUID().toString() +"."+ getExtension(photoFile.getOriginalFilename());
-			File file =new File(baseDir + "PHOTO\\" + fileName);
+			File file =new File(baseDir + fileName);
 			photoFile.transferTo(file);
-			user.setPhoto(baseDir + "PHOTO\\" + fileName);
-			UploadFile uploadFile = new UploadFile(fileName, baseDir + "PHOTO\\" + fileName);
+			user.setPhoto(GET_IMAGE_BASE_URL + fileName);
+			UploadFile uploadFile = new UploadFile(fileName, baseDir + fileName);
 			uploadFileRepository.save(uploadFile);
 		}
-
-		// Check and upload signature file
+//
+//		// Check and upload signature file
 		MultipartFile signatureFile = fileModel.getSignature();
 		if (signatureFile != null && !signatureFile.isEmpty()) {
 
 			String fileName = "signature_" + UUID.randomUUID().toString() +"."+ getExtension(signatureFile.getOriginalFilename());
-            File file =new File(baseDir+"SIGNATURE\\"+fileName);
+            File file =new File(baseDir+fileName);
             signatureFile.transferTo(file);
-			user.setSignature(baseDir + "SIGNATURE\\" + fileName);
-			UploadFile uploadFile = new UploadFile(fileName, baseDir+"SIGNATURE\\"+fileName);
+			user.setSignature(GET_IMAGE_BASE_URL+fileName);
+			UploadFile uploadFile = new UploadFile(fileName, baseDir+fileName);
 			uploadFileRepository.save(uploadFile);
 		}
 
@@ -364,7 +368,7 @@ public class UserManagerBus  implements IUserManagerBus {
 		}
 
 		User user1 = user.get();
-		user1.setIsActivated(false);
+		user1.setActivated(false);
 		User updatedUser = userRepository.save(user1);
 		return updatedUser;
 	}
@@ -379,7 +383,7 @@ public class UserManagerBus  implements IUserManagerBus {
 
 		User user1 = user.get();
 
-		user1.setIsBlocked(true);
+		user1.setBlocked(true);
 		User updatedUser = userRepository.save(user1);
 		return updatedUser;
 	}
@@ -392,7 +396,7 @@ public class UserManagerBus  implements IUserManagerBus {
 		}
 
 		User user1 = user.get();
-		user1.setIsBlocked(false);
+		user1.setBlocked(false);
 		User updatedUser = userRepository.save(user1);
 		return updatedUser;
 	}
@@ -463,7 +467,7 @@ public class UserManagerBus  implements IUserManagerBus {
         validationRepository.save(validation);
 //
 //		// Envoyer le message message a user.getPhone().
-	//	sendSmsToApi(validation.getPhone(),message);
+	     sendSmsToApi(validation.getPhone(),message);
 		return validation;
 	}
 

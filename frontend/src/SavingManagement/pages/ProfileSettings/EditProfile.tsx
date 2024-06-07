@@ -10,6 +10,7 @@ import {
   faUnlock,
 } from "@fortawesome/free-solid-svg-icons";
 import Variable from "../../../Variable";
+import Footer from "../../../UserManagement/User/Components/Elementary/Footer/Footer";
 
 const EditProfile: React.FC = () => {
   const [fullname, setFullname] = useState("");
@@ -120,7 +121,7 @@ const EditProfile: React.FC = () => {
       
         <Header />
      
-      <div className="flex mt-[10vh] p-4 justify-center flex-col  h-full w-full space-y-6 ">
+      <div className="flex mt-[10vh] mb-[10vh] p-4 justify-center flex-col  h-full w-full space-y-6 ">
         <div className="rounded-t-lg h-[15vh] flex items-center font-bold text-white text-3xl pl-6 overflow-hidden bg-red-700">
           Edit profil
         </div>
@@ -286,9 +287,9 @@ const EditProfile: React.FC = () => {
           </form>
         </div>
       </div>
-      <div className="border-t border-gray-200 w-full h-fit p-2 z-20">
-        <BottomNavigation />
-      </div>
+      
+        <Footer/>
+      
     </div>
   );
 };

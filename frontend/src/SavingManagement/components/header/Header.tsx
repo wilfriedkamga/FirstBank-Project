@@ -7,16 +7,6 @@ import { UserAvatar } from "./UserAvatar";
 import AccountMenu from "./AccountMenu";
 
 const Header = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [photo, setPhoto] = useState("");
-
-  useEffect(() => {
-    const user = Variable.getLocalStorageItem("user");
-    setPhoto(user.user.photo);
-  });
-  const handleToggle = () => {
-    setIsOpen(!isOpen);
-  };
 
   return (
     <div className="flex fixed   bg-white border-gray-500 border-b justify-between w-full border-[2px p-3">

@@ -1,3 +1,4 @@
+C:\Users\jorda\Desktop\Projet First Bank\tontine\user_management\src\main\java\com\UserManagement\dao\model\DownloadImageModel.java
 C:\Users\jorda\Desktop\Projet First Bank\tontine\user_management\src\main\java\com\UserManagement\dao\model\SendOtpMailModel.java
 C:\Users\jorda\Desktop\Projet First Bank\tontine\user_management\src\main\java\com\UserManagement\dao\repositories\ValidationRepository.java
 C:\Users\jorda\Desktop\Projet First Bank\tontine\user_management\src\main\java\com\UserManagement\dao\model\JwtResponse.java
@@ -15,6 +16,7 @@ C:\Users\jorda\Desktop\Projet First Bank\tontine\user_management\src\main\java\c
 C:\Users\jorda\Desktop\Projet First Bank\tontine\user_management\src\main\java\com\UserManagement\dao\repositories\ValidationEmailRepository.java
 C:\Users\jorda\Desktop\Projet First Bank\tontine\user_management\src\main\java\com\UserManagement\config\CorsConfig.java
 C:\Users\jorda\Desktop\Projet First Bank\tontine\user_management\src\main\java\com\UserManagement\config\JwtTokenUtil.java
+C:\Users\jorda\Desktop\Projet First Bank\tontine\user_management\src\main\java\com\UserManagement\controller\ImageController.java
 C:\Users\jorda\Desktop\Projet First Bank\tontine\user_management\src\main\java\com\UserManagement\dao\model\VerifyOtpMailModel.java
 C:\Users\jorda\Desktop\Projet First Bank\tontine\user_management\src\main\java\com\UserManagement\dao\entities\User.java
 C:\Users\jorda\Desktop\Projet First Bank\tontine\user_management\src\main\java\com\UserManagement\dao\repositories\RoleRepository.java
@@ -28,6 +30,7 @@ C:\Users\jorda\Desktop\Projet First Bank\tontine\user_management\src\main\java\c
 C:\Users\jorda\Desktop\Projet First Bank\tontine\user_management\src\main\java\com\UserManagement\dao\entities\UploadFile.java
 C:\Users\jorda\Desktop\Projet First Bank\tontine\user_management\src\main\java\com\UserManagement\dao\entities\Validation_Email.java
 C:\Users\jorda\Desktop\Projet First Bank\tontine\user_management\src\main\java\com\UserManagement\dao\model\UserExistModel.java
+C:\Users\jorda\Desktop\Projet First Bank\tontine\user_management\src\main\java\com\UserManagement\dao\dto\DownloadimageDto.java
 C:\Users\jorda\Desktop\Projet First Bank\tontine\user_management\src\main\java\com\UserManagement\dao\model\SigninModel.java
 C:\Users\jorda\Desktop\Projet First Bank\tontine\user_management\src\main\java\com\UserManagement\config\JwtRequestFilter.java
 C:\Users\jorda\Desktop\Projet First Bank\tontine\user_management\src\main\java\com\UserManagement\dao\repositories\UserRepository.java

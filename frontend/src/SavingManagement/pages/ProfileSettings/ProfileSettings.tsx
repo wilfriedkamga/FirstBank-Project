@@ -13,6 +13,7 @@ import {
 } from "@heroicons/react/24/outline";
 import UserProfileCard from "../../components/user profile card/UserProfileCard";
 import Variable from "../../../Variable";
+import Footer from "../../../UserManagement/User/Components/Elementary/Footer/Footer";
 
 const ProfileSettings = () => {
   useEffect(()=>{
@@ -26,7 +27,7 @@ const ProfileSettings = () => {
       <div className="border-b border-gray-500 w-full   z-20">
         <Header />
       </div>
-      <div className="flex mt-[10vh] flex-col pt-5 md:px-5 h-full w-full space-y-8 overflow-auto">
+      <div className="flex mt-[10vh] mb-[10vh] flex-col pt-5 md:px-5 h-full w-full space-y-8 overflow-auto">
         <div className="font-medium bg-gray-400 w-full space-y-2">
           <UserProfileCard />
           <p className="font-title text-lg md:text-2xl ml-36 md:ml-56">
@@ -58,7 +59,7 @@ const ProfileSettings = () => {
               <LockClosedIcon className="h-8 w-8" />
             </div>
             <p className="font-normal p-5 text-gray-700 group-hover:text-[#BB0A01] font-title">
-              Modify your password
+              Modify password
             </p>
           </a>
           <a
@@ -69,7 +70,7 @@ const ProfileSettings = () => {
               <IdentificationIcon className="h-8 w-8" />
             </div>
             <p className="font-normal p-5 group-hover:text-[#BB0A01] text-gray-700 font-title">
-              Add e-mail
+              Verify Email
             </p>
           </a>
 
@@ -93,13 +94,13 @@ const ProfileSettings = () => {
               <InboxArrowDownIcon className="h-8 w-8" />
             </div>
             <p className="font-normal p-5 group-hover:text-[#BB0A01] text-gray-700 font-title">
-              Add a phone number
+              Change Phone number
             </p>
           </a>
         </div>
       </div>
       <div className="w-full h-fit z-20">
-        <BottomNavigation />
+        <Footer/>
       </div>
     </div>
   );

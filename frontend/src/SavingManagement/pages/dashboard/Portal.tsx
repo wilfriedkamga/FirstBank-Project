@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import BottomNavigation from '../../components/bottom navigation/BottomNavigation'
 import Header from '../../components/header/Header'
 import AccountBalanceBox from '../../components/accountBalance/AccountBalanceBox';
@@ -7,12 +7,11 @@ import { faCoins, faHandHoldingUsd, faHeadset, faPeopleGroup, faPiggyBank, faCom
 import RecentTontine from '../../components/recentTontine/RecentTontine';
 import { Link } from 'react-router-dom';
 import Variable from '../../../Variable';
+import Footer from '../../../UserManagement/User/Components/Elementary/Footer/Footer';
+import Authentications from '../../../Services/Authentications';
 
 const Portal = () => {
-  useEffect(()=>{
-    const user=Variable.getLocalStorageItem('user')
-    console.log(user.user.fullName)
-  })
+    
   return (
     <div className='w-full bg-white h-full flex flex-col'>
         <Header />
@@ -78,7 +77,7 @@ const Portal = () => {
         </div>
       </div>
       <div className="w-full h-fit z-20">
-        <BottomNavigation />
+        <Footer/>
       </div>
     </div>
   )
