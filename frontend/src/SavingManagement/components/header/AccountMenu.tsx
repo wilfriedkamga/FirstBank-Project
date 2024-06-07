@@ -15,6 +15,7 @@ import { red } from "@mui/material/colors";
 import { Link, useNavigate } from "react-router-dom";
 import Variable from "../../../Variable";
 import { useState } from "react";
+import { getInitials } from "../../../UserManagement/User/Components/Elementary/Utils";
 
 const userAvatarItems2: userAvatarItem[] = [
   {
@@ -46,22 +47,19 @@ export default function AccountMenu() {
   const [name, setName] = React.useState("");
   const open = Boolean(anchorEl);
   const navigate = useNavigate();
-  const [photo, setPhoto] = useState("");
+  const [photo, setPhoto] = useState<string>("");
 
-  const stringAvatar = (name: string) => {
-    return name.split(" ")[0].charAt(0) + name.split(" ")[1].charAt(0);
-  };
   const handleLogout = () => {
     alert("vous allez vous déconnecté");
     Variable.removeFromLocalStorage("user");
-    navigate("/")
+    navigate("/");
   };
 
   React.useEffect(() => {
     const user = Variable.getLocalStorageItem("user");
     setPhoto(user.user.photo);
-    setName(stringAvatar(user.user.fullName));
-  });
+    setName(user.user.fullName);
+  },[]);
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -73,20 +71,32 @@ export default function AccountMenu() {
     <React.Fragment>
       <Box sx={{ display: "flex", alignItems: "center", textAlign: "center" }}>
         <Tooltip title="Account settings">
-          <button onClick={handleClick}  className="border-red-600 border-[2px] rounded-full">
+          <button
+            onClick={handleClick}
+            className="border-red-600 flex justify-center items-center mb-5  border-[1px] w-[40px] h-[40px] rounded-full"
+          >
             {!photo ? (
               <Avatar
                 sx={{
-                  marginBottom: 4,
+                  marginBottom: 0,
                   bgcolor: "#bb0000",
-                  width: 40,
-                  height: 40,
+                  width: 39,
+                  height: 39,
+                  fontWeight: "bold",
                 }}
               >
-                {name.toUpperCase()}
+                {getInitials(name)}
               </Avatar>
             ) : (
-              <Avatar src={photo} />
+              <Avatar
+                sx={{
+                  
+                  bgcolor: "#bb0000",
+                  width: 35,
+                  height: 35,
+                }}
+                src={photo}
+              />
             )}
           </button>
         </Tooltip>
@@ -144,14 +154,13 @@ export default function AccountMenu() {
             </MenuItem>
           </Link>
         ))}
-        
-            <MenuItem onClick={()=>handleLogout()} >
-              <ListItemIcon>
-                <Logout/>
-              </ListItemIcon>
-              Logout
-            </MenuItem>
-          
+
+        <MenuItem onClick={() => handleLogout()}>
+          <ListItemIcon>
+            <Logout />
+          </ListItemIcon>
+          Logout
+        </MenuItem>
       </Menu>
     </React.Fragment>
   );

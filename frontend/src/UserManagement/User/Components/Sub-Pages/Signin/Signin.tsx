@@ -31,6 +31,10 @@ const Signup: React.FC<ChildComponentProps> = ({
 
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
+  const [photo, setPhoto]=useState("")
+  const [cniRecto, setCniRecto]=useState("")
+  const [cniVerso, setCniVerso]=useState("")
+  
   const [response, setResponse] = useState("");
   const [errorVisibility, setErrorVisibility] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -80,7 +84,6 @@ const Signup: React.FC<ChildComponentProps> = ({
           .then((response) => {
             setErrorVisibility(false);
             const data=Variable.setLocalStorageItem("user",response.data.data)
-            
             navigate("/home")
             
             

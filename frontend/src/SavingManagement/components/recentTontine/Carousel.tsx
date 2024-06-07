@@ -25,27 +25,6 @@ const Carousel = () => {
     const [tontine, setTontine] = useState<Slide[]>(slides)
     const owner = "+237695964361";
 
-    useEffect(() => {
-      const data = async () => {
-        try {
-          const response = await axios({
-            method: 'GET',
-            url: 'http://localhost:8085/api/operationService/get-account-balance',
-            params : {
-              owner: owner,
-            }
-          })
-          if(!response.data){
-            setTontine(response.data)
-          }
-        } catch (error) {
-          console.log('Error fetching data: ', error)
-        }
-      }
-
-      data()
-    })
-
     const goToSlide = (n: number) => {
         setSlideIndex(n)
     }

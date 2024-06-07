@@ -1,5 +1,4 @@
 import React, { useState, ChangeEvent, FocusEvent, useEffect } from "react";
-import "./SetPassword.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Variable from "../../../../../Variable";
@@ -116,7 +115,7 @@ export default function SetPassword({
     axios
       .post(`${route}`, tempUser)
       .then((response) => {
-     
+        const data=Variable.setLocalStorageItem("user",response.data.data)
         console.log(response);
         navigate("/home");
       })

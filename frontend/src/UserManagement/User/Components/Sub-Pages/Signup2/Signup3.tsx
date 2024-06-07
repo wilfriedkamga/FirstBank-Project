@@ -68,7 +68,7 @@ const Signup3: React.FC<ChildComponentProps> = ({
     setDialogMessage(messageError)
     const tempUser = {
       phone: phone,
-      mail:mail,
+      "email":mail,
       fullname: fullName,
       birthDate: birthDate,
       gender: gender,

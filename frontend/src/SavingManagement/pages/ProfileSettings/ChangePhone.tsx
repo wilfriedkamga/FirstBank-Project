@@ -20,23 +20,9 @@ const ChangePhone = () => {
   const [versoFilePath, setVersoFilePath] = useState<string>("");
 
   const handleUpload = async () => {
-    const formData = new FormData();
-    if (rectoFile) formData.append("recto", rectoFile);
-    if (versoFile) formData.append("verso", versoFile);
-
-    try {
-      const response = await axios.post("http://localhost:8088/api/uploadCNI", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-
-      alert(`Téléchargement réussi : ${response.data}`);
-    } catch (error) {
-      console.error("Erreur lors du téléchargement des fichiers !", error);
-      alert("Erreur lors du téléchargement des fichiers");
-    }
+  
   };
+  
   return (
     <div className="w-full bg-white h-[100vh] p-2.5 flex flex-col">
       <div className="border-b border-gray-200 w-full h-fit p-2 z-20">

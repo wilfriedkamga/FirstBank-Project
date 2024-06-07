@@ -2,6 +2,7 @@ package com.UserManagement.controller;
 
 import com.UserManagement.business.IUserManagerBus;
 import com.UserManagement.config.JwtTokenUtil;
+import com.UserManagement.dao.dto.DownloadimageDto;
 import com.UserManagement.dao.entities.User;
 import com.UserManagement.dao.entities.Validation;
 import com.UserManagement.dao.entities.Validation_Email;
@@ -15,6 +16,7 @@ import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.util.Base64Utils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -25,6 +27,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 
 @RestController
@@ -395,6 +398,62 @@ public class UserManagerController {
 			return new ResponseEntity<>("Failed to upload image", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+
+	@PostMapping("/imageBase64")
+	public ResponseEntity<CommonResponseModel> downloadImagebase64(@RequestBody DownloadImageModel dim) {
+		CommonResponseModel response = new CommonResponseModel();
+
+		try {
+			String imagePath = dim.getPath();
+
+			// Check if path is empty
+			if (imagePath == null || imagePath.trim().isEmpty()) {
+				response.setData(null);
+				response.setMessage("Chemin vide");
+				response.setResponseCode("0");
+				return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+			}
+
+			// Check if the input is already a base64 image
+			String base64Pattern = "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)?$";
+			if (Pattern.matches(base64Pattern, imagePath)) {
+				DownloadimageDto data = new DownloadimageDto();
+				data.setImageBase64(imagePath);
+				response.setData(data);
+				response.setMessage("Chemin correspond à une image base64");
+				response.setResponseCode("1");
+				return new ResponseEntity<>(response, HttpStatus.OK);
+			}
+
+			// Check if the path is valid and is an image file
+			Path path = Paths.get(imagePath);
+			if (Files.exists(path) && !Files.isDirectory(path)) {
+				byte[] imageBytes = Files.readAllBytes(path);
+
+				// Encode byte array to base64
+				String base64Image = Base64Utils.encodeToString(imageBytes);
+				DownloadimageDto data = new DownloadimageDto();
+				data.setImageBase64(base64Image);
+				response.setData(data);
+				response.setMessage("Téléchargement réussi");
+				response.setResponseCode("1");
+				return new ResponseEntity<>(response, HttpStatus.OK);
+			} else {
+				response.setData(null);
+				response.setMessage("Chemin invalide ou fichier non trouvé");
+				response.setResponseCode("0");
+				return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			response.setData(null);
+			response.setMessage("Échec du téléchargement de l'image");
+			response.setResponseCode("0");
+			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
 
 	public void saveImage(MultipartFile file) throws IOException {
 		String filePath=UPLOAD_DIR+file.getOriginalFilename();

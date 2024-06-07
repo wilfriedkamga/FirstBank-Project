@@ -3,7 +3,6 @@ import SideBar from "../../Components/Elementary/SideBar/SideBar";
 import { Outlet } from "react-router-dom";
 import Navbar from "../../Components/Elementary/Navbar/Navbar";
 import Footer from "../../Components/Elementary/Footer/Footer";
-import MobileSideBar from "../../Components/Elementary/SideBar/MobileSideBar";
 import logo from "../../Assets/Images/FBLogo.png"
 import PropagateLoader from 'react-spinners/PropagateLoader';
 

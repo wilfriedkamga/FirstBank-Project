@@ -1,10 +1,10 @@
 import React, { useState, ChangeEvent, FocusEvent, useEffect } from "react";
-import "./SetPassword.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Variable from "../../../../../Variable";
 import SimpleDialog from "../../Elementary/Dialog/SimpleDialog";
 import logo from "../../../Assets/Images/FBLogo.png";
+import Authentications from "../../../../../Services/Authentications";
 
 type ChildComponentProps = {
   toggleSignin: () => void;
@@ -73,7 +73,16 @@ export default function SetPassword2({
         .then((response) => {
           setDialogMessage("Password updated successfully !")
           setDialogVisibility(true)  
-          navigate("/home");
+          
+          Authentications.loginService(tempUser)
+          .then((response)=>{
+            const data=Variable.setLocalStorageItem("user",response.data.data)
+            navigate("/home");
+          })
+          .catch((error)=>{
+
+          })
+          
         })
         .catch((error) => {
        
