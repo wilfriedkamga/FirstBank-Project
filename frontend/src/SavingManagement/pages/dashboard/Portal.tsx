@@ -11,33 +11,7 @@ import Footer from '../../../UserManagement/User/Components/Elementary/Footer/Fo
 import Authentications from '../../../Services/Authentications';
 
 const Portal = () => {
-  const [photo, setPhoto]=useState("")
-
-  const setPhotoImage=(path:string)=>{
-     const temp={"path":path}
-    Authentications.downloadImageBase64(temp)
-    .then((response)=>{
-      setPhoto(response.data.data.imageBase64)
-    })
-    .catch((error)=>{
-      return path;
-    })
-  }
-  
-    useEffect(()=>{
-      const user = Variable.getLocalStorageItem("user");
-      setPhotoImage(user.user.photo)
-      const updatedUser = {
-        ...user.user,
-        photo:photo
-      };
-      Variable.setLocalStorageItem("user", { user: updatedUser });
-     
-
-    },[])      
-
-  
-  
+    
   return (
     <div className='w-full bg-white h-full flex flex-col'>
         <Header />

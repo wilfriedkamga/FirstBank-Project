@@ -8,8 +8,11 @@ import com.UserManagement.dao.entities.Validation;
 import com.UserManagement.dao.entities.Validation_Email;
 import com.UserManagement.dao.model.*;
 
+import com.netflix.discovery.converters.Auto;
+import com.sun.jna.platform.unix.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
@@ -30,6 +33,7 @@ import java.util.Objects;
 import java.util.regex.Pattern;
 
 
+
 @RestController
 @RequestMapping(value = "/api/usermanagement")
 @CrossOrigin
@@ -42,6 +46,9 @@ public class UserManagerController {
 
 	@Autowired
 	private JwtTokenUtil jwtTokenUtil;
+
+
+	private  ResourceLoader resourceLoader;
 
 	@Autowired
 	private UserDetailsService jwtInMemoryUserDetailsService;
@@ -453,6 +460,9 @@ public class UserManagerController {
 			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+	@Value("${image.path}")
+	private String imagePath;
+
 
 
 	public void saveImage(MultipartFile file) throws IOException {
