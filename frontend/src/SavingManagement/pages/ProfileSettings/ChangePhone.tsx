@@ -36,7 +36,7 @@ const ChangePhone = () => {
               <div className=" bg-white w-[15vw] sm:w-[10vw] flex justify-center items-center border  shadow h-[10vh]">
                 <button
                   className="px-2 rounded-lg "
-                  onClick={() => navigate("/settings")}
+                  onClick={() => window.history.back()}
                 >
                   <KeyboardBackspaceIcon style={{ fontSize: "3rem" }} />
                 </button>

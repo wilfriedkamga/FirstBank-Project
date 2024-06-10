@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import SignatureCanvas from "react-signature-canvas";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
+import Header from "../../components/header/Header";
 
 const AddSignature: React.FC = () => {
   const navigate = useNavigate();
@@ -22,12 +23,13 @@ const AddSignature: React.FC = () => {
 
   return (
     <div className="w-full font-semibold bg-white h-[100vh] p-2.5 flex flex-col">
-      <div className="border-b border-gray-200 w-full h-fit p-2 z-20">
+      <Header/>
+      <div className=" mt-[10vh] w-full h-fit p-2 z-20">
         <header className="flex flex-row w-full md:w-4/5 mx-auto">
           <div className="bg-white w-[15vw] sm:w-[10vw] flex justify-center items-center border shadow h-[10vh]">
             <button
               className="px-2 rounded-lg"
-              onClick={() => navigate("/settings")}
+              onClick={() => window.history.back()}
             >
               <KeyboardBackspaceIcon style={{ fontSize: "3rem" }} />
             </button>
@@ -40,42 +42,35 @@ const AddSignature: React.FC = () => {
       <div className="flex mt-5 flex-col justify-center items-center h-50vh bg-white w-full md:w-4/5 mx-auto">
         <div className="flex flex-col font-semibold border mt-2 rounded-lg mb-2 mx-auto w-full md:w-3/5 p-2 md:p-5 shadow-lg border h-full">
           <div className="flex w-full flex-col">
-            <div className="flex flex-col">
-              <label className="block mb-1 ml-2 px-5 text-sm mt-3">
-                Signature
-              </label>
-              <div className="flex justify-center">
-                <SignatureCanvas
-                  penColor="black"
-                  backgroundColor="white"
-                  canvasProps={{ width: 500, height: 200, className: "signatureCanvas" }}
-                  ref={signatureCanvasRef}
-                  onEnd={() => {
-                    if (signatureCanvasRef.current) {
-                      setSignature(signatureCanvasRef.current.toDataURL());
-                    }
-                  }}
-                />
+              <div className="flex items-center w-full p-2 flex-col gap-4  justify-center">
+                <div className="w-full h-full  border">
+                  <SignatureCanvas
+                    penColor="black"
+                    backgroundColor="white"
+                    canvasProps={{ className: "signatureCanvas" }}
+                    ref={signatureCanvasRef}
+                    onEnd={() => {
+                      if (signatureCanvasRef.current) {
+                        setSignature(signatureCanvasRef.current.toDataURL());
+                      }
+                    }}
+                  />
+                </div>
+
               </div>
             </div>
           </div>
-          <div className="mt-5 flex justify-between">
+          <div className="mt-5 p-8 flex ">
             <input
               type="submit"
               value="Valider"
               onClick={handleUpload}
-              className="px-5 py-2 mt-2 bg-red-600 text-white font-bold rounded cursor-pointer"
-            />
-            <input
-              type="button"
-              value="Annuler"
-              onClick={() => navigate("/settings")}
-              className="px-5 py-2 bg-gray-600 text-white font-bold rounded cursor-pointer"
+              className="px-5 py-2  w-full bg-red-600 text-white font-bold rounded cursor-pointer"
             />
           </div>
         </div>
       </div>
-    </div>
+   
   );
 };
 

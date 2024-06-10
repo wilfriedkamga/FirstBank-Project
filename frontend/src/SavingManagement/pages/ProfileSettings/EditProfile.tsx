@@ -4,6 +4,7 @@ import BottomNavigation from "../../components/bottom navigation/BottomNavigatio
 import PhoneInput from "react-phone-input-2";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Authentications from "../../../Services/Authentications";
+import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import {
   faCloudArrowUp,
   faLock,
@@ -11,6 +12,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Variable from "../../../Variable";
 import Footer from "../../../UserManagement/User/Components/Elementary/Footer/Footer";
+import { useNavigate } from "react-router-dom";
 
 const EditProfile: React.FC = () => {
   const [fullname, setFullname] = useState("");
@@ -42,6 +44,7 @@ const EditProfile: React.FC = () => {
         alert("une erreur s'est produit");
       });
   };
+  const navigate=useNavigate()
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -108,7 +111,7 @@ const EditProfile: React.FC = () => {
           email: email,
           fullName: fullname,
           birthDate: birthdate,
-          emailIsVallid: email ? false : true,
+          emailIsVallid:response.data.data.emailIsVallid,
         };
         Variable.setLocalStorageItem("user", { user: updatedUser });
         
@@ -125,6 +128,14 @@ const EditProfile: React.FC = () => {
         <div className="rounded-t-lg h-[15vh] flex items-center font-bold text-white text-3xl pl-6 overflow-hidden bg-red-700">
           Edit profil
         </div>
+        <div className="bg-white w-[15vw] sm:w-[10vw] flex justify-center items-center   shadow h-[10vh]">
+            <button
+              className="  rounded-lg"
+              onClick={() => window.history.back()}
+            >
+              <KeyboardBackspaceIcon style={{ fontSize: "2rem" }} />
+            </button>
+          </div>
         <div className="ml-10 md:mx-auto  w-60 h-60   border-4 border-gray-400 rounded-full overflow-hidden">
           <img
             className="object-cover  h-60 w-60 rounded-full object-center p-3"

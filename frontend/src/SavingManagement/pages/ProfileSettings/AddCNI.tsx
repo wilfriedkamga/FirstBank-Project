@@ -129,7 +129,7 @@ const AddCNI: React.FC = () => {
           <div className="bg-white w-[15vw] sm:w-[10vw] flex justify-center items-center   shadow h-[10vh]">
             <button
               className="  rounded-lg"
-              onClick={() => navigate("/settings")}
+              onClick={() => window.history.back()}
             >
               <KeyboardBackspaceIcon style={{ fontSize: "2rem" }} />
             </button>

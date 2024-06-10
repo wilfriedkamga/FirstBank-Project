@@ -26,7 +26,6 @@ com\UserManagement\dao\model\VerifyOtpMailModel.class
 com\UserManagement\dao\entities\Tontine.class
 com\UserManagement\dao\model\UserExistModel.class
 com\UserManagement\dao\entities\User.class
-com\UserManagement\controller\ImageController.class
 com\UserManagement\dao\dto\DownloadimageDto.class
 com\UserManagement\dao\repositories\ValidationRepository.class
 com\UserManagement\config\JwtRequestFilter.class

@@ -14,13 +14,34 @@ import {
 import UserProfileCard from "../../components/user profile card/UserProfileCard";
 import Variable from "../../../Variable";
 import Footer from "../../../UserManagement/User/Components/Elementary/Footer/Footer";
+import { useNavigate } from "react-router-dom";
+import Authentications from "../../../Services/Authentications";
 
 const ProfileSettings = () => {
-  useEffect(()=>{
-    const user=Variable.getLocalStorageItem("user")
-    setName(user.user.fullName)
-  })
-  const [name, setName] = useState("John Kennyston");
+  const [name, setName] = useState("");
+  const [emailIsValid, setEmailIsValid] = useState<boolean>(false);
+  const [email, setEmail] = useState("");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const user = Variable.getLocalStorageItem("user");
+    setName(user.user.fullName);
+    setEmailIsValid(user.user.emailIsVallid);
+    setEmail(user.user.email)
+  });
+
+  const verfyEmail = () => {
+    if (!emailIsValid && email) {
+      navigate("/verify_email");
+      Authentications.SendMailOtp(email)
+        .then((response) => {})
+      
+        .catch((error) => {});
+    }
+    else if(!email || email.trim()==""){
+      alert("Veuillez renseigner votre mail dans l'onglet update profil.")
+    }
+  };
 
   return (
     <div className="w-full bg-white h-full flex flex-col">
@@ -62,18 +83,21 @@ const ProfileSettings = () => {
               Modify password
             </p>
           </a>
-          <a
-            href="/verify_email"
+
+          <button
+            disabled={emailIsValid}
+            onClick={() => verfyEmail()}
             className="flex flex-row group items-center justify-start bg-white rounded-lg w-full hover:bg-gray-100"
           >
             <div className="p-5 group-hover:text-[#BB0A01]">
               <IdentificationIcon className="h-8 w-8" />
             </div>
             <p className="font-normal p-5 group-hover:text-[#BB0A01] text-gray-700 font-title">
-              Verify Email
+              {emailIsValid
+                ? "Verify Email ( Already done)"
+                : "Verify Email (click for verify your email)"}
             </p>
-          </a>
-
+          </button>
           <a
             href="/add_cni"
             className="flex flex-row group items-center justify-start bg-white rounded-lg w-full hover:bg-gray-100"
@@ -87,20 +111,20 @@ const ProfileSettings = () => {
           </a>
 
           <a
-            href="/profile/new/phone"
-            className="flex flex-row group items-center justify-start bg-white rounded-lg w-full hover:bg-gray-100"
+            
+            className="flex flex-row group items-center justify-start  rounded-lg w-full"
           >
-            <div className="p-5 group-hover:text-[#BB0A01]">
+            <div className="p-5">
               <InboxArrowDownIcon className="h-8 w-8" />
             </div>
-            <p className="font-normal p-5 group-hover:text-[#BB0A01] text-gray-700 font-title">
-              Change Phone number
+            <p className="font-normal p-5 text-gray-300 font-title">
+              Add / Modify Signature.
             </p>
           </a>
         </div>
       </div>
       <div className="w-full h-fit z-20">
-        <Footer/>
+        <Footer />
       </div>
     </div>
   );

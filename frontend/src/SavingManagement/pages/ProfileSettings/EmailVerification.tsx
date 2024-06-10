@@ -34,19 +34,26 @@ const EmailVerification = () => {
      })
 
     }
+    const verfyEmail = () => {
+        
+        Authentications.SendMailOtp(mail)
+          .then((response) => { alert("Un otp vous a été envoyé avec succèss")})
+          .catch((error) => {alert("Une erreur s'est produite lors de l'envoi de l'otp. Veuillez réessayer.")});
+      }
+    
   return (
-    <div className="w-full bg-white h-[100vh] p-2.5 flex flex-col">
-      <div className="border-b border-gray-200 w-full h-fit p-2 z-20">
+    <div className="w-full bg-white h-[100vh]  flex flex-col">
+      
         <Header />
-      </div>
+      
       
       <form action="" onSubmit={(e) => handleSubmit(e)}>
-          <div className="flex mt-5 flex-col justify-center items-center  h-50vh bg-white w-full  md:w-4/5 mx-auto">
+          <div className="flex p-2.5 mt-[10vh] flex-col justify-center items-center  h-50vh bg-white w-full  md:w-4/5 mx-auto">
             <div className="flex flex-row w-full md:w-2/5">
               <div className=" bg-white w-[15vw] sm:w-[10vw]  flex justify-center items-center border  shadow h-[10vh]">
                 <button
-                  className="bg-green-400 px-2 rounded-lg "
-                  onClick={() => navigate("/settings")}
+                  className=" px-2 rounded-lg "
+                  onClick={() => window.history.back()}
                 >
                   <KeyboardBackspaceIcon style={{ fontSize: "3rem" }} />
                 </button>
@@ -54,9 +61,13 @@ const EmailVerification = () => {
               <div className=" bg-white w-full flex justify-center items-center  shadow h-[10vh]">
                 Vérification de l'adresse mail
               </div>
+              
             </div>
+            
             <div className="flex flex-col font-semibold bg-white mt-2 rounded-lg mb-2 mx-auto w-full md:w-2/5 p-2 md:p-5 shadow-lg border h-full">
               <div className="flex w-full flex-col  ">
+              <p>Un email contenant un code à 5 chiffres a été envoyé à l'adresse : {mail}</p>
+              <p> Vous n'avez reçu de mail ? <button onClick={()=>verfyEmail()} className="bg-red-600 hover:bg-red-700 rounded-lg p-1 text-white">Renvoyer</button></p>
                 <label className="block mb-2 text-sm mt-3 ">
                   Entrez le code otp que vous avez reçu
                 </label>
