@@ -1,15 +1,16 @@
 package com.UserManagement.dao.model;
 
+import com.sun.istack.NotNull;
 import lombok.*;
 import java.util.*;
 
-@Setter
-@Getter
+
 public class SigninModel {
 
 	private String phone;
 
 	private String password;
+
 
 	public String getPhone() {
 		return phone;

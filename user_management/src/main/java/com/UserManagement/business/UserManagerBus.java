@@ -273,15 +273,17 @@ public class UserManagerBus  implements IUserManagerBus {
 		MultipartFile cniRectoFile = fileModel.getCniRecto();
 		if (cniRectoFile != null && !cniRectoFile.isEmpty()) {
 			String fileName = "recto_" + UUID.randomUUID().toString() +"."+ getExtension(cniRectoFile.getOriginalFilename());
-			File file=new File(baseDir  + fileName);
-            String filePath=baseDir + fileName;
+			String rectoPath=baseDir + fileName;
+			String rectoAdresse=GET_IMAGE_BASE_URL+fileName;
+			File file=new File(rectoPath);
+
             try {
-                copyMultipartFileToFile(filePath, cniRectoFile);
+                copyMultipartFileToFile(rectoPath, cniRectoFile);
             } catch (IOException e) {
                 // Gérer l'exception en conséquence
             }
-			user.setCniRecto(GET_IMAGE_BASE_URL + fileName);
-			UploadFile uploadFile = new UploadFile(fileName, baseDir  + fileName);
+			user.setCniRecto(rectoAdresse);
+			UploadFile uploadFile = new UploadFile(fileName, rectoPath,rectoAdresse);
 			uploadFileRepository.save(uploadFile);
 		}
 //
@@ -291,14 +293,15 @@ public class UserManagerBus  implements IUserManagerBus {
 
 			String fileName = "verso_" + UUID.randomUUID().toString() +"."+ getExtension(cniVersoFile.getOriginalFilename());
 			File file=new File(baseDir + fileName);
-            String filePath=baseDir+ fileName;
+            String versoPath=baseDir+ fileName;
+            String versoAdresse=GET_IMAGE_BASE_URL+fileName;
 			try {
-                copyMultipartFileToFile(filePath, cniVersoFile);
+                copyMultipartFileToFile(versoPath, cniVersoFile);
             } catch (IOException e) {
                 // Gérer l'exception en conséquence
             }
-			user.setCniVerso(GET_IMAGE_BASE_URL+ fileName);
-			UploadFile uploadFile = new UploadFile(fileName, baseDir + fileName);
+			user.setCniVerso(versoAdresse);
+			UploadFile uploadFile = new UploadFile(fileName, versoPath,versoAdresse);
 			uploadFileRepository.save(uploadFile);
 		}
 ////
@@ -306,10 +309,12 @@ public class UserManagerBus  implements IUserManagerBus {
 		MultipartFile photoFile = fileModel.getPhoto();
 		if (photoFile != null && !photoFile.isEmpty()) {
 			String fileName = "photo_" + UUID.randomUUID().toString() +"."+ getExtension(photoFile.getOriginalFilename());
-			File file =new File(baseDir + fileName);
+			String pathPhoto=baseDir +fileName;
+			String adressePhoto=GET_IMAGE_BASE_URL+fileName;
+			File file =new File(pathPhoto);
 			photoFile.transferTo(file);
-			user.setPhoto(GET_IMAGE_BASE_URL + fileName);
-			UploadFile uploadFile = new UploadFile(fileName, baseDir + fileName);
+			user.setPhoto(adressePhoto);
+			UploadFile uploadFile = new UploadFile(fileName, pathPhoto,adressePhoto);
 			uploadFileRepository.save(uploadFile);
 		}
 //
@@ -318,10 +323,12 @@ public class UserManagerBus  implements IUserManagerBus {
 		if (signatureFile != null && !signatureFile.isEmpty()) {
 
 			String fileName = "signature_" + UUID.randomUUID().toString() +"."+ getExtension(signatureFile.getOriginalFilename());
-            File file =new File(baseDir+fileName);
+			String pathSignature =baseDir+fileName;
+			String adresseSignature=GET_IMAGE_BASE_URL+fileName;
+			File file =new File(pathSignature);
             signatureFile.transferTo(file);
-			user.setSignature(GET_IMAGE_BASE_URL+fileName);
-			UploadFile uploadFile = new UploadFile(fileName, baseDir+fileName);
+			user.setSignature(adresseSignature);
+			UploadFile uploadFile = new UploadFile(fileName, pathSignature,adresseSignature);
 			uploadFileRepository.save(uploadFile);
 		}
 
@@ -408,6 +415,8 @@ public class UserManagerBus  implements IUserManagerBus {
             throw new IllegalArgumentException("User not found with phone number: " + updateProfil.getPhone());
         }
 
+
+
         User user1 = user.get();
 
         if (updateProfil.getFullName() != null) {
@@ -420,7 +429,9 @@ public class UserManagerBus  implements IUserManagerBus {
             user1.setGender(updateProfil.getGender());
         }
         if (updateProfil.getEmail() != null) {
+
             user1.setEmail(updateProfil.getEmail());
+
             user1.setEmailIsVallid(false);
         }
         if (updateProfil.getCniRecto() != null) {

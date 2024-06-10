@@ -25,8 +25,12 @@ public class UploadFile {
     @Column(name = "filePath")
     private String path;
 
-    public UploadFile(String name, String path) {
+    @Column(name = "adresse")
+    private String adresse;
+
+    public UploadFile(String name, String path,String adresse) {
         this.name = name;
         this.path = path;
+        this.adresse=adresse;
     }
 }

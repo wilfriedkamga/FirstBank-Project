@@ -53,13 +53,12 @@ public class UserManagerController {
 	@Autowired
 	private UserDetailsService jwtInMemoryUserDetailsService;
 
-	@Value("${UPLOAD_DIR}")
-	private String UPLOAD_DIR;
 
 	@PostMapping(value = "/signin")
-	public ResponseEntity createAuthenticationToken(@RequestBody SigninModel authenticationRequest) {
+	public ResponseEntity createAuthenticationToken(@RequestBody SigninModel authenticationRequest)  {
 		CommonResponseModel response = new CommonResponseModel();
-		try{
+
+		try {
 			authenticate(authenticationRequest.getPhone(), authenticationRequest.getPassword());
 
 			final UserDetails userDetails = jwtInMemoryUserDetailsService
@@ -73,13 +72,13 @@ public class UserManagerController {
 
 			return new ResponseEntity(response, HttpStatus.OK);
 
-		} catch ( Exception e) {
+		}catch (Exception e){
 			response.setResponseCode("1");
 			response.setMessage(e.getMessage());
 
 			return new ResponseEntity<>(response, HttpStatus.FORBIDDEN);
-		}
-	}
+
+	}}
 
 	public void authenticate(String username, String password) throws Exception {
 		Objects.requireNonNull(username);
@@ -392,83 +391,6 @@ public class UserManagerController {
 		}
 	}
 
-
-
-	@PostMapping("/upload")
-	public ResponseEntity<String> uploadImage(@RequestParam("image") MultipartFile file) {
-		try {
-
-			saveImage(file);
-			return new ResponseEntity<>("Image uploaded successfully", HttpStatus.OK);
-		} catch (IOException e) {
-			e.printStackTrace();
-			return new ResponseEntity<>("Failed to upload image", HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
-
-	@PostMapping("/imageBase64")
-	public ResponseEntity<CommonResponseModel> downloadImagebase64(@RequestBody DownloadImageModel dim) {
-		CommonResponseModel response = new CommonResponseModel();
-
-		try {
-			String imagePath = dim.getPath();
-
-			// Check if path is empty
-			if (imagePath == null || imagePath.trim().isEmpty()) {
-				response.setData(null);
-				response.setMessage("Chemin vide");
-				response.setResponseCode("0");
-				return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
-			}
-
-			// Check if the input is already a base64 image
-			String base64Pattern = "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)?$";
-			if (Pattern.matches(base64Pattern, imagePath)) {
-				DownloadimageDto data = new DownloadimageDto();
-				data.setImageBase64(imagePath);
-				response.setData(data);
-				response.setMessage("Chemin correspond à une image base64");
-				response.setResponseCode("1");
-				return new ResponseEntity<>(response, HttpStatus.OK);
-			}
-
-			// Check if the path is valid and is an image file
-			Path path = Paths.get(imagePath);
-			if (Files.exists(path) && !Files.isDirectory(path)) {
-				byte[] imageBytes = Files.readAllBytes(path);
-
-				// Encode byte array to base64
-				String base64Image = Base64Utils.encodeToString(imageBytes);
-				DownloadimageDto data = new DownloadimageDto();
-				data.setImageBase64(base64Image);
-				response.setData(data);
-				response.setMessage("Téléchargement réussi");
-				response.setResponseCode("1");
-				return new ResponseEntity<>(response, HttpStatus.OK);
-			} else {
-				response.setData(null);
-				response.setMessage("Chemin invalide ou fichier non trouvé");
-				response.setResponseCode("0");
-				return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			response.setData(null);
-			response.setMessage("Échec du téléchargement de l'image");
-			response.setResponseCode("0");
-			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
-	@Value("${image.path}")
-	private String imagePath;
-
-
-
-	public void saveImage(MultipartFile file) throws IOException {
-		String filePath=UPLOAD_DIR+file.getOriginalFilename();
-		file.transferTo(new File(filePath));
-	}
 
 	}
 

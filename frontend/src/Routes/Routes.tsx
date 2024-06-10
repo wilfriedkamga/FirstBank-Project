@@ -29,6 +29,7 @@ import ModifyPassword from "../SavingManagement/pages/ProfileSettings/ModifyPass
 import EmailVerification from "../SavingManagement/pages/ProfileSettings/EmailVerification";
 import AddCNI from "../SavingManagement/pages/ProfileSettings/AddCNI";
 import { ErrorElement } from "./ErrorElement";
+import AddSignature from "../SavingManagement/pages/ProfileSettings/AddSignature";
 
 const isKeyInLocalStorage = (key: string): boolean => {
   const token = localStorage.getItem(key);
@@ -246,6 +247,11 @@ export const router = createBrowserRouter([
       {
         path: "/verify_email",
         element: <EmailVerification />,
+        errorElement:<ErrorElement/>
+      },
+      {
+        path: "/signature",
+        element: <AddSignature />,
         errorElement:<ErrorElement/>
       }
       ,
