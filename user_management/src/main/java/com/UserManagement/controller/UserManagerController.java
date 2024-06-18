@@ -10,6 +10,7 @@ import com.UserManagement.dao.model.*;
 
 import com.netflix.discovery.converters.Auto;
 import com.sun.jna.platform.unix.Resource;
+import org.hibernate.boot.model.naming.IllegalIdentifierException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ResourceLoader;
@@ -85,7 +86,9 @@ public class UserManagerController {
 		Objects.requireNonNull(password);
 
 		try {
+            System.out.println("authenticate methode: passe ici 1");
 			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+            System.out.println("authenticate methode: passe ici 2");
 		} catch (DisabledException e) {
 			throw new Exception("USER_DISABLED", e);
 		} catch (BadCredentialsException e) {
@@ -121,14 +124,18 @@ public class UserManagerController {
 			usermanagerBus.signup(signupModel.getPhone(),signupModel.getFullname(),signupModel.getEmail(),signupModel.getBirthDate(),signupModel.getGender(), signupModel.getPassword());
 
 			 //Authentifier l'utilisateur
-
+            System.out.println(signupModel.getPhone()+" "+signupModel.getPassword());
 			authenticate(signupModel.getPhone(), signupModel.getPassword());
+            System.out.println("Passe bien par ici1");
 
 			final UserDetails userDetails = jwtInMemoryUserDetailsService
 					.loadUserByUsername(signupModel.getPhone());
+            System.out.println("Passe bien par ici2");
 
 			final String token = jwtTokenUtil.generateToken(userDetails);
+            System.out.println("Passe bien par ici3");
 			response.setData(new JwtResponse(token, usermanagerBus.getUserLoginDetails(signupModel.getPhone())));
+            System.out.println("Passe bien par ici4");
 
 			return new ResponseEntity(response, HttpStatus.OK);
 
@@ -144,18 +151,21 @@ public class UserManagerController {
 	public ResponseEntity FindUser(@RequestBody UserExistModel userExistModel) throws Exception{
         System.out.println(userExistModel.getPhone());
 		CommonResponseModel response = new CommonResponseModel();
-		boolean heExist=usermanagerBus.userExist(userExistModel.getPhone());
 
-		if(heExist){
+        try{
+			User user=usermanagerBus.userExist(userExistModel.getPhone());
 			response.setMessage("User Exist");
 			response.setResponseCode("0");
-			response.setData(usermanagerBus.getUserLoginDetails(userExistModel.getPhone()));
+
+			response.setData(user);
 			return new ResponseEntity(response, HttpStatus.OK);
+
 		}
-		else{
+        catch (IllegalIdentifierException e){
 			response.setMessage("User not  Exist");
 			response.setResponseCode("1");
 			return new ResponseEntity<>(response, HttpStatus.OK);
+
 		}
 	}
 
@@ -163,10 +173,10 @@ public class UserManagerController {
 	public ResponseEntity sendSMS(@RequestBody String phone,String message) throws Exception{
         System.out.println(phone);
 		CommonResponseModel response = new CommonResponseModel();
-		boolean heExist=usermanagerBus.userExist(phone);
+		User heExist=usermanagerBus.userExist(phone);
 
-		if(heExist){
-			response.setMessage("User Exist");
+		if(heExist!=null){
+			response.setMessage("Message send successfully");
 			response.setResponseCode("0");
             usermanagerBus.sendSmsToApi(phone,message);
 			return new ResponseEntity(response, HttpStatus.OK);

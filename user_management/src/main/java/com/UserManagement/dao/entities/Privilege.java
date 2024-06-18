@@ -2,54 +2,28 @@ package com.UserManagement.dao.entities;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.*;
 
 import javax.persistence.*;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import java.util.List;
 
 @Entity
 @Table(name = "Privilege")
-@Setter
 @Getter
+@Setter
 public class Privilege {
 
 	@SequenceGenerator(name = "privilege_id_seq", sequenceName = "privilege_id_seq", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "privilege_id_seq")
 	@Id
-	@Column(name = "idPrivilege",nullable = false)
+	@Column(name = "idPrivilege", nullable = false)
 	private Long idPrivilege;
 
-	
-	@ManyToOne
-	@JoinColumn(name="phone",referencedColumnName="phone")
-	private User user;
+	@Column(name = "name")
+	private String name;
 
-	@ManyToOne
-	@JoinColumn(name="idRole",referencedColumnName="idRole")
-	private Role role;
+	// Un privilège peut appartenir à plusieurs rôles
+	@ManyToMany(mappedBy = "privileges")
+	private List<Role> roles;
 
-	public Long getIdPrivilege() {
-		return idPrivilege;
-	}
 
-	public void setIdPrivilege(Long idPrivilege) {
-		this.idPrivilege = idPrivilege;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-	public Role getRole() {
-		return role;
-	}
-
-	public void setRole(Role role) {
-		this.role = role;
-	}
 }

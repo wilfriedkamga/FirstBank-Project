@@ -1,10 +1,10 @@
 import React, { CSSProperties, useEffect, useState } from "react";
 import SideBar from "../../Components/Elementary/SideBar/SideBar";
 import { Outlet } from "react-router-dom";
-import Navbar from "../../Components/Elementary/Navbar/Navbar";
 import Footer from "../../Components/Elementary/Footer/Footer";
 import logo from "../../Assets/Images/FBLogo.png"
 import PropagateLoader from 'react-spinners/PropagateLoader';
+import Navbar from "../../Components/Elementary/Navbar/Navbar";
 
 export default function TontineHomePage() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -20,7 +20,7 @@ export default function TontineHomePage() {
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
-    }, 5000);
+    }, 1000);
   }, []);
   return (
     <div>

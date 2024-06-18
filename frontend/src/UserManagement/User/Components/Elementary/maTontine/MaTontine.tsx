@@ -12,8 +12,8 @@ export const MaTontine = () => {
   const stats = [
     {
       _id: "1",
-      label: "caisses",
-      lable_visible:"Caisses",
+      label: "tontines",
+      lable_visible:"Tontines",
       total: 0,
       logo:logo_caisse,
      

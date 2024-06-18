@@ -13,7 +13,7 @@ public interface IUserManagerBus {
 
 	User signin(String phone,String password) throws Exception;
 
-	boolean userExist(String phone) throws Exception;
+	User userExist(String phone) throws Exception;
 
 	User signup(String phone, String fullname,String email, LocalDate birthDate,String gender,String password) throws Exception;
 

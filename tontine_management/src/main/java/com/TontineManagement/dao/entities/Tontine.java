@@ -81,7 +81,6 @@ public class Tontine {
 
     public void setCaisses(List<Caisse> caisses) {
         this.caisses = caisses;
-
     }
 
     public String getCreate_par() {

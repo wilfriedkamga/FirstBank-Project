@@ -7,6 +7,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.netflix.discovery.converters.Auto;
 import io.micrometer.core.instrument.config.validate.Validated;
+import org.apache.commons.io.FileUtils;
+import org.hibernate.boot.model.naming.IllegalIdentifierException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -143,15 +145,33 @@ public class UserManagerBus  implements IUserManagerBus {
 		if (optionalUser.isPresent()) {
 			User user = optionalUser.get();
 
-			userLoginModel = new UserLoginModel(user.getPhone(), user.getFullName(), user.getBirthDate()
-					, user.getGender(), user.getPassword(), user.getEmail(),user.isEmailIsVallid(),user.getCniRecto(),user.getCniVerso(),user.getSignature(),user.getPhoto(), user.getPrivilegelist().stream().map(x -> x.getRole()).map(x -> x.getRoleName()).collect(Collectors.toList()));
+			// Collecter les noms des rôles de l'utilisateur
+			List<String> roles = user.getRoles().stream()
+					.map(Role::getRoleName)
+					.collect(Collectors.toList());
+
+			userLoginModel = new UserLoginModel(
+					user.getPhone(),
+					user.getFullName(),
+					user.getBirthDate(),
+					user.getGender(),
+					user.getPassword(),
+					user.getEmail(),
+					user.isEmailIsValid(),
+					user.getCniRecto(),
+					user.getCniVerso(),
+					user.getSignature(),
+					user.getPhoto(),
+					roles // Liste des noms de rôles
+			);
 		}
 
 		return userLoginModel;
 	}
 
 
-    public String getFileAsBase64(@PathVariable String filename) throws IOException {
+
+	public String getFileAsBase64(@PathVariable String filename) throws IOException {
         File file = ResourceUtils.getFile("classpath:static/" + filename);
         FileInputStream fileInputStream = new FileInputStream(file);
         byte[] fileBytes = IOUtils.toByteArray(fileInputStream);
@@ -160,12 +180,12 @@ public class UserManagerBus  implements IUserManagerBus {
     }
 
 	@Override
-	public boolean userExist(String phone) throws Exception {
+	public User userExist(String phone) throws Exception {
 		Optional<User> optionalUser = userRepository.findByPhone(phone);
 
 		if (optionalUser.isPresent())
-			return true;
-		else return false;
+			return optionalUser.get();
+		else throw new IllegalIdentifierException("User not found");
 	}
 
 	@Override
@@ -277,11 +297,16 @@ public class UserManagerBus  implements IUserManagerBus {
 			String rectoAdresse=GET_IMAGE_BASE_URL+fileName;
 			File file=new File(rectoPath);
 
-            try {
+			String encodedString = Base64.getEncoder().encodeToString(cniRectoFile.getBytes());
+			byte[] data = Base64.getDecoder().decode(encodedString);
+			File outImage = new File(rectoPath);
+			FileUtils.writeByteArrayToFile(outImage, data);
+
+            /*try {
                 copyMultipartFileToFile(rectoPath, cniRectoFile);
             } catch (IOException e) {
                 // Gérer l'exception en conséquence
-            }
+            }*/
 			user.setCniRecto(rectoAdresse);
 			UploadFile uploadFile = new UploadFile(fileName, rectoPath,rectoAdresse);
 			uploadFileRepository.save(uploadFile);
@@ -295,11 +320,12 @@ public class UserManagerBus  implements IUserManagerBus {
 			File file=new File(baseDir + fileName);
             String versoPath=baseDir+ fileName;
             String versoAdresse=GET_IMAGE_BASE_URL+fileName;
-			try {
-                copyMultipartFileToFile(versoPath, cniVersoFile);
-            } catch (IOException e) {
-                // Gérer l'exception en conséquence
-            }
+
+			String encodedString = Base64.getEncoder().encodeToString(cniVersoFile.getBytes());
+			byte[] data = Base64.getDecoder().decode(encodedString);
+			File outImage = new File(versoPath);
+			FileUtils.writeByteArrayToFile(outImage, data);
+
 			user.setCniVerso(versoAdresse);
 			UploadFile uploadFile = new UploadFile(fileName, versoPath,versoAdresse);
 			uploadFileRepository.save(uploadFile);
@@ -311,8 +337,13 @@ public class UserManagerBus  implements IUserManagerBus {
 			String fileName = "photo_" + UUID.randomUUID().toString() +"."+ getExtension(photoFile.getOriginalFilename());
 			String pathPhoto=baseDir +fileName;
 			String adressePhoto=GET_IMAGE_BASE_URL+fileName;
-			File file =new File(pathPhoto);
-			photoFile.transferTo(file);
+
+
+			String encodedString = Base64.getEncoder().encodeToString(photoFile.getBytes());
+			byte[] data = Base64.getDecoder().decode(encodedString);
+			File outImage = new File(pathPhoto);
+			FileUtils.writeByteArrayToFile(outImage, data);
+
 			user.setPhoto(adressePhoto);
 			UploadFile uploadFile = new UploadFile(fileName, pathPhoto,adressePhoto);
 			uploadFileRepository.save(uploadFile);
@@ -325,9 +356,14 @@ public class UserManagerBus  implements IUserManagerBus {
 			String fileName = "signature_" + UUID.randomUUID().toString() +"."+ getExtension(signatureFile.getOriginalFilename());
 			String pathSignature =baseDir+fileName;
 			String adresseSignature=GET_IMAGE_BASE_URL+fileName;
-			File file =new File(pathSignature);
-            signatureFile.transferTo(file);
-			user.setSignature(adresseSignature);
+
+			String encodedString = Base64.getEncoder().encodeToString(signatureFile.getBytes());
+			byte[] data = Base64.getDecoder().decode(encodedString);
+			File outImage = new File(pathSignature);
+			FileUtils.writeByteArrayToFile(outImage, data);
+
+
+            user.setSignature(adresseSignature);
 			UploadFile uploadFile = new UploadFile(fileName, pathSignature,adresseSignature);
 			uploadFileRepository.save(uploadFile);
 		}
@@ -362,7 +398,7 @@ public class UserManagerBus  implements IUserManagerBus {
 		if(validation.get().getExpiration().isBefore(Instant.now())){
 			throw new IllegalArgumentException("Delay Depasses " + verifyOTPModel.getCode());
 		}
-		user.get().setEmailIsVallid(true);
+		user.get().setEmailIsValid(true);
 
 		return userRepository.save(user.get());
 	}
@@ -432,7 +468,7 @@ public class UserManagerBus  implements IUserManagerBus {
 
             user1.setEmail(updateProfil.getEmail());
 
-            user1.setEmailIsVallid(false);
+            user1.setEmailIsValid(false);
         }
         if (updateProfil.getCniRecto() != null) {
             user1.setCniRecto(updateProfil.getCniRecto());
@@ -539,6 +575,13 @@ public class UserManagerBus  implements IUserManagerBus {
 	}
 
 
+	public void multipartFileToFile(
+			MultipartFile multipart,
+			String dir
+	) throws IOException {
+		Path filepath = Paths.get(dir, multipart.getOriginalFilename());
+		multipart.transferTo(filepath);
+	}
 
 
 }

@@ -2,68 +2,67 @@ package com.UserManagement.dao.entities;
 
 import lombok.Getter;
 import lombok.Setter;
-import net.bytebuddy.asm.Advice;
-import org.hibernate.annotations.*;
 
 import javax.persistence.*;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.Table;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.List;
 
 @Entity
 @Table(name = "User")
-@Setter
 @Getter
+@Setter
 public class User {
 
-	@Id
-	@Column(name = "phone",nullable = false)
-	private String phone;
+    @Id
+    @Column(name = "phone", nullable = false)
+    private String phone;
 
-	@Column(name = "fullName")
-	private String fullName;
+    @Column(name = "fullName")
+    private String fullName;
 
-	@Column(name = "birthDate")
-	private LocalDate birthDate;
+    @Column(name = "birthDate")
+    private LocalDate birthDate;
 
-	@Column(name = "gender")
-	private String gender;
+    @Column(name = "gender")
+    private String gender;
 
-	@Column(name = "password")
-	private String password;
+    @Column(name = "password")
+    private String password;
 
-	@Column(name = "email",unique = true)
-	private String email;
+    @Column(name = "email", unique = true)
+    private String email;
 
-	@Column(name = "emailIsValid")
-	private boolean emailIsVallid;
+    @Column(name = "emailIsValid")
+    private boolean emailIsValid;
 
-	@Column(name = "cni_recto")
-	private String cniRecto;
-	@Column(name = "cni_verso")
-	private String cniVerso;
+    @Column(name = "cni_recto")
+    private String cniRecto;
 
-	@Column(name = "signature")
-	private String Signature;
+    @Column(name = "cni_verso")
+    private String cniVerso;
 
-	@Column(name = "isActivated")
-	private Boolean isActivated=false;
+    @Column(name = "signature")
+    private String signature;
 
-	@Column(name = "isBlocked")
-	private Boolean isBlocked=false;
+    @Column(name = "isActivated")
+    private Boolean isActivated = false;
 
-	@Column(name = "photo")
-	private String photo;
+    @Column(name = "isBlocked")
+    private Boolean isBlocked = false;
 
-	@Column(name = "CreationDate")
-	private LocalDateTime CreationDate;
+    @Column(name = "photo")
+    private String photo;
 
+    @Column(name = "CreationDate")
+    private LocalDateTime creationDate;
 
-	@OneToMany(mappedBy="user")
-	private List<Privilege> privilegelist = new ArrayList<Privilege>();
+    // Un utilisateur peut avoir plusieurs rôles
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_roles",
+            joinColumns = @JoinColumn(name = "phone", referencedColumnName = "phone"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "idRole"))
+    private List<Role> roles;
 
     public String getPhone() {
         return phone;
@@ -113,12 +112,12 @@ public class User {
         this.email = email;
     }
 
-    public boolean isEmailIsVallid() {
-        return emailIsVallid;
+    public boolean isEmailIsValid() {
+        return emailIsValid;
     }
 
-    public void setEmailIsVallid(boolean emailIsVallid) {
-        this.emailIsVallid = emailIsVallid;
+    public void setEmailIsValid(boolean emailIsValid) {
+        this.emailIsValid = emailIsValid;
     }
 
     public String getCniRecto() {
@@ -138,11 +137,11 @@ public class User {
     }
 
     public String getSignature() {
-        return Signature;
+        return signature;
     }
 
     public void setSignature(String signature) {
-        Signature = signature;
+        this.signature = signature;
     }
 
     public Boolean getActivated() {
@@ -170,18 +169,18 @@ public class User {
     }
 
     public LocalDateTime getCreationDate() {
-        return CreationDate;
+        return creationDate;
     }
 
     public void setCreationDate(LocalDateTime creationDate) {
-        CreationDate = creationDate;
+        this.creationDate = creationDate;
     }
 
-    public List<Privilege> getPrivilegelist() {
-        return privilegelist;
+    public List<Role> getRoles() {
+        return roles;
     }
 
-    public void setPrivilegelist(List<Privilege> privilegelist) {
-        this.privilegelist = privilegelist;
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 }

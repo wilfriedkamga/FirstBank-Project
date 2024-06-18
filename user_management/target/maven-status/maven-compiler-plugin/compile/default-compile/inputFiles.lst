@@ -16,14 +16,12 @@ C:\Users\jorda\Desktop\Projet First Bank\tontine\user_management\src\main\java\c
 C:\Users\jorda\Desktop\Projet First Bank\tontine\user_management\src\main\java\com\UserManagement\dao\repositories\ValidationEmailRepository.java
 C:\Users\jorda\Desktop\Projet First Bank\tontine\user_management\src\main\java\com\UserManagement\config\CorsConfig.java
 C:\Users\jorda\Desktop\Projet First Bank\tontine\user_management\src\main\java\com\UserManagement\config\JwtTokenUtil.java
-C:\Users\jorda\Desktop\Projet First Bank\tontine\user_management\src\main\java\com\UserManagement\controller\ImageController.java
 C:\Users\jorda\Desktop\Projet First Bank\tontine\user_management\src\main\java\com\UserManagement\dao\model\VerifyOtpMailModel.java
 C:\Users\jorda\Desktop\Projet First Bank\tontine\user_management\src\main\java\com\UserManagement\dao\entities\User.java
 C:\Users\jorda\Desktop\Projet First Bank\tontine\user_management\src\main\java\com\UserManagement\dao\repositories\RoleRepository.java
 C:\Users\jorda\Desktop\Projet First Bank\tontine\user_management\src\main\java\com\UserManagement\controller\UserManagerController.java
 C:\Users\jorda\Desktop\Projet First Bank\tontine\user_management\src\main\java\com\UserManagement\dao\model\CommonResponseModel.java
 C:\Users\jorda\Desktop\Projet First Bank\tontine\user_management\src\main\java\com\UserManagement\dao\model\SignupModel.java
-C:\Users\jorda\Desktop\Projet First Bank\tontine\user_management\src\main\java\com\UserManagement\dao\entities\Tontine.java
 C:\Users\jorda\Desktop\Projet First Bank\tontine\user_management\src\main\java\com\UserManagement\dao\entities\Privilege.java
 C:\Users\jorda\Desktop\Projet First Bank\tontine\user_management\src\main\java\com\UserManagement\dao\entities\Role.java
 C:\Users\jorda\Desktop\Projet First Bank\tontine\user_management\src\main\java\com\UserManagement\business\IUserManagerBus.java

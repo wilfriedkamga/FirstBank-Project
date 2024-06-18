@@ -57,7 +57,7 @@ const Navbar = () => {
   });
 
   return (
-    <div className=" relative rounded-right flex justify-between items-center bg-red-600  px-4 py-3 2xl:py-4 sticky z-100 top-0">
+    <div className=" relative rounded-right flex justify-between items-center bg-red-600  px-4 py-3 2xl:py-4 sticky  z-100 top-0">
       <div className="flex gap-4">
         <div
           ref={butRef}

@@ -160,7 +160,7 @@ public class TontineManagerBus implements ITontineManagerBus {
 	public List<MembresTontine> getAllMembreTontine(String idTontine) throws Exception {
 
 		Optional<Tontine> tontine = tontineRepository.findById(idTontine);
-		if (!tontine.isPresent()) {
+		if (tontine.isEmpty()) {
 			throw new IllegalArgumentException("Tontine with ID " + idTontine + " not found.");
 		}
 
@@ -188,7 +188,7 @@ public class TontineManagerBus implements ITontineManagerBus {
 
 		// Verification de l'existence de la tontine
 		Optional<Tontine> tontine=tontineRepository.findById(membreTontineModel.getId_tontine());
-		if(!tontine.isPresent()) throw  new IllegalArgumentException("Cette tontine n'existe pas");
+		if(tontine.isEmpty()) throw  new IllegalArgumentException("Cette tontine n'existe pas");
 
 		// Verifier l'existence de celui qui inscrit et de son role
 		//Optional<MembresTontine> membre=membreTontineRepository.findById_utiliateur(membreTontineModel.getId_utiliateur());
@@ -216,7 +216,7 @@ public class TontineManagerBus implements ITontineManagerBus {
 		// Verification de l'existence de la caisse
 
 		Optional<Caisse> caisse=caisseRepository.findById(membreCaisseModel.getId_caisse());
-		if(!caisse.isPresent()) throw  new IllegalArgumentException("Cette caisse n'existe pas");
+		if(caisse.isEmpty()) throw  new IllegalArgumentException("Cette caisse n'existe pas");
 
 		// Verifier l'existence de celui qui inscrit et de son role
 		//Optional<MembresTontine> membre=membreTontineRepository.findById_utiliateur(membreTontineModel.getId_utiliateur());
@@ -246,7 +246,7 @@ public class TontineManagerBus implements ITontineManagerBus {
 	@Override
 	public Caisse createCaisse(CaisseModel caisseModel) throws Exception {
 		Optional<Tontine> optionalTontine = tontineRepository.findById(caisseModel.getTontine_id());
-		if (!optionalTontine.isPresent())
+		if (optionalTontine.isEmpty())
 			throw new IllegalIdentifierException("Cette tontine n'existe pas");
 
 			Tontine tontine = optionalTontine.get();
@@ -303,6 +303,5 @@ public class TontineManagerBus implements ITontineManagerBus {
 		}
 		return caisseDetailsList;
 	}
-
 }
 

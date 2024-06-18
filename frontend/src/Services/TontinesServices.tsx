@@ -78,6 +78,12 @@ class TontineService{
       
    }
 
+   GetMyAssociations(phone:string){
+      
+      return axios.get(route_get_all_tontine+"?phone="+phone) ;
+      
+   }
+
    // Recupérer toutes les caisses d'une tontine donnée
    GetCaissess(idTontine:string){
       

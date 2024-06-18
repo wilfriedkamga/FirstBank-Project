@@ -2,24 +2,21 @@ package com.UserManagement.dao.entities;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.*;
 
 import javax.persistence.*;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import java.util.*;
+import java.util.List;
 
 @Entity
 @Table(name = "Role")
-@Setter
 @Getter
+@Setter
 public class Role {
 
 	@SequenceGenerator(name = "role_id_seq", sequenceName = "role_id_seq", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "role_id_seq")
 	@Id
-	@Column(name = "idRole",nullable = false)
-	private int idRole;
+	@Column(name = "idRole", nullable = false)
+	private Long idRole;
 
 	@Column(name = "roleName")
 	private String roleName;
@@ -27,15 +24,22 @@ public class Role {
 	@Column(name = "description")
 	private String description;
 
-	
-	@OneToMany(mappedBy="role")
-	private List<Privilege> privilegelist = new ArrayList<Privilege>();
+	// Un rôle peut avoir plusieurs privilèges
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "roles_privileges",
+			joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "idRole"),
+			inverseJoinColumns = @JoinColumn(name = "privilege_id", referencedColumnName = "idPrivilege"))
+	private List<Privilege> privileges;
 
-	public int getIdRole() {
+	// Un rôle peut être attribué à plusieurs utilisateurs
+	@ManyToMany(mappedBy = "roles")
+	private List<User> users;
+
+	public Long getIdRole() {
 		return idRole;
 	}
 
-	public void setIdRole(int idRole) {
+	public void setIdRole(Long idRole) {
 		this.idRole = idRole;
 	}
 
@@ -55,11 +59,19 @@ public class Role {
 		this.description = description;
 	}
 
-	public List<Privilege> getPrivilegelist() {
-		return privilegelist;
+	public List<Privilege> getPrivileges() {
+		return privileges;
 	}
 
-	public void setPrivilegelist(List<Privilege> privilegelist) {
-		this.privilegelist = privilegelist;
+	public void setPrivileges(List<Privilege> privileges) {
+		this.privileges = privileges;
+	}
+
+	public List<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<User> users) {
+		this.users = users;
 	}
 }

@@ -1,52 +1,48 @@
 package com.UserManagement.business;
 
+import com.UserManagement.dao.entities.Privilege;
+import com.UserManagement.dao.entities.Role;
 import com.UserManagement.dao.model.UserLoginModel;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class JwtUserDetailsService implements UserDetailsService {
 
 	@Autowired
-	IUserManagerBus usermanagerBus;
+	private IUserManagerBus userManagerBus;
 
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException{
+	@Transactional
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		UserLoginModel userLoginModel = userManagerBus.getUserLoginDetails(username);
 
-
-
-
-			UserLoginModel userLoginModel = usermanagerBus.getUserLoginDetails(username);
-
-			if(userLoginModel == null)
-				throw new UsernameNotFoundException("User not found with username: " + username);
-
-			return new User(userLoginModel.getPhone(), userLoginModel.getPassword(),
-					getAuthorities(userLoginModel.getPrivilegelist()));
-
-	}
-
-	private Collection<? extends GrantedAuthority> getAuthorities(
-			List<String> roles) {
-		List<GrantedAuthority> authorities = new ArrayList<>();
-		for (String role: roles) {
-			authorities.add(new SimpleGrantedAuthority(role));
+		if (userLoginModel == null) {
+			throw new UsernameNotFoundException("User not found with username: " + username);
 		}
 
-		return authorities;
+		return buildUserDetails(userLoginModel);
 	}
 
+	private UserDetails buildUserDetails(UserLoginModel userLoginModel) {
+		List<GrantedAuthority> authorities = userLoginModel.getPrivilegelist().stream()
+				.map(SimpleGrantedAuthority::new)
+				.collect(Collectors.toList());
+
+		return new org.springframework.security.core.userdetails.User(
+				userLoginModel.getPhone(),
+				userLoginModel.getPassword(),
+				authorities
+		);
+	}
 }
