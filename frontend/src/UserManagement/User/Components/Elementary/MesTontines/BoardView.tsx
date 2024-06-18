@@ -68,6 +68,10 @@ const BoardView: React.FC = () => {
 
   const addTontine = (tontine: TTontineModel) => {
     setTontinesList(tontinesList.concat(tontine));
+    setAssociationList(associationList.concat())
+  };
+  const addAssociation = (association:any) => {
+    setAssociationList(associationList.concat(association))
   };
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const override: CSSProperties = {
@@ -100,13 +104,13 @@ const BoardView: React.FC = () => {
       ) : (
         <div>
           <div className="w-full grid  grid-cols-2 sm:grid-cols-2 md:grid-cols-4 mb-5 gap-4 2xl:gap-10 ">
-            {associationList.map((asso) => (
+            {associationList.map((asso,index) => (
               <>
                 <div className="hidden sm:block lg:block">
-                  <AssociationCard association={asso} />
+                  <AssociationCard association={asso} key={index} />
                 </div>
                 <div className="block sm:hidden lg:hidden p-1">
-                  <AssociationCardM association={asso} />
+                  <AssociationCardM association={asso} key={index} />
                 </div>
               </>
             ))}
@@ -127,7 +131,7 @@ const BoardView: React.FC = () => {
         />
       </div>
 
-      <AddAssociationDialog />
+      <AddAssociationDialog  setData={addAssociation}/>
     </div>
   );
 };

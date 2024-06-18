@@ -75,23 +75,23 @@ public class AssociationBus {
         createRole(association, "Tresorier");
         createRole(association, "Secretaire");
 
-//         //Traiter les membres après que les rôles de base sont créés
+////         //Traiter les membres après que les rôles de base sont créés
         processMembre(association, creerAssoModele.getPhoneAdmin1(), "President");
-        processMembre(association, creerAssoModele.getPhoneAdmin2(), "Tresorier");
-        processMembre(association, creerAssoModele.getPhoneAdmin3(), "Secretaire");
+//        processMembre(association, creerAssoModele.getPhoneAdmin2(), "Tresorier");
+//        processMembre(association, creerAssoModele.getPhoneAdmin3(), "Secretaire");
 
-        List<RoleAssoDto> roles = association.getRoles().stream()
-                .map(role -> new RoleAssoDto(role.getId(), role.getLabel()))
-                .collect(Collectors.toList());
+//        List<RoleAssoDto> roles = association.getRoles().stream()
+//                .map(role -> new RoleAssoDto(role.getId(), role.getLabel()))
+//                .collect(Collectors.toList());
+//
+//        List<MembreAssoDto> membres = association.getMembres().stream()
+//                .map(membre -> new MembreAssoDto(membre.getId(), membre.getName(), membre.getPhone(), membre.getCreationDate(), membre.getRole().getLabel()))
+//                .collect(Collectors.toList());
+//
+//        // Créer et retourner le DTO
+//        CreateAssoDto createAssoDto = new CreateAssoDto(association.getId(), association.getName(), association.getFrequenceReunion(), association.getJourReunion(), association.getCreationDate(), roles, membres);
 
-        List<MembreAssoDto> membres = association.getMembres().stream()
-                .map(membre -> new MembreAssoDto(membre.getId(), membre.getName(), membre.getPhone(), membre.getCreationDate(), membre.getRole().getLabel()))
-                .collect(Collectors.toList());
-
-        // Créer et retourner le DTO
-        CreateAssoDto createAssoDto = new CreateAssoDto(association.getId(), association.getName(), association.getFrequenceReunion(), association.getJourReunion(), association.getCreationDate(), roles, membres);
-
-        return createAssoDto;
+        return null;// createAssoDto;
 
 
     }
@@ -132,7 +132,7 @@ public class AssociationBus {
         ResponseEntity<CommonResponseModel> responseEntity = restTemplate.postForEntity(url, requestBody, CommonResponseModel.class);
         CommonResponseModel response = responseEntity.getBody();
 
-
+//
         Role_Asso role = association.getRoles().stream()
                 .filter(r -> r.getLabel().equals(roleName))
                 .findFirst()

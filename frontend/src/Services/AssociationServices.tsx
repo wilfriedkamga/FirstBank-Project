@@ -4,6 +4,7 @@ import Variable from "../Variable";
 
 const routes =
   Variable.routeApiTontine + "/api/tontinemanagement/createTontine";
+  const routes_create_association=Variable.routeApiAssociation+"/api/associationmanagement/create"
 const route_get_all_association =
   Variable.routeApiAssociation +
   "/api/associationmanagement/associations-by-phone";
@@ -12,10 +13,8 @@ const route_add_membre_caisse =
 
 class AssociationServices {
   // Créer une tontine
-  CreateTontine(tontineModel: any) {
-    console.log(JSON.stringify(tontineModel));
-
-    return axios.post(routes, tontineModel);
+  CreateAssociation(data: any) {
+    return axios.post(routes_create_association, data);
   }
 
   // Recuperer les associations

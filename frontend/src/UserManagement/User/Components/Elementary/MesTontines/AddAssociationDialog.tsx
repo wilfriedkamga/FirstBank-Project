@@ -17,6 +17,7 @@ import PhoneInput from "react-phone-input-2";
 import PhoneInputRole from "./PhoneInputRole";
 import SelectItem from "../ParametresTontines/SelectItem";
 import axios from "axios";
+import AssociationServices from "../../../../../Services/AssociationServices";
 
 type childComponents = {
   options: string[];
@@ -28,6 +29,7 @@ export interface ConfirmationDialogRawProps {
   value: string;
   open: boolean;
   onClose: (value?: string) => void;
+  addAssociation:(data:any)=>void;
 }
 const names = [
   "Hebdomadaire",
@@ -48,7 +50,7 @@ const days = [
 const roles = ["Président", "Trésorier", "Createur"];
 
 function ConfirmationDialogRaw(props: ConfirmationDialogRawProps) {
-  const { onClose, value: valueProp, open, ...other } = props;
+  const { onClose, value: valueProp, open,addAssociation, ...other } = props;
   const [value, setValue] = React.useState(valueProp);
   const radioGroupRef = React.useRef<HTMLElement>(null);
   const [end, setEnd] = React.useState<boolean>(false);
@@ -100,8 +102,8 @@ function ConfirmationDialogRaw(props: ConfirmationDialogRawProps) {
     onClose();
   };
 
-  const handleOk = (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    e.preventDefault()
+  const handleOk = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
     const data = {
       name: name,
       frequenceReunion: frequence,
@@ -114,12 +116,10 @@ function ConfirmationDialogRaw(props: ConfirmationDialogRawProps) {
       roleAdmin3: selectedRoles.admin3,
     };
 
-    console.log(data)
-
-    axios
-      .post("http://localhost:8081/api/associationmanagement/create", data)
+    AssociationServices.CreateAssociation(data)
       .then((response) => {
         console.log("Association created successfully", response.data);
+        addAssociation(data)
         onClose(value);
       })
       .catch((error) => {
@@ -162,7 +162,7 @@ function ConfirmationDialogRaw(props: ConfirmationDialogRawProps) {
                 placeholder="Nom de l'association"
                 defaultValue="Hello World"
                 className="w-full"
-                onChange={(e)=>setName(e.target.value)}
+                onChange={(e) => setName(e.target.value)}
               />
             </div>
             <div className="flex flex-col gap-2">
@@ -172,7 +172,9 @@ function ConfirmationDialogRaw(props: ConfirmationDialogRawProps) {
               <SelectItem setRole={setDay} multiple={false} table={days} />
             </div>
             <div className="flex flex-col gap-2">
-              <label className="block font-bold text-sm  ">Fréquence des réunions.</label>
+              <label className="block font-bold text-sm  ">
+                Fréquence des réunions.
+              </label>
               <SelectItem
                 setRole={setFrequence}
                 multiple={false}
@@ -181,10 +183,12 @@ function ConfirmationDialogRaw(props: ConfirmationDialogRawProps) {
             </div>
           </DialogContent>
           <DialogActions>
-            <Button sx={{color:"red"}} autoFocus onClick={handleCancel}>
+            <Button sx={{ color: "red" }} autoFocus onClick={handleCancel}>
               Cancel
             </Button>
-            <Button sx={{color:"red"}} onClick={() => setEnd(true)}>Next</Button>
+            <Button sx={{ color: "red" }} onClick={() => setEnd(true)}>
+              Next
+            </Button>
           </DialogActions>
         </>
       ) : (
@@ -222,10 +226,21 @@ function ConfirmationDialogRaw(props: ConfirmationDialogRawProps) {
             />
           </DialogContent>
           <DialogActions>
-            <Button sx={{color:"red"}} autoFocus onClick={() => setEnd(false)}>
+            <Button
+              sx={{ color: "red" }}
+              autoFocus
+              onClick={() => setEnd(false)}
+            >
               Back
             </Button>
-            <Button sx={{color:"red"}} onClick={(e:React.MouseEvent<HTMLButtonElement, MouseEvent>)=>handleOk(e)}>ok</Button>
+            <Button
+              sx={{ color: "red" }}
+              onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
+                handleOk(e)
+              }
+            >
+              ok
+            </Button>
           </DialogActions>
         </>
       )}
@@ -233,13 +248,17 @@ function ConfirmationDialogRaw(props: ConfirmationDialogRawProps) {
   );
 }
 
-export default function AddAssociationDialog() {
+type childProps={
+  setData:(data:any)=> void;
+}
+export default function AddAssociationDialog({setData}:childProps) {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState("Dione");
 
   const handleClickListItem = () => {
     setOpen(true);
   };
+ 
 
   const handleClose = (newValue?: string) => {
     setOpen(false);
@@ -263,6 +282,7 @@ export default function AddAssociationDialog() {
         open={open}
         onClose={handleClose}
         value={value}
+        addAssociation={setData}
       />
     </>
   );
