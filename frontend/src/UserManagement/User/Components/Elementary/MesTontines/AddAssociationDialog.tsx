@@ -12,12 +12,13 @@ import RadioGroup from "@mui/material/RadioGroup";
 import Radio from "@mui/material/Radio";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { IconButton, TextField, Typography } from "@mui/material";
+import { Alert, IconButton, TextField, Typography } from "@mui/material";
 import PhoneInput from "react-phone-input-2";
 import PhoneInputRole from "./PhoneInputRole";
 import SelectItem from "../ParametresTontines/SelectItem";
 import axios from "axios";
 import AssociationServices from "../../../../../Services/AssociationServices";
+import AlertDialog from "../Notifications/AlertDialog";
 
 type childComponents = {
   options: string[];
@@ -29,7 +30,8 @@ export interface ConfirmationDialogRawProps {
   value: string;
   open: boolean;
   onClose: (value?: string) => void;
-  addAssociation:(data:any)=>void;
+  addAssociation: (data: any) => void;
+  printError: (title: string, message: string) => void;
 }
 const names = [
   "Hebdomadaire",
@@ -50,7 +52,14 @@ const days = [
 const roles = ["Président", "Trésorier", "Createur"];
 
 function ConfirmationDialogRaw(props: ConfirmationDialogRawProps) {
-  const { onClose, value: valueProp, open,addAssociation, ...other } = props;
+  const {
+    onClose,
+    value: valueProp,
+    open,
+    addAssociation,
+    printError,
+    ...other
+  } = props;
   const [value, setValue] = React.useState(valueProp);
   const radioGroupRef = React.useRef<HTMLElement>(null);
   const [end, setEnd] = React.useState<boolean>(false);
@@ -118,18 +127,33 @@ function ConfirmationDialogRaw(props: ConfirmationDialogRawProps) {
 
     AssociationServices.CreateAssociation(data)
       .then((response) => {
-        console.log("Association created successfully", response.data);
-        addAssociation(data)
+        console.log("Association created successfully" + response.data);
+        addAssociation(data);
         onClose(value);
       })
       .catch((error) => {
-        console.error("There was an error creating the association!", error);
+        printError(
+          "Une erreur est survenu lors de la creation de cette association ",
+          error.response.data
+        );
+        onClose(value);
       });
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue((event.target as HTMLInputElement).value);
   };
+
+  const goNextPage=()=>{
+    if(frequence==null || frequence==""){
+     alert("Il faut remplir tous les champs")
+
+    }
+    else{
+      setEnd(true)
+    }
+
+  }
 
   return (
     <Dialog
@@ -179,6 +203,7 @@ function ConfirmationDialogRaw(props: ConfirmationDialogRawProps) {
                 setRole={setFrequence}
                 multiple={false}
                 table={names}
+                
               />
             </div>
           </DialogContent>
@@ -186,7 +211,7 @@ function ConfirmationDialogRaw(props: ConfirmationDialogRawProps) {
             <Button sx={{ color: "red" }} autoFocus onClick={handleCancel}>
               Cancel
             </Button>
-            <Button sx={{ color: "red" }} onClick={() => setEnd(true)}>
+            <Button sx={{ color: "red" }} onClick={() => goNextPage()}>
               Next
             </Button>
           </DialogActions>
@@ -248,17 +273,20 @@ function ConfirmationDialogRaw(props: ConfirmationDialogRawProps) {
   );
 }
 
-type childProps={
-  setData:(data:any)=> void;
-}
-export default function AddAssociationDialog({setData}:childProps) {
+type childProps = {
+  setData: (data: any) => void;
+  printError: (title: string, message: string) => void;
+};
+export default function AddAssociationDialog({
+  setData,
+  printError,
+}: childProps) {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState("Dione");
 
   const handleClickListItem = () => {
     setOpen(true);
   };
- 
 
   const handleClose = (newValue?: string) => {
     setOpen(false);
@@ -283,7 +311,9 @@ export default function AddAssociationDialog({setData}:childProps) {
         onClose={handleClose}
         value={value}
         addAssociation={setData}
+        printError={printError}
       />
+      <AlertDialog/>
     </>
   );
 }

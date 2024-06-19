@@ -5,11 +5,12 @@ import TontinesServices from "../../../../../Services/TontinesServices";
 import TontineCardM from "./TontineCardM";
 import Variable from "../../../../../Variable";
 import PropagateLoader from "react-spinners/PropagateLoader";
-import { dividerClasses } from "@mui/material";
+import { Alert, dividerClasses } from "@mui/material";
 import AddAssociationDialog from "./AddAssociationDialog";
 import AssociationServices from "../../../../../Services/AssociationServices";
 import AssociationCard from "./AssociationCard";
 import AssociationCardM from "./AssociationCardM";
+import Sucess from "../Notifications/Sucess";
 
 type Tontine = {
   id: string;
@@ -43,6 +44,11 @@ const BoardView: React.FC = () => {
   const [tontinesList, setTontinesList] = useState<TTontineModel[]>([]);
   const [associationList, setAssociationList] = useState<any[]>([]);
   const [tontine, setTontine] = useState<TTontineModel>();
+
+  const [notify, setNotify]=useState<boolean>(false)
+
+  const [notifTitle, setNotifTitle]=useState<String>("")
+  const [notifMessage, setNotifMessage]=useState<String>("")
   const [addTontineVisibility, setAddTontineVisibility] =
     useState<boolean>(false);
 
@@ -50,6 +56,12 @@ const BoardView: React.FC = () => {
     const user = Variable.getLocalStorageItem("user");
     Initializepage(user.user.phone);
   }, []);
+
+ const setNotification=(visibility:boolean,title:string, message:string)=>{
+  setNotify(visibility)
+  setNotifMessage(message)
+  setNotifTitle(title)
+}
 
   const Initializepage = (phone: string) => {
     AssociationServices.GetMyAssociations(phone)
@@ -65,6 +77,13 @@ const BoardView: React.FC = () => {
         console.log(error);
       });
   };
+
+ const  printError=(title:string, message:string)=>{
+  setNotify(true)
+  console.log(title+message)
+
+
+ }
 
   const addTontine = (tontine: TTontineModel) => {
     setTontinesList(tontinesList.concat(tontine));
@@ -109,7 +128,7 @@ const BoardView: React.FC = () => {
                 <div className="hidden sm:block lg:block">
                   <AssociationCard association={asso} key={index} />
                 </div>
-                <div className="block sm:hidden lg:hidden p-1">
+                <div className="block sm:hidden lg:hidden">
                   <AssociationCardM association={asso} key={index} />
                 </div>
               </>
@@ -123,15 +142,11 @@ const BoardView: React.FC = () => {
           ) : null}
         </div>
       )}
+     
+     {notify?<Sucess view={true}/>:<Sucess view={false}/>}
 
-      <div className="hidden absolute shadow-sm shadow-white h-[65vh] w-[90vw] mr-4 mx-auto  border-[1px] border-red-600 sm:h-[55vh] sm:top-40 sm:w-[30vw] shadow-lg bg-white  sm:bg-white top-[13vh]  sm:right-[25vw] right-[1vw] rounded-lg   ">
-        <AddTontine
-          setVisibility={setAddTontineVisibility}
-          addTontine={addTontine}
-        />
-      </div>
-
-      <AddAssociationDialog  setData={addAssociation}/>
+      <AddAssociationDialog printError={(title, message)=>printError(title,message)}  setData={addAssociation}/>
+      
     </div>
   );
 };
