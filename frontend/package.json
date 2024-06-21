@@ -48,6 +48,7 @@
     "react-spinners": "^0.13.8",
     "react-transition-group": "^4.4.5",
     "react-verification-input": "^4.1.2",
+    "react-virtuoso": "^4.7.11",
     "reactjs-popup": "^2.0.6",
     "tailwindcss": "^3.4.3",
     "twilio": "^5.0.4",

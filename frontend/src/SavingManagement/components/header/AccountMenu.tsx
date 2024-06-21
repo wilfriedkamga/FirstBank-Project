@@ -79,7 +79,7 @@ export default function AccountMenu() {
               <Avatar
                 sx={{
                   marginBottom: 0,
-                  bgcolor: "#bb0000",
+                  bgcolor: "#ffffff",
                   width: 39,
                   height: 39,
                   fontWeight: "bold",
@@ -91,9 +91,10 @@ export default function AccountMenu() {
               <Avatar
                 sx={{
                   
-                  bgcolor: "#bb0000",
+                  bgcolor: "#ffffff",
                   width: 35,
                   height: 35,
+                  color:"#bb0000"
                 }}
                 src={photo}
               />

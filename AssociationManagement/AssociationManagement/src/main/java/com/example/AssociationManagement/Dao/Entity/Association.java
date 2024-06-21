@@ -1,10 +1,5 @@
 package com.example.AssociationManagement.Dao.Entity;
 
-
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -14,8 +9,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "association")
-@AllArgsConstructor
-@NoArgsConstructor
+
 public class Association {
 
     @Id
@@ -42,6 +36,9 @@ public class Association {
     @OneToMany(mappedBy = "association", cascade = CascadeType.ALL)
     private List<Role_Asso> roles = new ArrayList<>();
 
+    @OneToMany(mappedBy = "association", cascade = CascadeType.ALL)
+    private List<Tontine> tontines = new ArrayList<>();
+
     @ManyToMany
     @JoinTable(
             name = "association_membre",
@@ -49,6 +46,20 @@ public class Association {
             inverseJoinColumns = @JoinColumn(name = "membre_id")
     )
     private List<Membre_Asso> membres = new ArrayList<>();
+
+    @OneToMany(mappedBy = "association")
+    private List<Reunion> reunions;
+
+    @OneToMany(mappedBy = "association")
+    private List<Evenement> evenements;
+
+    public List<Evenement> getEvenements() {
+        return evenements;
+    }
+
+    public void setEvenements(List<Evenement> evenements) {
+        this.evenements = evenements;
+    }
 
     public String getId() {
         return id;
@@ -106,22 +117,6 @@ public class Association {
         isDeletable = deletable;
     }
 
-    public List<Role_Asso> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(List<Role_Asso> roles) {
-        this.roles = roles;
-    }
-
-    public List<Membre_Asso> getMembres() {
-        return membres;
-    }
-
-    public void setMembres(List<Membre_Asso> membres) {
-        this.membres = membres;
-    }
-
     public int getNbMembers() {
         return nbMembers;
     }
@@ -136,5 +131,37 @@ public class Association {
 
     public void setNbTontines(int nbTontines) {
         this.nbTontines = nbTontines;
+    }
+
+    public List<Role_Asso> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role_Asso> roles) {
+        this.roles = roles;
+    }
+
+    public List<Tontine> getTontines() {
+        return tontines;
+    }
+
+    public void setTontines(List<Tontine> tontines) {
+        this.tontines = tontines;
+    }
+
+    public List<Membre_Asso> getMembres() {
+        return membres;
+    }
+
+    public void setMembres(List<Membre_Asso> membres) {
+        this.membres = membres;
+    }
+
+    public List<Reunion> getReunions() {
+        return reunions;
+    }
+
+    public void setReunions(List<Reunion> reunions) {
+        this.reunions = reunions;
     }
 }

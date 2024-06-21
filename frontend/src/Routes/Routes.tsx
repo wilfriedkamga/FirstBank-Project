@@ -33,6 +33,10 @@ import AddSignature from "../SavingManagement/pages/ProfileSettings/AddSignature
 import Parametres from "../UserManagement/User/Components/Elementary/ParametresTontines/Parametres";
 import ParametreContent from "../UserManagement/User/Components/Elementary/ParametresTontines/ParametreContent";
 import RoleAssociation from "../UserManagement/User/Components/Elementary/ParametresTontines/RoleAssociation";
+import MesSanctions from "../UserManagement/User/Components/Elementary/Dashboard/MesSanctions";
+import MesReunnionsContent from "../UserManagement/User/Components/Elementary/MesTontines/Reunions/MesReunnionsContent";
+import MesReunions from "../UserManagement/User/Components/Elementary/MesTontines/Reunions/MesReunions";
+import UneReunion from "../UserManagement/User/Components/Elementary/MesTontines/Reunions/UneReunion";
 
 const isKeyInLocalStorage = (key: string): boolean => {
   const token = localStorage.getItem(key);
@@ -161,8 +165,18 @@ export const router = createBrowserRouter([
                   },
                   {
                     path: "/tontine/mestontines/:idTontine/reunions",
-                    element: <div> une reunion</div>,
+                    element: <MesReunnionsContent/>,
                     errorElement: <ErrorElement />,
+                    children:[
+                      {
+                        path: "/tontine/mestontines/:idTontine/reunions",
+                        element: <MesReunions/>,
+                      },
+                      {
+                        path: "/tontine/mestontines/:idTontine/reunions/:idReunion",
+                        element: <UneReunion/>,
+                      }
+                    ]
                   },
                   {
                     path: "/tontine/mestontines/:idTontine/evenements",
@@ -201,7 +215,7 @@ export const router = createBrowserRouter([
           },
           {
             path: "/tontine/messanctions",
-            element: <div>mes sanctions</div>,
+            element: <MesSanctions/>,
             errorElement: <ErrorElement />,
           },
           {

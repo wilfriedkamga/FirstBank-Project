@@ -3,6 +3,7 @@ import { Outlet, useLocation } from "react-router-dom";
 import MembresCard from "./membreCard";
 import AddCaisseMembre from "./AddCaisseMembre";
 import TontinesServices from "../../../../../Services/TontinesServices";
+import AddTontineDialog from "./AddTontineDialog";
 
 type TCaisseMembreModel = {
     id: string;
@@ -57,6 +58,8 @@ const MembresCaisseContent = () => {
           <AddCaisseMembre setVisibility={setToogle} visibility={toogle} />
         </div>
       )}
+      
+      
     </div>
   );
 };

@@ -1,14 +1,10 @@
 package com.example.AssociationManagement.Controller;
 import com.example.AssociationManagement.Business.AssociationBus;
-import com.example.AssociationManagement.Dao.Dto.AssociationDto;
-import com.example.AssociationManagement.Dao.Dto.CreateAssoDto;
+import com.example.AssociationManagement.Dao.Dto.*;
 import com.example.AssociationManagement.Dao.Entity.Association;
 import com.example.AssociationManagement.Dao.Entity.Membre_Asso;
 import com.example.AssociationManagement.Dao.Entity.Role_Asso;
-import com.example.AssociationManagement.Dao.Modele.CreerAssoModele;
-import com.example.AssociationManagement.Dao.Modele.MembreCreationModel;
-import com.example.AssociationManagement.Dao.Modele.RoleCreationModel;
-import com.example.AssociationManagement.Dao.Modele.UpdateAssoModel;
+import com.example.AssociationManagement.Dao.Modele.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,16 +26,6 @@ public class AssociationController {
         return ResponseEntity.ok(association);
     }
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deleteAssociation(@PathVariable String id) {
-        boolean isDeleted = associationService.deleteAssociation(id);
-        if (isDeleted) {
-            return ResponseEntity.ok().body("Association deleted successfully.");
-        } else {
-            return ResponseEntity.badRequest().body("Association cannot be deleted.");
-        }
-    }
-
     @PostMapping("/create-role")
     public ResponseEntity<?> createRole(@RequestBody RoleCreationModel roleCreationModel) {
         Role_Asso role = associationService.createRole(roleCreationModel.getAssociationId(), roleCreationModel.getLabel());
@@ -56,11 +42,32 @@ public class AssociationController {
         }
     }
 
+    @GetMapping("/member-details")
+    public ResponseEntity<MemberDetailsDto> getMemberDetails(@RequestParam String phone) {
+        MemberDetailsDto memberDetails = associationService.getMemberDetails(phone);
+        return ResponseEntity.ok(memberDetails);
+    }
+
     @PostMapping("/add-member")
     public ResponseEntity<?> addMember(@RequestBody MembreCreationModel membreCreationModel) {
+
         Membre_Asso membre = associationService.addMember(membreCreationModel.getAssociationId(), membreCreationModel.getName(), membreCreationModel.getPhone(), membreCreationModel.getRoleLabel());
-        return ResponseEntity.ok().body("Member added successfully with ID: " + membre.getId());
+        System.out.println("Voici ce que je demande de faire");
+        return ResponseEntity.ok().body("Member added successfully with ID: " +membre.getId());
     }
+
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deleteAssociation(@PathVariable String id) {
+        boolean isDeleted = associationService.deleteAssociation(id);
+        if (isDeleted) {
+            return ResponseEntity.ok().body("Association deleted successfully.");
+        } else {
+            return ResponseEntity.badRequest().body("Association cannot be deleted.");
+        }
+    }
+
+
 
     @DeleteMapping("/delete-member/{memberId}")
     public ResponseEntity<?> deleteMember(@PathVariable String memberId) {
@@ -83,5 +90,31 @@ public class AssociationController {
         List<AssociationDto> associations = associationService.getAssociationsByPhoneNumber(phone);
         return ResponseEntity.ok(associations);
     }
+
+    @GetMapping("/association/{id}/tontines")
+    public ResponseEntity<List<TontineDto>> getTontinesByAssociationId(@PathVariable String id) {
+        List<TontineDto> tontines = associationService.getTontinesByAssociationId(id);
+        return ResponseEntity.ok(tontines);
+    }
+
+    @GetMapping("/association/{id}/members")
+    public ResponseEntity<List<MembreAssoDto>> getMembersByAssociationId(@PathVariable String id) {
+        List<MembreAssoDto> members = associationService.getMembersByAssociationId(id);
+        return ResponseEntity.ok(members);
+    }
+
+    @GetMapping("/association/{id}/reunions")
+    public ResponseEntity<List<ReunionDto>> getReunionsByAssociationId(@PathVariable String id) {
+        List<ReunionDto> reunions = associationService.getReunionsByAssociationId(id);
+        return ResponseEntity.ok(reunions);
+    }
+
+    @GetMapping("/association/{id}/events")
+    public ResponseEntity<List<EventDto>> getEventsByAssociationId(@PathVariable String id) {
+        List<EventDto> events = associationService.getEventsByAssociationId(id);
+        return ResponseEntity.ok(events);
+    }
+
+
 
 }

@@ -104,7 +104,7 @@ const BoardView: React.FC = () => {
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
-    }, 5000);
+    }, 50);
   }, []);
 
   return (

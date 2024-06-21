@@ -1,18 +1,12 @@
 package com.example.AssociationManagement.Business;
 
 import com.example.AssociationManagement.CustomException.AssociationAlreadyExistsException;
-import com.example.AssociationManagement.Dao.Dto.AssociationDto;
-import com.example.AssociationManagement.Dao.Dto.CreateAssoDto;
-import com.example.AssociationManagement.Dao.Dto.MembreAssoDto;
-import com.example.AssociationManagement.Dao.Dto.RoleAssoDto;
+import com.example.AssociationManagement.Dao.Dto.*;
 import com.example.AssociationManagement.Dao.Entity.*;
 import com.example.AssociationManagement.Dao.Modele.CommonResponseModel;
 import com.example.AssociationManagement.Dao.Modele.CreerAssoModele;
 import com.example.AssociationManagement.Dao.Modele.UpdateAssoModel;
-import com.example.AssociationManagement.Dao.Repository.AssociationRepository;
-import com.example.AssociationManagement.Dao.Repository.MembreAssoRepository;
-import com.example.AssociationManagement.Dao.Repository.MembreAssoTempRepository;
-import com.example.AssociationManagement.Dao.Repository.RoleAssoRepository;
+import com.example.AssociationManagement.Dao.Repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -46,6 +40,9 @@ public class AssociationBus {
     private RoleAssoRepository roleAssoRepository;
 
     @Autowired
+    private MembreTontRepository membreTontRepository;
+
+    @Autowired
     private RestTemplate restTemplate;
 
     @Value("${usermanagement.api.url}")
@@ -77,21 +74,21 @@ public class AssociationBus {
 
 ////         //Traiter les membres après que les rôles de base sont créés
         processMembre(association, creerAssoModele.getPhoneAdmin1(), "President");
-//        processMembre(association, creerAssoModele.getPhoneAdmin2(), "Tresorier");
-//        processMembre(association, creerAssoModele.getPhoneAdmin3(), "Secretaire");
+        processMembre(association, creerAssoModele.getPhoneAdmin2(), "Tresorier");
+        processMembre(association, creerAssoModele.getPhoneAdmin3(), "Secretaire");
 
-//        List<RoleAssoDto> roles = association.getRoles().stream()
-//                .map(role -> new RoleAssoDto(role.getId(), role.getLabel()))
-//                .collect(Collectors.toList());
-//
-//        List<MembreAssoDto> membres = association.getMembres().stream()
-//                .map(membre -> new MembreAssoDto(membre.getId(), membre.getName(), membre.getPhone(), membre.getCreationDate(), membre.getRole().getLabel()))
-//                .collect(Collectors.toList());
-//
-//        // Créer et retourner le DTO
-//        CreateAssoDto createAssoDto = new CreateAssoDto(association.getId(), association.getName(), association.getFrequenceReunion(), association.getJourReunion(), association.getCreationDate(), roles, membres);
+        List<RoleAssoDto> roles = association.getRoles().stream()
+                .map(role -> new RoleAssoDto(role.getId(), role.getLabel()))
+                .collect(Collectors.toList());
 
-        return null;// createAssoDto;
+        List<MembreAssoDto> membres = association.getMembres().stream()
+                .map(membre -> new MembreAssoDto(membre.getId(), membre.getName(), membre.getPhone(), membre.getCreationDate(), membre.getRole().getLabel()))
+                .collect(Collectors.toList());
+
+        // Créer et retourner le DTO
+        CreateAssoDto createAssoDto = new CreateAssoDto(association.getId(), association.getName(), association.getFrequenceReunion(), association.getJourReunion(), association.getCreationDate(), roles, membres);
+
+        return createAssoDto;
 
 
     }
@@ -209,7 +206,61 @@ public class AssociationBus {
     }
 
     public Membre_Asso addMember(String associationId, String name, String phone, String roleLabel) {
-        return null;
+        Association association = associationRepository.findById(associationId).orElse(null);
+        if (association == null) {
+            throw new RuntimeException("Association not found");
+        }
+
+        // Appeler la méthode processMembre pour ajouter le membre
+        processMembre(association, phone, roleLabel);
+
+        // Récupérer le membre ajouté pour le retourner
+        // Cela suppose que le membre ajouté a été enregistré dans la base de données et peut être récupéré par son téléphone et son rôle
+        Role_Asso role = roleAssoRepository.findByAssociationAndLabel(association, roleLabel);
+        Membre_Asso membre = membreAssoRepository.findByPhoneAndRoleAndAssociation(phone, role, association);
+
+        return membre;
+
+    }
+
+    public MemberDetailsDto getMemberDetails(String phone) {
+        // Récupérer tous les membres ayant ce numéro de téléphone
+        List<Membre_Asso> membres = membreAssoRepository.findByPhone(phone);
+
+        if (membres.isEmpty()) {
+            throw new RuntimeException("No member found with phone number: " + phone);
+        }
+
+        // Récupérer les Membre_Tont associés à ce membre
+        List<Membre_Tont> membresTont = membreTontRepository.findByPhone(phone);
+
+        // Calculer le nombre d'associations
+        int nbAssociations = membres.stream()
+                .flatMap(membre -> membre.getAssociations().stream())
+                .collect(Collectors.toSet())
+                .size();
+
+        // Calculer le nombre de tontines
+        int nbTontines = membres.stream()
+                .flatMap(membre -> membre.getAssociations().stream())
+                .mapToInt(Association::getNbTontines)
+                .sum();
+
+        // Calculer le nombre de cotisations
+        int nbCotisations = membresTont.stream()
+                .mapToInt(membreTont -> membreTont.getCotisations().size())
+                .sum();
+
+        // Calculer le nombre de dettes (à implémenter si la logique est définie)
+        int nbDettes = 0;
+
+        // Calculer le nombre de sanctions
+        int nbSanctions = membresTont.stream()
+                .mapToInt(membreTont -> membreTont.getSanctions().size())
+                .sum();
+
+        // Retourner les détails du membre
+        return new MemberDetailsDto(nbAssociations, nbTontines, nbCotisations, nbDettes, nbSanctions);
     }
 
     public boolean deleteMember(String memberId) {
@@ -234,7 +285,45 @@ public class AssociationBus {
 
         return associationRepository.save(association);
     }
+    public List<TontineDto> getTontinesByAssociationId(String associationId) {
+        Association association = associationRepository.findById(associationId).orElse(null);
+        if (association == null) {
+            throw new RuntimeException("Association not found");
+        }
+        return association.getTontines().stream()
+                .map(tontine -> new TontineDto(tontine.getId(), tontine.getName(), tontine.getDate_creation()))
+                .collect(Collectors.toList());
+    }
 
+    public List<MembreAssoDto> getMembersByAssociationId(String associationId) {
+        Association association = associationRepository.findById(associationId).orElse(null);
+        if (association == null) {
+            throw new RuntimeException("Association not found");
+        }
+        return association.getMembres().stream()
+                .map(member -> new MembreAssoDto(member.getId(), member.getName(), member.getPhone(), member.getCreationDate(), member.getRole().getLabel()))
+                .collect(Collectors.toList());
+    }
+
+    public List<ReunionDto> getReunionsByAssociationId(String associationId) {
+        Association association = associationRepository.findById(associationId).orElse(null);
+        if (association == null) {
+            throw new RuntimeException("Association not found");
+        }
+        return association.getReunions().stream()
+                .map(reunion -> new ReunionDto(reunion.getId(), reunion.getDateSeance()))
+                .collect(Collectors.toList());
+    }
+
+    public List<EventDto> getEventsByAssociationId(String associationId) {
+        Association association = associationRepository.findById(associationId).orElse(null);
+        if (association == null) {
+            throw new RuntimeException("Association not found");
+        }
+        return association.getEvenements().stream()
+                .map(event -> new EventDto(event.getId(), event.getDescription(), event.getDateEcheance()))
+                .collect(Collectors.toList());
+    }
 
 
     private void sendSms(String message, String phone) {

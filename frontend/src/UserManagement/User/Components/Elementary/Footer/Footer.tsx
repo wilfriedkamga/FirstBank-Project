@@ -20,7 +20,7 @@ const Footer = () => {
         <AccountBalanceWalletIcon style={{ fontSize: "2rem" }} />
       </div>
       <div
-        onClick={() => navigate(Variable.getParentPath(location.pathname))}
+        onClick={() => window.history.back()}
         className="text-white hover:bg-red-800 px-4 py-2 font-bold"
       >
         <ArrowCircleLeftIcon style={{ fontSize: "2rem" }} />

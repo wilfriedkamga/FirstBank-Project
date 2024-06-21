@@ -9,7 +9,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "association")
+@Table(name = "privilege_asso")
 @Setter
 @Getter
 public class Privilege_Asso {

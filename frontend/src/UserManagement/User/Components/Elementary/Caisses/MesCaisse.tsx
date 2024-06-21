@@ -6,6 +6,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import AddTontine from "../MesTontines/AddTontine";
 import AddCaisse from "./AddCaisse";
 import TontinesServices from "../../../../../Services/TontinesServices";
+import AddTontineDialog from "./AddTontineDialog";
 
 type TCaisseModel = {
   id: string;
@@ -22,7 +23,7 @@ type TCaisseModel = {
 const stats: TCaisseModel[] = [
   {
     id: "1hjkl",
-    nom: "Caisse 1",
+    nom: "Tontine 2",
     total: "4",
     type: "statique",
     montant: "50 000 FCFA",
@@ -119,20 +120,8 @@ const MesCaisse = () => {
         
       </div>
       {caisseList==null || caisseList.length==0?<div className='text-lg'> Vous n'êtes dans aucune Caisse de cette tontine  !</div>:null}
-      <div
-        onClick={() => {
-          setToogle(!toogle);
-        }}
-        className="text-[20px] cursor-pointer absolute  sm:bottom-8 sm:right-8 right-8 bottom-[75px]  w-[70px] h-[70px] sm:h-[60px] sm:w-[60px] flex justify-center items-center  rounded-full  bg-red-700 text-white font-bold"
-      >
-        +
-      </div>
-
-      {toogle && (
-        <div className="absolute shadow-sm shadow-white h-[65vh] w-[90vw] mr-4 mx-auto  border-[1px] border-green-200 sm:h-[55vh] sm:top-40 sm:w-[30vw] shadow-lg bg-white  sm:bg-[#a09b9b] top-[13vh]  sm:right-[25vw] right-[1vw] rounded-lg   ">
-          <AddCaisse setVisibility={setToogle} addCaisse={addCaisse} />
-        </div>
-      )}
+      
+       <AddTontineDialog/>
     </div>
   );
 };
