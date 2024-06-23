@@ -15,6 +15,8 @@
         <module>user_management</module>
         <module>notification_management</module>
         <module>tontine_management</module>
+	<module>operation_management</module>
+        <module>savings_plan_management</module>
     </modules>
 
 </project>

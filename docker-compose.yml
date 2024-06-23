@@ -50,6 +50,8 @@ services:
       - db
     environment:
       eureka.client.serviceUrl.defaultZone: http://theusername:thepassword@discovery:8761/eureka/
+    volumes:
+      - /var/www/html/images/:/var/www/html/images/
     networks:
       microservice_network:
         aliases:
