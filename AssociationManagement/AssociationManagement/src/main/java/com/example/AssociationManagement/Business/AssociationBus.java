@@ -1,6 +1,8 @@
 package com.example.AssociationManagement.Business;
 
 import com.example.AssociationManagement.CustomException.AssociationAlreadyExistsException;
+import com.example.AssociationManagement.CustomException.AssociationNotFoundException;
+import com.example.AssociationManagement.CustomException.RoleAlreadyExistException;
 import com.example.AssociationManagement.Dao.Dto.*;
 import com.example.AssociationManagement.Dao.Entity.*;
 import com.example.AssociationManagement.Dao.Modele.CommonResponseModel;
@@ -17,10 +19,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
+import java.text.Normalizer;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 @Service
@@ -56,7 +61,6 @@ public class AssociationBus {
         if (associationRepository.existsByName(creerAssoModele.getName())) {
             throw new AssociationAlreadyExistsException("An association with the name " + creerAssoModele.getName() + " already exists.");
         }
-
         // Création de l'objet Association
         Association association = new Association();
         association.setName(creerAssoModele.getName());
@@ -68,9 +72,9 @@ public class AssociationBus {
         association = associationRepository.save(association);
 
         // Création des rôles de base et les ajout à l'association
-        createRole(association, "President");
-        createRole(association, "Tresorier");
-        createRole(association, "Secretaire");
+        createRole(association.getId(), "President", false);
+        createRole(association.getId(), "Tresorier",false);
+        createRole(association.getId(), "Secretaire",false);
 
 ////         //Traiter les membres après que les rôles de base sont créés
         processMembre(association, creerAssoModele.getPhoneAdmin1(), "President");
@@ -93,17 +97,14 @@ public class AssociationBus {
 
     }
 
-    private Role_Asso createRole(Association association, String roleName) {
-        Role_Asso role = new Role_Asso();
-        role.setLabel(roleName);
-        role.setAssociation(association);
-        roleAssoRepository.save(role);
 
-
-        association.getRoles().add(role);
-        associationRepository.save(association);
-
-        return role;
+    public static String removeAccentsAndLowercase(String input) {
+        // Normaliser le texte en décomposant les accents
+        String normalized = Normalizer.normalize(input, Normalizer.Form.NFD);
+        // Utiliser une expression régulière pour supprimer les diacritiques
+        String accentRemoved = normalized.replaceAll("\\p{M}", "");
+        // Convertir en minuscules
+        return accentRemoved.toLowerCase();
     }
 
     public List<AssociationDto> getAssociationsByPhoneNumber(String phoneNumber) {
@@ -157,7 +158,7 @@ public class AssociationBus {
         } else {
             // User does not exist, send SMS invitation
             String message = "Please create an account using this link: <link>";
-            sendSms(message, phone);
+            //sendSms(message, phone);
             System.out.println("passe dans les numeros indisponibles...");
 
             Membre_Asso_Temp membreTemp = new Membre_Asso_Temp();
@@ -170,6 +171,11 @@ public class AssociationBus {
 
         }
     }
+    public List<Role_Asso> getRoleAsso(String associationId){
+        Association association=associationRepository.findById(associationId).orElse(null);
+        if(association==null)throw  new AssociationNotFoundException("Association with id"+associationId+" don't exist");
+        return association.getRoles();
+    }
 
     public boolean deleteAssociation(String id) {
         Association association = associationRepository.findById(id).orElse(null);
@@ -180,16 +186,26 @@ public class AssociationBus {
         return false;
     }
 
-    public Role_Asso createRole(String associationId, String label) {
+    public Role_Asso createRole(String associationId, String label, boolean isDeletable) {
+
+
         Association association = associationRepository.findById(associationId).orElse(null);
         if (association == null) {
-            throw new RuntimeException("Association not found");
+            throw new AssociationNotFoundException("Association with id"+associationId+" don't exist");
         }
+        List<Role_Asso> roles= association.getRoles();
+
+        AtomicBoolean alreadyExist = new AtomicBoolean(false);
+        roles.forEach(role->{
+            if (role.getLabel().equals(removeAccentsAndLowercase(label))) {
+                alreadyExist.set(true);
+            }});
+        if(alreadyExist.get())throw new RoleAlreadyExistException("The role with base name "+label+" Already exist");
 
         Role_Asso role = new Role_Asso();
-        role.setLabel(label);
+        role.setLabel(removeAccentsAndLowercase(label));
         role.setAssociation(association);
-        role.setIsDeletable(true); // Or set based on your business logic
+        role.setIsDeletable(isDeletable); // Or set based on your business logic
 
         roleAssoRepository.save(role);
 
@@ -200,15 +216,78 @@ public class AssociationBus {
     }
 
 
-    public boolean deleteRole(String roleId) {
+    public void deleteRole(String roleId) {
+        Role_Asso role_asso=roleAssoRepository.findById(roleId).orElse(null);
+        if(role_asso==null)throw new AssociationNotFoundException("Role with id"+roleId+"doesn't exist");
+        roleAssoRepository.deleteById(roleId);
 
-        return false;
+        Association association=role_asso.getAssociation();
+        List<Role_Asso> roles= association.getRoles();
+        AtomicBoolean roleExist=new AtomicBoolean(false);
+        AtomicInteger roleIndex=new AtomicInteger(-1);
+        AtomicInteger roleIndex2=new AtomicInteger(-1);
+        roles.forEach(role->{
+            roleIndex2.set(roleIndex.get()+1);
+            if(role.getId().equals(roleId)){
+                roleIndex.set(roleIndex2.get());
+            }
+        });
+
+        if(roleExist.get()){
+            roleAssoRepository.deleteById(roles.get(roleIndex.get()).getId());
+            roles.remove(roleIndex.get());
+            association.setRoles(roles);
+        }
+        else{ throw new AssociationNotFoundException("This role doesn't existe in our database");}
+
     }
+    public void deleteAllRole(String associationId) {
+        Association association=associationRepository.findById(associationId).orElse(null);
+        if (association == null) {
+            throw new AssociationNotFoundException("Association with id"+associationId+" don't exist");
+        }
+        List<Role_Asso> roles =association.getRoles();
+        for(int i=0;i<roles.size();i++){
+            if(roles.get(i).isDeletable()){
+                System.out.println("Passe bien par ici "+roles.get(i).getLabel());
+                roleAssoRepository.deleteById(roles.get(i).getId());
+            }
+        }
+    }
+
+    public void deleteRole2(String associationId, String role_label) {
+
+        Association association=associationRepository.findById(associationId).orElse(null);
+        if (association == null) {
+            throw new AssociationNotFoundException("Association with id"+associationId+" don't exist");
+        }
+        List<Role_Asso> roles= association.getRoles();
+        AtomicBoolean roleExist=new AtomicBoolean(false);
+        AtomicInteger roleIndex=new AtomicInteger(-1);
+        AtomicInteger roleIndex2=new AtomicInteger(-1);
+        roles.forEach(role->{
+            roleIndex2.set(roleIndex.get()+1);
+            System.out.println("Je suis bien entré dans la partie qui semble déranger : "+role.getLabel()+" "+removeAccentsAndLowercase(role_label));
+            if(role.getLabel().equals(removeAccentsAndLowercase(role_label))){
+                roleExist.set(true);
+                roleIndex.set(roleIndex2.get());
+
+            }
+        });
+        if(roleExist.get()){
+            roleAssoRepository.deleteById(roles.get(roleIndex.get()).getId());
+            roles.remove(roleIndex.get());
+            association.setRoles(roles);
+        }
+        else{ throw new AssociationNotFoundException("This role doesn't exist in our database");}
+
+    }
+
 
     public Membre_Asso addMember(String associationId, String name, String phone, String roleLabel) {
         Association association = associationRepository.findById(associationId).orElse(null);
         if (association == null) {
-            throw new RuntimeException("Association not found");
+            throw new AssociationNotFoundException("Association not found");
         }
 
         // Appeler la méthode processMembre pour ajouter le membre
@@ -228,7 +307,7 @@ public class AssociationBus {
         List<Membre_Asso> membres = membreAssoRepository.findByPhone(phone);
 
         if (membres.isEmpty()) {
-            throw new RuntimeException("No member found with phone number: " + phone);
+            throw new AssociationNotFoundException("No member found with phone number: " + phone);
         }
 
         // Récupérer les Membre_Tont associés à ce membre
@@ -343,14 +422,14 @@ public class AssociationBus {
 
         org.springframework.http.HttpEntity<Map<String, Object>> request = new HttpEntity<>(payload, headers);
 
-        ResponseEntity<String> response = restTemplate.exchange(
-                "https://sms.lmtgroup.com/api/v1/pushes",
-                HttpMethod.POST,
-                request,
-                String.class
-        );
+//        ResponseEntity<String> response = restTemplate.exchange(
+//                "https://sms.lmtgroup.com/api/v1/pushes",
+//                HttpMethod.POST,
+//                request,
+//                String.class
+//        );
 
-        System.out.println(response.getBody());
+
     }
 
 }

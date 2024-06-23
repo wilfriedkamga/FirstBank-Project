@@ -23,6 +23,7 @@ public class Role_Asso {
 
     private boolean isDeletable;
 
+
     @ManyToOne
     @JoinColumn(name = "association_id", nullable = false)
     private Association association;
@@ -54,6 +55,11 @@ public class Role_Asso {
     public Association getAssociation() {
         return association;
     }
+
+    public void setDeletable(boolean deletable) {
+        isDeletable = deletable;
+    }
+
 
     public void setAssociation(Association association) {
         this.association = association;

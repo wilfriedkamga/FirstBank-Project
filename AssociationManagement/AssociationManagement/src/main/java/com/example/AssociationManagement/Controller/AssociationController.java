@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/associationmanagement")
@@ -28,18 +29,50 @@ public class AssociationController {
 
     @PostMapping("/create-role")
     public ResponseEntity<?> createRole(@RequestBody RoleCreationModel roleCreationModel) {
-        Role_Asso role = associationService.createRole(roleCreationModel.getAssociationId(), roleCreationModel.getLabel());
-        return ResponseEntity.ok().body("Role created successfully with ID: " + role.getId());
+            CommonResponseModel response=new CommonResponseModel();
+            Role_Asso role = associationService.createRole(roleCreationModel.getAssociationId(), roleCreationModel.getLabel().toLowerCase(),true);
+            response.setResponseCode("0");
+            response.setMessage("sucess of creation");
+            RoleAssoDto roleAssoDto=new RoleAssoDto(role.getId(),role.getLabel());
+            response.setData(roleAssoDto);
+            return ResponseEntity.ok().body(response);
     }
 
-    @DeleteMapping("/delete-role/{roleId}")
-    public ResponseEntity<?> deleteRole(@PathVariable String roleId) {
-        boolean isDeleted = associationService.deleteRole(roleId);
-        if (isDeleted) {
-            return ResponseEntity.ok().body("Role deleted successfully.");
-        } else {
-            return ResponseEntity.badRequest().body("Role cannot be deleted.");
-        }
+    @GetMapping("/roles")
+    public ResponseEntity<?> getRole(@RequestParam String associationId) {
+        System.out.println("passe par les roles");
+
+
+           List<Role_Asso> roles=associationService.getRoleAsso(associationId);
+
+           List<RoleAssoDto> rolesDto = roles.stream()
+                   .map(role -> new RoleAssoDto(role.getId(), role.getLabel().toUpperCase()))
+                   .collect(Collectors.toList());
+           return ResponseEntity.ok().body(rolesDto);
+    }
+
+
+    @DeleteMapping("/delete-role")
+    public ResponseEntity<?> deleteRole(@RequestParam String roleId) {
+        associationService.deleteRole(roleId);
+        String message="Error when delete";
+        message="delete sucessfully";
+        CommonResponseModel response=new CommonResponseModel(message,"0",null);
+        return ResponseEntity.ok().body(response);
+
+    }
+    @DeleteMapping("/delete-role2")
+    public ResponseEntity<?> deleteRole2(@RequestBody DeleteRoleAssociationModel model) {
+        associationService.deleteRole2(model.getAssociation_id(),model.getRole_label().toLowerCase());
+        CommonResponseModel response=new CommonResponseModel("delete operation success !","0",null);
+        return ResponseEntity.ok().body(response);
+    }
+
+    @DeleteMapping("/delete-role-all")
+    public ResponseEntity<?> deleteAllRole(@RequestParam String associationId) {
+        associationService.deleteAllRole(associationId);
+        CommonResponseModel response=new CommonResponseModel("delete operation success !","0",null);
+        return ResponseEntity.ok().body(response);
     }
 
     @GetMapping("/member-details")

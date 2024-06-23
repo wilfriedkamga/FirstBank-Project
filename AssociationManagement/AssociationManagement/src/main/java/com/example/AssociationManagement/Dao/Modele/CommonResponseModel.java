@@ -6,6 +6,16 @@ public class CommonResponseModel {
     private Object data;
 
     // Getters et Setters
+
+    public CommonResponseModel(String message, String responseCode, Object data) {
+        this.message = message;
+        this.responseCode = responseCode;
+        this.data = data;
+    }
+
+    public CommonResponseModel() {
+    }
+
     public String getMessage() {
         return message;
     }

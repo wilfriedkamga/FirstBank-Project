@@ -1,0 +1,38 @@
+POST http://localhost:80/api/item
+Content-Type: application/x-www-form-urlencoded
+
+id=99&content=new-element
+
+###
+DELETE http://localhost:8082/api/associationmanagement/delete-role2
+Content-Type: application/json
+
+{
+   "association_id":"ecc311e0-96d5-4f44-87f1-fac21d3f1315",
+   "role_label":"secretaire"
+}
+###
+DELETE http://localhost:8082/api/associationmanagement/delete-role-all?associationId=ecc311e0-96d5-4f44-87f1-fac21d3f1315
+Content-Type: application/json
+
+###
+GET http://localhost:8082/api/associationmanagement/roles?associationId=ecc311e0-96d5-4f44-87f1-fac21d3f1315
+Accept: application/json
+
+###
+
+GET http://localhost:8082/api/associationmanagement/member-details?phone=237654921078
+Accept: application/json
+
+###
+POST http://localhost:8082/api/associationmanagement/add-member
+Accept: application/json
+
+{
+  "associationId":"311e0-96d5-4f44-87f1-fac21d3f1315",
+  "name":"",
+  "phone":"237654921078",
+  "roleLabel":"PRESIDENT"
+}
+
+###

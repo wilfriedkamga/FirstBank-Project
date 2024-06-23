@@ -10,6 +10,7 @@ public  class RoleAssoDto {
     private String id;
     private String label;
 
+
     public RoleAssoDto(String id, String label) {
         this.id = id;
         this.label = label;

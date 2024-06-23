@@ -9,7 +9,8 @@ public class RoleCreationModel {
     private String associationId;
     private String label;
 
-    // Getters and Setters
+
+// Getters and Setters
 
     public String getAssociationId() {
         return associationId;
