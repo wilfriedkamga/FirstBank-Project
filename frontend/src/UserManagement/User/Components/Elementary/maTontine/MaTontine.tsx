@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import SpaceDashboardSharpIcon from "@mui/icons-material/SpaceDashboardSharp";
 import { useNavigate, useLocation } from "react-router-dom";
 import  logo from "../../../../../Utils/Assets/logo384.png"
@@ -7,8 +7,24 @@ import  logo_membre from "../../../../../Utils/Assets/membre.png"
 import  logo_parametre from "../../../../../Utils/Assets/parametre.png"
 import  logo_reunion from "../../../../../Utils/Assets/reunion.png"
 import  logo_evenement from "../../../../../Utils/Assets/Evenement.png"
+import Authentications from "../../../../../Services/Authentications";
+import AssociationServices from "../../../../../Services/AssociationServices";
+
 
 export const MaTontine = () => {
+const [assocaciation, setAssociation]=useState<any>()
+const location=useLocation()
+
+useEffect(()=>{
+  AssociationServices.GetAssociationDetails(location.pathname.split("/")[3])
+  .then((response)=>{
+    setAssociation(response.data.data)
+  })
+  .catch((error)=>{
+
+   console.log(error)
+  })
+},[])
   const stats = [
     {
       _id: "1",
@@ -47,7 +63,7 @@ export const MaTontine = () => {
       _id: "4",
       label: "parametres",
       lable_visible:"Paramètres",
-      total: "",
+      total: null,
       logo:logo_parametre,
       
     },
@@ -55,14 +71,14 @@ export const MaTontine = () => {
 
   const navigate = useNavigate();
 
-  const location = useLocation();
+  
 
-  const Card = ({ label, count, logo }: any) => {
+  const Card = ({ label, count, logo,bool }: any) => {
     return (
       <div className="sm:w-[250px] sm:h-[200px] w-full h-[150px] bg-white flex flex-col items-center justify-center  shadow-md rounded-md">
         <div className="h-10 flex justify-center items-center flex-col ">
           <img src={logo} className=" w-[110px] mb-2 h-[120px] sm:w-[120px] sm:h-[120px]" alt="" />
-          <p className="text-base text-gray-800 font-bold">{label} {"("+count+")"}</p>
+          {count===null?<p className="text-base text-gray-800 font-bold">{label}</p>:<p className="text-base text-gray-800 font-bold">{label} {"("+count+")"}</p>}
         </div>
       </div>
     );
@@ -82,6 +98,7 @@ export const MaTontine = () => {
             <div
               onClick={() => viewCard(currentPath + label)}
               className="cursor-pointer "
+              key={index}
             >
               <Card
                 key={index}
@@ -89,6 +106,7 @@ export const MaTontine = () => {
                 bg="w-10 cursor-pointer rounded-full flex items-center bg-red-600 justify-center text-white"
                 label={lable_visible}
                 count={total}
+                bool={false}
               />
             </div>
           ))}

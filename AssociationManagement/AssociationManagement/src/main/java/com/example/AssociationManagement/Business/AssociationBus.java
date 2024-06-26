@@ -67,20 +67,22 @@ public class AssociationBus {
         association.setFrequenceReunion(creerAssoModele.getFrequenceReunion());
         association.setJourReunion(creerAssoModele.getJourReunion());
         association.setCreationDate(LocalDate.now());
+        association.setNbTontines(1);
 //
         // Sauvegarde de l'association pour générer l'ID et mettre à jour l'objet association
         association = associationRepository.save(association);
 
         // Création des rôles de base et les ajout à l'association
-        createRole(association.getId(), "President", false);
-        createRole(association.getId(), "Tresorier",false);
-        createRole(association.getId(), "Secretaire",false);
+        createRole(association.getId(), "president", false);
+        createRole(association.getId(), "tresorier",false);
+        createRole(association.getId(), "secretaire",false);
 
 ////         //Traiter les membres après que les rôles de base sont créés
-        processMembre(association, creerAssoModele.getPhoneAdmin1(), "President");
-        processMembre(association, creerAssoModele.getPhoneAdmin2(), "Tresorier");
-        processMembre(association, creerAssoModele.getPhoneAdmin3(), "Secretaire");
+        processMembre(association, creerAssoModele.getPhoneAdmin1(), "president");
+        processMembre(association, creerAssoModele.getPhoneAdmin2(), "tresorier");
+        processMembre(association, creerAssoModele.getPhoneAdmin3(), "secretaire");
 
+        System.out.println("Erreur ci se produit aussi pendant que nous travaillons");
         List<RoleAssoDto> roles = association.getRoles().stream()
                 .map(role -> new RoleAssoDto(role.getId(), role.getLabel()))
                 .collect(Collectors.toList());
@@ -98,6 +100,42 @@ public class AssociationBus {
     }
 
 
+    public CreateAssoDto createAssociation(String associationId){
+        Association association =associationRepository.findById(associationId).orElse(null);
+        if(association==null){
+            throw  new AssociationNotFoundException("Cette association n'existe pas dans votre systeme");
+        }
+        List<RoleAssoDto> roles = association.getRoles().stream()
+                .map(role -> new RoleAssoDto(role.getId(), role.getLabel()))
+                .collect(Collectors.toList());
+
+        List<MembreAssoDto> membres = association.getMembres().stream()
+                .map(membre -> new MembreAssoDto(membre.getId(), membre.getName(), membre.getPhone(), membre.getCreationDate(), membre.getRole().getLabel()))
+                .collect(Collectors.toList());
+
+        CreateAssoDto asso=new CreateAssoDto(association.getId(),association.getName(),
+                association.getFrequenceReunion(),association.getJourReunion(),association.getCreationDate(),roles,membres);
+        return null;
+    }
+    public AssociationDto getAssociation(String associationId){
+        Association association =associationRepository.findById(associationId).orElse(null);
+        if(association==null){
+            throw  new AssociationNotFoundException("Cette association n'existe pas dans votre systeme");
+        }
+        List<RoleAssoDto> roles = association.getRoles().stream()
+                .map(role -> new RoleAssoDto(role.getId(), role.getLabel()))
+                .collect(Collectors.toList());
+
+        List<MembreAssoDto> membres = association.getMembres().stream()
+                .map(membre -> new MembreAssoDto(membre.getId(), membre.getName(), membre.getPhone(), membre.getCreationDate(), membre.getRole().getLabel()))
+                .collect(Collectors.toList());
+
+        AssociationDto associationDto=new AssociationDto(association.getId(),association.getName(),association.getFrequenceReunion(),association.getJourReunion(),association.getCreationDate(),association.getNbMembers(),association.getNbTontines());
+        associationDto.setNbReunion(association.getReunions().size());
+        associationDto.setNbEvenement(association.getEvenements().size());
+
+        return associationDto;
+    }
     public static String removeAccentsAndLowercase(String input) {
         // Normaliser le texte en décomposant les accents
         String normalized = Normalizer.normalize(input, Normalizer.Form.NFD);
@@ -130,10 +168,13 @@ public class AssociationBus {
         ResponseEntity<CommonResponseModel> responseEntity = restTemplate.postForEntity(url, requestBody, CommonResponseModel.class);
         CommonResponseModel response = responseEntity.getBody();
 
-//
+        System.out.println("Voici l'identifiant de l'association en question "+association.getRoles().get(0).getLabel());
+        System.out.println("Voici l'identifiant de l'association en question "+association.getRoles().get(1).getLabel());
+        System.out.println("Voici l'identifiant de l'association en question "+association.getRoles().get(2).getLabel());
+        System.out.println("Voici l'identifiant de l'association en question "+roleName);
+
         Role_Asso role = association.getRoles().stream()
-                .filter(r -> r.getLabel().equals(roleName))
-                .findFirst()
+                .filter(r -> r.getLabel().equals(roleName)).findFirst()
                 .orElse(null);
 
         if (response != null && "0".equals(response.getResponseCode())) {
@@ -153,7 +194,6 @@ public class AssociationBus {
 
             association.getMembres().add(membre);
             association.setNbMembers( association.getMembres().size());
-            association.setNbTontines( association.getNbTontines()+1);
             associationRepository.save(association);
         } else {
             // User does not exist, send SMS invitation
@@ -162,7 +202,7 @@ public class AssociationBus {
             System.out.println("passe dans les numeros indisponibles...");
 
             Membre_Asso_Temp membreTemp = new Membre_Asso_Temp();
-            membreTemp.setName(phone); // Storing phone as name temporarily
+            membreTemp.setName("Inconnu"); // Storing phone as name temporarily
             membreTemp.setPhone(phone);
             membreTemp.setCreationDate(LocalDate.now());
             membreTemp.getAssociations().add(association);
@@ -176,6 +216,7 @@ public class AssociationBus {
         if(association==null)throw  new AssociationNotFoundException("Association with id"+associationId+" don't exist");
         return association.getRoles();
     }
+
 
     public boolean deleteAssociation(String id) {
         Association association = associationRepository.findById(id).orElse(null);
@@ -290,8 +331,22 @@ public class AssociationBus {
             throw new AssociationNotFoundException("Association not found");
         }
 
+        Membre_Asso membreExist = association.getMembres().stream()
+                .filter(r -> r.getPhone().equals(phone)).findFirst()
+                .orElse(null);
+
+        if(membreExist!=null){ throw new AssociationAlreadyExistsException("Cette utilisateur existe déjà dans cette association");}
+
+
+        Role_Asso roleExist = association.getRoles().stream()
+                .filter(r -> r.getLabel().equals(roleLabel.toLowerCase())).findFirst()
+                .orElse(null);
+
+        if(roleExist==null){ throw new AssociationAlreadyExistsException("Le rôle que vous avez entré n'existe pas dans cette association");}
+        System.out.println("Voici les tests passe par ici 2");
         // Appeler la méthode processMembre pour ajouter le membre
-        processMembre(association, phone, roleLabel);
+        processMembre(association, phone, roleLabel.toLowerCase());
+        System.out.println("Voici les tests passe par ici");
 
         // Récupérer le membre ajouté pour le retourner
         // Cela suppose que le membre ajouté a été enregistré dans la base de données et peut être récupéré par son téléphone et son rôle
@@ -351,18 +406,31 @@ public class AssociationBus {
         return false;
     }
 
-    public Association updateAssociation(UpdateAssoModel updateAssoModel) {
+    public CreateAssoDto updateAssociation(UpdateAssoModel updateAssoModel) {
         Association association = associationRepository.findById(updateAssoModel.getId()).orElse(null);
         if (association == null) {
-            throw new RuntimeException("Association not found");
+            throw new AssociationNotFoundException("Association not found");
         }
+
+        List<RoleAssoDto> roles = association.getRoles().stream()
+                .map(role -> new RoleAssoDto(role.getId(), role.getLabel()))
+                .collect(Collectors.toList());
+
+        List<MembreAssoDto> membres = association.getMembres().stream()
+                .map(membre -> new MembreAssoDto(membre.getId(), membre.getName(), membre.getPhone(), membre.getCreationDate(), membre.getRole().getLabel()))
+                .collect(Collectors.toList());
+
+        // Créer et retourner le DTO
 
         association.setName(updateAssoModel.getName());
         association.setFrequenceReunion(updateAssoModel.getFrequenceReunion());
         association.setJourReunion(updateAssoModel.getJourReunion());
         association.setModeReunion(updateAssoModel.getModeReunion());
 
-        return associationRepository.save(association);
+        CreateAssoDto createAssoDto = new CreateAssoDto(association.getId(), updateAssoModel.getName(), updateAssoModel.getFrequenceReunion(), updateAssoModel.getJourReunion(), association.getCreationDate(), roles, membres);
+        associationRepository.save(association);
+
+        return createAssoDto;
     }
     public List<TontineDto> getTontinesByAssociationId(String associationId) {
         Association association = associationRepository.findById(associationId).orElse(null);

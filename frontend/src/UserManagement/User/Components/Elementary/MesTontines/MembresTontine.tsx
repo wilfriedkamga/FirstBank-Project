@@ -5,14 +5,14 @@ import AddTontineMembre from "./AddTontineMembre";
 import TontinesServices from "../../../../../Services/TontinesServices";
 import AddTontineMembreDialog from "./AddMembreTontine";
 import AddMembreTontineDialog from "./AddMembreTontine";
+import AssociationServices from "../../../../../Services/AssociationServices";
 
 type TTontineMembreModel = {
   id: string;
-  nomUtilisateur: string;
+  name: string;
   role: string;
-  id_caisse: string;
-  idutiliateur: string;
-  creer_par: string;
+  phone: string;
+  creationDate: Date;
 };
 
 const MembresTontine = () => {
@@ -24,41 +24,39 @@ const MembresTontine = () => {
   const location = useLocation();
 
   useEffect(() => {
-    MembreTontineInit(location.pathname.split("/")[3]);
+    MembreAssoInit(location.pathname.split("/")[3]);
   }, []);
 
-  const MembreTontineInit = (idTontine: string) => {
-    TontinesServices.GetMembresTontine(idTontine)
-      .then((response) => {
-        console.log(response.data.data);
-        setTontineMembreList(response.data.data);
-      })
-      .catch((error) => {
-        console.log("echec");
-      });
+  const MembreAssoInit = (idAsso:string) => {
+    
+    AssociationServices.GetMembersByAssociationId(idAsso)
+    .then((response)=>{
+      console.log(response.data);
+      setTontineMembreList(response.data)
+      
+    })
+    .catch((error)=>{
+     console.log("erreur survenue lors de la recuperation des membres de l'association")
+    })
   };
-const tontine:TTontineMembreModel={
-  id: "123456",
-  nomUtilisateur: "Wilfried",
-  role: "Administrateur",
-  id_caisse: "Aucune",
-  idutiliateur: "650641633",
-  creer_par: "KAMGA ",
-}
-const table=[tontine, tontine,tontine,tontine, tontine,tontine]
+  const addMember=(data:any)=>{
+    setTontineMembreList(tontineMembreList.concat(data))
+  }
+
+
   return (
     <div>
       <div className="h-full  w-full grid  grid-cols-1 md:grid-cols-3 gap-5 ">
-        {table.map((item, index) => (
+        {tontineMembreList.map((item, index) => (
           <MembresTontineCard
-            nom={item.nomUtilisateur}
-            phone={item.idutiliateur}
+            nom={item.name}
+            phone={item.phone}
             role={item.role}
           />
         ))}
       </div>
       
-      <AddMembreTontineDialog/>
+      <AddMembreTontineDialog addMember={addMember} />
     </div>
   );
 };

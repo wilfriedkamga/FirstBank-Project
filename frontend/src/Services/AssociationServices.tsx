@@ -3,8 +3,9 @@
 import axios from "axios";
 import Variable from "../Variable";
 
-// Définir les routes pour chaque endpoint
+
 const routes_create_association = Variable.routeApiAssociation + "/api/associationmanagement/create";
+const routes_get_association_details = Variable.routeApiAssociation + "/api/associationmanagement/getAssociation";
 const route_get_all_association = Variable.routeApiAssociation + "/api/associationmanagement/associations-by-phone";
 const route_get_tontines_by_association = Variable.routeApiAssociation + "/api/associationmanagement/association/{id}/tontines";
 const route_get_members_by_association = Variable.routeApiAssociation + "/api/associationmanagement/association/{id}/members";
@@ -28,6 +29,12 @@ class AssociationServices {
     GetMyAssociations(phone: string) {
         return axios.get(route_get_all_association + "?phone=" + phone);
     }
+
+     // Récupérer les détails d'une association
+  GetAssociationDetails(id: string) {
+    console.log(routes_get_association_details + "?associationId=" + id)
+    return axios.get(routes_get_association_details + "?associationId=" + id);
+  }
 
      // Récupérer les détails d'un membre
   GetMemberDetails(phone: string) {

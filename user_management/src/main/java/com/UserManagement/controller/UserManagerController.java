@@ -61,10 +61,8 @@ public class UserManagerController {
 
 		try {
 			authenticate(authenticationRequest.getPhone(), authenticationRequest.getPassword());
-
 			final UserDetails userDetails = jwtInMemoryUserDetailsService
 					.loadUserByUsername(authenticationRequest.getPhone());
-
 			final String token = jwtTokenUtil.generateToken(userDetails);
 
 			response.setMessage("Success");
@@ -121,8 +119,9 @@ public class UserManagerController {
 		try{
 			response.setMessage("Success");
 			response.setResponseCode("0");
+			System.out.println("Voici votre nom complet"+signupModel.getFullname());
 			usermanagerBus.signup(signupModel.getPhone(),signupModel.getFullname(),signupModel.getEmail(),signupModel.getBirthDate(),signupModel.getGender(), signupModel.getPassword());
-
+			System.out.println("Passe bien par ici1 apres signup");
 			 //Authentifier l'utilisateur
             System.out.println(signupModel.getPhone()+" "+signupModel.getPassword());
 			authenticate(signupModel.getPhone(), signupModel.getPassword());

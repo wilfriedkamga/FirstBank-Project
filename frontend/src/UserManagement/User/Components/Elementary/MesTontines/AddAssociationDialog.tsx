@@ -19,6 +19,8 @@ import SelectItem from "../ParametresTontines/SelectItem";
 import axios from "axios";
 import AssociationServices from "../../../../../Services/AssociationServices";
 import AlertDialog from "../Notifications/AlertDialog";
+import AssoNotificationDialog from "./AssoNotificationDialog";
+
 
 type childComponents = {
   options: string[];
@@ -60,10 +62,15 @@ function ConfirmationDialogRaw(props: ConfirmationDialogRawProps) {
     printError,
     ...other
   } = props;
+  
+
   const [value, setValue] = React.useState(valueProp);
   const radioGroupRef = React.useRef<HTMLElement>(null);
   const [end, setEnd] = React.useState<boolean>(false);
   const [type, setType] = React.useState("");
+  const [notifTitle, setNotifTitle] = React.useState<string>("");
+  const [notifMessage, setNotifMessage] = React.useState<string>("");
+  const [dialogOpen, setDialogOpen] = React.useState<boolean>(false);
   const [contact1, setContact1] = React.useState("");
   const [contact2, setContact2] = React.useState("");
   const [contact3, setContact3] = React.useState("");
@@ -118,25 +125,35 @@ function ConfirmationDialogRaw(props: ConfirmationDialogRawProps) {
       frequenceReunion: frequence,
       jourReunion: day,
       phoneAdmin1: contact1,
-      roleAdmin1: selectedRoles.admin1,
       phoneAdmin2: contact2,
-      roleAdmin2: selectedRoles.admin2,
       phoneAdmin3: contact3,
-      roleAdmin3: selectedRoles.admin3,
+
+     
     };
 
     AssociationServices.CreateAssociation(data)
       .then((response) => {
         console.log("Association created successfully" + response.data);
-        addAssociation(data);
+        setNotifTitle("Sucess")
+        setNotifMessage("L'association a été créee avec sucess")
+        setDialogOpen(true)
+        const data2={
+          id:response.data.id,
+          creationDate: [2024, 6, 25],
+          frequenceReunion:response.data.frequenceReunion,
+          jourReunion:response.data.jourReunion,
+          name:response.data.name,
+          nbMembre:response.data.membres.size,
+          nbTontine:response.data.membres.nbTontine
+   }
+        addAssociation(data2);
         onClose(value);
       })
       .catch((error) => {
-        printError(
-          "Une erreur est survenu lors de la creation de cette association ",
-          error.response.data
-        );
-        onClose(value);
+        setNotifTitle("Erreur")
+        setNotifMessage("L'érreur suivante est survenue lors de cette operation"+error.message)
+        setDialogOpen(true)
+        
       });
   };
 
@@ -144,16 +161,13 @@ function ConfirmationDialogRaw(props: ConfirmationDialogRawProps) {
     setValue((event.target as HTMLInputElement).value);
   };
 
-  const goNextPage=()=>{
-    if(frequence==null || frequence==""){
-     alert("Il faut remplir tous les champs")
-
+  const goNextPage = () => {
+    if (frequence == null || frequence == "") {
+      alert("Il faut remplir tous les champs");
+    } else {
+      setEnd(true);
     }
-    else{
-      setEnd(true)
-    }
-
-  }
+  };
 
   return (
     <Dialog
@@ -166,6 +180,8 @@ function ConfirmationDialogRaw(props: ConfirmationDialogRawProps) {
       open={open}
       {...other}
     >
+      <AssoNotificationDialog title={notifTitle} message={notifMessage} open={dialogOpen}
+        onClose={() => setDialogOpen(false)} />
       {!end ? (
         <>
           <DialogTitle className="font-bold">
@@ -203,7 +219,6 @@ function ConfirmationDialogRaw(props: ConfirmationDialogRawProps) {
                 setRole={setFrequence}
                 multiple={false}
                 table={names}
-                
               />
             </div>
           </DialogContent>
@@ -227,28 +242,16 @@ function ConfirmationDialogRaw(props: ConfirmationDialogRawProps) {
             <label className="font-bold" htmlFor="">
               Président
             </label>
-            <PhoneInputRole
-              table={getAvailableRoles("admin1")}
-              setPhone={setContact1}
-              setRole={(role) => handleRoleChange("admin1", role)}
-            />
+            <PhoneInputRole setPhone={setContact1} />
 
             <label className="font-bold" htmlFor="">
               Trésorier
             </label>
-            <PhoneInputRole
-              table={getAvailableRoles("admin2")}
-              setPhone={setContact2}
-              setRole={(role) => handleRoleChange("admin2", role)}
-            />
+            <PhoneInputRole setPhone={setContact2} />
             <label className="font-bold" htmlFor="">
               Sécretaire
             </label>
-            <PhoneInputRole
-              table={getAvailableRoles("admin3")}
-              setPhone={setContact3}
-              setRole={(role) => handleRoleChange("admin3", role)}
-            />
+            <PhoneInputRole setPhone={setContact3} />
           </DialogContent>
           <DialogActions>
             <Button
@@ -283,6 +286,9 @@ export default function AddAssociationDialog({
 }: childProps) {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState("Dione");
+  const [notifTitle, setNotifTitle] = React.useState<string>("");
+  const [notifMessage, setNotifMessage] = React.useState<string>("");
+  const [dialogOpen, setDialogOpen] = React.useState<boolean>(false);
 
   const handleClickListItem = () => {
     setOpen(true);
@@ -304,6 +310,9 @@ export default function AddAssociationDialog({
       >
         +
       </div>
+
+      
+
       <ConfirmationDialogRaw
         id="ringtone-menu"
         keepMounted
@@ -313,7 +322,7 @@ export default function AddAssociationDialog({
         addAssociation={setData}
         printError={printError}
       />
-      <AlertDialog/>
+      
     </>
   );
 }

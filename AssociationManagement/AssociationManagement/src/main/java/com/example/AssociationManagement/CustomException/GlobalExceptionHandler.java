@@ -15,30 +15,30 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(AssociationAlreadyExistsException.class)
     public ResponseEntity<?> handleAssociationAlreadyExistsException(AssociationAlreadyExistsException ex) {
         CommonResponseModel response=new CommonResponseModel(message,codeError,ex.getMessage());
-        return  ResponseEntity.badRequest().body(response);
+        return new ResponseEntity<>(response, HttpStatus.FORBIDDEN);
     }
 
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<?> handleUserNotFoundException(UserNotFoundException ex) {
         CommonResponseModel response=new CommonResponseModel(message,codeError,ex.getMessage());
-        return  ResponseEntity.badRequest().body(response);
+        return new ResponseEntity<>(response, HttpStatus.FORBIDDEN);
     }
     @ExceptionHandler(AssociationNotFoundException.class)
     public ResponseEntity<?> handleAssociationNotFoundException(AssociationNotFoundException ex) {
         CommonResponseModel response=new CommonResponseModel(message,codeError,ex.getMessage());
-        return  ResponseEntity.badRequest().body(response);
+        return new ResponseEntity<>(response, HttpStatus.FORBIDDEN);
     }
 
     @ExceptionHandler(RoleAlreadyExistException.class)
     public ResponseEntity<?> handleRoleAlreadyExistException(RoleAlreadyExistException ex) {
         CommonResponseModel response=new CommonResponseModel(message,codeError,ex.getMessage());
-        return  ResponseEntity.badRequest().body(response);
+        return new ResponseEntity<>(response, HttpStatus.FORBIDDEN);
     }
 
     @ExceptionHandler(UndeletableRoleException.class)
     public ResponseEntity<?> handleUndeletableRoleException(UndeletableRoleException ex) {
         CommonResponseModel response=new CommonResponseModel(message,codeError,ex.getMessage());
-        return  ResponseEntity.badRequest().body(response);
+        return new ResponseEntity<>(response, HttpStatus.FORBIDDEN);
     }
 
 }

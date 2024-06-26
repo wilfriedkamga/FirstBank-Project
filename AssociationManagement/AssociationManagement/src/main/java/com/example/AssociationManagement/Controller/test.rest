@@ -29,8 +29,8 @@ POST http://localhost:8082/api/associationmanagement/add-member
 Accept: application/json
 
 {
-  "associationId":"311e0-96d5-4f44-87f1-fac21d3f1315",
-  "name":"",
+  "associationId":"25d69b49-76ea-41bd-9506-119c17c08db8",
+  "name":"nnnnnn",
   "phone":"237654921078",
   "roleLabel":"PRESIDENT"
 }

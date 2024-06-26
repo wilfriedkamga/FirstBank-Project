@@ -5,11 +5,9 @@ import useIsMobile from "../../../../../Services/useIsMobile";
 
 type childComponents = {
   setPhone: (phone: string) => void;
-  setRole: (role: string) => void;
-  table: any[];
 };
 
-const PhoneInputRole = ({ setPhone, setRole, table }: childComponents) => {
+const PhoneInputRole = ({ setPhone}: childComponents) => {
   const [value1, setValue1] = useState<string>("");
   const isMobile=useIsMobile()
   const handleContactPicker = async () => {

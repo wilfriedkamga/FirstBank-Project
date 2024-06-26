@@ -10,7 +10,24 @@ public class AssociationDto {
     private LocalDate creationDate;
     private int nbMembre;
     private int nbTontine;
+    private int nbReunion;
+    private int nbEvenement;
 
+    public int getNbReunion() {
+        return nbReunion;
+    }
+
+    public void setNbReunion(int nbReunion) {
+        this.nbReunion = nbReunion;
+    }
+
+    public int getNbEvenement() {
+        return nbEvenement;
+    }
+
+    public void setNbEvenement(int nbEvenement) {
+        this.nbEvenement = nbEvenement;
+    }
 
     public AssociationDto(String id, String name, String frequenceReunion, String jourReunion, LocalDate creationDate, int nbMembre, int nbTontine) {
         this.id = id;

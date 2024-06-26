@@ -19,10 +19,11 @@ import SelectItem from "../ParametresTontines/SelectItem";
 import axios from "axios";
 import AssociationServices from "../../../../../Services/AssociationServices";
 import AlertDialog from "../Notifications/AlertDialog";
+import { useLocation } from "react-router-dom";
 
-type childComponents = {
-  options: string[];
-};
+type childComponents={
+  addMember:(data:any)=>void
+}
 
 export interface ConfirmationDialogRawProps {
   id: string;
@@ -30,7 +31,7 @@ export interface ConfirmationDialogRawProps {
   value: string;
   open: boolean;
   onClose: (value?: string) => void;
-  
+  addMember:(member:any)=>void;
 }
 const names = [
   "Hebdomadaire",
@@ -40,9 +41,9 @@ const names = [
   "Autre",
 ];
 const days = [
-  "Lundi",
-  "Mardi",
-  "Mercredi",
+  "adherent",
+  "secretaire",
+  "Censeur",
   "Jeudi",
   "Vendredi",
   "Samedi",
@@ -51,32 +52,18 @@ const days = [
 const roles = ["Président", "Trésorier", "Createur"];
 
 function ConfirmationDialogRaw(props: ConfirmationDialogRawProps) {
-  const {
-    onClose,
-    value: valueProp,
-    open,
-    ...other
-  } = props;
+  const { onClose, value: valueProp, open,addMember, ...other } = props;
   const [value, setValue] = React.useState(valueProp);
   const radioGroupRef = React.useRef<HTMLElement>(null);
   const [end, setEnd] = React.useState<boolean>(false);
   const [type, setType] = React.useState("");
-  const [contact1, setContact1] = React.useState("");
-  const [contact2, setContact2] = React.useState("");
-  const [contact3, setContact3] = React.useState("");
-  const [day, setDay] = React.useState("");
+  const [role, setRole] = React.useState("");
+  const [phone, setPhone] = React.useState("");
   const [name, setName] = React.useState("Association 1");
-  const [frequence, setFrequence] = React.useState("");
-  const [selectedRoles, setSelectedRoles] = React.useState<{
-    admin1: string;
-    admin2: string;
-    admin3: string;
-  }>({
-    admin1: "",
-    admin2: "",
-    admin3: "",
-  });
+  const location=useLocation()
+  
   React.useEffect(() => {
+    setName(location.pathname.split("/")[3])
     if (!open) {
       setValue(valueProp);
     }
@@ -88,48 +75,34 @@ function ConfirmationDialogRaw(props: ConfirmationDialogRawProps) {
     }
   };
 
-  const handleRoleChange = (
-    admin: "admin1" | "admin2" | "admin3",
-    role: string
-  ) => {
-    setSelectedRoles((prev) => ({
-      ...prev,
-      [admin]: role,
-    }));
-  };
-
-  const getAvailableRoles = (currentAdmin: "admin1" | "admin2" | "admin3") => {
-    const selected = Object.values(selectedRoles).filter(
-      (role) => role && role !== selectedRoles[currentAdmin]
-    );
-    return roles.filter((role) => !selected.includes(role));
-  };
+  
   const handleCancel = () => {
     onClose();
   };
 
   const handleOk = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
+    
     const data = {
-      name: name,
-      frequenceReunion: frequence,
-      jourReunion: day,
-      phoneAdmin1: contact1,
-      roleAdmin1: selectedRoles.admin1,
-      phoneAdmin2: contact2,
-      roleAdmin2: selectedRoles.admin2,
-      phoneAdmin3: contact3,
-      roleAdmin3: selectedRoles.admin3,
+      associationId: name,
+      phone: phone,
+      roleLabel: role,
     };
 
-    AssociationServices.CreateAssociation(data)
+    console.log(data)
+    AssociationServices.AddMember(data)
       .then((response) => {
-        console.log("Association created successfully" + response.data);
-       
+        console.log("" + response.data.data);
+        const data2 = {
+          name:response.data.data.name,
+          associationId: name,
+          phone: phone,
+          role: role,
+        };
+        addMember(data2)
         onClose(value);
       })
       .catch((error) => {
-
         onClose(value);
       });
   };
@@ -137,17 +110,6 @@ function ConfirmationDialogRaw(props: ConfirmationDialogRawProps) {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue((event.target as HTMLInputElement).value);
   };
-
-  const goNextPage=()=>{
-    if(frequence==null || frequence==""){
-     alert("Il faut remplir tous les champs")
-
-    }
-    else{
-      setEnd(true)
-    }
-
-  }
 
   return (
     <Dialog
@@ -160,58 +122,44 @@ function ConfirmationDialogRaw(props: ConfirmationDialogRawProps) {
       open={open}
       {...other}
     >
-     
-          <DialogTitle className="font-bold">
-            <label className="font-bold" htmlFor="">
-              Ajouter un nouveau membre
-            </label>
-          </DialogTitle>
-          <DialogContent dividers className="flex flex-col gap-2">
-            <div className="flex flex-col gap-2">
-              <label className="font-bold" htmlFor="">
-                Nom du membre
-              </label>
-              <TextField
-                required
-                id="outlined-required"
-                label=""
-                value={name}
-                placeholder="Nom de l'association"
-                defaultValue="Hello World"
-                className="w-full"
-                onChange={(e) => setName(e.target.value)}
-              />
-            </div>
-            <div className="flex flex-col gap-2">
-              <label className="font-bold" htmlFor="">
-                Telephone du membre
-              </label>
-              <PhoneInput/>
-            </div>
-            <div className="flex flex-col gap-2">
-              <label className="font-bold" htmlFor="">
-                Rôle du membre
-              </label>
-              <SelectItem setRole={setDay} multiple={false} table={days} />
-            </div>
-          </DialogContent>
-          <DialogActions>
-            <Button sx={{ color: "red" }} autoFocus onClick={handleCancel}>
-              Cancel
-            </Button>
-            <Button sx={{ color: "red" }} onClick={() => goNextPage()}>
-              Next
-            </Button>
-          </DialogActions>
+      <DialogTitle className="font-bold">
+        <label className="font-bold" htmlFor="">
+          Ajouter un nouveau membre
+        </label>
+      </DialogTitle>
+      <DialogContent dividers className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2">
+          <label className="font-bold" htmlFor="">
+            Telephone du membre
+          </label>
+          <PhoneInputRole
+              setPhone={setPhone}
+            />
+        </div>
+        <div className="flex flex-col gap-2">
+          <label className="font-bold" htmlFor="">
+            Rôle du membre
+          </label>
+          <SelectItem setRole={setRole} multiple={false} table={days} />
+        </div>
+      </DialogContent>
+      <DialogActions>
+        <Button sx={{ color: "red" }} autoFocus onClick={handleCancel}>
+          Cancel
+        </Button>
+        <Button sx={{ color: "red" }} onClick={(e) => handleOk(e)}>
+          Next
+        </Button>
+      </DialogActions>
     </Dialog>
   );
 }
 
-
-export default function AddMembreTontineDialog() {
+export default function AddMembreTontineDialog(props:childComponents) {
+  const {addMember}=props
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState("Dione");
-
+  
   const handleClickListItem = () => {
     setOpen(true);
   };
@@ -238,8 +186,9 @@ export default function AddMembreTontineDialog() {
         open={open}
         onClose={handleClose}
         value={value}
+        addMember={addMember}
       />
-      <AlertDialog/>
+      <AlertDialog />
     </>
   );
 }

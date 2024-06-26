@@ -115,6 +115,7 @@ public class UserManagerBus  implements IUserManagerBus {
         	throw new Exception("Cette adresse mail est déjà utilisé");
 		User obj = new User();
 		obj.setPhone(phone);
+		System.out.println("Voici votre nom complet." +fullname);
 		obj.setFullName(fullname);
 		obj.setEmail(email);
 		obj.setBirthDate(birthDate);
@@ -515,7 +516,7 @@ public class UserManagerBus  implements IUserManagerBus {
         validationRepository.save(validation);
 //
 //		// Envoyer le message message a user.getPhone().
-	     sendSmsToApi(validation.getPhone(),message);
+	     //sendSmsToApi(validation.getPhone(),message);
 		return validation;
 	}
 

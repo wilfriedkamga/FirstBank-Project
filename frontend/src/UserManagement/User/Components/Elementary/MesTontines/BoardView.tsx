@@ -11,6 +11,7 @@ import AssociationServices from "../../../../../Services/AssociationServices";
 import AssociationCard from "./AssociationCard";
 import AssociationCardM from "./AssociationCardM";
 import Sucess from "../Notifications/Sucess";
+import AssoNotificationDialog from "./AssoNotificationDialog";
 
 type Tontine = {
   id: string;
@@ -44,11 +45,11 @@ const BoardView: React.FC = () => {
   const [tontinesList, setTontinesList] = useState<TTontineModel[]>([]);
   const [associationList, setAssociationList] = useState<any[]>([]);
   const [tontine, setTontine] = useState<TTontineModel>();
-
-  const [notify, setNotify]=useState<boolean>(false)
-
-  const [notifTitle, setNotifTitle]=useState<String>("")
-  const [notifMessage, setNotifMessage]=useState<String>("")
+  const [notify, setNotify] = useState<boolean>(false);
+  
+  const [notifTitle, setNotifTitle] = useState<string>("");
+  const [notifMessage, setNotifMessage] = useState<string>("");
+  const [dialogOpen, setDialogOpen] = useState<boolean>(false);
   const [addTontineVisibility, setAddTontineVisibility] =
     useState<boolean>(false);
 
@@ -57,16 +58,21 @@ const BoardView: React.FC = () => {
     Initializepage(user.user.phone);
   }, []);
 
- const setNotification=(visibility:boolean,title:string, message:string)=>{
-  setNotify(visibility)
-  setNotifMessage(message)
-  setNotifTitle(title)
-}
+  const setNotification = (
+    visibility: boolean,
+    title: string,
+    message: string
+  ) => {
+    setNotify(visibility);
+    setNotifMessage(message);
+    setNotifTitle(title);
+  };
 
   const Initializepage = (phone: string) => {
     AssociationServices.GetMyAssociations(phone)
       .then((response) => {
         //setTontinesList(response.data.data);
+        
         setAssociationList(response.data);
         console.log(response.data);
         if (response.data.data.length != 0) {
@@ -78,19 +84,14 @@ const BoardView: React.FC = () => {
       });
   };
 
- const  printError=(title:string, message:string)=>{
-  setNotify(true)
-  console.log(title+message)
-
-
- }
-
-  const addTontine = (tontine: TTontineModel) => {
-    setTontinesList(tontinesList.concat(tontine));
-    setAssociationList(associationList.concat())
+  const printError = (title: string, message: string) => {
+    setNotify(true);
+    console.log(title + message);
   };
-  const addAssociation = (association:any) => {
-    setAssociationList(associationList.concat(association))
+
+  const addAssociation = (association: any) => {
+    console.log(association)
+    setAssociationList(associationList.concat(association));
   };
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const override: CSSProperties = {
@@ -119,11 +120,10 @@ const BoardView: React.FC = () => {
             data-testid="loader"
           />
         </div>
-        
       ) : (
         <div>
           <div className="w-full grid  grid-cols-2 sm:grid-cols-2 md:grid-cols-4 mb-5 gap-4 2xl:gap-10 ">
-            {associationList.map((asso,index) => (
+            {associationList.map((asso, index) => (
               <>
                 <div className="hidden sm:block lg:block">
                   <AssociationCard association={asso} key={index} />
@@ -142,11 +142,14 @@ const BoardView: React.FC = () => {
           ) : null}
         </div>
       )}
-     
-     {notify?<Sucess view={true}/>:<Sucess view={false}/>}
 
-      <AddAssociationDialog printError={(title, message)=>printError(title,message)}  setData={addAssociation}/>
-      
+      <AddAssociationDialog
+        printError={(title, message) => printError(title, message)}
+        setData={addAssociation}
+      />
+
+      <AssoNotificationDialog title={notifTitle} message={notifMessage} open={dialogOpen}
+        onClose={() => setDialogOpen(false)} />
     </div>
   );
 };

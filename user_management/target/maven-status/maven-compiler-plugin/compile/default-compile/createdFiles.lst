@@ -1,0 +1,9 @@
+com\UserManagement\dao\entities\Privilege.class
+com\UserManagement\dao\entities\Role.class
+com\UserManagement\controller\UserManagerController.class
+com\UserManagement\config\WebSecurityConfig.class
+com\UserManagement\business\JwtUserDetailsService.class
+com\UserManagement\business\IUserManagerBus.class
+com\UserManagement\dao\entities\UploadFile.class
+com\UserManagement\dao\entities\User.class
+com\UserManagement\business\UserManagerBus.class

@@ -139,8 +139,8 @@ export default function AccountMenu() {
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
         {userAvatarItems1.map((item, index) => (
-          <Link to={item.link}>
-            <MenuItem>
+          <Link key={index} to={item.link}>
+            <MenuItem key={index}>
               {item.Icon} {item.label}
             </MenuItem>
           </Link>
