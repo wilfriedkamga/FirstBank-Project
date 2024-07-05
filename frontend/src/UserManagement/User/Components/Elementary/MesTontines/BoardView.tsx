@@ -12,6 +12,7 @@ import AssociationCard from "./AssociationCard";
 import AssociationCardM from "./AssociationCardM";
 import Sucess from "../Notifications/Sucess";
 import AssoNotificationDialog from "./AssoNotificationDialog";
+import logo from "../../../Assets/Images/logoFB.png";
 
 type Tontine = {
   id: string;
@@ -46,7 +47,7 @@ const BoardView: React.FC = () => {
   const [associationList, setAssociationList] = useState<any[]>([]);
   const [tontine, setTontine] = useState<TTontineModel>();
   const [notify, setNotify] = useState<boolean>(false);
-  
+
   const [notifTitle, setNotifTitle] = useState<string>("");
   const [notifMessage, setNotifMessage] = useState<string>("");
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
@@ -58,6 +59,20 @@ const BoardView: React.FC = () => {
     Initializepage(user.user.phone);
   }, []);
 
+  const sendPushNotification = () => {
+    // Demander la permission de notification
+    Notification.requestPermission().then((perm) => {
+      if (perm === "granted") {
+        // Si la permission est accordée, envoyer la notification
+        new Notification("Envoi d une notification", {
+          body: "Nouveau message vous a été envoyé dans votre boite mail.",
+          icon: "http://via.placeholder.com/150", // Optionnel : chemin vers une icône de notification
+        });
+      } else {
+        alert("Permission non accordée pour les notifications.");
+      }
+    });
+  };
   const setNotification = (
     visibility: boolean,
     title: string,
@@ -72,25 +87,25 @@ const BoardView: React.FC = () => {
     AssociationServices.GetMyAssociations(phone)
       .then((response) => {
         //setTontinesList(response.data.data);
-        
+
         setAssociationList(response.data);
-        console.log(response.data);
+       
         if (response.data.data.length != 0) {
           setIsLoading(false);
         }
       })
       .catch((error) => {
-        console.log(error);
+        
       });
   };
 
   const printError = (title: string, message: string) => {
     setNotify(true);
-    console.log(title + message);
+    
   };
 
   const addAssociation = (association: any) => {
-    console.log(association)
+    
     setAssociationList(associationList.concat(association));
   };
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -101,12 +116,7 @@ const BoardView: React.FC = () => {
     position: "absolute",
     fontWeight: "bold",
   };
-  useEffect(() => {
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 50);
-  }, []);
+ 
 
   return (
     <div className="">
@@ -124,14 +134,14 @@ const BoardView: React.FC = () => {
         <div>
           <div className="w-full grid  grid-cols-2 sm:grid-cols-2 md:grid-cols-4 mb-5 gap-4 2xl:gap-10 ">
             {associationList.map((asso, index) => (
-              <>
+              <div key={index}>
                 <div className="hidden sm:block lg:block">
-                  <AssociationCard association={asso} key={index} />
+                  <AssociationCard association={asso} />
                 </div>
-                <div className="block sm:hidden lg:hidden">
-                  <AssociationCardM association={asso} key={index} />
+                <div  className="block sm:hidden lg:hidden">
+                  <AssociationCardM association={asso} />
                 </div>
-              </>
+              </div>
             ))}
           </div>
           {associationList == null || associationList.length == 0 ? (
@@ -148,8 +158,18 @@ const BoardView: React.FC = () => {
         setData={addAssociation}
       />
 
-      <AssoNotificationDialog title={notifTitle} message={notifMessage} open={dialogOpen}
-        onClose={() => setDialogOpen(false)} />
+      <AssoNotificationDialog
+        title={notifTitle}
+        message={notifMessage}
+        open={dialogOpen}
+        onClose={() => setDialogOpen(false)}
+      />
+      <button
+        onClick={() => sendPushNotification()}
+        className="bg-red-700 hover:bg-red-900 rounded-md text-white font-bold p-4"
+      >
+        Envoyer une notification
+      </button>
     </div>
   );
 };

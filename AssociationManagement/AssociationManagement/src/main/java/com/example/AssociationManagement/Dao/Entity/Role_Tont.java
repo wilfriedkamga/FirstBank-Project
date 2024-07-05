@@ -33,4 +33,44 @@ public class Role_Tont {
             inverseJoinColumns = @JoinColumn(name = "privilege_tont_id")
     )
     private List<Privilege_Tont> privileges_tont;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public boolean isDeletable() {
+        return isDeletable;
+    }
+
+    public void setDeletable(boolean deletable) {
+        isDeletable = deletable;
+    }
+
+    public Tontine getTontine() {
+        return tontine;
+    }
+
+    public void setTontine(Tontine tontine) {
+        this.tontine = tontine;
+    }
+
+    public List<Privilege_Tont> getPrivileges_tont() {
+        return privileges_tont;
+    }
+
+    public void setPrivileges_tont(List<Privilege_Tont> privileges_tont) {
+        this.privileges_tont = privileges_tont;
+    }
 }

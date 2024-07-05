@@ -3,7 +3,7 @@ import { InputOtp } from "primereact/inputotp";
 import sendSMS from "../../SendSMS/SendSms";
 import logo from "../../../Assets/Images/FBLogo.png";
 import axios from "axios";
-import Variable from "../../../../../Variable";
+import Variable from "../../../../../Variableprod1";
 import SimpleDialog from "../../Elementary/Dialog/SimpleDialog";
 import { Navigate, useNavigate } from "react-router-dom";
 

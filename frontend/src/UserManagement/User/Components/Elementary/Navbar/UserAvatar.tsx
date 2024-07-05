@@ -2,10 +2,10 @@ import React, { useEffect, useRef, useState } from "react";
 import SpaceDashboardSharpIcon from "@mui/icons-material/SpaceDashboardSharp";
 import LogoutIcon from "@mui/icons-material/Logout";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import Variable from "../../../../../Variable";
+import Variable from "../../../../../Variableprod1";
 import { getInitials } from "../Utils";
 import { Link } from "react-router-dom";
-import logo from "../../../../../Utils/Assets/Avatar.png"
+import logo from "../../../../../Utils/Assets/Avatar.png";
 
 type ChildComponentProps = {
   dropdownVisibility: boolean;
@@ -57,7 +57,7 @@ const UserAvatar = ({ dropdownVisibility }: ChildComponentProps) => {
           <div
             ref={butRef}
             onClick={() => setToogle(!toogle)}
-            className="w-[40px]  flex justify-center items-center font-bold h-[40px] rounded-full text-white bg-[#828181] cursor-pointer"
+            className="w-[40px]  flex justify-center items-center font-bold h-[40px] rounded-full text-red-700 bg-[#828181] cursor-pointer"
           >
             {getInitials(user.user.fullName)}
           </div>
@@ -91,10 +91,9 @@ const UserAvatar = ({ dropdownVisibility }: ChildComponentProps) => {
           <div
             ref={butRef}
             onClick={() => setToogle(!toogle)}
-            style={{backgroundImage:`url(${logo})`}}
+            style={{ backgroundImage: `url(${logo})` }}
             className="w-[40px]   flex justify-center border-gray-600 border-[2px] items-center font-bold h-[40px] rounded-full bg-cover  text-white bg-  cursor-pointer"
-          >
-          </div>
+          ></div>
           {toogle && dropdownVisibility ? (
             <div
               ref={menuRef}

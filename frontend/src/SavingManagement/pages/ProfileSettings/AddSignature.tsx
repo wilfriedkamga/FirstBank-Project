@@ -3,10 +3,14 @@ import { useNavigate } from "react-router-dom";
 import SignatureCanvas from "react-signature-canvas";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import Header from "../../components/header/Header";
+import AssoNotificationDialog from "../../../UserManagement/User/Components/Elementary/MesTontines/AssoNotificationDialog";
 
 const AddSignature: React.FC = () => {
   const navigate = useNavigate();
   const [signature, setSignature] = useState<string>("");
+  const [notifTitle, setNotifTitle] = useState<string>("");
+  const [notifMessage, setNotifMessage] = useState<string>("");
+  const [dialogOpen, setDialogOpen] = useState<boolean>(false);
 
   const signatureCanvasRef = useRef<SignatureCanvas>(null);
 
@@ -68,6 +72,12 @@ const AddSignature: React.FC = () => {
               className="px-5 py-2  w-full bg-red-600 text-white font-bold rounded cursor-pointer"
             />
           </div>
+          <AssoNotificationDialog
+                title={notifTitle}
+                message={notifMessage}
+                open={dialogOpen}
+                onClose={() => setDialogOpen(false)}
+              />
         </div>
       </div>
    

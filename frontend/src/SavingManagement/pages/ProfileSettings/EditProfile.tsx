@@ -13,18 +13,22 @@ import {
 import Variable from "../../../Variable";
 import Footer from "../../../UserManagement/User/Components/Elementary/Footer/Footer";
 import { useNavigate } from "react-router-dom";
+import AssoNotificationDialog from "../../../UserManagement/User/Components/Elementary/MesTontines/AssoNotificationDialog";
 
 const EditProfile: React.FC = () => {
   const [fullname, setFullname] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
-  const [birthdate, setBirthdate] = useState("");
+  const [birthdate, setBirthdate] = useState<string>("");
   const [birthDateEditable, setBirthdateEditable] = useState<boolean>(true);
   const [emailEditable, setEmailEditable] = useState<boolean>(true);
   const [phoneEditable, setPhoneEditable] = useState<boolean>(true);
   const [fullnameEditable, setFullnameEditable] = useState<boolean>(true);
   const [photo, setPhoto] = useState<string>("");
   const [showUploadText, setShowUploadText] = useState(false);
+  const [notifTitle, setNotifTitle] = useState<string>("");
+  const [notifMessage, setNotifMessage] = useState<string>("");
+  const [dialogOpen, setDialogOpen] = useState<boolean>(false);
 
   const handleUpload = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
     e.preventDefault();
@@ -38,13 +42,36 @@ const EditProfile: React.FC = () => {
     };
 
     Authentications.uploadFile(uploadFile)
-      .then((response) => {
-      })
+      .then((response) => {})
       .catch((error) => {
         alert("une erreur s'est produit");
       });
   };
-  const navigate=useNavigate()
+
+  function stringToDate(dateString: string) {
+    // Séparer la chaîne en utilisant la virgule comme délimiteur
+    let dateParts = dateString.split(",");
+
+    // Convertir les parties en entiers
+    let year = parseInt(dateParts[0], 10);
+    let month = parseInt(dateParts[1], 10) - 1; // Les mois commencent à 0
+    let day = parseInt(dateParts[2], 10);
+
+    // Créer et retourner un objet Date
+    return new Date(year, month, day);
+  }
+
+  function dateToString(dateObj: Date) {
+    // Récupérer les composantes de la date
+    let year = dateObj.getFullYear();
+    let month = dateObj.getMonth() + 1; // Les mois commencent à 0
+    let day = dateObj.getDate();
+
+    // Construire et retourner la chaîne de caractères
+    return `${year},${month},${day}`;
+  }
+
+  const navigate = useNavigate();
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -65,24 +92,34 @@ const EditProfile: React.FC = () => {
             const imageUrl = reader.result as string;
             setPhoto(imageUrl);
             const user = Variable.getLocalStorageItem("user");
-          const updatedUser = {
-            ...user.user,
-            photo:imageUrl
-          };
-          Variable.setLocalStorageItem("user", { user: updatedUser });
-          alert("success")
+            const updatedUser = {
+              ...user.user,
+              photo: imageUrl,
+            };
+            Variable.setLocalStorageItem("user", { user: updatedUser });
+            setNotifTitle("Sucess");
+            setNotifMessage(
+              "Votre photo de profil a été changée avec sucess !!"
+            );
+            setDialogOpen(true);
           };
 
           reader.readAsDataURL(file);
         })
-        .catch((error) => {});
+        .catch((error) => {
+          setNotifTitle(
+            "Erreur lors de l'opération de mofication de la photo de profil"
+          );
+          setNotifMessage("Erreur :" + error);
+          setDialogOpen(true);
+        });
     }
   };
   useEffect(() => {
     const user = Variable.getLocalStorageItem("user");
     setFullname(user.user.fullName);
     setPhone(user.user.phone);
-    setBirthdate(user.user.birthDate);
+    setBirthdate(new Date(user.user.birthDate).toISOString().split("T")[0]);
     setEmail(user.user.email);
     setPhoto(user.user.photo);
     console.log(photo);
@@ -111,31 +148,38 @@ const EditProfile: React.FC = () => {
           email: email,
           fullName: fullname,
           birthDate: birthdate,
-          emailIsVallid:response.data.data.emailIsVallid,
+          emailIsVallid: response.data.data.emailIsVallid,
         };
         Variable.setLocalStorageItem("user", { user: updatedUser });
-        
+        setNotifTitle("Sucess");
+        setNotifMessage("La mise à jour de vos informations ont réussi !!");
+        setDialogOpen(true);
       })
-      .catch((error) => {});
+      .catch((error) => {
+        setNotifTitle(
+          "Erreur lors de l'opération de mofication de la photo de profil"
+        );
+        setNotifMessage("Erreur :" + error);
+        setDialogOpen(true);
+      });
   };
 
   return (
     <div className="w-full h-full bg-white flex flex-col">
-      
-        <Header />
-     
+      <Header />
+
       <div className="flex mt-[10vh] mb-[10vh] p-4 justify-center flex-col  h-full w-full space-y-6 ">
         <div className="rounded-t-lg h-[15vh] flex items-center font-bold text-white text-3xl pl-6 overflow-hidden bg-red-700">
           Edit profil
         </div>
         <div className="bg-white w-[15vw] sm:w-[10vw] flex justify-center items-center   shadow h-[10vh]">
-            <button
-              className="  rounded-lg"
-              onClick={() => window.history.back()}
-            >
-              <KeyboardBackspaceIcon style={{ fontSize: "2rem" }} />
-            </button>
-          </div>
+          <button
+            className="  rounded-lg"
+            onClick={() => window.history.back()}
+          >
+            <KeyboardBackspaceIcon style={{ fontSize: "2rem" }} />
+          </button>
+        </div>
         <div className="ml-10 md:mx-auto  w-60 h-60   border-4 border-gray-400 rounded-full overflow-hidden">
           <img
             className="object-cover  h-60 w-60 rounded-full object-center p-3"
@@ -267,7 +311,11 @@ const EditProfile: React.FC = () => {
                   className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-base font-title rounded-lg focus:bg-whiteIl semble y avoir une coupure dans le code que vous avez fourni. Pouvez-vous me fournir la partie manquante afin que je puisse vous aider correctement ?
                 focus:ring-red-500 focus:border-red-500 outline-none w-full px-2.5 py-3"
                   defaultValue={birthdate}
-                  onChange={(e) => setBirthdate(e.target.value)}
+                  onChange={(e) =>
+                    setBirthdate(
+                      new Date(e.target.value).toISOString().split("T")[0]
+                    )
+                  }
                 />
                 <button
                   onClick={(e) => {
@@ -283,10 +331,11 @@ const EditProfile: React.FC = () => {
                 </button>
               </div>
             </div>
+
             <div className="mb-5 w-full px-2.5">
               <button
                 type="button"
-                className="flex items-center justify-center w-full px-4 py-3 text-base font-title font-medium text-white bg-red-600 hover:bg-red-600 rounded-lg focus:outline-none"
+                className="flex items-center justify-center w-full px-4 py-3 text-base font-title font-medium text-white bg-red-600 hover:bg-red-800 rounded-lg focus:outline-none"
                 onClick={(e) => handleSubmit(e)}
               >
                 <span className="mr-2">
@@ -294,13 +343,18 @@ const EditProfile: React.FC = () => {
                 </span>
                 Save Changes
               </button>
+              <AssoNotificationDialog
+                title={notifTitle}
+                message={notifMessage}
+                open={dialogOpen}
+                onClose={() => setDialogOpen(false)}
+              />
             </div>
           </form>
         </div>
       </div>
-      
-        <Footer/>
-      
+
+      <Footer />
     </div>
   );
 };

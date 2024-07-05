@@ -6,6 +6,7 @@ import logo from "../../Assets/Images/FBLogo.png";
 import PropagateLoader from "react-spinners/PropagateLoader";
 import Navbar from "../../Components/Elementary/Navbar/Navbar";
 import Header from "../../../../SavingManagement/components/header/Header";
+import HeaderTontine from "../../../../SavingManagement/components/header/HeaderTontine";
 
 export default function TontineHomePage() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -48,15 +49,15 @@ export default function TontineHomePage() {
           <div className="flex-1 block md:hidden  overflow-y-auto">
             <Header />
 
-            <div className="bg-gray-100 h-full mt-[5vh] mb-[5vh] sm:bg-[#828181] p-3 ">
+            <div className="bg-gray-100 min-h-[100%] h-auto mt-[5vh] mb-[5vh] sm:bg-[#828181] p-3 ">
               <Outlet />
             </div>
           </div>
 
           <div className="flex-1 hidden md:block  overflow-y-auto">
-            <Navbar />
+          <HeaderTontine />
 
-            <div className="bg-white h-full mb-[40px] sm:bg-[#828181] p-3 ">
+            <div className="bg-white min-h-[100%] h-auto mt-[5vh]  sm:bg-[#828181] p-3 ">
               <Outlet />
             </div>
           </div>

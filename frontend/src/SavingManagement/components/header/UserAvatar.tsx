@@ -1,6 +1,6 @@
 import { Avatar } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import Variable from "../../../Variable";
+import Variable from "../../../Variableprod1";
 
 export const UserAvatar = () => {
   function stringToColor(string: string) {
@@ -37,8 +37,11 @@ export const UserAvatar = () => {
 
   return (
     <div>
-        {!photo?<Avatar {...stringAvatar("Wilfried kamga")} />:<Avatar src={photo}/>}
-      
+      {!photo ? (
+        <Avatar {...stringAvatar("Wilfried kamga")} />
+      ) : (
+        <Avatar src={photo} />
+      )}
     </div>
   );
 };

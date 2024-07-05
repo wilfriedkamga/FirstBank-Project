@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import TontinesServices from "../../../../../Services/TontinesServices";
-import Variable from "../../../../../Variable";
+import Variable from "../../../../../Variableprod1";
 import { useLocation } from "react-router-dom";
 import PhoneInput from "react-phone-input-2";
 

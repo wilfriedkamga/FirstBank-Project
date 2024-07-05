@@ -5,7 +5,7 @@ import { Await, useNavigate } from "react-router-dom";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import "./Signin.css";
-import Variable from "../../../../../Variable";
+import Variable from "../../../../../Variableprod1";
 import Popup from "reactjs-popup";
 import SimpleDialog from "../../Elementary/Dialog/SimpleDialog";
 import { ProgressSpinner } from "primereact/progressspinner";
@@ -31,10 +31,10 @@ const Signup: React.FC<ChildComponentProps> = ({
 
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
-  const [photo, setPhoto]=useState("")
-  const [cniRecto, setCniRecto]=useState("")
-  const [cniVerso, setCniVerso]=useState("")
-  
+  const [photo, setPhoto] = useState("");
+  const [cniRecto, setCniRecto] = useState("");
+  const [cniVerso, setCniVerso] = useState("");
+
   const [response, setResponse] = useState("");
   const [errorVisibility, setErrorVisibility] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -61,8 +61,7 @@ const Signup: React.FC<ChildComponentProps> = ({
     setPassword(event.target.value);
   };
 
-  
-  const handleSubmit =async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (phone.length <= 3) {
@@ -70,30 +69,22 @@ const Signup: React.FC<ChildComponentProps> = ({
       setErrorVisibility(true);
     } else {
       setDialogMessage("Incorrect password or phone");
-    
 
-    
-        const tempUser = {
-          phone: phone,
-          password: password,
-        };
+      const tempUser = {
+        phone: phone,
+        password: password,
+      };
 
-       
-        
-        Authentication.loginService(tempUser)
-          .then((response) => {
-            setErrorVisibility(false);
-            const data=Variable.setLocalStorageItem("user",response.data.data)
-            navigate("/home")
-            
-            
-          })
-          .catch((error) => {
-            console.log(error);
-            setErrorVisibility(true);
-          });
-
-      
+      Authentication.loginService(tempUser)
+        .then((response) => {
+          setErrorVisibility(false);
+          const data = Variable.setLocalStorageItem("user", response.data.data);
+          navigate("/home");
+        })
+        .catch((error) => {
+          console.log(error);
+          setErrorVisibility(true);
+        });
     }
   };
 

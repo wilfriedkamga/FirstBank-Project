@@ -37,6 +37,7 @@ import MesSanctions from "../UserManagement/User/Components/Elementary/Dashboard
 import MesReunnionsContent from "../UserManagement/User/Components/Elementary/MesTontines/Reunions/MesReunnionsContent";
 import MesReunions from "../UserManagement/User/Components/Elementary/MesTontines/Reunions/MesReunions";
 import UneReunion from "../UserManagement/User/Components/Elementary/MesTontines/Reunions/UneReunion";
+import { MesDocuments } from "../UserManagement/User/Components/Elementary/MesDocuments/MesDocuments";
 
 const isKeyInLocalStorage = (key: string): boolean => {
   const token = localStorage.getItem(key);
@@ -90,6 +91,7 @@ export const router = createBrowserRouter([
                     element: <MaTontine />,
                     errorElement: <ErrorElement />,
                   },
+                  
                   {
                     path: "/tontine/mestontines/:idTontine/tontines",
                     element: <CaisseContent />,
@@ -172,6 +174,7 @@ export const router = createBrowserRouter([
                         path: "/tontine/mestontines/:idTontine/reunions",
                         element: <MesReunions/>,
                       },
+                      
                       {
                         path: "/tontine/mestontines/:idTontine/reunions/:idReunion",
                         element: <UneReunion/>,
@@ -186,6 +189,11 @@ export const router = createBrowserRouter([
                   {
                     path: "/tontine/mestontines/:idTontine/membres",
                     element: <MembresTontine />,
+                    errorElement: <ErrorElement />,
+                  },
+                  {
+                    path: "/tontine/mestontines/:idTontine/documents",
+                    element: <MesDocuments/>,
                     errorElement: <ErrorElement />,
                   },
                   {

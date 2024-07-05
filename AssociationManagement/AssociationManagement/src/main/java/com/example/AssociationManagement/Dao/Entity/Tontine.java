@@ -28,6 +28,12 @@ public class Tontine {
     private String montant_freq;
     private String periodicite;
 
+    private boolean isDeletable;
+    private boolean onChangeType;
+    private boolean canRemove;
+    private boolean onChangeParam;
+
+
     @ManyToOne
     @JoinColumn(name = "association_id", nullable = false)
     private Association association;
@@ -73,6 +79,38 @@ public class Tontine {
 
     public LocalDate getDate_creation() {
         return date_creation;
+    }
+
+    public boolean isDeletable() {
+        return isDeletable;
+    }
+
+    public void setDeletable(boolean deletable) {
+        isDeletable = deletable;
+    }
+
+    public boolean isOnChangeType() {
+        return onChangeType;
+    }
+
+    public void setOnChangeType(boolean onChangeType) {
+        this.onChangeType = onChangeType;
+    }
+
+    public boolean isCanRemove() {
+        return canRemove;
+    }
+
+    public void setCanRemove(boolean canRemove) {
+        this.canRemove = canRemove;
+    }
+
+    public boolean isOnChangeParam() {
+        return onChangeParam;
+    }
+
+    public void setOnChangeParam(boolean onChangeParam) {
+        this.onChangeParam = onChangeParam;
     }
 
     public void setDate_creation(LocalDate date_creation) {

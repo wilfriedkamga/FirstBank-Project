@@ -1,16 +1,16 @@
 class Variable {
-  static routeApi: string = "http://localhost:8088/";
-  static routeApiTontine: string = "http://localhost:8081";
-  static routeApiAssociation: string = "http://localhost:8082";
+  static routeApi: string = "http://62.169.22.170:8088/";
+  static routeApiTontine: string = "http://62.169.22.170:8081";
+  static routeApiAssociation: string = "http://62.169.22.170:8082";
   static pathSmsAPI: string =
     "https://9lmmqr.api.infobip.com/sms/2/text/advanced";
   static preTimeOut = 1000;
   static key_localStorage = "";
   static secret_key = "your_secret_key";
   static local_storage_key = "userFB";
-  static saving_base_url = "http://localhost:8085";
-  static operation_service_base_url = "http://localhost:8082";
-  static notification_baseUrlc = "http://localhost:8000";
+  static saving_base_url = "http://62.169.22.170:8085";
+  static operation_service_base_url = "http://62.169.22.170:8082";
+  static notification_baseUrlc = "http://62.169.22.170:8000";
 
   static recupérer_du_localStorage = (key: string) => {
     const encryptedData = localStorage.getItem(this.local_storage_key);

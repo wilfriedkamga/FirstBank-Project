@@ -13,7 +13,7 @@ import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import { red } from "@mui/material/colors";
 import { Link, useNavigate } from "react-router-dom";
-import Variable from "../../../Variable";
+import Variable from "../../../Variableprod1";
 import { useState } from "react";
 import { getInitials } from "../../../UserManagement/User/Components/Elementary/Utils";
 
@@ -59,7 +59,7 @@ export default function AccountMenu() {
     const user = Variable.getLocalStorageItem("user");
     setPhoto(user.user.photo);
     setName(user.user.fullName);
-  },[]);
+  }, []);
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -79,7 +79,7 @@ export default function AccountMenu() {
               <Avatar
                 sx={{
                   marginBottom: 0,
-                  bgcolor: "#ffffff",
+                  bgcolor: "#888888",
                   width: 39,
                   height: 39,
                   fontWeight: "bold",
@@ -90,11 +90,10 @@ export default function AccountMenu() {
             ) : (
               <Avatar
                 sx={{
-                  
                   bgcolor: "#ffffff",
                   width: 35,
                   height: 35,
-                  color:"#bb0000"
+                  color: "#bb0000",
                 }}
                 src={photo}
               />
@@ -148,7 +147,7 @@ export default function AccountMenu() {
         <Divider />
 
         {userAvatarItems2.map((item, index) => (
-          <Link to={item.link}>
+          <Link key={index} to={item.link}>
             <MenuItem>
               <ListItemIcon>{item.Icon}</ListItemIcon>
               {item.label}

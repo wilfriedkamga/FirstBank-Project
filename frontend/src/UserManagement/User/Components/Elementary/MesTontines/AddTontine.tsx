@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import TontinesServices from "../../../../../Services/TontinesServices";
-import Variable from "../../../../../Variable";
+import Variable from "../../../../../Variableprod1";
 
 type TTontineModel = {
   id: string;
@@ -201,22 +201,20 @@ const AddTontine = ({ addTontine, setVisibility }: AddTontineProps) => {
                   />
                 </div>
                 <div className="flex-col flex w-2/5">
-                  <label className="block mb-2 text-sm mt-3 ">
-                    Role
-                  </label>
+                  <label className="block mb-2 text-sm mt-3 ">Role</label>
                   <select
-                  value={date}
-                  onChange={(e) => setDate(e.target.value)}
-                  className="bg-transparent w-full rounded-lg px-3 py-2.5 2xl:py-3 border border-gray-300 placeholder-gray-400 text-gray-900 outline-none text-base focus:ring-2 ring-blue-300"
-                >
-                  <option value="Lundi">Lundi</option>
-                  <option value="Mardi">Mardi</option>
-                  <option value="Mercredi">Mercredi</option>
-                  <option value="Jeudi">Jeudi</option>
-                  <option value="Vendredi">Vendredi</option>
-                  <option value="Samedi">Samedi</option>
-                  <option value="Dimanche">Dimanche</option>
-                </select>
+                    value={date}
+                    onChange={(e) => setDate(e.target.value)}
+                    className="bg-transparent w-full rounded-lg px-3 py-2.5 2xl:py-3 border border-gray-300 placeholder-gray-400 text-gray-900 outline-none text-base focus:ring-2 ring-blue-300"
+                  >
+                    <option value="Lundi">Lundi</option>
+                    <option value="Mardi">Mardi</option>
+                    <option value="Mercredi">Mercredi</option>
+                    <option value="Jeudi">Jeudi</option>
+                    <option value="Vendredi">Vendredi</option>
+                    <option value="Samedi">Samedi</option>
+                    <option value="Dimanche">Dimanche</option>
+                  </select>
                 </div>
               </div>
               <div className="flex gap-2">
@@ -236,22 +234,20 @@ const AddTontine = ({ addTontine, setVisibility }: AddTontineProps) => {
                   />
                 </div>
                 <div className="flex-col flex w-2/5">
-                  <label className="block mb-2 text-sm mt-3 ">
-                    Role
-                  </label>
+                  <label className="block mb-2 text-sm mt-3 ">Role</label>
                   <select
-                  value={date}
-                  onChange={(e) => setDate(e.target.value)}
-                  className="bg-transparent w-full rounded-lg px-3 py-2.5 2xl:py-3 border border-gray-300 placeholder-gray-400 text-gray-900 outline-none text-base focus:ring-2 ring-blue-300"
-                >
-                  <option value="Lundi">Lundi</option>
-                  <option value="Mardi">Mardi</option>
-                  <option value="Mercredi">Mercredi</option>
-                  <option value="Jeudi">Jeudi</option>
-                  <option value="Vendredi">Vendredi</option>
-                  <option value="Samedi">Samedi</option>
-                  <option value="Dimanche">Dimanche</option>
-                </select>
+                    value={date}
+                    onChange={(e) => setDate(e.target.value)}
+                    className="bg-transparent w-full rounded-lg px-3 py-2.5 2xl:py-3 border border-gray-300 placeholder-gray-400 text-gray-900 outline-none text-base focus:ring-2 ring-blue-300"
+                  >
+                    <option value="Lundi">Lundi</option>
+                    <option value="Mardi">Mardi</option>
+                    <option value="Mercredi">Mercredi</option>
+                    <option value="Jeudi">Jeudi</option>
+                    <option value="Vendredi">Vendredi</option>
+                    <option value="Samedi">Samedi</option>
+                    <option value="Dimanche">Dimanche</option>
+                  </select>
                 </div>
               </div>
               <div className="flex gap-2">
@@ -271,22 +267,20 @@ const AddTontine = ({ addTontine, setVisibility }: AddTontineProps) => {
                   />
                 </div>
                 <div className="flex-col flex w-2/5">
-                  <label className="block mb-2 text-sm mt-3 ">
-                    Role
-                  </label>
+                  <label className="block mb-2 text-sm mt-3 ">Role</label>
                   <select
-                  value={date}
-                  onChange={(e) => setDate(e.target.value)}
-                  className="bg-transparent w-full rounded-lg px-3 py-2.5 2xl:py-3 border border-gray-300 placeholder-gray-400 text-gray-900 outline-none text-base focus:ring-2 ring-blue-300"
-                >
-                  <option value="Lundi">Lundi</option>
-                  <option value="Mardi">Mardi</option>
-                  <option value="Mercredi">Mercredi</option>
-                  <option value="Jeudi">Jeudi</option>
-                  <option value="Vendredi">Vendredi</option>
-                  <option value="Samedi">Samedi</option>
-                  <option value="Dimanche">Dimanche</option>
-                </select>
+                    value={date}
+                    onChange={(e) => setDate(e.target.value)}
+                    className="bg-transparent w-full rounded-lg px-3 py-2.5 2xl:py-3 border border-gray-300 placeholder-gray-400 text-gray-900 outline-none text-base focus:ring-2 ring-blue-300"
+                  >
+                    <option value="Lundi">Lundi</option>
+                    <option value="Mardi">Mardi</option>
+                    <option value="Mercredi">Mercredi</option>
+                    <option value="Jeudi">Jeudi</option>
+                    <option value="Vendredi">Vendredi</option>
+                    <option value="Samedi">Samedi</option>
+                    <option value="Dimanche">Dimanche</option>
+                  </select>
                 </div>
               </div>
               <div className="flex justify-end text-white mt-2">

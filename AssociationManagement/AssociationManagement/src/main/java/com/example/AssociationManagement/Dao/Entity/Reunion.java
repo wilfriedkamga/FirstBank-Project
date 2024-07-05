@@ -31,6 +31,9 @@ public class Reunion {
     private int nombreMembresPresents;
     private int nombreCotisationsAttendues;
 
+    private boolean isFinish;
+    private String type;
+
     @ManyToOne
     @JoinColumn(name = "association_id", nullable = false)
     private Association association;

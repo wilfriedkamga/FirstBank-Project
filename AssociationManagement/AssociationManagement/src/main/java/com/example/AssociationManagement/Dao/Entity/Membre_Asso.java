@@ -27,6 +27,8 @@ public class Membre_Asso {
 
     private String phone;
 
+    private boolean isActif=false;
+
     private LocalDate creationDate;
 
     @ManyToOne
@@ -70,6 +72,14 @@ public class Membre_Asso {
 
     public Role_Asso getRole() {
         return role;
+    }
+
+    public boolean isActif() {
+        return isActif;
+    }
+
+    public void setActif(boolean actif) {
+        isActif = actif;
     }
 
     public void setRole(Role_Asso role) {

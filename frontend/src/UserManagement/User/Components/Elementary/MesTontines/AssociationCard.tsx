@@ -51,8 +51,8 @@ const AssociationCard = ({ association }: any) => {
           <NotificationsNoneIcon /> Créer le: {formatDate(new Date())}
         </Typography>
       </CardContent>
-      <CardActions className="flex justify-center  items-center">
-        <Button className="bg-red-600" size="large">
+      <CardActions className="flex justify-center z-0   items-center">
+        <Button className="bg-red-600 z-0" size="large">
           
           <Link
             className="text-white bg-red-600 px-6 rounded-lg  "

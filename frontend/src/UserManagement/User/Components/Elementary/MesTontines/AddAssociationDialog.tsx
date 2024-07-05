@@ -12,7 +12,13 @@ import RadioGroup from "@mui/material/RadioGroup";
 import Radio from "@mui/material/Radio";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { Alert, IconButton, TextField, Typography } from "@mui/material";
+import {
+  Alert,
+  Divider,
+  IconButton,
+  TextField,
+  Typography,
+} from "@mui/material";
 import PhoneInput from "react-phone-input-2";
 import PhoneInputRole from "./PhoneInputRole";
 import SelectItem from "../ParametresTontines/SelectItem";
@@ -20,7 +26,8 @@ import axios from "axios";
 import AssociationServices from "../../../../../Services/AssociationServices";
 import AlertDialog from "../Notifications/AlertDialog";
 import AssoNotificationDialog from "./AssoNotificationDialog";
-
+import Variable from "../../../../../Variable";
+import Authentications from "../../../../../Services/Authentications";
 
 type childComponents = {
   options: string[];
@@ -36,11 +43,11 @@ export interface ConfirmationDialogRawProps {
   printError: (title: string, message: string) => void;
 }
 const names = [
-  "Hebdomadaire",
-  "Mensuelle",
-  "Bimensuelle",
-  "Trimestriel",
-  "Autre",
+  "adherent",
+  "secretaire",
+  "president",
+  "tresorier",
+  "censeur",
 ];
 const days = [
   "Lundi",
@@ -62,7 +69,6 @@ function ConfirmationDialogRaw(props: ConfirmationDialogRawProps) {
     printError,
     ...other
   } = props;
-  
 
   const [value, setValue] = React.useState(valueProp);
   const radioGroupRef = React.useRef<HTMLElement>(null);
@@ -74,6 +80,11 @@ function ConfirmationDialogRaw(props: ConfirmationDialogRawProps) {
   const [contact1, setContact1] = React.useState("");
   const [contact2, setContact2] = React.useState("");
   const [contact3, setContact3] = React.useState("");
+  const [role1, setRole1] = React.useState("");
+  const [role2, setRole2] = React.useState("");
+  const [role3, setRole3] = React.useState("");
+  const [defaultRoles, setDefaultRoles]=React.useState<any[]>([])
+  const [defaultFrequencies, setDefaultFrequencies]=React.useState<any[]>([])
   const [day, setDay] = React.useState("");
   const [name, setName] = React.useState("Association 1");
   const [frequence, setFrequence] = React.useState("");
@@ -86,12 +97,43 @@ function ConfirmationDialogRaw(props: ConfirmationDialogRawProps) {
     admin2: "",
     admin3: "",
   });
+
   React.useEffect(() => {
     if (!open) {
       setValue(valueProp);
     }
   }, [valueProp, open]);
 
+  React.useEffect(() => {
+    const user = Variable.getLocalStorageItem("user");
+    setContact1(user.user.phone);
+    setRole1("createur");
+
+    AssociationServices.getDefaultRole()
+  .then((response)=>{
+    setDefaultRoles(response.data.data)
+    
+  })
+  .catch((error)=>{
+    console.log("Voici l'erreur qui est survenue"+error)
+  })
+
+
+  AssociationServices.getDefaultFrequency()
+  .then((response)=>{
+    
+    setDefaultFrequencies(response.data.data)
+    
+  })
+  .catch((error)=>{
+    console.log("Voici l'erreur qui est survenue"+error)
+  })
+
+
+
+  }, []);
+  // Recupération des roles qui sont dans l'application
+  
   const handleEntering = () => {
     if (radioGroupRef.current != null) {
       radioGroupRef.current.focus();
@@ -127,33 +169,37 @@ function ConfirmationDialogRaw(props: ConfirmationDialogRawProps) {
       phoneAdmin1: contact1,
       phoneAdmin2: contact2,
       phoneAdmin3: contact3,
-
-     
+      roleAdmin1: role1,
+      roleAdmin2: role2,
+      roleAdmin3: role3,
     };
+    console.log(data)
 
     AssociationServices.CreateAssociation(data)
       .then((response) => {
         console.log("Association created successfully" + response.data);
-        setNotifTitle("Sucess")
-        setNotifMessage("L'association a été créee avec sucess")
-        setDialogOpen(true)
-        const data2={
-          id:response.data.id,
+        setNotifTitle("Sucess");
+        setNotifMessage("L'association a été créee avec sucess");
+        setDialogOpen(true);
+        const data2 = {
+          id: response.data.id,
           creationDate: [2024, 6, 25],
-          frequenceReunion:response.data.frequenceReunion,
-          jourReunion:response.data.jourReunion,
-          name:response.data.name,
-          nbMembre:response.data.membres.size,
-          nbTontine:response.data.membres.nbTontine
-   }
+          frequenceReunion: response.data.frequenceReunion,
+          jourReunion: response.data.jourReunion,
+          name: response.data.name,
+          nbMembre: response.data.membres.size,
+          nbTontine: response.data.membres.nbTontine,
+        };
         addAssociation(data2);
         onClose(value);
       })
       .catch((error) => {
-        setNotifTitle("Erreur")
-        setNotifMessage("L'érreur suivante est survenue lors de cette operation"+error.message)
-        setDialogOpen(true)
-        
+        setNotifTitle("Erreur");
+        setNotifMessage(
+          "L'érreur suivante est survenue lors de cette operation" +
+            error.message
+        );
+        setDialogOpen(true);
       });
   };
 
@@ -180,8 +226,12 @@ function ConfirmationDialogRaw(props: ConfirmationDialogRawProps) {
       open={open}
       {...other}
     >
-      <AssoNotificationDialog title={notifTitle} message={notifMessage} open={dialogOpen}
-        onClose={() => setDialogOpen(false)} />
+      <AssoNotificationDialog
+        title={notifTitle}
+        message={notifMessage}
+        open={dialogOpen}
+        onClose={() => setDialogOpen(false)}
+      />
       {!end ? (
         <>
           <DialogTitle className="font-bold">
@@ -200,7 +250,6 @@ function ConfirmationDialogRaw(props: ConfirmationDialogRawProps) {
                 label=""
                 value={name}
                 placeholder="Nom de l'association"
-                defaultValue="Hello World"
                 className="w-full"
                 onChange={(e) => setName(e.target.value)}
               />
@@ -218,7 +267,7 @@ function ConfirmationDialogRaw(props: ConfirmationDialogRawProps) {
               <SelectItem
                 setRole={setFrequence}
                 multiple={false}
-                table={names}
+                table={defaultFrequencies}
               />
             </div>
           </DialogContent>
@@ -240,18 +289,30 @@ function ConfirmationDialogRaw(props: ConfirmationDialogRawProps) {
           </DialogTitle>
           <DialogContent dividers className="flex flex-col gap-2">
             <label className="font-bold" htmlFor="">
-              Président
+              Administrateur 1
             </label>
-            <PhoneInputRole setPhone={setContact1} />
-
+            <Divider />
             <label className="font-bold" htmlFor="">
-              Trésorier
+              Phone
             </label>
             <PhoneInputRole setPhone={setContact2} />
             <label className="font-bold" htmlFor="">
-              Sécretaire
+              Role
+            </label>
+            <SelectItem table={defaultRoles} setRole={setRole2} multiple={false} />
+            
+            <label className="font-bold" htmlFor="">
+              Administrateur 2
+            </label>
+            <Divider />
+            <label className="font-bold" htmlFor="">
+              Phone
             </label>
             <PhoneInputRole setPhone={setContact3} />
+            <label className="font-bold" htmlFor="">
+              Role
+            </label>
+            <SelectItem table={defaultRoles} setRole={setRole3} multiple={false} />
           </DialogContent>
           <DialogActions>
             <Button
@@ -311,8 +372,6 @@ export default function AddAssociationDialog({
         +
       </div>
 
-      
-
       <ConfirmationDialogRaw
         id="ringtone-menu"
         keepMounted
@@ -322,7 +381,6 @@ export default function AddAssociationDialog({
         addAssociation={setData}
         printError={printError}
       />
-      
     </>
   );
 }

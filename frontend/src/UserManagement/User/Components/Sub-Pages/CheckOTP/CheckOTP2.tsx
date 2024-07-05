@@ -3,7 +3,7 @@ import { InputOtp } from "primereact/inputotp";
 import sendSMS from "../../SendSMS/SendSms";
 import logo from "../../../Assets/Images/FBLogo.png";
 import axios from "axios";
-import Variable from "../../../../../Variable";
+import Variable from "../../../../../Variableprod1";
 import SimpleDialog from "../../Elementary/Dialog/SimpleDialog";
 
 type ChildComponentProps = {
@@ -103,7 +103,6 @@ export default function CheckOTP2({
         setTokens(otp);
         setDialogMessage("Un Nouveau code vous a été envoyé");
         setDialogVisibility(true);
-        
       })
       .catch((error) => {});
   };
@@ -156,7 +155,10 @@ export default function CheckOTP2({
             </form>
             <p className="mt-3 text-center">
               Havn't receive it?
-              <button className="signin hover:bg-red-600 text-red-600 m-2 p-1 rounded-lg  hover:text-white" onClick={resendOTP}>
+              <button
+                className="signin hover:bg-red-600 text-red-600 m-2 p-1 rounded-lg  hover:text-white"
+                onClick={resendOTP}
+              >
                 {" "}
                 Resend
               </button>

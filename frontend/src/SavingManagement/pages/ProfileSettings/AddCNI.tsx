@@ -3,10 +3,11 @@ import Header from "../../components/header/Header";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
-import Variable from "../../../Variable";
+import Variable from "../../../Variableprod1";
 import Authentications from "../../../Services/Authentications";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCloudArrowUp } from "@fortawesome/free-solid-svg-icons";
+import AssoNotificationDialog from "../../../UserManagement/User/Components/Elementary/MesTontines/AssoNotificationDialog";
 
 type TUploadFileModel = {
   cniRecto: string;
@@ -30,6 +31,9 @@ const AddCNI: React.FC = () => {
   const [phone, setPhone] = useState<string>("");
   const [rectoImage, setRectoImage] = useState("");
   const [versoImage, setVersoImage] = useState("");
+  const [notifTitle, setNotifTitle] = useState<string>("");
+  const [notifMessage, setNotifMessage] = useState<string>("");
+  const [dialogOpen, setDialogOpen] = useState<boolean>(false);
 
   useEffect(() => {
     const user = Variable.getLocalStorageItem("user");
@@ -48,7 +52,7 @@ const AddCNI: React.FC = () => {
     };
 
     if (file) {
-      setRectoFile(file)
+      setRectoFile(file);
       reader.readAsDataURL(file);
     }
   };
@@ -63,7 +67,7 @@ const AddCNI: React.FC = () => {
     };
 
     if (file) {
-      setVersoFile(file)
+      setVersoFile(file);
       reader.readAsDataURL(file);
     }
   };
@@ -71,10 +75,9 @@ const AddCNI: React.FC = () => {
   const handleUpload = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
     e.preventDefault();
     const formData = new FormData();
-    const file2=new Blob();
+    const file2 = new Blob();
 
-    if(rectoFile && versoFile){
-        
+    if (rectoFile && versoFile) {
       formData.append("phone", phone);
       formData.append("cniRecto", rectoFile);
       formData.append("cniVerso", versoFile);
@@ -84,41 +87,50 @@ const AddCNI: React.FC = () => {
       Authentications.uploadFile(formData)
         .then((response) => {
           const reader1 = new FileReader();
-          const reader2=new FileReader();
+          const reader2 = new FileReader();
 
           reader1.onload = () => {
             const imageUrl = reader1.result as string;
             setCniRectoPath(imageUrl);
             const user = Variable.getLocalStorageItem("user");
-          const updatedUser = {
-            ...user.user,
-            cniRecto:imageUrl
+            const updatedUser = {
+              ...user.user,
+              cniRecto: imageUrl,
+            };
+            Variable.setLocalStorageItem("user", { user: updatedUser });
+            setNotifMessage(
+              "Vos fichiers ont été uploader avec success sur le serveur."
+            );
+            setNotifTitle("Success");
+            setDialogOpen(true);
           };
-          Variable.setLocalStorageItem("user", { user: updatedUser });
-          
-          }; 
 
           reader2.onload = () => {
             const imageUrl = reader2.result as string;
             setCniVersoPath(imageUrl);
             const user = Variable.getLocalStorageItem("user");
-          const updatedUser = {
-            ...user.user,
-            cniVerso:imageUrl
-          };
-          Variable.setLocalStorageItem("user", { user: updatedUser });
-          
+            const updatedUser = {
+              ...user.user,
+              cniVerso: imageUrl,
+            };
+            Variable.setLocalStorageItem("user", { user: updatedUser });
           };
           reader1.readAsDataURL(rectoFile);
           reader2.readAsDataURL(versoFile);
-
         })
-        .catch((error) => {});
+        .catch((error) => {
+          setNotifMessage(
+            "Une erreure s'est produite lors de l'envoi des fichiers vers le serveur. Vérifier votre connexion et ressayez"
+          );
+          setNotifTitle("Erreur");
+          setDialogOpen(true);
+        });
+    } else {
+      setNotifMessage("Vous devez remplir tous les champs");
+      setNotifTitle("Erreur");
+      setDialogOpen(true);
     }
-    }
-     
-
-    
+  };
 
   return (
     <div className="w-full font-semibold bg-white h-full flex flex-col">
@@ -225,9 +237,15 @@ const AddCNI: React.FC = () => {
               type="submit"
               value="Valider"
               onClick={(e) => handleUpload(e)}
-              className="px-5 py-2 mt-2 bg-red-600 w-full  text-white font-bold rounded cursor-pointer"
+              className="px-5 py-2 mt-2 bg-red-600 w-full hover:bg-red-800  text-white font-bold rounded cursor-pointer"
             />
           </div>
+          <AssoNotificationDialog
+            title={notifTitle}
+            message={notifMessage}
+            open={dialogOpen}
+            onClose={() => setDialogOpen(false)}
+          />
         </div>
       </div>
     </div>

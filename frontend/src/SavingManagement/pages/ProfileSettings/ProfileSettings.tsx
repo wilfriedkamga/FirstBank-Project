@@ -12,7 +12,7 @@ import {
   ShareIcon,
 } from "@heroicons/react/24/outline";
 import UserProfileCard from "../../components/user profile card/UserProfileCard";
-import Variable from "../../../Variable";
+import Variable from "../../../Variableprod1";
 import Footer from "../../../UserManagement/User/Components/Elementary/Footer/Footer";
 import { useNavigate } from "react-router-dom";
 import Authentications from "../../../Services/Authentications";
@@ -27,7 +27,7 @@ const ProfileSettings = () => {
     const user = Variable.getLocalStorageItem("user");
     setName(user.user.fullName);
     setEmailIsValid(user.user.emailIsVallid);
-    setEmail(user.user.email)
+    setEmail(user.user.email);
   });
 
   const verfyEmail = () => {
@@ -35,11 +35,10 @@ const ProfileSettings = () => {
       navigate("/verify_email");
       Authentications.SendMailOtp(email)
         .then((response) => {})
-      
+
         .catch((error) => {});
-    }
-    else if(!email || email.trim()==""){
-      alert("Veuillez renseigner votre mail dans l'onglet update profil.")
+    } else if (!email || email.trim() == "") {
+      alert("Veuillez renseigner votre mail dans l'onglet update profil.");
     }
   };
 
@@ -110,10 +109,7 @@ const ProfileSettings = () => {
             </p>
           </a>
 
-          <a
-            
-            className="flex flex-row group items-center justify-start  rounded-lg w-full"
-          >
+          <a className="flex flex-row group items-center justify-start  rounded-lg w-full">
             <div className="p-5">
               <InboxArrowDownIcon className="h-8 w-8" />
             </div>

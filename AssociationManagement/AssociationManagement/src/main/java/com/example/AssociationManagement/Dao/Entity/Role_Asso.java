@@ -22,6 +22,7 @@ public class Role_Asso {
     private String label;
 
     private boolean isDeletable;
+    private int nbMaxOcc;
 
 
     @ManyToOne
@@ -38,6 +39,14 @@ public class Role_Asso {
 
     public String getId() {
         return id;
+    }
+
+    public int getNbMaxOcc() {
+        return nbMaxOcc;
+    }
+
+    public void setNbMaxOcc(int nbMaxOcc) {
+        this.nbMaxOcc = nbMaxOcc;
     }
 
     public void setId(String id) {

@@ -4,7 +4,7 @@ import UserAvatar from "../../../UserManagement/User/Components/Elementary/Navba
 import { Navigate, useNavigate } from "react-router-dom";
 import TontinesServices from "../../../Services/TontinesServices";
 import Authentications from "../../../Services/Authentications";
-import Variable from "../../../Variable";
+import Variable from "../../../Variableprod1";
 import PhoneInput from "react-phone-input-2";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import axios from "axios";
@@ -19,10 +19,12 @@ const ChangePhone = () => {
   const [rectoFilePath, setRectoFilePath] = useState<string>("");
   const [versoFilePath, setVersoFilePath] = useState<string>("");
 
-  const handleUpload = async () => {
+  const [notifTitle, setNotifTitle] = useState<string>("");
+  const [notifMessage, setNotifMessage] = useState<string>("");
+  const [dialogOpen, setDialogOpen] = useState<boolean>(false);
 
-  };
-  
+  const handleUpload = async () => {};
+
   return (
     <div className="w-full bg-white h-[100vh] p-2.5 flex flex-col">
       <div className="border-b border-gray-200 w-full h-fit p-2 z-20">

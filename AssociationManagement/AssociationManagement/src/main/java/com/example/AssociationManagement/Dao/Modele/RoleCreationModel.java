@@ -8,6 +8,7 @@ import lombok.Setter;
 public class RoleCreationModel {
     private String associationId;
     private String label;
+    private int nbMaxOcc;
 
 
 // Getters and Setters
@@ -22,6 +23,14 @@ public class RoleCreationModel {
 
     public String getLabel() {
         return label;
+    }
+
+    public int getNbMaxOcc() {
+        return nbMaxOcc;
+    }
+
+    public void setNbMaxOcc(int nbMaxOcc) {
+        this.nbMaxOcc = nbMaxOcc;
     }
 
     public void setLabel(String label) {

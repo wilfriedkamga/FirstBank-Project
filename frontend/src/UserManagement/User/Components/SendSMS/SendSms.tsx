@@ -1,7 +1,10 @@
 import axios from "axios";
-import Variable from "../../../../Variable";
+import Variable from "../../../../Variableprod1";
 
-export default async function sendSms(message: string, recipientNumbers: string[]) {
+export default async function sendSms(
+  message: string,
+  recipientNumbers: string[]
+) {
   try {
     const headers = {
       "X-Api-Key": "2C250CF6-0B66-41D5-A7A5-59EC8B6942E0",
@@ -17,7 +20,8 @@ export default async function sendSms(message: string, recipientNumbers: string[
       flag: "GSM7",
     };
 
-    const route = Variable.pathSmsAPI || "https://sms.lmtgroup.com/api/v1/pushes";
+    const route =
+      Variable.pathSmsAPI || "https://sms.lmtgroup.com/api/v1/pushes";
 
     const response = await axios.post(route, payload, { headers });
     console.log(response.data);

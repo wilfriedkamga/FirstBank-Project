@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import TontinesServices from "../../../../../Services/TontinesServices";
-import Variable from "../../../../../Variable";
+import Variable from "../../../../../Variableprod1";
 import { useLocation } from "react-router-dom";
 
 type TCaisseModel = {
@@ -63,7 +63,7 @@ const AddCaisse = ({ addCaisse, setVisibility }: AddCaisseProps) => {
   }, []);
 
   useEffect(() => {
-    console.log(location.pathname)
+    console.log(location.pathname);
     tontineMembreListInit(extractTontineId(location.pathname));
   }, []);
 
@@ -98,7 +98,9 @@ const AddCaisse = ({ addCaisse, setVisibility }: AddCaisseProps) => {
         newCaisse.id = response.data.data.id;
         addCaisse(newCaisse);
       })
-      .catch((error) => {console.log("Passe ici")});
+      .catch((error) => {
+        console.log("Passe ici");
+      });
   };
   const extractTontineId = (url: string): string => {
     const parts = url.split("/");
@@ -213,7 +215,8 @@ const AddCaisse = ({ addCaisse, setVisibility }: AddCaisseProps) => {
                   tontineMembreList.map(
                     (item: TCaisseMembreModel, index: number) => (
                       <option key={index} value={item.idutiliateur}>
-                        {"Nom: "+item.nomUtilisateur}{" Phone:"+item.idutiliateur}
+                        {"Nom: " + item.nomUtilisateur}
+                        {" Phone:" + item.idutiliateur}
                       </option>
                     )
                   )}
@@ -232,7 +235,8 @@ const AddCaisse = ({ addCaisse, setVisibility }: AddCaisseProps) => {
                         value={item.nomUtilisateur}
                         disabled={item.idutiliateur == contact1}
                       >
-                        {"Nom: "+item.nomUtilisateur}{" Phone:"+item.idutiliateur}
+                        {"Nom: " + item.nomUtilisateur}
+                        {" Phone:" + item.idutiliateur}
                       </option>
                     )
                   )}

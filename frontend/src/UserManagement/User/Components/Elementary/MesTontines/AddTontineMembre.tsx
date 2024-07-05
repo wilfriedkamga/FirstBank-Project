@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import TontinesServices from "../../../../../Services/TontinesServices";
-import Variable from "../../../../../Variable";
+import Variable from "../../../../../Variableprod1";
 import { useLocation } from "react-router-dom";
 
 type TMembreCaisseModel = {
@@ -30,7 +30,7 @@ const AddTontineMembre = ({
   const [nom, setNom] = useState("");
   const [role, setRole] = useState("");
   const [end, setEnd] = useState<boolean>(false);
-    useState<TMembreCaisseModel>();
+  useState<TMembreCaisseModel>();
   const [phone, setPhone] = useState("");
   const location = useLocation();
   const [tontineMembreList, setTontineMembreList] = useState<

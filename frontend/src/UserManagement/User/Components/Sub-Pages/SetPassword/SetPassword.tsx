@@ -1,7 +1,7 @@
 import React, { useState, ChangeEvent, FocusEvent, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import Variable from "../../../../../Variable";
+import Variable from "../../../../../Variableprod1";
 
 type ChildComponentProps = {
   toggleSignin: () => void;
@@ -110,12 +110,12 @@ export default function SetPassword({
       gender: gender,
       password: password,
     };
-    const route=Variable.routeApi+"api/usermanagement/signup"
-  
+    const route = Variable.routeApi + "api/usermanagement/signup";
+
     axios
       .post(`${route}`, tempUser)
       .then((response) => {
-        const data=Variable.setLocalStorageItem("user",response.data.data)
+        const data = Variable.setLocalStorageItem("user", response.data.data);
         console.log(response);
         navigate("/home");
       })
@@ -186,15 +186,13 @@ export default function SetPassword({
                 </button>
               )}
               <p className="flex justify-center">
-              <button
+                <button
                   className=" float-right flex items-center justify-center w-full mt-4 p-2 text-sm tracking-wide text-white capitalize transition-colors duration-300 transform bg-gray-600 rounded-lg hover:bg-gray-900 focus:outline-none focus:ring focus:ring-red-300 focus:ring-opacity-50"
                   onClick={toggleSignin}
                 >
                   Annuler&nbsp;&nbsp;
                 </button>
               </p>
-                
-              
             </form>
           </div>
         </div>

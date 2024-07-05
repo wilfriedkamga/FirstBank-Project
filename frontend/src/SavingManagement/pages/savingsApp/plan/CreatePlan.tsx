@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import BottomNavigation from '../../../components/bottom navigation/BottomNavigation'
-import Header from '../../../components/header/Header'
 import Calendar from '../../../components/calendar/Calendar'
 import { addDays, format, startOfWeek } from 'date-fns'
 import axios from 'axios'
 import { error } from 'console'
 import { request } from '../../../axios_helper'
+import Header from '../../../components/header/Header'
+import Footer from '../../../../UserManagement/User/Components/Elementary/Footer/Footer'
 
 const CreatePlan = () => {
   const [isOtherSelected, setIsOtherSelected] = React.useState(false)
@@ -94,11 +95,11 @@ const CreatePlan = () => {
     }
   }
   return (
-    <div className='w-full bg-white h-full p-2 flex flex-col'>
-      <div className="border-b border-gray-200 w-full h-fit p-2 z-20">
+    <div className='w-full  bg-white h-full flex flex-col'>
+      
         <Header />
-      </div>
-      <div className="md:flex h-full p-0.5 overflow-auto overscroll-contain">
+     
+      <div className="md:flex mt-[15vh] mb-[10vh] min-h-[100%]  p-0.5 overflow-auto overscroll-contain">
         <div className="flex flex-col md:border-r pt-5 h-full w-full space-y-8">
           <div className="pt-5 ml-5 border-b flex justify-between border-gray-200">
             <h3 className='font-title font-semibold text-[#0C1013] text-lg'>Create a New Plan</h3>
@@ -159,7 +160,7 @@ const CreatePlan = () => {
         </div>
       </div>
       <div className="w-full h-fit z-20">
-        <BottomNavigation />
+       <Footer />
       </div>
     </div>
   )

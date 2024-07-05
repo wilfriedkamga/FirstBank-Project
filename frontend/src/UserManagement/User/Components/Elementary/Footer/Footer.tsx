@@ -5,7 +5,7 @@ import ModeCommentIcon from "@mui/icons-material/ModeComment";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import PaidIcon from "@mui/icons-material/Paid";
 import { useNavigate, useLocation } from "react-router-dom";
-import Variable from "../../../../../Variable";
+import Variable from "../../../../../Variableprod1";
 
 const Footer = () => {
   const navigate = useNavigate();

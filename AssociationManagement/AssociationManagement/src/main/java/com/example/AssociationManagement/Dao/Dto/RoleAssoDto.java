@@ -9,11 +9,20 @@ import lombok.Setter;
 public  class RoleAssoDto {
     private String id;
     private String label;
+    private int nbMaxOcc;
 
-
-    public RoleAssoDto(String id, String label) {
+    public RoleAssoDto(String id, String label, int nbMaxOcc) {
         this.id = id;
         this.label = label;
+        this.nbMaxOcc=nbMaxOcc;
+    }
+
+    public int getNbMaxOcc() {
+        return nbMaxOcc;
+    }
+
+    public void setNbMaxOcc(int nbMaxOcc) {
+        this.nbMaxOcc = nbMaxOcc;
     }
 
     public String getId() {

@@ -5,9 +5,10 @@ import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import NotificationPanel from "./NotificationPanel";
 import UserAvatar from "./UserAvatar";
 import SpaceDashboardSharpIcon from "@mui/icons-material/SpaceDashboardSharp";
-import Variable from "../../../../../Variable";
+import Variable from "../../../../../Variableprod1";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
+import FullScreenDialog from "../Notifications/FullScreenDialog";
 
 const Navbar = () => {
   const userAvatarItems = [
@@ -57,7 +58,7 @@ const Navbar = () => {
   });
 
   return (
-    <div className=" relative rounded-right flex justify-between items-center bg-red-600  px-4 py-3 2xl:py-4 sticky  z-100 top-0">
+    <div className=" relative rounded-right flex justify-between items-center bg-red-600  px-4 py-3 2xl:py-4 sticky  z-[1000] top-0">
       <div className="flex gap-4">
         <div
           ref={butRef}
@@ -66,22 +67,20 @@ const Navbar = () => {
         >
           ☰
         </div>
-        
+
         <div
           onClick={() => navigate("/home")}
           className="text-2xl text-white hover:text-[#828181] cursor-pointer p-2   font-bold block md:block hidden"
         >
           <AccountBalanceWalletIcon style={{ fontSize: "3rem" }} />
         </div>
-        
+
         <div
           onClick={() => navigate(Variable.getParentPath(location.pathname))}
           className="text-2xl text-white hover:text-[#828181] cursor-pointer p-2   font-bold block md:block hidden"
         >
           <ArrowCircleLeftIcon style={{ fontSize: "3rem" }} />
         </div>
-
-        
 
         {toogle ? (
           <div
@@ -118,7 +117,7 @@ const Navbar = () => {
         />
       </div>
       <div className="flex gap-2 items-center">
-        <NotificationPanel />
+        <FullScreenDialog />
 
         <UserAvatar dropdownVisibility={true} />
       </div>

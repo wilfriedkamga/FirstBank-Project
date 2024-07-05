@@ -67,16 +67,16 @@ function SideBar() {
 
       <div className="flex-1 flex flex-col mt-10   bg-[#828181] rounded-lg gap-y-5 py-12 px-4">
         {sidebarItems.map((item: any, index: number) => (
-          <>
+          <div key={index}>
             <SideBarItem
-              key={index}
+              
               label={item.label}
               link={item.link}
               Icon={item.Icon}
               currentPath={currentPath}
               
             />
-          </>
+          </div>
         ))}
       </div>
       <div className=""></div>

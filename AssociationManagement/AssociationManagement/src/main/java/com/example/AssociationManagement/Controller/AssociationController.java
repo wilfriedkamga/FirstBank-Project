@@ -1,14 +1,14 @@
 package com.example.AssociationManagement.Controller;
 import com.example.AssociationManagement.Business.AssociationBus;
+import com.example.AssociationManagement.Config.DefaultRolesConfig;
 import com.example.AssociationManagement.Dao.Dto.*;
-import com.example.AssociationManagement.Dao.Entity.Association;
-import com.example.AssociationManagement.Dao.Entity.Membre_Asso;
-import com.example.AssociationManagement.Dao.Entity.Role_Asso;
+import com.example.AssociationManagement.Dao.Entity.*;
 import com.example.AssociationManagement.Dao.Modele.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,6 +18,9 @@ public class AssociationController {
 
     @Autowired
     private AssociationBus associationService;
+
+    @Autowired
+    private DefaultRolesConfig defaultRolesConfig;
 
     @PostMapping("/create")
     public ResponseEntity<CreateAssoDto> createAssociation(@RequestBody CreerAssoModele creerAssoModele) {
@@ -35,13 +38,29 @@ public class AssociationController {
         return ResponseEntity.ok(association);
     }
 
+    @GetMapping("/getDefaultRoles")
+    public ResponseEntity<?> getDefaultRolesAsso() {
+        List<String> defaultRoles = defaultRolesConfig.getDefaultRoles();
+        List<String> uniqueRoles = defaultRolesConfig.getUniqueRoles();
+        List<String> allRoles = new ArrayList<>(defaultRoles);
+        allRoles.addAll(uniqueRoles);
+        CommonResponseModel response=new CommonResponseModel("sucess de l'opération","0",allRoles);
+        return ResponseEntity.ok().body(response);
+    }
+
+    @GetMapping("/default-frequencies")
+    public ResponseEntity<?> getDefaultFrequencies() {
+        CommonResponseModel response=new CommonResponseModel("sucess de l'opération","0",defaultRolesConfig.getFrequenceReunion());
+        return  ResponseEntity.ok().body(response);
+    }
+
     @PostMapping("/create-role")
     public ResponseEntity<?> createRole(@RequestBody RoleCreationModel roleCreationModel) {
             CommonResponseModel response=new CommonResponseModel();
-            Role_Asso role = associationService.createRole(roleCreationModel.getAssociationId(), roleCreationModel.getLabel().toLowerCase(),true);
+            Role_Asso role = associationService.createRole(roleCreationModel.getAssociationId(), roleCreationModel.getLabel().toLowerCase(),true, roleCreationModel.getNbMaxOcc());
             response.setResponseCode("0");
             response.setMessage("sucess of creation");
-            RoleAssoDto roleAssoDto=new RoleAssoDto(role.getId(),role.getLabel());
+            RoleAssoDto roleAssoDto=new RoleAssoDto(role.getId(),role.getLabel(),role.getNbMaxOcc());
             response.setData(roleAssoDto);
             return ResponseEntity.ok().body(response);
     }
@@ -54,7 +73,7 @@ public class AssociationController {
            List<Role_Asso> roles=associationService.getRoleAsso(associationId);
 
            List<RoleAssoDto> rolesDto = roles.stream()
-                   .map(role -> new RoleAssoDto(role.getId(), role.getLabel().toUpperCase()))
+                   .map(role -> new RoleAssoDto(role.getId(), role.getLabel().toUpperCase(), role.getNbMaxOcc()))
                    .collect(Collectors.toList());
            return ResponseEntity.ok().body(rolesDto);
     }
@@ -64,7 +83,7 @@ public class AssociationController {
         List<Role_Asso> roles=associationService.getRoleAsso(associationId);
 
         List<RoleAssoDto> rolesDto = roles.stream()
-                .map(role -> new RoleAssoDto(role.getId(), role.getLabel().toUpperCase()))
+                .map(role -> new RoleAssoDto(role.getId(), role.getLabel().toUpperCase(), role.getNbMaxOcc()))
                 .collect(Collectors.toList());
         return ResponseEntity.ok().body(rolesDto);
     }
@@ -78,6 +97,37 @@ public class AssociationController {
         CommonResponseModel response=new CommonResponseModel(message,"0",null);
         return ResponseEntity.ok().body(response);
 
+    }
+    @PostMapping("/createTontine")
+    public ResponseEntity<?> createTontine(@RequestBody CreateTontineModele createTontineModel) {
+        CommonResponseModel response=new CommonResponseModel("Success de la création","0",associationService.createTontine(createTontineModel));
+        return ResponseEntity.ok().body(response);
+    }
+
+    @DeleteMapping("/tontine/{tontineId}")
+    public void deleteTontine(@PathVariable String tontineId) {
+        associationService.deleteTontine(tontineId);
+    }
+
+    @PutMapping("/tontine/{tontineId}")
+    public Tontine modifyTontine(@PathVariable String tontineId, @RequestBody Tontine tontineDetails) {
+        return associationService.modifyTontine(tontineId, tontineDetails);
+    }
+
+    @PostMapping("/tontine/{tontineId}/member")
+    public Membre_Tont addMemberToTontine(@PathVariable String tontineId, @RequestBody Membre_Tont membreTont) {
+        return associationService.addMemberToTontine(tontineId, membreTont);
+    }
+
+    @PostMapping("/tontine/{tontineId}/members")
+    public void addMembersToTontine(@PathVariable String tontineId, @RequestBody List<Membre_Tont> membresTont) {
+        associationService.addMembersToTontine(tontineId, membresTont);
+    }
+
+
+    @PostMapping("/{associationId}/reunion")
+    public Reunion createReunion(@PathVariable String associationId, @RequestBody Reunion reunion) {
+        return associationService.createReunion(associationId, reunion);
     }
     @DeleteMapping("/delete-role2")
     public ResponseEntity<?> deleteRole2(@RequestBody DeleteRoleAssociationModel model) {

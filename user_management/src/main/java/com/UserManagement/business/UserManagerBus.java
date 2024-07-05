@@ -516,7 +516,7 @@ public class UserManagerBus  implements IUserManagerBus {
         validationRepository.save(validation);
 //
 //		// Envoyer le message message a user.getPhone().
-	     //sendSmsToApi(validation.getPhone(),message);
+	     sendSmsToApi(validation.getPhone(),message);
 		return validation;
 	}
 

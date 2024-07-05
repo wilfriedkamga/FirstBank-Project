@@ -5,14 +5,14 @@ import { useNavigate } from "react-router-dom";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import "../Signin/Signin.css";
-import Variable from "../../../../../Variable";
+import Variable from "../../../../../Variableprod1";
 
 type ChildComponentProps = {
   handleClick: () => void;
   toggleSinup2: () => void;
   uploadOtpCodeToParent: (
     fullName: string,
-    mail:string,
+    mail: string,
     birthDate: string,
     gender: string
   ) => void;
@@ -43,7 +43,7 @@ const Signup2: React.FC<ChildComponentProps> = ({
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    uploadOtpCodeToParent(name,mail, birthDate, gender);
+    uploadOtpCodeToParent(name, mail, birthDate, gender);
     toggleSinup2();
     const route = Variable.routeApi + "api/usermanagement/signin";
   };
