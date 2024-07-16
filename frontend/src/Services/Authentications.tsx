@@ -1,5 +1,5 @@
 import axios from "axios";
-import Variable from "../Variableprod1";
+import Variable from "../Variable";
 
 const routes = Variable.routeApi + "api/usermanagement/signin";
 const route_verify_password =
@@ -13,6 +13,8 @@ const route_verfy_mail_otp =
 const route_upload_file = Variable.routeApi + "api/usermanagement/uploadFile";
 const route_download_imageBase64 =
   Variable.routeApi + "api/usermanagement/imageBase64";
+const route_user_has_account =
+  Variable.routeApi + "api/usermanagement/userExist";
 
 type TLoginModel = {
   phone: string;
@@ -51,6 +53,14 @@ class Authentication {
     };
     console.log(loginModel);
     return axios.post(route_verify_password, loginModel);
+  }
+  verifyUserHasAccount(phone: string) {
+    const loginModel = {
+      phone: phone,
+    };
+   
+
+    return axios.post(route_user_has_account, loginModel);
   }
 
   ChangePassword(phone: string, password: string) {

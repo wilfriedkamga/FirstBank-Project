@@ -1,5 +1,5 @@
 import axios from "axios";
-import Variable from "../Variableprod1";
+import Variable from "../Variable";
 
 const routes =
   Variable.routeApiTontine + "/api/tontinemanagement/createTontine";

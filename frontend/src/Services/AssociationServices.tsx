@@ -1,6 +1,5 @@
 import axios from "axios";
-import Variable from "../Variableprod1";
-
+import Variable from "../Variable";
 
 const routes_create_association =
   Variable.routeApiAssociation + "/api/associationmanagement/create";
@@ -37,21 +36,21 @@ const route_get_member_details =
   Variable.routeApiAssociation + "/api/associationmanagement/member-details";
 const route_get_default_role =
   Variable.routeApiAssociation + "/api/associationmanagement/getDefaultRoles";
-  const route_get_default_frequency =
-  Variable.routeApiAssociation + "/api/associationmanagement/default-frequencies";
+const route_get_default_frequency =
+  Variable.routeApiAssociation +
+  "/api/associationmanagement/default-frequencies";
 class AssociationServices {
   // Créer une tontine
   getDefaultRole() {
-    
     return axios.get(route_get_default_role);
   }
   // Créer une tontine
   getDefaultFrequency() {
-    
-    return axios.get(route_get_default_frequency );
+    return axios.get(route_get_default_frequency);
   }
   // Créer une tontine
   CreateAssociation(data: any) {
+    console.log(data)
     return axios.post(routes_create_association, data);
   }
 
