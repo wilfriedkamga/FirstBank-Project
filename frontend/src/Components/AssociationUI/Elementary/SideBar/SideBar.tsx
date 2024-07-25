@@ -13,30 +13,30 @@ import { useLocation } from "react-router-dom";
 const sidebarItems = [
   {
     label: "Dashboard",
-    link: "/tontine",
+    link: "/association",
     icon: SpaceDashboardSharpIcon,
   },
   {
     label: "Mes associations",
-    link: "/tontine/mestontines",
+    link: "/association/mes associations",
     icon: SpaceDashboardSharpIcon,
   },
   ,
   {
     label: "Mes cotisations",
-    link: "/tontine/mescotisations",
+    link: "/association/mes cotisations",
     icon: <SpaceDashboardSharpIcon />,
   },
   ,
   {
     label: "Mes sanctions",
-    link: "/tontine/messanctions",
+    link: "/association/mes sanctions",
     icon: <SpaceDashboardSharpIcon />,
   },
   ,
   {
     label: "Mes dettes",
-    link: "/tontine/mesdettes",
+    link: "/association/mes dettes",
     icon: <SpaceDashboardSharpIcon />,
   }
 ];

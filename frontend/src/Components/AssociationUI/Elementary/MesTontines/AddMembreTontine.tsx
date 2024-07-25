@@ -103,6 +103,7 @@ function ConfirmationDialogRaw(props: ConfirmationDialogRawProps) {
         onClose(value);
       })
       .catch((error) => {
+        console.log(error)
         onClose(value);
       });
   };

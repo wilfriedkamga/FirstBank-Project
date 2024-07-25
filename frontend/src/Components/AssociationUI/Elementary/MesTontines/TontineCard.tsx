@@ -81,7 +81,7 @@ const TontineCard = ({ tontine }: ChildComponentProps) => {
             {formatDate(new Date())}
           </span>{" "}
           <button className="bg-red-600 w-4/5 hover:bg-red-800 mt-3 text-white font-bold rounded-xl border-[#666666] border-[1px] shadow-lg  w-2/5">
-            <Link to={"/tontine/mestontines/" + tontine.id}> Visiter</Link>
+            <Link to={"/association/mes associations/" + tontine.id}> Visiter</Link>
           </button>
         </div>
       </div>

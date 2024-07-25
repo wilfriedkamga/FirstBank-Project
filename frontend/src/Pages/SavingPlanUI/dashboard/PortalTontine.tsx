@@ -7,7 +7,7 @@ const PortalTontine = () => {
   return (
     <div className="flex md:justify-normal justify-center items-center flex-row w-full  space-x-6 md:space-x-24">
 
-      <Link to="/tontine/mestontines" className="w-18 ml-3 justify-center">
+      <Link to="/association/mes associations" className="w-18 ml-3 justify-center">
         <div className="rounded-lg border-gray-500 border-[2px] h-16 w-16 mb-1 mx-5 md:h-24 md:w-24 p-2.5 md:p-3.5">
           <FontAwesomeIcon
             icon={faPeopleGroup}
@@ -16,10 +16,10 @@ const PortalTontine = () => {
           />
         </div>
         <span className="font-account text-center block">
-        Access to tontine
+        Create tontine
         </span>
       </Link>
-      <Link to="/tontine/mestontines" className="w-18 ml-3 justify-center">
+      <Link to="/association/" className="w-18 ml-3 justify-center">
         <div className="rounded-lg border-gray-500 border-[2px] h-16 w-16 mb-1 mx-5 md:h-24 md:w-24 p-2.5 md:p-3.5">
           <FontAwesomeIcon
             icon={faCoins}
@@ -28,10 +28,10 @@ const PortalTontine = () => {
           />
         </div>
         <span className="font-account text-center block">
-          Access to tontine
+          Dashbord association
         </span>
       </Link>
-      <Link to="/tontine/mestontines" className="w-18 ml-3 justify-center">
+      <Link to="/association/mes associations" className="w-18 ml-3 justify-center">
         <div className="rounded-lg border-gray-500 border-[2px] h-16 w-16 mb-1 mx-5 md:h-24 md:w-24 p-2.5 md:p-3.5">
           <FontAwesomeIcon
             icon={faCoins}
@@ -40,7 +40,7 @@ const PortalTontine = () => {
           />
         </div>
         <span className="font-account text-center block">
-          Access to tontine
+          historique association
         </span>
       </Link>
     </div>

@@ -1,51 +1,56 @@
 import React from "react";
 import SpaceDashboardSharpIcon from "@mui/icons-material/SpaceDashboardSharp";
+import SettingsIcon from "@mui/icons-material/Settings";
+import GroupIcon from "@mui/icons-material/Group";
+import MoneyOffIcon from "@mui/icons-material/MoneyOff";
+import CreditCardIcon from "@mui/icons-material/CreditCard";
+import GavelIcon from "@mui/icons-material/Gavel";
+import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import { useNavigate, useLocation } from "react-router-dom";
 import CaisseInfo from "./CaisseInfo";
 
 function UneCaisse() {
   const stats = [
     {
-      id: "parametre",
+      id: "parametres",
       label: "Parametres",
       total: "",
-      icon: <SpaceDashboardSharpIcon />,
+      icon: <SettingsIcon />,
       bg: "bg-[#1d4ed8]",
     },
     {
       id: "membre",
-      label: "membre",
-      total: "",
-      icon: <SpaceDashboardSharpIcon />,
+      label: "Membre(s)",
+      total: "4",
+      icon: <GroupIcon />,
       bg: "bg-[#1d4ed8]",
     },
     {
       id: "dettes",
-      label: "Dettes",
+      label: "Dette(s)",
       total: 0,
-      icon: <SpaceDashboardSharpIcon />,
+      icon: <MoneyOffIcon />,
       bg: "bg-[#f59e0b]",
     },
     {
       id: "remboursements",
-      label: "Remboursements",
+      label: "Remboursement(s)",
       total: 0,
-      icon: <SpaceDashboardSharpIcon />,
+      icon: <CreditCardIcon />,
       bg: "bg-[#f59e0b]",
     },
     {
-      id: "4njhuujk",
-      label: "Sanctions",
+      id: "sanctions",
+      label: "Sanction(s)",
       total: 0,
-      icon: <SpaceDashboardSharpIcon />,
+      icon: <GavelIcon />,
       bg: "bg-[#be185d]" || 0,
     },
-
     {
-      id: "4",
-      label: "Cagnotte",
+      id: "cagnotte",
+      label: "Cagnotte(s)",
       total: "0",
-      icon: <SpaceDashboardSharpIcon />,
+      icon: <AccountBalanceWalletIcon />,
       bg: "bg-[#be185d]" || 0,
     },
   ];
@@ -57,7 +62,6 @@ function UneCaisse() {
           <p className="text-base text-black font-bold">{label}</p>
           <span className="text-2xl font-semibold">{count}</span>
         </div>
-
         <div className={bg}>{icon}</div>
       </div>
     );
@@ -75,14 +79,25 @@ function UneCaisse() {
 
   return (
     <>
-      <div className="flex flex-col  ">
-        <div className="m-4">
-            <div className="bg-red-600 mx-auto rounded-xl   border w-full h-[10vh] flex justify-center items-center font-bold text-white sm:w-1/5 text-  text-xl">
-              0 FCFA
-            </div>
+      <div className="flex flex-col">
+        <div className="flex gapt-4 p-1">
+          <div className="bg-red-600 mx-auto rounded-xl p-1 text-xs border w-full h-[10vh] flex flex-col justify-center font-bold text-white sm:w-1/5">
+            <label>Personnel</label>
+            <label>20 000 fcfa</label>
+          </div>
+          <div className="bg-red-600 mx-auto rounded-xl p-1 text-xs flex-col border w-full h-[10vh] flex justify-center font-bold text-white sm:w-1/5">
+            <label>Actuel</label>
+            <label>20 000 fcfa</label>
+          </div>
+          <div className="bg-red-600 mx-auto rounded-xl p-1 text-xs flex-col border w-full h-[10vh] flex justify-center font-bold text-white sm:w-1/5">
+            <label>Dette</label>
+            <label>20 000 fcfa</label>
+          </div>
+          <div className="bg-red-600 mx-auto rounded-xl p-1 text-xs flex-col border w-full h-[10vh] flex justify-center font-bold text-white sm:w-1/5">
+            <label>Reel</label>
+            <label>20 000 fcfa</label>
+          </div>
         </div>
-        
-
         <div>
           <div>
             <div className="grid p-4 grid-cols-1 md:grid-cols-4 gap-5">
@@ -90,9 +105,9 @@ function UneCaisse() {
                 <div
                   className="cursor-pointer"
                   onClick={() => viewCard(currentPath + label)}
+                  key={index}
                 >
                   <Card
-                    key={index}
                     icon={icon}
                     bg="w-10 h-10 rounded-full flex items-center bg-red-700 justify-center text-white"
                     label={label}

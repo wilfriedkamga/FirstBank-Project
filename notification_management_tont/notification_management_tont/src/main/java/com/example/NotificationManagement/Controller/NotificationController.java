@@ -47,6 +47,12 @@ public class NotificationController {
     }
 
 
+    @PostMapping("/push")
+    public ResponseEntity<String> sendPushNotification(@RequestParam String recipientToken, @RequestParam String title, @RequestParam String messageBody) {
+        notificationService.sendPushNotification(recipientToken, title, messageBody);
+        return ResponseEntity.ok("Push notification sent successfully");
+    }
+
     @PostMapping("/send")
     public ResponseEntity<?> sendNotification(@RequestBody  CreateNotifModel createNotifModel) {
 

@@ -427,7 +427,6 @@ public class AssociationBus {
         System.out.println("Voici les tests passe par ici 2");
         // Appeler la méthode processMembre pour ajouter le membre
         processMembre(association, phone, roleLabel.toLowerCase());
-        System.out.println("Voici les tests passe par ici");
 
         // Récupérer le membre ajouté pour le retourner
         // Cela suppose que le membre ajouté a été enregistré dans la base de données et peut être récupéré par son téléphone et son rôle

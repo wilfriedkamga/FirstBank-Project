@@ -5,12 +5,13 @@ import AddCaisseMembre from "./AddCaisseMembre";
 
 import AddTontineDialog from "./AddTontineDialog";
 import TontinesServices from "../../../../Services/TontinesServices";
+import AssociationServices from "../../../../Services/AssociationServices";
 
-type TCaisseMembreModel = {
+type TTontineMembreModel = {
     id: string;
     nomUtilisateur: string;
     role: string;
-    id_caisse: string;
+    nb_occur:number;
     idutiliateur: string;
     creer_par: string;
   };
@@ -18,32 +19,33 @@ type TCaisseMembreModel = {
 const MembresCaisseContent = () => {
   const elements = [];
   const [toogle, setToogle] = useState<boolean>(false);
-  const [caisseMembreList, setCaisseMembreList]=useState<TCaisseMembreModel[]>([])
   const location=useLocation()
+  const [tontineMembreList, setTontineMembreList]=useState<TTontineMembreModel[]>([])
+ 
+ useEffect(() => {
+  MembreAssoInit(location.pathname.split("/")[3]);
+}, []);
 
-  
-
-  useEffect(() => {
-    
-    MembreCaisseInit(location.pathname.split("/")[5])
-    
-  }, []);
-
- const MembreCaisseInit=(idCaisse:string)=>{
-    TontinesServices.GetMembresCaisse(idCaisse)
-    .then((response)=>{
-      console.log(response.data.data)
-      setCaisseMembreList(response.data.data)
+const MembreAssoInit = (idAsso: string) => {
+  AssociationServices.GetMembersByAssociationId(idAsso)
+    .then((response) => {
+      console.log(response.data);
+      setTontineMembreList(response.data);
     })
-    .catch((error)=>{
-      console.log("echec")
-    })
- }
+    .catch((error) => {
+      console.log(
+        "erreur survenue lors de la recuperation des membres de l'association"
+      );
+    });
+};
+const addMember = (data: any) => {
+  setTontineMembreList(tontineMembreList.concat(data));
+};
 
   return (
     <div>
       <div className="h-full  w-full grid  grid-cols-1 md:grid-cols-4 gap-5 ">
-        {caisseMembreList.map((item,index)=>(
+        {tontineMembreList.map((item,index)=>(
             <MembresCard nom={item.nomUtilisateur} phone={item.idutiliateur} role={item.role}/>
         ))}
       </div>

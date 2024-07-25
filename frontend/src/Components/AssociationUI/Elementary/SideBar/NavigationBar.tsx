@@ -31,16 +31,16 @@ const NavigationBar: React.FC = () => {
   };
 
   return (
-    <div className="sm:w-[85vw] w-full mt-[10vh]  flex items-center text-white font-extrabold px-4 z-1000 bg-gray-800 h-[7vh]">
+    <div className="sm:w-[85vw] w-full mt-[10vh]  flex items-center text-red-600 font-extrabold px-4 z-1000 bg-gray-400 h-[7vh]">
       <div className="hidden sm:flex">
         {navigationItems.map((item, index) => (
           <div
             key={index}
-            className="mx-2 cursor-pointer hover:text-gray-400"
+            className="mx-2 cursor-pointer "
             onClick={() => handleNavigation(item.lien)}
-          >
-            {item.label}
-            {index < navigationItems.length - 1 && " / "}
+          ><span className="bg-white hover:bg-gray-200 rounded-lg p-2">{item.label}</span>
+            
+            {index < navigationItems.length - 1 && " > "}
           </div>
         ))}
       </div>

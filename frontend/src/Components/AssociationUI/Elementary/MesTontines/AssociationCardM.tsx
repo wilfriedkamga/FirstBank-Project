@@ -48,7 +48,7 @@ const AssociationCardM = ({ association }: any) => {
           {" "}
           <Link
             className="text-white bg-red-600 px-6 rounded-lg  "
-            to={"/tontine/mestontines/" + association.id}
+            to={"/association/mes associations/" + association.id}
           >
             {" "}
             Visiter

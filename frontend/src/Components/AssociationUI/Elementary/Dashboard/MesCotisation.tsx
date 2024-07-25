@@ -1,13 +1,14 @@
 import React from "react";
 import StickyHeadTable from "./ReactVirtualizedTable";
+import FeatureInProgress from "../FeatureInProgress";
 
 const MesCotisation = () => {
   return (
     <div>
       <div className="md:block hidden">
-        <StickyHeadTable />
+        <FeatureInProgress/>
       </div>
-      <div className="md:hidden block"></div>
+      
     </div>
   );
 };

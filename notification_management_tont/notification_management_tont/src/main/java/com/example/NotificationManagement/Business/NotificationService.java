@@ -82,6 +82,25 @@ public class NotificationService {
         mailSender.send(message);
     }
 
+    public void sendPushNotification(String recipientToken, String title, String messageBody) {
+        Notification notification = Notification.builder()
+                .setTitle(title)
+                .setBody(messageBody)
+                .build();
+
+        Message message = Message.builder()
+                .setToken(recipientToken)
+                .setNotification(notification)
+                .build();
+
+        try {
+            String response = FirebaseMessaging.getInstance().send(message);
+            System.out.println("Successfully sent message: " + response);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private boolean isUserExist(String phone) {
         String url = userManagementApiUrl + "/userExist";
         Map<String, String> requestBody = Map.of("phone", phone);

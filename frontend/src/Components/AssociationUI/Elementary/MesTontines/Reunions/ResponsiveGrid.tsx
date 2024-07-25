@@ -26,11 +26,11 @@ const reunions = [reunion, reunion2, reunion2, reunion3, reunion3];
 
 export default function ResponsiveGrid() {
   return (
-    <Box sx={{ flexGrow: 3 }}>
+    <Box sx={{ flexGrow: 2 }}>
       <Grid
         container
         spacing={{ xs: 1, md: 3 }}
-        columns={{ xs: 1, sm: 2, md: 3 }}
+        columns={{ xs: 1, sm: 1, md: 3 }}
       >
         {reunions.map((item, index) => (
           <ReunionComponent
@@ -39,6 +39,9 @@ export default function ResponsiveGrid() {
             receveur={item.receveur}
             etat={item.etat}
             rapport={item.rapport}
+            startTime="12:00"
+            endTime="15:00"
+            lieu="chateau Ngoa-ekele"
           />
         ))}
       </Grid>

@@ -14,27 +14,27 @@ const Navbar = () => {
   const userAvatarItems = [
     {
       label: "Dashboard",
-      link: "/tontine",
+      link: "/association",
       Icon: <SpaceDashboardSharpIcon />,
     },
     {
       label: "Mes Tontines",
-      link: "/tontine/mestontines",
+      link: "/association/mes associations",
       Icon: <SpaceDashboardSharpIcon />,
     },
     {
       label: "Mes cotisations",
-      link: "/tontine/mescotisations",
+      link: "/association/mes association",
       Icon: <SpaceDashboardSharpIcon />,
     },
     {
       label: "Mes sanctions",
-      link: "/tontine/messanctions",
+      link: "/association/mes association",
       Icon: <SpaceDashboardSharpIcon />,
     },
     {
       label: "Mes dettes",
-      link: "/tontine/mesdettes",
+      link: "/association/mes association",
       Icon: <SpaceDashboardSharpIcon />,
     },
   ];

@@ -20,7 +20,7 @@ import MesReunnionsContent from "../Components/AssociationUI/Elementary/MesTonti
 import MesReunions from "../Components/AssociationUI/Elementary/MesTontines/Reunions/MesReunions";
 import UneReunion from "../Components/AssociationUI/Elementary/MesTontines/Reunions/UneReunion";
 import MembresTontine from "../Components/AssociationUI/Elementary/MesTontines/MembresTontine";
-import { MesDocuments } from "../Components/AssociationUI/Elementary/MesDocuments/MesDocuments";
+import MesDocuments  from "../Components/AssociationUI/Elementary/MesDocuments/MesDocuments";
 import ParametreContent from "../Components/AssociationUI/Elementary/ParametresTontines/ParametreContent";
 import RoleAssociation from "../Components/AssociationUI/Elementary/ParametresTontines/RoleAssociation";
 import MesCotisation from "../Components/AssociationUI/Elementary/Dashboard/MesCotisation";
@@ -44,7 +44,9 @@ import ParamRoles from "../Components/AssociationUI/Elementary/ParametresTontine
 import ParamReunions from "../Components/AssociationUI/Elementary/ParametresTontines/ParamReunions";
 import ParamSanction from "../Components/AssociationUI/Elementary/ParametresTontines/ParamSanction";
 import ParamSession from "../Components/AssociationUI/Elementary/ParametresTontines/ParamSession";
-
+import FeatureInProgress from "../Components/AssociationUI/Elementary/FeatureInProgress";
+import UneReunionContent from "../Components/AssociationUI/Elementary/MesTontines/Reunions/UneReunionContent";
+import Cotisations from "../Components/AssociationUI/Elementary/MesTontines/Reunions/Cotisations";
 
 const isKeyInLocalStorage = (key: string): boolean => {
   const token = localStorage.getItem(key);
@@ -69,98 +71,98 @@ export const router = createBrowserRouter([
     children: [
       /***************** Les routes pour le module de tontine */
       {
-        path: "/tontine",
+        path: "/association/",
         element: <TontineHomePage />,
         errorElement: <ErrorElement />,
         children: [
           {
-            path: "/tontine/",
+            path: "/association/",
             element: <Dashboard />,
             errorElement: <ErrorElement />,
           },
           {
-            path: "/tontine/mestontines",
+            path: "/association/mes associations",
             element: <MesTontines />,
             errorElement: <ErrorElement />,
             children: [
               {
-                path: "/tontine/mestontines/",
+                path: "/association/mes associations/",
                 element: <BoardView />,
                 errorElement: <ErrorElement />,
               },
               {
-                path: "/tontine/mestontines/:idTontine",
+                path: "/association/mes associations/:idassociation",
                 element: <TontineContent />,
                 errorElement: <ErrorElement />,
                 children: [
                   {
-                    path: "/tontine/mestontines/:idTontine/",
+                    path: "/association/mes associations/:idassociation/",
                     element: <MaTontine />,
                     errorElement: <ErrorElement />,
                   },
-                  
+
                   {
-                    path: "/tontine/mestontines/:idTontine/tontines",
+                    path: "/association/mes associations/:idassociation/tontines",
                     element: <CaisseContent />,
                     errorElement: <ErrorElement />,
                     children: [
                       {
-                        path: "/tontine/mestontines/:idTontine/tontines/",
+                        path: "/association/mes associations/:idassociation/tontines/",
                         element: <MaCaisse />,
                         errorElement: <ErrorElement />,
                         children: [
                           {
-                            path: "/tontine/mestontines/:idTontine/tontines/",
+                            path: "/association/mes associations/:idassociation/tontines/",
                             element: <MesCaisse />,
                             errorElement: <ErrorElement />,
                           },
                           {
-                            path: "/tontine/mestontines/:idTontine/tontines/:idCaisse",
+                            path: "/association/mes associations/:idassociation/tontines/:idCaisse",
                             element: <CaisseContent />,
                             errorElement: <ErrorElement />,
                             children: [
                               {
-                                path: "/tontine/mestontines/:idTontine/tontines/:idCaisse",
+                                path: "/association/mes associations/:idassociation/tontines/:idCaisse",
                                 element: <UneCaisseContent />,
                                 errorElement: <ErrorElement />,
                                 children: [
                                   {
-                                    path: "/tontine/mestontines/:idTontine/tontines/:idCaisse/",
+                                    path: "/association/mes associations/:idassociation/tontines/:idCaisse/",
                                     element: <UneCaisse />,
                                     errorElement: <ErrorElement />,
                                   },
                                   {
-                                    path: "/tontine/mestontines/:idTontine/tontines/:idCaisse/parametres",
+                                    path: "/association/mes associations/:idassociation/tontines/:idCaisse/parametres",
                                     element: <Parametres />,
                                     errorElement: <ErrorElement />,
                                   },
                                   {
-                                    path: "/tontine/mestontines/:idTontine/tontines/:idCaisse/cotisations",
+                                    path: "/association/mes associations/:idassociation/tontines/:idCaisse/cotisations",
                                     element: <Cotisation />,
                                     errorElement: <ErrorElement />,
                                   },
 
                                   {
-                                    path: "/tontine/mestontines/:idTontine/tontines/:idCaisse/dettes",
-                                    element: <div>les dettes de la caisse</div>,
+                                    path: "/association/mes associations/:idassociation/tontines/:idCaisse/dettes",
+                                    element: <div><FeatureInProgress/></div>,
                                     errorElement: <ErrorElement />,
                                   },
                                   {
-                                    path: "/tontine/mestontines/:idTontine/tontines/:idCaisse/sanctions",
+                                    path: "/association/mes associations/:idassociation/tontines/:idCaisse/sanctions",
                                     element: (
-                                      <div>les sanctions de la caisse</div>
+                                      <div><FeatureInProgress/></div>
                                     ),
                                     errorElement: <ErrorElement />,
                                   },
                                   {
-                                    path: "/tontine/mestontines/:idTontine/tontines/:idCaisse/cagnotte",
+                                    path: "/association/mes associations/:idassociation/tontines/:idCaisse/cagnotte",
                                     element: (
-                                      <div>Les cagnottes de la caisse</div>
+                                      <div><FeatureInProgress/></div>
                                     ),
                                     errorElement: <ErrorElement />,
                                   },
                                   {
-                                    path: "/tontine/mestontines/:idTontine/tontines/:idCaisse/membre",
+                                    path: "/association/mes associations/:idassociation/tontines/:idCaisse/membre",
                                     element: <MembresCaisseContent />,
                                     errorElement: <ErrorElement />,
                                   },
@@ -173,63 +175,73 @@ export const router = createBrowserRouter([
                     ],
                   },
                   {
-                    path: "/tontine/mestontines/:idTontine/reunions",
-                    element: <MesReunnionsContent/>,
+                    path: "/association/mes associations/:idassociation/reunions",
+                    element: <MesReunnionsContent />,
                     errorElement: <ErrorElement />,
-                    children:[
+                    children: [
                       {
-                        path: "/tontine/mestontines/:idTontine/reunions",
-                        element: <MesReunions/>,
+                        path: "/association/mes associations/:idassociation/reunions",
+                        element: <MesReunions />,
                       },
-                      
+
                       {
-                        path: "/tontine/mestontines/:idTontine/reunions/:idReunion",
-                        element: <UneReunion/>,
-                      }
-                    ]
+                        path: "/association/mes associations/:idassociation/reunions/:idReunion",
+                        element: <UneReunionContent />,
+                        children:[
+                          {
+                            path: "/association/mes associations/:idassociation/reunions/:idReunion/",
+                            element: <UneReunion />,
+                          },
+                          {
+                            path: "/association/mes associations/:idassociation/reunions/:idReunion/cotisation/:idtontine",
+                            element: <Cotisations />,
+                          }
+                        ]
+                      },
+                    ],
                   },
                   {
-                    path: "/tontine/mestontines/:idTontine/evenements",
-                    element: <div> les évènements</div>,
+                    path: "/association/mes associations/:idassociation/evenements",
+                    element: <div> <FeatureInProgress/></div>,
                     errorElement: <ErrorElement />,
                   },
                   {
-                    path: "/tontine/mestontines/:idTontine/membres",
+                    path: "/association/mes associations/:idassociation/membres",
                     element: <MembresTontine />,
                     errorElement: <ErrorElement />,
                   },
                   {
-                    path: "/tontine/mestontines/:idTontine/documents",
-                    element: <MesDocuments/>,
+                    path: "/association/mes associations/:idassociation/documents",
+                    element: <MesDocuments />,
                     errorElement: <ErrorElement />,
                   },
                   {
-                    path: "/tontine/mestontines/:idTontine/parametres",
+                    path: "/association/mes associations/:idassociation/parametres",
                     element: <ParametreContent />,
                     errorElement: <ErrorElement />,
                     children: [
                       {
-                        path: "/tontine/mestontines/:idTontine/parametres/",
+                        path: "/association/mes associations/:idassociation/parametres/",
                         element: <Parametres />,
                       },
                       {
-                        path: "/tontine/mestontines/:idTontine/parametres/info",
+                        path: "/association/mes associations/:idassociation/parametres/info",
                         element: <ParamInfo />,
                       },
                       {
-                        path: "/tontine/mestontines/:idTontine/parametres/roles",
+                        path: "/association/mes associations/:idassociation/parametres/roles",
                         element: <ParamRoles />,
                       },
                       {
-                        path: "/tontine/mestontines/:idTontine/parametres/reunions",
-                        element: <ParamReunions/>,
+                        path: "/association/mes associations/:idassociation/parametres/reunions",
+                        element: <ParamReunions />,
                       },
                       {
-                        path: "/tontine/mestontines/:idTontine/parametres/sanctions",
+                        path: "/association/mes associations/:idassociation/parametres/sanctions",
                         element: <ParamSanction />,
                       },
                       {
-                        path: "/tontine/mestontines/:idTontine/parametres/sessions",
+                        path: "/association/mes associations/:idassociation/parametres/sessions",
                         element: <ParamSession />,
                       },
                     ],
@@ -240,18 +252,18 @@ export const router = createBrowserRouter([
             ],
           },
           {
-            path: "/tontine/mescotisations",
+            path: "/association/mes cotisations",
             element: <MesCotisation />,
             errorElement: <ErrorElement />,
           },
           {
-            path: "/tontine/messanctions",
-            element: <MesSanctions/>,
+            path: "/association/mes sanctions",
+            element: <MesSanctions />,
             errorElement: <ErrorElement />,
           },
           {
-            path: "/tontine/mesdettes",
-            element: <div>mes dettes</div>,
+            path: "/association/mes dettes",
+            element: <div><FeatureInProgress/></div>,
             errorElement: <ErrorElement />,
           },
         ],
@@ -269,7 +281,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/profile",
-        element: <ProfileSettings/>,
+        element: <ProfileSettings />,
         errorElement: <ErrorElement />,
       },
       {
@@ -308,7 +320,7 @@ export const router = createBrowserRouter([
         errorElement: <ErrorElement />,
       },
       {
-        path: '/savings/all-plans',
+        path: "/savings/all-plans",
         element: <Plans />,
         errorElement: <ErrorElement />,
       },
@@ -323,7 +335,7 @@ export const router = createBrowserRouter([
         errorElement: <ErrorElement />,
       },
       {
-        path: 'savings/plan/:id',
+        path: "savings/plan/:id",
         element: <Details />,
       },
       {

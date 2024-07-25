@@ -14,6 +14,8 @@ import {
   SelectChangeEvent,
 } from "@mui/material";
 import AlertDialog from "../Notifications/AlertDialog";
+import AssociationServices from "../../../../Services/AssociationServices";
+import { useLocation } from "react-router-dom";
 
 const tontineTypes = [
   { label: "Dette", value: "dette" },
@@ -26,6 +28,14 @@ const validateurs = [
   { label: "Validateur 2", value: "validateur2" },
   { label: "Validateur 3", value: "validateur3" },
 ];
+type TTontineMembreModel = {
+  id: string;
+  nomUtilisateur: string;
+  role: string;
+  nb_occur:number;
+  idutiliateur: string;
+  creer_par: string;
+};
 
 const ConfirmationDialogRaw = (props: any) => {
   const { onClose, open, ...other } = props;
@@ -39,6 +49,28 @@ const ConfirmationDialogRaw = (props: any) => {
   const [purpose, setPurpose] = React.useState<string>("");
   const [validator1, setValidator1] = React.useState<string>("");
   const [validator2, setValidator2] = React.useState<string>("");
+  const [tontineMembreList, setTontineMembreList]=React.useState<TTontineMembreModel[]>([])
+ const location=useLocation()
+ React.useEffect (() => {
+  MembreAssoInit(location.pathname.split("/")[3]);
+}, []);
+
+// Initialisation de la liste des membres de l'association
+const MembreAssoInit = (idAsso: string) => {
+  AssociationServices.GetMembersByAssociationId(idAsso)
+    .then((response) => {
+      console.log(response.data);
+      setTontineMembreList(response.data);
+    })
+    .catch((error) => {
+      console.log(
+        "erreur survenue lors de la recuperation des membres de l'association"
+      );
+    });
+};
+const addMember = (data: any) => {
+  setTontineMembreList(tontineMembreList.concat(data));
+};
 
   const handleTypeChange = (event: SelectChangeEvent<string>) => {
     setType(event.target.value);
@@ -232,7 +264,7 @@ const ConfirmationDialogRaw = (props: any) => {
           </>
         )}
         <FormControl fullWidth margin="normal">
-          <InputLabel>Validateur 1</InputLabel>
+          <label>Validateur 1</label>
           <Select
             value={validator1}
             onChange={(e) => setValidator1(e.target.value as string)}
@@ -247,7 +279,7 @@ const ConfirmationDialogRaw = (props: any) => {
           </Select>
         </FormControl>
         <FormControl fullWidth margin="normal">
-          <InputLabel>Validateur 2</InputLabel>
+          <label>Validateur 2</label>
           <Select
             value={validator2}
             onChange={(e) => setValidator2(e.target.value as string)}
@@ -268,19 +300,19 @@ const ConfirmationDialogRaw = (props: any) => {
   return (
     <Dialog
       sx={{
-        "& .MuiDialog-paper": { width: "50%", maxHeight: 600 },
+        "& .MuiDialog-paper": { width: "35%", maxHeight: 600 },
       }}
       maxWidth="md"
       open={open}
       {...other}
     >
       <DialogTitle className="font-bold">
-        {step === 1 ? "Choisir le type de caisse" : "Créer une caisse"}
+        {step === 1 ? "Choisir le type de tontine" : "Créer une tontine"}
       </DialogTitle>
       <DialogContent dividers>
         {step === 1 ? (
           <FormControl fullWidth margin="normal">
-            <label>Type de caisse</label>
+            <label>Type de tontine</label>
             <Select value={type} onChange={handleTypeChange}>
               {tontineTypes.map((option) => (
                 <MenuItem key={option.value} value={option.value}>
