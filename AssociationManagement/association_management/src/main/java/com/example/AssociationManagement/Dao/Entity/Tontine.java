@@ -25,9 +25,8 @@ public class Tontine {
     private String name;
     private LocalDate date_creation;
     private String type;// dette epargne, sociale
-    private String montant_freq;
+    private String montant;
     private String periodicite;
-
     private boolean isDeletable;
     private boolean onChangeType;
     private boolean canRemove;
@@ -41,9 +40,9 @@ public class Tontine {
     @OneToMany(mappedBy = "tontine", cascade = CascadeType.ALL)
     private List<Role_Tont> roles_tont = new ArrayList<>();
 
-    @ManyToOne
-    @JoinColumn(name = "create_by", nullable = false)
-    private Membre_Asso createBy;
+//    @ManyToOne
+//    @JoinColumn(name = "create_by", nullable = false)
+//    private Membre_Asso createBy;
 
     @ManyToMany
     @JoinTable(
@@ -126,11 +125,11 @@ public class Tontine {
     }
 
     public String getMontant_freq() {
-        return montant_freq;
+        return montant;
     }
 
     public void setMontant_freq(String montant_freq) {
-        this.montant_freq = montant_freq;
+        this.montant = montant_freq;
     }
 
     public String getPeriodicite() {
@@ -157,13 +156,6 @@ public class Tontine {
         this.roles_tont = roles_tont;
     }
 
-    public Membre_Asso getCreateBy() {
-        return createBy;
-    }
-
-    public void setCreateBy(Membre_Asso createBy) {
-        this.createBy = createBy;
-    }
 
     public List<Membre_Tont> getMembres_tont() {
         return membres_tont;

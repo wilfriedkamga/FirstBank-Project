@@ -51,6 +51,9 @@ public class Association {
     private List<Reunion> reunions;
 
     @OneToMany(mappedBy = "association")
+    private List<Document> document;
+
+    @OneToMany(mappedBy = "association")
     private List<Evenement> evenements;
 
     public List<Evenement> getEvenements() {
@@ -95,6 +98,14 @@ public class Association {
 
     public String getModeReunion() {
         return modeReunion;
+    }
+
+    public List<Document> getDocument() {
+        return document;
+    }
+
+    public void addDocument(Document document) {
+        this.document.add(document);
     }
 
     public void setModeReunion(String modeReunion) {

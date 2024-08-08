@@ -17,11 +17,13 @@ public class Role_Asso {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
+
     private String id;
 
     private String label;
 
     private boolean isDeletable;
+
     private int nbMaxOcc;
 
 

@@ -6,6 +6,7 @@ import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import "../Signin/Signin.css";
 import Variable from "../../../../Variable";
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 
 type ChildComponentProps = {
   handleClick: () => void;
@@ -16,16 +17,24 @@ type ChildComponentProps = {
     birthDate: string,
     gender: string
   ) => void;
+  fullnameE:string;
+  mailE:string;
+  birthDateE:string;
+  genderE:string;
 };
 const Signup2: React.FC<ChildComponentProps> = ({
   handleClick,
   toggleSinup2,
   uploadOtpCodeToParent,
+  fullnameE,
+  mailE,
+  birthDateE,
+  genderE,
 }) => {
-  const [name, setName] = useState("");
-  const [mail, setMail] = useState("");
-  const [gender, setGender] = useState("");
-  const [birthDate, setBirthdate] = useState("");
+  const [name, setName] = useState(fullnameE);
+  const [mail, setMail] = useState(mailE);
+  const [gender, setGender] = useState(genderE);
+  const [birthDate, setBirthdate] = useState(birthDateE);
   const [password, setPassword] = useState("");
   const [response, setResponse] = useState("");
   const [errorVisibility, setErrorVisibility] = useState(false);
@@ -53,69 +62,71 @@ const Signup2: React.FC<ChildComponentProps> = ({
       <div className="">
         <div className=" max-w-2xl mx-auto lg:w-4/5">
           <div className="w-full">
-            <h1 className="text-2xl font-semibold tracking-wider  mt-10 lg:mt-0 text-red-600 text-gray-800 text-center  capitalize dark:text-white">
-              S'inscrire
+          
+            <h1 className="text-2xl font-semibold tracking-wider flex gap-10  mt-10 lg:mt-0 text-red-600 text-gray-800 text-center  capitalize dark:text-white">
+              <button onClick={() => handleClick()} className=" flex justify-center text-center p-1 items-center rounded-lg"><ArrowBackIosIcon/> </button>
+               S'inscrire
             </h1>
-
-            <p className="mt-2 text-gray-700 dark:text-gray-400 text-center">
-              Please fill in these fields to log in.
-            </p>
 
             <form className="gap-6 mt-4 " onSubmit={(e) => handleSubmit(e)}>
               <div>
-                <label className="block mb-2 text-sm ">Full name</label>
+                <label className="block mb-2  mt-2 text-sm ">Nom complet</label>
                 <input
                   value={name}
+                  defaultValue={name}
                   onChange={(e) => {
                     setName(e.target.value);
                   }}
                   required
                   type="text"
                   placeholder="John"
-                  className="block w-full h-13  px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-red-400 dark:focus:border-red-400 focus:ring-red-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                  className="block w-full h-13  px-5 py-3 mb-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-red-400 dark:focus:border-red-400 focus:ring-red-400 focus:outline-none focus:ring focus:ring-opacity-40"
                 />
               </div>
               <div>
-                <label className="block mb-2 text-sm ">Email</label>
+                <label className="block mb-2  mt-2 text-sm ">Email</label>
                 <input
                   value={mail}
+                  defaultValue={mail}
                   onChange={(e) => {
                     setMail(e.target.value);
                   }}
                   required
                   type="text"
                   placeholder="mail@gmail.com"
-                  className="block w-full h-13  px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-red-400 dark:focus:border-red-400 focus:ring-red-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                  className="block w-full h-13  px-5 py-3 mb-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-red-400 dark:focus:border-red-400 focus:ring-red-400 focus:outline-none focus:ring focus:ring-opacity-40"
                 />
               </div>
 
               <div>
-                <label className="block mb-1 mt-1">Birth Date</label>
+                <label className="block mb-2  mt-2">Date de naissance</label>
                 <input
                   value={birthDate}
                   onChange={(e) => {
                     setBirthdate(e.target.value);
                   }}
+                  defaultValue={birthDate}
                   required
                   type="date"
                   placeholder="Snow"
-                  className="block w-full px-5 h-13 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-red-400 dark:focus:border-red-400 focus:ring-red-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                  className="block w-full px-5 h-13 py-3 mb-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-red-400 dark:focus:border-red-400 focus:ring-red-400 focus:outline-none focus:ring focus:ring-opacity-40"
                 />
               </div>
 
               <div>
-                <label htmlFor="countries" className="block mb-1 mt-1  ">
-                  Gender
+                <label htmlFor="countries" className="block mt-2 mb-2  ">
+                  Sexe
                 </label>
                 <select
                   required
                   value={gender}
+                  defaultValue={gender}
                   onChange={(e: any) => setGender(e.target.value)}
                   id="countries"
-                  className="bg-gray-50 border h-14 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-red-400 dark:focus:border-red-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                  className="bg-gray-50 border h-14 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500block w-full px-5 py-3 mb-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-red-400 dark:focus:border-red-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                 >
-                  <option value="" disabled selected hidden>
-                    Choose your gender
+                  <option className="text-gray-500" value="" disabled selected hidden>
+                    sexe
                   </option>
                   <option value="Homme" selected>
                     Homme
@@ -129,23 +140,23 @@ const Signup2: React.FC<ChildComponentProps> = ({
                 type="submit"
                 className="flex items-center justify-center w-full mt-10 px-6 py-3 text-sm tracking-wide text-white capitalize transition-colors duration-300 transform bg-red-600 rounded-lg hover:bg-red-400 focus:outline-none focus:ring focus:ring-red-300 focus:ring-opacity-50"
               >
-                Next
+                Suivant
               </button>
-              <p className="flex items-center justify-center mt-2">
-                You already have an account?
+              <p className="flex items-center justify-center  mt-2">
+                Avez vous déjà un compte ?
                 <button
-                  className="signin text-red-600"
+                  className="signin text-red-600 ml-2 hover:text-red-800"
                   onClick={() => handleClick()}
                 >
                   {" "}
-                  Signin
+                  Connexion
                 </button>
               </p>
             </form>
             <img
               src={logo}
               alt="Logo Afriland First Bank"
-              className="lg:mb-2 p-5 lg:w-50 lg:h-25 lg:relative "
+              className="lg:mb-2 p-5 lg:w-50 lg:h-25 lg:relative relative mb-2 "
             ></img>
           </div>
         </div>

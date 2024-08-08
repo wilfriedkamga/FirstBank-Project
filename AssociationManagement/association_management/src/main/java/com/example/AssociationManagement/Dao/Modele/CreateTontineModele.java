@@ -8,6 +8,10 @@ public class CreateTontineModele {
     private String associationId;
     private String phoneValidateur1;
     private String phoneValidateur2;
+    //private String CreatorPhone;
+
+
+
 
     public String getPhoneValidateur1() {
         return phoneValidateur1;

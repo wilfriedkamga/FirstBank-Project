@@ -41,19 +41,13 @@ const names = [
   "Trimestriel",
   "Autre",
 ];
-const days = [
-  "adherent",
-  "secretaire",
-  "Censeur",
-  "Jeudi",
-  "Vendredi",
-  "Samedi",
-  "Dimanche",
-];
+
 const roles = ["Président", "Trésorier", "Createur"];
 
 function ConfirmationDialogRaw(props: ConfirmationDialogRawProps) {
   const { onClose, value: valueProp, open, addMember, ...other } = props;
+  const [datas, setDatas]=React.useState<string[]>(roles)
+  const [roleList, setRoleList]=React.useState<string[]>([])
   const [value, setValue] = React.useState(valueProp);
   const radioGroupRef = React.useRef<HTMLElement>(null);
   const [end, setEnd] = React.useState<boolean>(false);
@@ -68,13 +62,28 @@ function ConfirmationDialogRaw(props: ConfirmationDialogRawProps) {
     if (!open) {
       setValue(valueProp);
     }
+    initializeRolesList()
   }, [valueProp, open]);
 
   const handleEntering = () => {
     if (radioGroupRef.current != null) {
       radioGroupRef.current.focus();
     }
+    
   };
+
+  const initializeRolesList=()=>{
+    AssociationServices.GetRoleByAssociation(location.pathname.split("/")[3])
+    .then((response)=>{
+      const liste=response.data;
+      const roleNames = liste.map((role:any )=> role.label);
+      console.log(roleNames)
+      setRoleList(liste.map((role:any )=> role.label))
+    })
+    .catch((error)=>{
+
+    })
+  }
 
   const handleCancel = () => {
     onClose();
@@ -139,7 +148,7 @@ function ConfirmationDialogRaw(props: ConfirmationDialogRawProps) {
           <label className="font-bold" htmlFor="">
             Rôle du membre
           </label>
-          <SelectItem defaultValue={role} onSelect={setRole} options={days} />
+          <SelectItem defaultValue={role} onSelect={setRole} options={roleList} />
         </div>
       </DialogContent>
       <DialogActions>

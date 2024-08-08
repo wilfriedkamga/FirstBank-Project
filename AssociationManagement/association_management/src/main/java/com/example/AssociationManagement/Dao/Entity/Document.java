@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "document")
@@ -21,7 +22,87 @@ public class Document {
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
 
+    private String nom;
+    private String nomComplet;
     private String chemin;
+    private String lien_telechargement;
+    private String taille;
+    private String description;
+    private Date date;
 
-    // Getters and Setters
+    @ManyToOne
+    @JoinColumn(name = "association_id", nullable = false)
+    private Association association;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public String getNomComplet() {
+        return nomComplet;
+    }
+
+    public void setNomComplet(String nomComplet) {
+        this.nomComplet = nomComplet;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public String getChemin() {
+        return chemin;
+    }
+
+    public void setChemin(String chemin) {
+        this.chemin = chemin;
+    }
+
+    public String getLien_telechargement() {
+        return lien_telechargement;
+    }
+
+    public void setLien_telechargement(String lien_telechargement) {
+        this.lien_telechargement = lien_telechargement;
+    }
+
+    public String getTaille() {
+        return taille;
+    }
+
+    public void setTaille(String taille) {
+        this.taille = taille;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public Association getAssociation() {
+        return association;
+    }
+
+    public void setAssociation(Association association) {
+        this.association = association;
+    }
 }

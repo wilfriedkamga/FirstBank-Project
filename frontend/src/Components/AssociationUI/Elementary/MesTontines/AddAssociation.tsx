@@ -73,7 +73,6 @@ function ConfirmationDialogRaw(props: ConfirmationDialogRawProps) {
   const [value, setValue] = React.useState(valueProp);
   const radioGroupRef = React.useRef<HTMLElement>(null);
   const [end, setEnd] = React.useState<boolean>(false);
-  const [type, setType] = React.useState("");
   const [notifTitle, setNotifTitle] = React.useState<string>("");
   const [notifMessage, setNotifMessage] = React.useState<string>("");
   const [dialogOpen, setDialogOpen] = React.useState<boolean>(false);
@@ -90,11 +89,12 @@ function ConfirmationDialogRaw(props: ConfirmationDialogRawProps) {
   const [frequence, setFrequence] = React.useState("");
   const [activate, setActivate] = React.useState<boolean>(false);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
-  const [inviter1IsLoading, setInviter1IsLoading] = React.useState<boolean>(false);
-  const [inviter2IsLoading, setInviter2IsLoading] = React.useState<boolean>(false);
-  const [result, setResult]=React.useState<boolean>(false)
-  const [noContact2, setNoContact2]=React.useState<boolean>(false)
-  const [noContact3, setNoContact3]=React.useState<boolean>(false)
+  const [inviter1IsLoading, setInviter1IsLoading] =
+    React.useState<boolean>(false);
+  const [inviter2IsLoading, setInviter2IsLoading] =
+    React.useState<boolean>(false);
+  const [noContact2, setNoContact2] = React.useState<boolean>(false);
+  const [noContact3, setNoContact3] = React.useState<boolean>(false);
 
   // Les variables pour garder le contexte
   const [phone1, setPhone1] = React.useState("");
@@ -125,6 +125,7 @@ function ConfirmationDialogRaw(props: ConfirmationDialogRawProps) {
     AssociationServices.getDefaultRole()
       .then((response) => {
         setDefaultRoles(response.data.data);
+        console.log(response.data.data);
       })
       .catch((error) => {
         console.log("Voici l'erreur qui est survenue" + error);
@@ -153,7 +154,7 @@ function ConfirmationDialogRaw(props: ConfirmationDialogRawProps) {
   async function verifyPhone(phone: string): Promise<boolean> {
     try {
       const response = await Authentications.verifyUserHasAccount(phone);
-      console.log(phone + " exists in our database");
+      console.log(response.status === 200);
       return response.status === 200;
     } catch (error) {
       console.error("Error verifying phone:", error);
@@ -163,26 +164,29 @@ function ConfirmationDialogRaw(props: ConfirmationDialogRawProps) {
 
   const sendInvitaion = (destPhone: string, emetPhone: string) => {
     const formData = {
-      "destPhone":destPhone,
-      "emetPhone":emetPhone
-    }
-  
+      destPhone: destPhone,
+      emetPhone: emetPhone,
+    };
+
     NotificationService.sendInvitation(formData)
       .then((response) => {
-          setNotifTitle("Sucess");
-          setNotifMessage("L'envoi de l'invitation a réussie");
-          setDialogOpen(true);
+        setNotifTitle("Sucess");
+        setNotifMessage("L'envoi de l'invitation a réussie");
+        setDialogOpen(true);
         console.log(
-          "Sucess de l'envoi de l'invitation a monsieur : " + destPhone);
+          "Sucess de l'envoi de l'invitation a monsieur : " + destPhone
+        );
       })
       .catch((error) => {
         setNotifTitle("Échec");
-          setNotifMessage("Erreure lors de l'envoi de la notification");
-          setDialogOpen(true);
+        setNotifMessage("Erreure lors de l'envoi de la notification");
+        setDialogOpen(true);
       });
   };
 
-  const handleOk = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const handleOk = async (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
     e.preventDefault();
 
     setIsLoading(true);
@@ -241,31 +245,28 @@ function ConfirmationDialogRaw(props: ConfirmationDialogRawProps) {
     } else {
       if (!existancePhone2) {
         setNoContact2(true);
+      } else {
+        setNoContact2(false);
       }
-      else{setNoContact2(false);}
 
       if (!existancePhone3) {
-        
-        setNoContact3(true)
+        setNoContact3(true);
+      } else {
+        setNoContact3(false);
       }
-      else{
-        setNoContact3(false)
-      }
-      
+
       setIsLoading(false);
     }
   };
 
-  const handleInvitationContact2=()=>{
-    
-    sendInvitaion(contact2,contact1)
-     setInviter1IsLoading(false)
-  }
-  const handleInvitationContact3=()=>{
-   
-    sendInvitaion(contact3,contact1)
-     setInviter2IsLoading(false)
-  }
+  const handleInvitationContact2 = () => {
+    sendInvitaion(contact2, contact1);
+    setInviter1IsLoading(false);
+  };
+  const handleInvitationContact3 = () => {
+    sendInvitaion(contact3, contact1);
+    setInviter2IsLoading(false);
+  };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue((event.target as HTMLInputElement).value);
@@ -273,11 +274,14 @@ function ConfirmationDialogRaw(props: ConfirmationDialogRawProps) {
 
   const goNextPage = () => {
     if (frequence == null || frequence == "") {
-     
     } else {
       setEnd(true);
     }
   };
+
+  const filteredOptions1 = defaultRoles; //filter((option) => option !== role3 && option !==role2);
+  const filteredOptions2 = defaultRoles;
+  const filteredOptions3 = defaultRoles; //filter((option) => option !== role2);
 
   return (
     <Dialog
@@ -352,6 +356,7 @@ function ConfirmationDialogRaw(props: ConfirmationDialogRawProps) {
               Créer une association
             </label>
           </DialogTitle>
+
           <DialogContent dividers className="flex flex-col gap-2">
             <label className="font-bold" htmlFor="">
               Administrateur 1
@@ -360,24 +365,14 @@ function ConfirmationDialogRaw(props: ConfirmationDialogRawProps) {
             <label className="font-bold" htmlFor="">
               Phone
             </label>
-            <PhoneInputRole defaultValue={contact2} setPhone={setContact2} />
-            {noContact2 && <label className="text-xs text-red-500">
-              Aucun compte avec ce numero.{" "}
-              {!inviter1IsLoading?<button   onClick={()=>{setInviter1IsLoading(true);handleInvitationContact2() }} className="bg-red-600 text-white p-1 hover:bg-red-800 rounded-lg">
-                 inviter
-              </button>: <button disabled={true}   className="bg-red-900 text-white p-1  rounded-lg">
-                ...inv
-              </button>}
-             
-            </label>}
+            <PhoneInputRole disabled={true} defaultValue={contact1} setPhone={setContact1} />
 
             <label className="font-bold" htmlFor="">
               Role
             </label>
             <SelectItem
-              defaultValue={role2}
-              options={defaultRoles}
-              onSelect={setRole2}
+              options={filteredOptions1}
+              onSelect={setRole1}
             />
 
             <label className="font-bold" htmlFor="">
@@ -387,23 +382,76 @@ function ConfirmationDialogRaw(props: ConfirmationDialogRawProps) {
             <label className="font-bold" htmlFor="">
               Phone
             </label>
-            <PhoneInputRole defaultValue={contact3} setPhone={setContact3} />
-            {noContact3 && <label className="text-xs text-red-500">
-              Aucun compte avec ce numero.{" "}
-              {!inviter2IsLoading?<button   onClick={()=>{setInviter2IsLoading(true);handleInvitationContact3() }} className="bg-red-600 text-white p-1 hover:bg-red-800 rounded-lg">
-                 inviter
-              </button>:<button disabled={true}   className="bg-red-900 text-white p-1  rounded-lg">
-                ...inv
-              </button>}
-              
-            </label>}
+            <PhoneInputRole defaultValue={contact2} setPhone={setContact2} />
+            {noContact2 && (
+              <label className="text-xs text-red-500">
+                Aucun compte avec ce numero.{" "}
+                {!inviter1IsLoading ? (
+                  <button
+                    onClick={() => {
+                      setInviter1IsLoading(true);
+                      handleInvitationContact2();
+                    }}
+                    className="bg-red-600 text-white p-1 hover:bg-red-800 rounded-lg"
+                  >
+                    inviter
+                  </button>
+                ) : (
+                  <button
+                    disabled={true}
+                    className="bg-red-900 text-white p-1  rounded-lg"
+                  >
+                    ...inv
+                  </button>
+                )}
+              </label>
+            )}
 
             <label className="font-bold" htmlFor="">
               Role
             </label>
             <SelectItem
-              defaultValue={role2}
-              options={defaultRoles}
+              options={filteredOptions1}
+              onSelect={setRole2}
+            />
+
+            <label className="font-bold" htmlFor="">
+              Administrateur 3
+            </label>
+            <Divider />
+            <label className="font-bold" htmlFor="">
+              Phone
+            </label>
+            <PhoneInputRole defaultValue={contact3} setPhone={setContact3} />
+            {noContact3 && (
+              <label className="text-xs text-red-500">
+                Aucun compte avec ce numero.{" "}
+                {!inviter2IsLoading ? (
+                  <button
+                    onClick={() => {
+                      setInviter2IsLoading(true);
+                      handleInvitationContact3();
+                    }}
+                    className="bg-red-600 text-white p-1 hover:bg-red-800 rounded-lg"
+                  >
+                    inviter
+                  </button>
+                ) : (
+                  <button
+                    disabled={true}
+                    className="bg-red-900 text-white p-1  rounded-lg"
+                  >
+                    ...inv
+                  </button>
+                )}
+              </label>
+            )}
+
+            <label className="font-bold" htmlFor="">
+              Role
+            </label>
+            <SelectItem
+              options={filteredOptions3}
               onSelect={setRole3}
             />
           </DialogContent>

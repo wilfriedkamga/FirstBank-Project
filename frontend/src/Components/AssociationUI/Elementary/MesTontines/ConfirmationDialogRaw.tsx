@@ -123,8 +123,8 @@ const ConfirmationDialogRaw: React.FC<ConfirmationDialogRawProps> = ({
             <label className="font-bold" htmlFor="">
               Phone
             </label>
-            <PhoneInputRole defaultValue={""} setPhone={setContact1} />
-
+            <PhoneInputRole  defaultValue={""} setPhone={setContact1} />
+            
             <label className="font-bold" htmlFor="">
               Role
             </label>

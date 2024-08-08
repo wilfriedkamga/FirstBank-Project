@@ -20,6 +20,7 @@ import {
   TextField,
   Tooltip,
 } from "@mui/material";
+import { DocumentModel } from "../../../../Services/Types/DocumetType";
 import {
   Delete as DeleteIcon,
   Edit as EditIcon,
@@ -36,7 +37,32 @@ import {
   ZipIcon,
   GenericFileIcon,
 } from "./Icons"; // Importez vos icônes personnalisées ici
+import AssociationServices from "../../../../Services/AssociationServices";
+import { useLocation } from "react-router-dom";
 
+const initialDocuments: DocumentModel[] = [
+  {
+    id: "1",
+    name: "nature.jpeg",
+    date: "29 Jul 2021",
+    size: "12 MB",
+    type: "jpeg",
+    associationId: "",
+    description: "",
+    downloadLink: "",
+  },
+  {
+    id: "2",
+    name: "report.pdf",
+    date: "29 Jul 2021",
+    size: "6 MB",
+    type: "pdf",
+    associationId: "",
+    description: "",
+    downloadLink: "",
+  },
+  // Ajoutez plus de documents ici avec différentes extensions
+];
 const documentTypes: { [key: string]: React.ElementType } = {
   pdf: PdfIcon,
   doc: WordIcon,
@@ -53,118 +79,70 @@ const documentTypes: { [key: string]: React.ElementType } = {
   default: GenericFileIcon,
 };
 
-interface Document {
-  id: string;
-  name: string;
-  date: string;
-  size: string;
-  type: string;
-  description?: string;
-}
-
 const MesDocuments: React.FC = () => {
-  const [documents, setDocuments] = useState<Document[]>([]);
+  const [documents, setDocuments] = useState<DocumentModel[]>(initialDocuments);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const [sortCriterion, setSortCriterion] = useState<keyof Document>("name");
+  const [sortCriterion, setSortCriterion] =
+    useState<keyof DocumentModel>("name");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
   const [editDialogOpen, setEditDialogOpen] = useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [addDialogOpen, setAddDialogOpen] = useState(false);
-  const [selectedDocument, setSelectedDocument] = useState<Document | null>(
-    null
-  );
+
+  const file2 = new Blob();
+
+  const [newDocument, setNewDocument] = useState({
+    nom: "",
+    description: "",
+    associationId: "",
+    file: file2,
+  });
+
+  // Fonction pour gérer les changements de texte
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setNewDocument((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    // Vérifiez si files est défini et s'il contient des fichiers
+    if (event.target.files && event.target.files.length > 0) {
+      // Récupérez le premier fichier sélectionné
+      const file = event.target.files[0];
+
+      // Créez une URL temporaire pour le fichier
+      const fileURL = URL.createObjectURL(file);
+
+      // Mettez à jour l'état avec l'URL du fichier
+      setNewDocument((prevState) => ({
+        ...prevState,
+        chemin: fileURL,
+      }));
+    }
+  };
+
+  const [selectedDocument, setSelectedDocument] =
+    useState<DocumentModel | null>(null);
+
+  const location = useLocation();
+
+  useEffect(() => {
+    console.log(location.pathname.split("/")[3]);
+    setNewDocument({
+      ...newDocument,
+      associationId: location.pathname.split("/")[3],
+    });
+    Initializepage(location.pathname.split("/")[3]);
+  }, []);
 
   useEffect(() => {
     // Remplacer par la récupération des documents depuis une API
-    const initialDocuments: Document[] = [
-      {
-        id: "1",
-        name: "nature.jpeg",
-        date: "29 Jul 2021",
-        size: "12 MB",
-        type: "jpeg",
-      },
-      {
-        id: "2",
-        name: "report.pdf",
-        date: "29 Jul 2021",
-        size: "6 MB",
-        type: "pdf",
-      },
-      {
-        id: "3",
-        name: "spreadsheet.xls",
-        date: "29 Jul 2021",
-        size: "8 MB",
-        type: "xls",
-      },
-      {
-        id: "4",
-        name: "presentation.ppt",
-        date: "29 Jul 2021",
-        size: "15 MB",
-        type: "ppt",
-      },
-      {
-        id: "5",
-        name: "image.jpg",
-        date: "29 Jul 2021",
-        size: "4 MB",
-        type: "jpg",
-      },
-      {
-        id: "6",
-        name: "archive.zip",
-        date: "29 Jul 2021",
-        size: "20 MB",
-        type: "zip",
-      },
-      {
-        id: "7",
-        name: "document.doc",
-        date: "29 Jul 2021",
-        size: "2 MB",
-        type: "doc",
-      },
-      {
-        id: "8",
-        name: "presentation2.pptx",
-        date: "29 Jul 2021",
-        size: "12 MB",
-        type: "pptx",
-      },
-      {
-        id: "9",
-        name: "image2.png",
-        date: "29 Jul 2021",
-        size: "5 MB",
-        type: "png",
-      },
-      {
-        id: "10",
-        name: "spreadsheet2.xlsx",
-        date: "29 Jul 2021",
-        size: "10 MB",
-        type: "xlsx",
-      },
-      {
-        id: "11",
-        name: "document2.docx",
-        date: "29 Jul 2021",
-        size: "3 MB",
-        type: "docx",
-      },
-      {
-        id: "12",
-        name: "another-image.gif",
-        date: "29 Jul 2021",
-        size: "1 MB",
-        type: "gif",
-      },
-      // Ajoutez plus de documents ici avec différentes extensions
-    ];
-    setDocuments(initialDocuments);
+    console.log(documents);
+    //setDocuments(initialDocuments);
   }, []);
 
   const handleChangePage = (event: unknown, newPage: number) => {
@@ -177,29 +155,46 @@ const MesDocuments: React.FC = () => {
   };
 
   const handleSortChange = (event: SelectChangeEvent<string>) => {
-    setSortCriterion(event.target.value as keyof Document);
+    setSortCriterion(event.target.value as keyof DocumentModel);
   };
 
   const handleSortOrderChange = (event: SelectChangeEvent<"asc" | "desc">) => {
     setSortOrder(event.target.value as "asc" | "desc");
   };
 
-  const handleEditClick = (document: Document) => {
+  const handleEditClick = (document: DocumentModel) => {
     setSelectedDocument(document);
     setEditDialogOpen(true);
   };
 
-  const handleDeleteClick = (document: Document) => {
+  const handleDeleteClick = (document: DocumentModel) => {
     setSelectedDocument(document);
     setDeleteDialogOpen(true);
   };
 
-  const handleDownloadClick = (document: Document) => {
+  const Initializepage = (associationId: string) => {
+    AssociationServices.GetDocumentsByAssociationId(associationId)
+      .then((response) => {
+        console.log(response.data);
+
+        setDocuments(DocumentModel.constructData(response.data));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const handleDownloadClick = (url: string) => {
     // Implémentez la logique de téléchargement ici
   };
 
   const handleAddDocument = () => {
     setAddDialogOpen(true);
+    console.log(newDocument);
+    const formData = new FormData();
+    formData.append("associationId", newDocument.associationId);
+    formData.append("nom", newDocument.nom);
+    formData.append("description", newDocument.description);
   };
 
   const handleAddDialogClose = () => {
@@ -229,7 +224,10 @@ const MesDocuments: React.FC = () => {
       </Box>
 
       <Box mb={2} textAlign="right">
-        <button onClick={handleAddDocument} className="text-white bg-red-600 hover:bg-red-800 rounded-full p-3">
+        <button
+          onClick={handleAddDocument}
+          className="text-white bg-red-600 hover:bg-red-800 rounded-full p-3"
+        >
           <AddIcon />
         </button>
       </Box>
@@ -270,7 +268,7 @@ const MesDocuments: React.FC = () => {
                         </IconButton>
                       </Tooltip>
                       <Tooltip title="Télécharger">
-                        <IconButton onClick={() => handleDownloadClick(doc)}>
+                        <IconButton onClick={() => handleDownloadClick("")}>
                           <DownloadIcon />
                         </IconButton>
                       </Tooltip>
@@ -300,6 +298,9 @@ const MesDocuments: React.FC = () => {
             margin="normal"
             label="Nom"
             fullWidth
+            onChange={(e) => {
+              setNewDocument({ ...newDocument, nom: e.target.value });
+            }}
             // Gérer la valeur et le onChange
           />
           <TextField
@@ -307,18 +308,33 @@ const MesDocuments: React.FC = () => {
             label="Description"
             fullWidth
             multiline
+            onChange={(e) => {
+              setNewDocument({ ...newDocument, description: e.target.value });
+            }}
             // Gérer la valeur et le onChange
           />
           <Button variant="contained" component="label">
             Choisir le document
-            <input type="file" hidden />
+            <input
+              type="file"
+              hidden
+              onChange={(event) => {
+                const files = event.target.files;
+                if (files && files.length > 0) {
+                  setNewDocument((prevState) => ({
+                    ...prevState,
+                    file: files[0],
+                  }));
+                }
+              }}
+            />
           </Button>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleAddDialogClose} color="primary">
             Annuler
           </Button>
-          <Button onClick={handleAddDialogClose} color="primary">
+          <Button onClick={handleAddDocument} color="primary">
             Ajouter
           </Button>
         </DialogActions>
@@ -369,6 +385,35 @@ const MesDocuments: React.FC = () => {
       )}
 
       {/* Modale pour confirmer la suppression */}
+      {selectedDocument && (
+        <Dialog
+          open={deleteDialogOpen}
+          onClose={() => setDeleteDialogOpen(false)}
+        >
+          <DialogTitle>Confirmer la suppression</DialogTitle>
+          <DialogContent>
+            Voulez-vous vraiment supprimer ce document ?
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={() => setDeleteDialogOpen(false)} color="primary">
+              Annuler
+            </Button>
+            <Button
+              onClick={() => {
+                setDocuments(
+                  documents.filter((doc) => doc.id !== selectedDocument.id)
+                );
+                setDeleteDialogOpen(false);
+              }}
+              color="primary"
+            >
+              Supprimer
+            </Button>
+          </DialogActions>
+        </Dialog>
+      )}
+
+      {/* Modale pour le téléchargement d'un */}
       {selectedDocument && (
         <Dialog
           open={deleteDialogOpen}

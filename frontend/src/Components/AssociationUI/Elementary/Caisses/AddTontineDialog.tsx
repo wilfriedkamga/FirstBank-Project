@@ -16,6 +16,8 @@ import {
 import AlertDialog from "../Notifications/AlertDialog";
 import AssociationServices from "../../../../Services/AssociationServices";
 import { useLocation } from "react-router-dom";
+import DualSelect from "../Component/DualSelect";
+import { MembreAssociationModel } from "../../../../Services/Types/MembreAssociationModel";
 
 const tontineTypes = [
   { label: "Dette", value: "dette" },
@@ -23,16 +25,23 @@ const tontineTypes = [
   { label: "Sociale", value: "sociale" },
 ];
 
-const validateurs = [
-  { label: "Validateur 1", value: "validateur1" },
-  { label: "Validateur 2", value: "validateur2" },
-  { label: "Validateur 3", value: "validateur3" },
+const validateurs2 = ["wilfried", "Junior", "kamga", "junior"];
+
+const validateurs: MembreAssociationModel[] = [
+  { id: "123", name: "Validateur 1", phone: "237 650641633", role: "createur" },
+  { id: "1234", name: "Validateur 2", phone: "237 650505055", role: "membre" },
+  {
+    id: "12345",
+    name: "Validateur 3",
+    phone: "237 650646464",
+    role: "adhérent",
+  },
 ];
 type TTontineMembreModel = {
   id: string;
   nomUtilisateur: string;
   role: string;
-  nb_occur:number;
+  nb_occur: number;
   idutiliateur: string;
   creer_par: string;
 };
@@ -41,6 +50,8 @@ const ConfirmationDialogRaw = (props: any) => {
   const { onClose, open, ...other } = props;
   const [step, setStep] = React.useState<number>(1);
   const [type, setType] = React.useState<string>("");
+  const [description, setDescription] = React.useState<string>("");
+  const [associationId, setAssociationId] = React.useState<string>("");
   const [name, setName] = React.useState<string>("");
   const [startDate, setStartDate] = React.useState<string>("");
   const [amount, setAmount] = React.useState<string>("");
@@ -49,28 +60,30 @@ const ConfirmationDialogRaw = (props: any) => {
   const [purpose, setPurpose] = React.useState<string>("");
   const [validator1, setValidator1] = React.useState<string>("");
   const [validator2, setValidator2] = React.useState<string>("");
-  const [tontineMembreList, setTontineMembreList]=React.useState<TTontineMembreModel[]>([])
- const location=useLocation()
- React.useEffect (() => {
-  MembreAssoInit(location.pathname.split("/")[3]);
-}, []);
+  const [tontineMembreList, setTontineMembreList] = React.useState<
+    MembreAssociationModel[]
+  >([]);
+  const location = useLocation();
+  React.useEffect(() => {
+    MembreAssoInit(location.pathname.split("/")[3]);
+  }, []);
 
-// Initialisation de la liste des membres de l'association
-const MembreAssoInit = (idAsso: string) => {
-  AssociationServices.GetMembersByAssociationId(idAsso)
-    .then((response) => {
-      console.log(response.data);
-      setTontineMembreList(response.data);
-    })
-    .catch((error) => {
-      console.log(
-        "erreur survenue lors de la recuperation des membres de l'association"
-      );
-    });
-};
-const addMember = (data: any) => {
-  setTontineMembreList(tontineMembreList.concat(data));
-};
+  // Initialisation de la liste des membres de l'association
+  const MembreAssoInit = (idAsso: string) => {
+    AssociationServices.GetMembersByAssociationId(idAsso)
+      .then((response) => {
+        console.log(response.data);
+        setTontineMembreList(MembreAssociationModel.constructData(response.data));
+      })
+      .catch((error) => {
+        console.log(
+          "erreur survenue lors de la recuperation des membres de l'association"
+        );
+      });
+  };
+  const addMember = (data: any) => {
+    setTontineMembreList(tontineMembreList.concat(data));
+  };
 
   const handleTypeChange = (event: SelectChangeEvent<string>) => {
     setType(event.target.value);
@@ -91,21 +104,36 @@ const addMember = (data: any) => {
 
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
-    const data = {
-      type,
-      name,
-      startDate,
-      amount,
-      memberCount,
-      endDate,
-      purpose,
-      validator1,
-      validator2,
+
+    
+    const data = 
+      { nom:name,
+        type:type,
+        description:description,
+        date_ouverture:startDate,
+        date_fermeture:endDate,
+        montant:amount,
+        creationDate:Date.now.toString,
+        associationId:location.pathname.split("/")[3],
+        phoneValidateur1:validator1,
+        phoneValidateur2:setValidator2,
+      }
+
+      AssociationServices.Createtontine(data)
+      .then((response)=>{
+        console.log(response)
+      })
+      .catch((error)=>{
+      
+      })
+
+      resetForm();
+      onClose()
+
     };
-    // addAssociation(data);
-    // onClose();
-    resetForm();
-  };
+    
+  
+  
 
   const resetForm = () => {
     setStep(1);
@@ -119,6 +147,7 @@ const addMember = (data: any) => {
     setValidator1("");
     setValidator2("");
   };
+
 
   const renderFormFields = () => {
     return (
@@ -154,15 +183,6 @@ const addMember = (data: any) => {
               fullWidth
               margin="normal"
             />
-            <TextField
-              required
-              label="Nombre de membres"
-              type="number"
-              value={memberCount}
-              onChange={(e) => setMemberCount(Number(e.target.value))}
-              fullWidth
-              margin="normal"
-            />
           </>
         )}
         {type === "epargne" && (
@@ -177,7 +197,7 @@ const addMember = (data: any) => {
             />
             <TextField
               required
-              label="Nombre de membres"
+              label="Montant cible par membre"
               type="number"
               value={memberCount}
               onChange={(e) => setMemberCount(Number(e.target.value))}
@@ -263,36 +283,14 @@ const addMember = (data: any) => {
             />
           </>
         )}
-        <FormControl fullWidth margin="normal">
-          <label>Validateur 1</label>
-          <Select
-            value={validator1}
-            onChange={(e) => setValidator1(e.target.value as string)}
-          >
-            {validateurs
-              .filter((val) => val.value !== validator2)
-              .map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))}
-          </Select>
-        </FormControl>
-        <FormControl fullWidth margin="normal">
-          <label>Validateur 2</label>
-          <Select
-            value={validator2}
-            onChange={(e) => setValidator2(e.target.value as string)}
-          >
-            {validateurs
-              .filter((val) => val.value !== validator1)
-              .map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))}
-          </Select>
-        </FormControl>
+
+        <DualSelect
+          label1="Validateur 1"
+          label2="Validateur 2"
+          options={tontineMembreList}
+          setValue1={setValidator1}
+          setValue2={setValidator2}
+        />
       </>
     );
   };

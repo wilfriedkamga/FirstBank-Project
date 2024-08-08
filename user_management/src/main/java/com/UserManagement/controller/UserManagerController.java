@@ -88,6 +88,7 @@ public class UserManagerController {
 			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
             System.out.println("authenticate methode: passe ici 2");
 		} catch (DisabledException e) {
+            System.out.println("USER_DISABLED"+e);
 			throw new Exception("USER_DISABLED", e);
 		} catch (BadCredentialsException e) {
 			throw new Exception("INVALID_CREDENTIALS", e);
@@ -106,7 +107,7 @@ public class UserManagerController {
 
 		} catch ( Exception e) {
 			response.setResponseCode("1");
-			response.setMessage(e.getMessage());
+			response.setMessage("Une erreure est survenue au cours de l'opération:"+e.getMessage());
 			return new ResponseEntity<>(response, HttpStatus.FORBIDDEN);
 		}
 	}
@@ -119,23 +120,16 @@ public class UserManagerController {
 		try{
 			response.setMessage("Success");
 			response.setResponseCode("0");
-			System.out.println("Voici votre nom complet"+signupModel.getFullname());
 			usermanagerBus.signup(signupModel.getPhone(),signupModel.getFullname(),signupModel.getEmail(),signupModel.getBirthDate(),signupModel.getGender(), signupModel.getPassword());
-			System.out.println("Passe bien par ici1 apres signup");
-			 //Authentifier l'utilisateur
-            System.out.println(signupModel.getPhone()+" "+signupModel.getPassword());
-			authenticate(signupModel.getPhone(), signupModel.getPassword());
-            System.out.println("Passe bien par ici1");
-
-			final UserDetails userDetails = jwtInMemoryUserDetailsService
-					.loadUserByUsername(signupModel.getPhone());
-            System.out.println("Passe bien par ici2");
-
-			final String token = jwtTokenUtil.generateToken(userDetails);
-            System.out.println("Passe bien par ici3");
-			response.setData(new JwtResponse(token, usermanagerBus.getUserLoginDetails(signupModel.getPhone())));
-            System.out.println("Passe bien par ici4");
-
+//            System.out.println("passe parici v0");
+//			//authenticate(signupModel.getPhone(), signupModel.getPassword());
+//            System.out.println("passe par ici v1");
+//			final UserDetails userDetails = jwtInMemoryUserDetailsService
+//					.loadUserByUsername(signupModel.getPhone());
+//            System.out.println("passe par ici v1");
+//			final String token = jwtTokenUtil.generateToken(userDetails);
+			//response.setData( usermanagerBus.getUserLoginDetails(signupModel.getPhone()));
+            System.out.println("passe parici v2");
 			return new ResponseEntity(response, HttpStatus.OK);
 
 		} catch (Exception e) {
@@ -377,7 +371,7 @@ public class UserManagerController {
 	,@RequestPart MultipartFile signature) throws Exception {
 
 		CommonResponseModel response = new CommonResponseModel();
-		System.out.println("*-*-*--*-*-*-*- passe ici");
+
 		try {
 			response.setMessage("Upload file success profil has been updated successfully");
 			response.setResponseCode("0");

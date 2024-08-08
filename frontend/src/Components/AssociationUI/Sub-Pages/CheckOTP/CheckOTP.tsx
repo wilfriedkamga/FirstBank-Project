@@ -6,6 +6,9 @@ import axios from "axios";
 import SimpleDialog from "../../Elementary/Dialog/SimpleDialog";
 import { Navigate, useNavigate } from "react-router-dom";
 import Variable from "../../../../Variable";
+import Authentications from "../../../../Services/Authentications";
+import { Box } from "@mui/material";
+
 
 type ChildComponentProps = {
   OtpCode: string;
@@ -67,6 +70,7 @@ export default function CheckOTP({
         setDialogMessage(
           "Verification réussi. vous serez redirigez vers le portail!!"
         );
+
         setDialogVisibility(true);
         navigate("/home");
       })
@@ -147,7 +151,7 @@ export default function CheckOTP({
                 verify(e);
               }}
             >
-              <div>
+              <div className=" flex flex-col gap-4">
                 <label className="block mb-2 ">code verify</label>
                 <input
                   value={inputOTP}
@@ -156,6 +160,9 @@ export default function CheckOTP({
                   placeholder="X X X X X"
                   className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-red-400 dark:focus:border-red-400 focus:ring-red-400 focus:outline-none focus:ring focus:ring-opacity-40"
                 />
+                
+                  
+                
               </div>
               <div className="card flex justify-content-center"></div>
 

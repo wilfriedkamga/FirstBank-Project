@@ -7,24 +7,35 @@ import "react-phone-input-2/lib/style.css";
 import "./Signup.css";
 import SimpleDialog from "../../Elementary/Dialog/SimpleDialog";
 import Variable from "../../../../Variable";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import Authentications from "../../../../Services/Authentications";
 
 type ChildComponentProps = {
   handleClick: () => void;
   toggleSinup2: () => void;
+  togglePrevious: () => void;
   fullName: string;
   mail: string;
   birthDate: string;
   gender: string;
   uploadCodeToComponent: (value: string) => void;
+  uploadFieldValueCodeToPrevious: (
+    fullName: string,
+    mail: string,
+    birthDate: string,
+    gender: string
+  ) => void;
 };
 const Signup3: React.FC<ChildComponentProps> = ({
   handleClick,
   toggleSinup2,
+  togglePrevious,
   fullName,
   mail,
   birthDate,
   gender,
   uploadCodeToComponent,
+  uploadFieldValueCodeToPrevious,
 }) => {
   const messageError = "Votre compte a été créee avec succèss";
   const [phone, setPhone] = useState("");
@@ -72,20 +83,32 @@ const Signup3: React.FC<ChildComponentProps> = ({
         gender: gender,
         password: password,
       };
+      const tempLogin={
+        phone:phone,
+        password:password
+      }
       const route = Variable.routeApi + "api/usermanagement/signup";
 
       axios
         .post(`${route}`, tempUser)
         .then((response) => {
-          const data = Variable.setLocalStorageItem("user", response.data.data);
+
+          Authentications.loginService(tempLogin)
+          .then((response: any) => {
+            const data = Variable.setLocalStorageItem("user", response.data.data);
+            
+          })
+          .catch((error: any) => {
+            console.log("Une erreure s'est produite lors du login")
+          });
+          
           setDialogVisibility(true);
           uploadCodeToComponent(phone);
           toggleSinup2();
         })
         .catch((error) => {
-          setDialogMessage(
-            "Ce numero de telephone existe déjà dans notre base de données"
-          );
+          console.log()
+          setDialogMessage(error.response.data.message);
           setDialogVisibility(true);
           console.log(error);
         });
@@ -97,7 +120,13 @@ const Signup3: React.FC<ChildComponentProps> = ({
       <div className="">
         <div className=" max-w-2xl mx-auto lg:w-4/5">
           <div className="w-full">
-            <h1 className="text-2xl font-semibold tracking-wider text-red-600 mt-10 lg:mt-3 text-gray-800 text-center  capitalize dark:text-white">
+            <h1 className="text-2xl font-semibold tracking-wider flex gap-10  text-red-600 mt-10 lg:mt-3 text-gray-800 text-center  capitalize dark:text-white">
+              <button
+                onClick={() => {console.log(fullName+mail+birthDate+gender);uploadFieldValueCodeToPrevious(fullName,mail,birthDate,gender); togglePrevious();  }}
+                className=" flex justify-center text-center p-1 items-center rounded-lg"
+              >
+                <ArrowBackIosIcon />{" "}
+              </button>
               S'inscrire
             </h1>
             <div className="absolute z-20 ml-4 lg:ml-0  mt-20 lg:mt-20 lg:mr-15 w-4/5">
@@ -109,13 +138,9 @@ const Signup3: React.FC<ChildComponentProps> = ({
               ) : null}
             </div>
 
-            <p className="mt-2 text-gray-700 dark:text-gray-400 text-center">
-              Please fill in these fields to log in.
-            </p>
-
             <form className="gap-6 mt-4 " onSubmit={(e) => handleSubmit(e)}>
               <div>
-                <label className="block mb-2 ">Phone number</label>
+                <label className="block mb-2 ">Teléphone</label>
                 <PhoneInput
                   inputClass="block w-full h-full mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-red-400 dark:focus:border-red-400 focus:ring-red-400 focus:outline-none focus:ring focus:ring-opacity-40"
                   country={"cm"}
@@ -125,23 +150,23 @@ const Signup3: React.FC<ChildComponentProps> = ({
               </div>
 
               <div>
-                <label className="block mb-2 text-sm mt-3 ">Password</label>
+                <label className="block mb-2 text-sm mt-3 ">Mot de passe</label>
                 <input
                   value={password}
                   onChange={handlePasswordChange}
                   type={isPasswordVisible ? "text" : "password"}
-                  placeholder="Enter your password"
+                  placeholder="Entrez votre mot de passe"
                   className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-red-400 dark:focus:border-red-400 focus:ring-red-400 focus:outline-none focus:ring focus:ring-opacity-40"
                   required
                 />
                 <label className="block mb-2 text-sm mt-3 ">
-                  Password confirmation
+                  Confirmer le mot de passe
                 </label>
                 <input
                   value={Confirmpassword}
                   onChange={handleConfirmPasswordChange}
                   type={isPasswordVisible ? "text" : "password"}
-                  placeholder="Enter your password"
+                  placeholder="Entrez votre mot de passe"
                   className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-red-400 dark:focus:border-red-400 focus:ring-red-400 focus:outline-none focus:ring focus:ring-opacity-40"
                   required
                 />
@@ -152,23 +177,23 @@ const Signup3: React.FC<ChildComponentProps> = ({
                   checked={isPasswordVisible}
                   onChange={togglePasswordVisibility}
                 />
-                <span className="text-sm text-gray-600">Show password</span>
+                <span className="text-sm text-gray-600">Voir le mot de passe</span>
               </div>
               <button
                 // onClick={() => handleSubmit()}
                 type="submit"
-                className="flex items-center justify-center w-full mt-10 px-6 py-3 text-sm tracking-wide text-white capitalize transition-colors duration-300 transform bg-red-600 rounded-lg hover:bg-red-400 focus:outline-none focus:ring focus:ring-red-300 focus:ring-opacity-50"
+                className="flex font-bold items-center justify-center w-full mt-10 px-6 py-3 text-sm tracking-wide text-white capitalize transition-colors duration-300 transform bg-red-600 rounded-lg hover:bg-red-400 focus:outline-none focus:ring focus:ring-red-300 focus:ring-opacity-50"
               >
-                Signup
+                Créer son compte
               </button>
               <p className="flex items-center justify-center mt-2">
-                You already have an account?
+                Avez vous déjà un compte ?
                 <button
-                  className="signin  text-red-500"
+                  className="signin ml-2 hover:text-red-800  text-red-600"
                   onClick={() => handleClick()}
                 >
                   {" "}
-                  Signin
+                  Connexion
                 </button>
               </p>
             </form>

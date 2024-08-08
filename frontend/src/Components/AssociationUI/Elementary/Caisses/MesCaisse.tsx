@@ -3,23 +3,10 @@ import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import { useNavigate, useLocation } from "react-router-dom";
 import AddTontineDialog from "./AddTontineDialog";
 import TontinesServices from "../../../../Services/TontinesServices";
+import AssociationServices from "../../../../Services/AssociationServices";
+import { TontineModel } from "../../../../Services/Types";
 
-type TCaisseModel = {
-  id: string;
-  nom: string;
-  total: string;
-  type: string;
-  montant: string;
-  bg: string;
-  tontine_id: string;
-  creerPar: string;
-  nbMembres: number;
-  typeCaisse: string; // Ajout du type de caisse
-  montantEpargne?: string; // Ajout pour les caisses d'épargne ou sociale
-  montantCotisation?: string; // Ajout pour les caisses de dette
-};
-
-const stats: TCaisseModel[] = [
+const stats: TontineModel[] = [
   {
     id: "1hjkl",
     nom: "Caisse Épargne",
@@ -27,44 +14,33 @@ const stats: TCaisseModel[] = [
     type: "épargne",
     montant: "50 000 FCFA",
     bg: "bg-[#1d4ed8]",
-    tontine_id: "",
+    association_id: "",
     creerPar: "",
     nbMembres: 3,
     typeCaisse: "épargne",
     montantEpargne: "50 000 FCFA",
+    date_creation: "",
   },
   {
     id: "2hjkl",
     nom: "Caisse Sociale",
     total: "4",
     type: "sociale",
-    montant: "30 000 FCFA",
+    montant: "60 000 FCFA",
     bg: "bg-[#1d4ed8]",
-    tontine_id: "",
+    association_id: "",
     creerPar: "",
     nbMembres: 5,
     typeCaisse: "sociale",
     montantEpargne: "30 000 FCFA",
-  },
-  {
-    id: "3hjkl",
-    nom: "Caisse Dette",
-    total: "4",
-    type: "dette",
-    montant: "10 000 FCFA",
-    bg: "bg-[#1d4ed8]",
-    tontine_id: "",
-    creerPar: "",
-    nbMembres: 4,
-    typeCaisse: "dette",
-    montantCotisation: "10 000 FCFA",
+    date_creation: "",
   },
 ];
 
 const MesCaisse = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [caisseList, setCaisseList] = useState<TCaisseModel[]>(stats);
+  const [tontineList, setTontineList] = useState<TontineModel[]>(stats);
 
   const extractTontineId = (url: string): string => {
     const parts = url.split("/");
@@ -72,14 +48,16 @@ const MesCaisse = () => {
   };
 
   useEffect(() => {
-    Initializepage(extractTontineId(location.pathname));
+    console.log(location.pathname.split("/")[3]);
+    Initializepage(location.pathname.split("/")[3]);
   }, []);
 
-  const Initializepage = (idTontine: string) => {
-    TontinesServices.GetCaissess(idTontine)
+  const Initializepage = (idAssociation: string) => {
+    AssociationServices.GetTontinesByAssociationId(idAssociation)
       .then((response) => {
-        setCaisseList(response.data.data);
-        console.log(response.data.data);
+        const tontines = TontineModel.fromSimpleList(response.data);
+        setTontineList(tontines);
+        console.log(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -108,8 +86,8 @@ const MesCaisse = () => {
           </span>
           <span className="text-lg mt-2 font-semibold text-gray-800">
             {typeCaisse === "épargne" || typeCaisse === "sociale"
-              ? montantEpargne
-              : montantCotisation}
+              ? montant
+              : montant}
           </span>
         </div>
         <div className={bg + " text-xl text-white font-bold"}>
@@ -123,7 +101,7 @@ const MesCaisse = () => {
   return (
     <div>
       <div className="grid p-4 grid-cols-1 md:grid-cols-4 gap-5">
-        {caisseList.map(
+        {tontineList.map(
           (
             {
               type,
@@ -158,7 +136,7 @@ const MesCaisse = () => {
           )
         )}
       </div>
-      {caisseList == null || caisseList.length == 0 ? (
+      {tontineList == null || tontineList.length == 0 ? (
         <div className="text-lg">
           {" "}
           Vous n'êtes dans aucune Caisse de cette tontine !

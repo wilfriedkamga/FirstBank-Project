@@ -76,7 +76,7 @@ const AddCNI: React.FC = () => {
     e.preventDefault();
     const formData = new FormData();
     const file2 = new Blob();
-
+    
     if (rectoFile && versoFile) {
       formData.append("phone", phone);
       formData.append("cniRecto", rectoFile);

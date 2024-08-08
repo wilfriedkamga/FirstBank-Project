@@ -2,33 +2,54 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0cfa98bc-3208-4d7f-8cc9-c444e83b61fe" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Dao/Dto/DocumentDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Dao/Modele/UploadFileModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Dao/Repository/DocumentRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../AssociationManagement/association_management/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Business/AssociationBus.java" beforeDir="false" afterPath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Business/AssociationBus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Controller/AssociationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Controller/AssociationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Dao/Dto/TontineDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Dao/Dto/TontineDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Dao/Entity/Association.java" beforeDir="false" afterPath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Dao/Entity/Association.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Dao/Entity/Document.java" beforeDir="false" afterPath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Dao/Entity/Document.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Dao/Entity/Role_Asso.java" beforeDir="false" afterPath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Dao/Entity/Role_Asso.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Dao/Entity/Tontine.java" beforeDir="false" afterPath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Dao/Entity/Tontine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Dao/Modele/CreateTontineModele.java" beforeDir="false" afterPath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Dao/Modele/CreateTontineModele.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Dao/Repository/AssociationRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Dao/Repository/AssociationRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Dao/Repository/MembreAssoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Dao/Repository/MembreAssoRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../api_gateway/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../api_gateway/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../api_gateway/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../api_gateway/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/Caisses/AddTontineDialog.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/Caisses/AddTontineDialog.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/Caisses/MembresCaisseContent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/Caisses/MembresCaisseContent.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/Caisses/MesCaisse.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/Caisses/MesCaisse.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/Caisses/UneCaisse.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/Caisses/UneCaisse.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/Dashboard/Dashboard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/Dashboard/Dashboard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/Dashboard/MesCotisation.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/Dashboard/MesCotisation.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/Dashboard/MesSanctions.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/Dashboard/MesSanctions.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/Component/SelectItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/Component/SelectItem.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/MesDocuments/MesDocuments.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/MesDocuments/MesDocuments.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/MesTontines/AddAssociation.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/MesTontines/AddAssociation.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/MesTontines/AddMembreTontine.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/MesTontines/AddMembreTontine.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/MesTontines/AssociationCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/MesTontines/AssociationCard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/MesTontines/AssociationCardM.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/MesTontines/AssociationCardM.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/MesTontines/MembresTontine.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/MesTontines/MembresTontine.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/MesTontines/MembresTontineCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/MesTontines/MembresTontineCard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/MesTontines/Reunions/ResponsiveGrid.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/MesTontines/Reunions/ResponsiveGrid.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/MesTontines/Reunions/ReunionComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/MesTontines/Reunions/ReunionComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/MesTontines/Reunions/UneReunion.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/MesTontines/Reunions/UneReunion.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/MesTontines/TontineCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/MesTontines/TontineCard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/Navbar/Navbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/Navbar/Navbar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/MesTontines/ConfirmationDialogRaw.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/MesTontines/ConfirmationDialogRaw.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/MesTontines/PhoneInputRole.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/MesTontines/PhoneInputRole.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/SideBar/NavigationBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/SideBar/NavigationBar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/SideBar/SideBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/SideBar/SideBar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Sub-Pages/Signin/Signin.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Sub-Pages/Signin/Signin.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Sub-Pages/Signup2/Signup2.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Sub-Pages/Signup2/Signup2.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Sub-Pages/Signup2/Signup3.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Sub-Pages/Signup2/Signup3.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Pages/AssociationUI/Authentification/Authentification.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/Pages/AssociationUI/Authentification/Authentification.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Pages/SavingPlanUI/ProfileSettings/AddCNI.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/Pages/SavingPlanUI/ProfileSettings/AddCNI.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/Pages/SavingPlanUI/dashboard/PortalTontine.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/Pages/SavingPlanUI/dashboard/PortalTontine.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/Routes/Routes.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/Routes/Routes.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../notification_management_tont/notification_management_tont/src/main/java/com/example/NotificationManagement/Business/NotificationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../notification_management_tont/notification_management_tont/src/main/java/com/example/NotificationManagement/Business/NotificationService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../notification_management_tont/notification_management_tont/src/main/java/com/example/NotificationManagement/Controller/NotificationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../notification_management_tont/notification_management_tont/src/main/java/com/example/NotificationManagement/Controller/NotificationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../user_management/target/classes/application-prod.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../user_management/target/classes/application-prod.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Services/AssociationServices.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/Services/AssociationServices.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Variable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/Variable.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Variableprod1.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/Variableprod1.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../notification_management_tont/notification_management_tont/src/main/java/com/example/NotificationManagement/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../notification_management_tont/notification_management_tont/src/main/java/com/example/NotificationManagement/NotificationManagementApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/../notification_management_tont/notification_management_tont/src/main/java/com/example/NotificationManagement/NotificationManagementTontApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../notification_management_tont/notification_management_tont/src/main/java/com/example/NotificationManagement/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../notification_management_tont/notification_management_tont/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../notification_management_tont/notification_management_tont/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../user_management/src/main/java/com/UserManagement/business/UserManagerBus.java" beforeDir="false" afterPath="$PROJECT_DIR$/../user_management/src/main/java/com/UserManagement/business/UserManagerBus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../user_management/src/main/java/com/UserManagement/controller/UserManagerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../user_management/src/main/java/com/UserManagement/controller/UserManagerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../user_management/src/main/resources/application-prod.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../user_management/src/main/resources/application-prod.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../user_management/target/classes/com/UserManagement/controller/UserManagerController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../user_management/target/classes/com/UserManagement/controller/UserManagerController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../user_management/target/classes/com/UserManagement/dao/entities/Tontine.class" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -51,21 +72,25 @@
           <entry key="project.open.time.1" value="1" />
           <entry key="project.open.time.10" value="1" />
           <entry key="project.open.time.12" value="1" />
-          <entry key="project.open.time.14" value="1" />
-          <entry key="project.open.time.15" value="1" />
-          <entry key="project.open.time.18" value="1" />
+          <entry key="project.open.time.13" value="1" />
+          <entry key="project.open.time.14" value="2" />
+          <entry key="project.open.time.15" value="2" />
+          <entry key="project.open.time.18" value="2" />
+          <entry key="project.open.time.48" value="1" />
           <entry key="project.open.time.9" value="1" />
-          <entry key="project.opened" value="7" />
+          <entry key="project.opened" value="12" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="java" value="1" />
+          <entry key="xml" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="JAVA" value="1" />
+          <entry key="XML" value="1" />
         </counts>
       </usages-collector>
     </session>
@@ -75,10 +100,15 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
+            <state relative-caret-position="86">
               <caret line="9" column="34" selection-start-line="9" selection-start-column="34" selection-end-line="9" selection-end-column="34" />
             </state>
           </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pom.xml">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
@@ -118,7 +148,8 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds" extendedState="7">
-    <option name="y" value="5" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
     <option name="width" value="865" />
     <option name="height" value="440" />
   </component>
@@ -190,8 +221,8 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1721155899084" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../api_gateway" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1723043585996" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../notification_management_tont/notification_management_tont" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -215,6 +246,7 @@
         </RuleState>
       </list>
     </option>
+    <option name="contentProportion" value="0.116963066" />
   </component>
   <component name="RunManager">
     <configuration name="DiscoveryApp" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
@@ -263,16 +295,22 @@
       <workItem from="1720731147057" duration="1211000" />
       <workItem from="1721227375926" duration="595000" />
       <workItem from="1721560392703" duration="593000" />
+      <workItem from="1721900573090" duration="595000" />
+      <workItem from="1722014943151" duration="595000" />
+      <workItem from="1722372466901" duration="594000" />
+      <workItem from="1722490291674" duration="1956000" />
+      <workItem from="1723101192599" duration="583000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="4857000" />
+    <option name="totallyTimeSpent" value="9180000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="2" width="692" height="352" extended-state="7" />
+    <frame x="-4" y="-4" width="692" height="352" extended-state="7" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20253165" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1613924" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -293,13 +331,14 @@
       <window_info anchor="bottom" id="Java Enterprise" order="10" weight="0.32906765" />
       <window_info anchor="bottom" id="Database Changes" order="11" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="12" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Run Dashboard" order="13" />
+      <window_info anchor="bottom" id="Run Dashboard" order="13" visible="true" weight="0.3272727" />
+      <window_info anchor="bottom" id="Messages" order="14" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="right" id="Capture Analysis" order="4" />
-      <window_info anchor="right" id="Maven Projects" order="5" visible="true" weight="0.22468354" />
+      <window_info anchor="right" id="Maven Projects" order="5" visible="true" weight="0.12341772" />
       <window_info anchor="right" id="Database" order="6" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
       <window_info anchor="right" id="Theme Preview" order="8" />
@@ -352,10 +391,13 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
+        <state relative-caret-position="86">
           <caret line="9" column="34" selection-start-line="9" selection-start-column="34" selection-end-line="9" selection-end-column="34" />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/Discovery/DiscoveryApp.java">
       <provider selected="true" editor-type-id="text-editor">

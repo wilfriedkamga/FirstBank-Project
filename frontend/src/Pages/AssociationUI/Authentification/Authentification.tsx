@@ -147,6 +147,10 @@ export default function Authentification() {
         <Signup2
           handleClick={toggleSigninVisibility}
           toggleSinup2={toggleSignup2Visibility}
+          fullnameE={fullName}
+          mailE={mail}
+          genderE={gender}
+          birthDateE={birthDate}
           uploadOtpCodeToParent={(value1,value2,value3,value4) => {
             setFullName(value1);
             setBirthdate(value3);
@@ -158,8 +162,14 @@ export default function Authentification() {
 
 {signup2Visibility ? (
         <Signup3
+          uploadFieldValueCodeToPrevious={(value1,value2,value3,value4) => {
+            setFullName(value1);
+            setBirthdate(value3);
+            setGender(value4)
+            setMail(value2);}}
           handleClick={toggleSigninVisibility}
           toggleSinup2={toggleCheckOTPVisibility}
+          togglePrevious={toggleSignupVisibility}
           fullName={fullName}
           mail={mail}
           birthDate={birthDate}

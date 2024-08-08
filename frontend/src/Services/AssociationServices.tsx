@@ -3,6 +3,8 @@ import Variable from "../Variable";
 
 const routes_create_association =
   Variable.routeApiAssociation + "/api/associationmanagement/create";
+  const routes_create_tontine =
+  Variable.routeApiAssociation + "/api/associationmanagement/createTontine";
 const routes_get_association_details =
   Variable.routeApiAssociation + "/api/associationmanagement/getAssociation";
 const route_get_all_association =
@@ -17,9 +19,15 @@ const route_get_members_by_association =
 const route_get_reunions_by_association =
   Variable.routeApiAssociation +
   "/api/associationmanagement/association/{id}/reunions";
+  const route_get_roles_by_association =
+  Variable.routeApiAssociation +
+  "/api/associationmanagement/roles";
 const route_get_events_by_association =
   Variable.routeApiAssociation +
   "/api/associationmanagement/association/{id}/events";
+  const route_get_documents_by_associationId =
+  Variable.routeApiAssociation +
+  "/api/associationmanagement/documentsByAssociation";
 const route_add_member =
   Variable.routeApiAssociation + "/api/associationmanagement/add-member";
 const route_create_role =
@@ -48,10 +56,16 @@ class AssociationServices {
   getDefaultFrequency() {
     return axios.get(route_get_default_frequency);
   }
-  // Créer une tontine
+  // Créer une association
   CreateAssociation(data: any) {
     console.log(data)
     return axios.post(routes_create_association, data);
+  }
+
+  // Créer une tontine
+  Createtontine(data: any) {
+    console.log(data)
+    return axios.post(routes_create_tontine, data);
   }
 
   // Récupérer les associations
@@ -59,10 +73,18 @@ class AssociationServices {
     return axios.get(route_get_all_association + "?phone=" + phone);
   }
 
+  GetRoleByAssociation(associationId:string){
+    return axios.get(route_get_roles_by_association + "?associationId=" + associationId);
+  }
+
   // Récupérer les détails d'une association
   GetAssociationDetails(id: string) {
     console.log(routes_get_association_details + "?associationId=" + id);
     return axios.get(routes_get_association_details + "?associationId=" + id);
+  }
+
+  GetDocumentsByAssociationId(associationId:string){
+    return axios.get(route_get_documents_by_associationId + "?associationId=" + associationId);
   }
 
   // Récupérer les détails d'un membre

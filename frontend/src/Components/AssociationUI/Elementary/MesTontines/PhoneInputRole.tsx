@@ -6,11 +6,12 @@ import Variable from "../../../../Variable";
 
 type childComponents = {
   setPhone: (phone: string) => void;
-  defaultValue:string
+  defaultValue:string, 
+  disabled?:boolean
 };
 const nb_chiffre_tel=Variable.nb_chiffres_telephone;
 
-const PhoneInputRole = ({ setPhone , defaultValue}: childComponents) => {
+const PhoneInputRole = ({ setPhone , defaultValue,disabled}: childComponents) => {
   const [value1, setValue1] = useState<string>(defaultValue);
   const isMobile = useIsMobile();
   
@@ -44,6 +45,7 @@ const PhoneInputRole = ({ setPhone , defaultValue}: childComponents) => {
             setValue1(phone);
             setPhone(phone);
           }}
+          disabled={disabled}
           containerClass="w-full"
           buttonStyle={{ backgroundColor: "transparent" }}
           dropdownStyle={{ backgroundColor: "" }}

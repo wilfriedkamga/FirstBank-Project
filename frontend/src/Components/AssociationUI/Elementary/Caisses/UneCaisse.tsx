@@ -104,7 +104,7 @@ function UneCaisse() {
               {stats.map(({ icon, bg, label, total, id }, index) => (
                 <div
                   className="cursor-pointer"
-                  onClick={() => viewCard(currentPath + label)}
+                  onClick={() => viewCard(currentPath + id)}
                   key={index}
                 >
                   <Card

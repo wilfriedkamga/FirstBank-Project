@@ -11,10 +11,14 @@ import {
 type SimpleSelectProps = {
   options: string[];
   onSelect: (selected: string) => void;
-  defaultValue:string
+  defaultValue?: string;
 };
 
-const SelectItem: React.FC<SimpleSelectProps> = ({ options, onSelect,defaultValue }) => {
+const SelectItem: React.FC<SimpleSelectProps> = ({
+  options,
+  onSelect,
+  defaultValue,
+}) => {
   const [selected, setSelected] = React.useState<string>(
     options.length > 0 ? options[0] : ""
   );
@@ -38,10 +42,20 @@ const SelectItem: React.FC<SimpleSelectProps> = ({ options, onSelect,defaultValu
         labelId="simple-select-label"
         id="simple-select"
         value={selected}
-        defaultValue={defaultValue}
         onChange={handleChange}
+        displayEmpty
         sx={{ width: "100%" }}
+        renderValue={(selected) => {
+          if (selected.length === 0) {
+            return <em>Placeholder</em>;
+          }
+
+          return selected;
+        }}
       >
+        <MenuItem key={123} value={"default value"}>
+          voici le premier element
+        </MenuItem>
         {options.map((option, index) => (
           <MenuItem key={index} value={option}>
             {option}

@@ -40,7 +40,7 @@ const NavigationBar: React.FC = () => {
             onClick={() => handleNavigation(item.lien)}
           ><span className="bg-white hover:bg-gray-200 rounded-lg p-2">{item.label}</span>
             
-            {index < navigationItems.length - 1 && " > "}
+            {index < navigationItems.length - 1 && " /"}
           </div>
         ))}
       </div>

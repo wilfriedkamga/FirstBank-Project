@@ -7,7 +7,9 @@ import com.example.AssociationManagement.Dao.Modele.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,7 +26,6 @@ public class AssociationController {
 
     @PostMapping("/create")
     public ResponseEntity<CreateAssoDto> createAssociation(@RequestBody CreerAssoModele creerAssoModele) {
-        System.out.println("-*-*-*-*-*-*-*-Passe bien par ici-*-*-*-*");
         // Créer et retourner le DTO
         CreateAssoDto association = associationService.createAssociation(creerAssoModele);
         return ResponseEntity.ok(association);
@@ -32,7 +33,6 @@ public class AssociationController {
 
     @GetMapping("/getAssociation")
     public ResponseEntity<AssociationDto> getAssociation(@RequestParam String associationId) {
-        System.out.println("-*-*-*-*-*-*-*-Passe bien par ici-*-*-*-*");
         // Créer et retourner le DTO
         AssociationDto association = associationService.getAssociation(associationId);
         return ResponseEntity.ok(association);
@@ -40,7 +40,6 @@ public class AssociationController {
 
     @PostMapping("/inviter")
     public ResponseEntity<AssociationDto> InviterMembre(@RequestParam String associationId) {
-        System.out.println("-*-*-*-*-*-*-*-Passe bien par ici-*-*-*-*");
         // Créer et retourner le DTO
         AssociationDto association = associationService.getAssociation(associationId);
         return ResponseEntity.ok(association);
@@ -81,7 +80,7 @@ public class AssociationController {
            List<Role_Asso> roles=associationService.getRoleAsso(associationId);
 
            List<RoleAssoDto> rolesDto = roles.stream()
-                   .map(role -> new RoleAssoDto(role.getId(), role.getLabel().toUpperCase(), role.getNbMaxOcc()))
+                   .map(role -> new RoleAssoDto(role.getId(), role.getLabel(), role.getNbMaxOcc()))
                    .collect(Collectors.toList());
            return ResponseEntity.ok().body(rolesDto);
     }
@@ -160,9 +159,7 @@ public class AssociationController {
 
     @PostMapping("/add-member")
     public ResponseEntity<?> addMember(@RequestBody MembreCreationModel membreCreationModel) {
-        System.out.println("Voici ce que je demande de faire");
         Membre_Asso membre = associationService.addMember(membreCreationModel.getAssociationId(), membreCreationModel.getName(), membreCreationModel.getPhone(), membreCreationModel.getRoleLabel());
-        System.out.println("Voici les tests passe par ici 3");
         MembreAssoDto membreAssoDto=new MembreAssoDto(membre.getId(),membre.getName(),membre.getPhone(),membre.getCreationDate(),membre.getRole().getLabel());
         CommonResponseModel response=new CommonResponseModel(" adding operation success !","0",membreAssoDto);
         return ResponseEntity.ok().body(response);
@@ -210,11 +207,10 @@ public class AssociationController {
         return ResponseEntity.ok(associations);
     }
 
-    @GetMapping("/association/{id}/tontines")
-    public ResponseEntity<List<TontineDto>> getTontinesByAssociationId(@PathVariable String id) {
-        CommonResponseModel response=new CommonResponseModel("delete operation success !","0",null);
-
-        List<TontineDto> tontines = associationService.getTontinesByAssociationId(id);
+    @GetMapping("/association/{associationId}/tontines")
+    public ResponseEntity<List<TontineDto>> getTontinesByAssociationId(@PathVariable String associationId) {
+        List<TontineDto> tontines = associationService.getTontinesByAssociationId(associationId);
+        CommonResponseModel response=new CommonResponseModel("Sucess of operation","0",tontines);
         return ResponseEntity.ok(tontines);
     }
 
@@ -246,12 +242,44 @@ public class AssociationController {
 
     @PostMapping("/tontine/create")
     public ResponseEntity<CreateAssoDto> createTontine(@RequestBody CreerAssoModele creerAssoModele) {
-        System.out.println("-*-*-*-*-*-*-*-Passe bien par ici-*-*-*-*");
         // Créer et retourner le DTO
         CreateAssoDto association = associationService.createAssociation(creerAssoModele);
         return ResponseEntity.ok(association);
     }
 
+
+    /* ********************* GESTION DES DOCUMENTS **************************** */
+
+    @PostMapping("/uploadFile")
+    public ResponseEntity<Document> uploadFile(@RequestParam String nom,@RequestParam String description,@RequestParam String associationId,@RequestParam MultipartFile file) throws IOException {
+
+        UploadFileModel uploadFileModel=new UploadFileModel();
+        uploadFileModel.setNom(nom);
+        uploadFileModel.setDescription(description);
+        uploadFileModel.setAssociationId(associationId);
+        uploadFileModel.setFile(file);
+
+        Document document =associationService.uploadFile(uploadFileModel);
+        // On crèe un nouveau document avec les attributs correspondant.
+
+        return ResponseEntity.ok(document);
+    }
+
+    @GetMapping ("/documentsByAssociation")
+    public List<DocumentDto> getDocumentsByAssociationId(@RequestParam String associationId){
+
+        List<DocumentDto> documents=associationService.getDocumentsByAssociationId(associationId);
+        System.out.println(documents.size());
+        return documents;
+
+    }
+
+    @PostMapping("/association/{id}/downloadFile")
+    public ResponseEntity<CreateAssoDto> downloadFile(@RequestBody CreerAssoModele creerAssoModele) {
+        // Créer et retourner le DTO
+        CreateAssoDto association = associationService.createAssociation(creerAssoModele);
+        return ResponseEntity.ok(association);
+    }
 
 
 }

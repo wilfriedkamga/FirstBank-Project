@@ -115,7 +115,6 @@ public class UserManagerBus  implements IUserManagerBus {
         	throw new Exception("Cette adresse mail est déjà utilisé");
 		User obj = new User();
 		obj.setPhone(phone);
-		System.out.println("Voici votre nom complet." +fullname);
 		obj.setFullName(fullname);
 		obj.setEmail(email);
 		obj.setBirthDate(birthDate);
@@ -123,8 +122,9 @@ public class UserManagerBus  implements IUserManagerBus {
 		obj.setGender(gender);
 		obj.setPassword(passwordEncoder.encode(password));
 		User user1=userRepository.save(obj);
+        System.out.println("passe par ce nouveau point 1");
 		enregistrer(obj);
-
+        System.out.println("passe par ce nouveau point 0");
 		return user1;
 	}
 

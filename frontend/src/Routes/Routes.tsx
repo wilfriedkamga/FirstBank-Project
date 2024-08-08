@@ -47,6 +47,7 @@ import ParamSession from "../Components/AssociationUI/Elementary/ParametresTonti
 import FeatureInProgress from "../Components/AssociationUI/Elementary/FeatureInProgress";
 import UneReunionContent from "../Components/AssociationUI/Elementary/MesTontines/Reunions/UneReunionContent";
 import Cotisations from "../Components/AssociationUI/Elementary/MesTontines/Reunions/Cotisations";
+import ParamTontines from "../Components/AssociationUI/Elementary/Caisses/ParamTontines ";
 
 const isKeyInLocalStorage = (key: string): boolean => {
   const token = localStorage.getItem(key);
@@ -133,7 +134,7 @@ export const router = createBrowserRouter([
                                   },
                                   {
                                     path: "/association/mes associations/:idassociation/tontines/:idCaisse/parametres",
-                                    element: <Parametres />,
+                                    element: <ParamTontines />,
                                     errorElement: <ErrorElement />,
                                   },
                                   {
@@ -164,6 +165,11 @@ export const router = createBrowserRouter([
                                   {
                                     path: "/association/mes associations/:idassociation/tontines/:idCaisse/membre",
                                     element: <MembresCaisseContent />,
+                                    errorElement: <ErrorElement />,
+                                  },
+                                  {
+                                    path: "/association/mes associations/:idassociation/tontines/:idCaisse/remboursements",
+                                    element: <div><FeatureInProgress/></div>,
                                     errorElement: <ErrorElement />,
                                   },
                                 ],
