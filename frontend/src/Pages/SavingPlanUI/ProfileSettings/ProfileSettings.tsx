@@ -10,6 +10,7 @@ import {
   ShareIcon,
 } from "@heroicons/react/24/outline";
 import Variable from "../../../Variable";
+import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { useNavigate } from "react-router-dom";
 import Authentications from "../../../Services/Authentications";
 import Header from "../../../Components/SavingPlan/header/Header";
@@ -47,6 +48,7 @@ const ProfileSettings = () => {
         <Header />
       </div>
       <div className="flex mt-[10vh] mb-[10vh] flex-col pt-5 md:px-5 h-full w-full space-y-8 overflow-auto">
+
         <div className="font-medium bg-gray-400 w-full space-y-2">
           <UserProfileCard />
           <p className="font-title text-lg md:text-2xl ml-36 md:ml-56">
@@ -55,7 +57,7 @@ const ProfileSettings = () => {
         </div>
         <div className="ml-5 border-b border-gray-200">
           <h3 className="font-medium text-gray-500 font-account text-2xl">
-            Settings
+            Paramètres
           </h3>
         </div>
         <div className="flex flex-col bg-white w-full p-2 space-y-2">
@@ -67,7 +69,7 @@ const ProfileSettings = () => {
               <PencilSquareIcon className="h-8 w-8" />
             </div>
             <p className="font-normal p-5 group-hover:text-[#BB0A01] text-gray-700 font-title">
-              Edit profile
+              Éditer votre profil
             </p>
           </a>
           <a
@@ -78,7 +80,7 @@ const ProfileSettings = () => {
               <LockClosedIcon className="h-8 w-8" />
             </div>
             <p className="font-normal p-5 text-gray-700 group-hover:text-[#BB0A01] font-title">
-              Modify password
+              Modifier votre mot de passe
             </p>
           </a>
 
@@ -92,8 +94,8 @@ const ProfileSettings = () => {
             </div>
             <p className="font-normal p-5 group-hover:text-[#BB0A01] text-gray-700 font-title">
               {emailIsValid
-                ? "Verify Email ( Already done)"
-                : "Verify Email (click for verify your email)"}
+                ? "Verifier Email ( déjà vérifier)"
+                : "Verifier votre adresse (cliquer pour vérifier votre adresse mail)"}
             </p>
           </button>
           <a
@@ -104,16 +106,19 @@ const ProfileSettings = () => {
               <IdentificationIcon className="h-8 w-8" />
             </div>
             <p className="font-normal p-5 group-hover:text-[#BB0A01] text-gray-700 font-title">
-              Add CNI
+              Ajouter votre CNI
             </p>
           </a>
 
-          <a className="flex flex-row group items-center justify-start  rounded-lg w-full">
-            <div className="p-5">
+          <a
+            href="/add_signature"
+            className="flex flex-row group items-center justify-start bg-white rounded-lg w-full hover:bg-gray-100"
+          >
+            <div className="p-5 group-hover:text-[#BB0A01]">
               <InboxArrowDownIcon className="h-8 w-8" />
             </div>
-            <p className="font-normal p-5 text-gray-300 font-title">
-              Add / Modify Signature.
+            <p className="font-normal p-5 group-hover:text-[#BB0A01] text-gray-700 font-title">
+              Ajouter / modifier votre signature
             </p>
           </a>
         </div>

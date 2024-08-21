@@ -1,8 +1,8 @@
 class MembreAssociationModel{
     id: string;
-    name: string;
+    name?: string;
     phone: string;
-    role: string;
+    role?: string;
     
 
     constructor(id: string, name: string, phone: string, role: string) {

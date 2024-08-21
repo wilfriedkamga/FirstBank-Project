@@ -12,6 +12,7 @@ import {
   InputLabel,
   FormControl,
   SelectChangeEvent,
+  InputAdornment,
 } from "@mui/material";
 import AlertDialog from "../Notifications/AlertDialog";
 import AssociationServices from "../../../../Services/AssociationServices";
@@ -52,7 +53,7 @@ const ConfirmationDialogRaw = (props: any) => {
   const [type, setType] = React.useState<string>("");
   const [description, setDescription] = React.useState<string>("");
   const [associationId, setAssociationId] = React.useState<string>("");
-  const [name, setName] = React.useState<string>("");
+  const [nameTontine, setNameTontine] = React.useState<string>("");
   const [startDate, setStartDate] = React.useState<string>("");
   const [amount, setAmount] = React.useState<string>("");
   const [memberCount, setMemberCount] = React.useState<number>(0);
@@ -68,12 +69,15 @@ const ConfirmationDialogRaw = (props: any) => {
     MembreAssoInit(location.pathname.split("/")[3]);
   }, []);
 
+  const today = new Date().toISOString().split("T")[0];
   // Initialisation de la liste des membres de l'association
   const MembreAssoInit = (idAsso: string) => {
     AssociationServices.GetMembersByAssociationId(idAsso)
       .then((response) => {
         console.log(response.data);
-        setTontineMembreList(MembreAssociationModel.constructData(response.data));
+        setTontineMembreList(
+          MembreAssociationModel.constructData(response.data)
+        );
       })
       .catch((error) => {
         console.log(
@@ -105,40 +109,33 @@ const ConfirmationDialogRaw = (props: any) => {
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
 
-    
-    const data = 
-      { nom:name,
-        type:type,
-        description:description,
-        date_ouverture:startDate,
-        date_fermeture:endDate,
-        montant:amount,
-        creationDate:Date.now.toString,
-        associationId:location.pathname.split("/")[3],
-        phoneValidateur1:validator1,
-        phoneValidateur2:setValidator2,
-      }
-
-      AssociationServices.Createtontine(data)
-      .then((response)=>{
-        console.log(response)
-      })
-      .catch((error)=>{
-      
-      })
-
-      resetForm();
-      onClose()
-
+    const data = {
+      nom: nameTontine,
+      type: type,
+      description: description,
+      date_ouverture: startDate,
+      date_fermeture: endDate,
+      montant: amount,
+      creationDate: Date.now.toString,
+      associationId: location.pathname.split("/")[3],
+      phoneValidateur1: validator1,
+      phoneValidateur2: setValidator2,
     };
-    
-  
-  
+
+    AssociationServices.Createtontine(data)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {});
+
+    resetForm();
+    onClose();
+  };
 
   const resetForm = () => {
     setStep(1);
     setType("");
-    setName("");
+    setNameTontine("");
     setStartDate("");
     setAmount("");
     setMemberCount(0);
@@ -148,142 +145,162 @@ const ConfirmationDialogRaw = (props: any) => {
     setValidator2("");
   };
 
-
   const renderFormFields = () => {
     return (
       <>
+        <label className="font-bold mb-4">
+          Nom de la tontine <label className="text-red-600">*</label>
+        </label>
+        <TextField
+          required
+          id="outlined-required"
+          label=""
+          value={nameTontine}
+          defaultValue={nameTontine}
+          placeholder="Nom de l'association"
+          className="w-full mt-4"
+          onChange={(e) => setNameTontine(e.target.value)}
+        />
         {type === "dette" && (
           <>
+            <label className="font-bold mt-4" htmlFor="">
+              Date de début du cycle de cotisation
+            </label>
             <TextField
               required
-              label="Nom de la tontine"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              fullWidth
-              margin="normal"
-            />
-            <TextField
-              required
-              label="Date de début du cycle de cotisation"
               type="date"
               value={startDate}
               onChange={(e) => setStartDate(e.target.value)}
-              InputLabelProps={{
-                shrink: true,
-              }}
               fullWidth
-              margin="normal"
+              inputProps={{ min: today }}
             />
+
+            <label className="font-bold mt-" htmlFor="">
+              Montant des cotisations
+            </label>
+
             <TextField
               required
-              label="Montant des cotisations"
               type="number"
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
               fullWidth
-              margin="normal"
+              placeholder="1000 000 000 000 000"
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">FCFA</InputAdornment>
+                ),
+              }}
+              inputProps={{
+                min: 1000, // Valeurs minimales autorisées
+              }}
             />
           </>
         )}
         {type === "epargne" && (
           <>
+            <label className="font-bold mt-" htmlFor="">
+              Montant cible par membre
+            </label>
             <TextField
               required
-              label="Nom de la caisse"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              fullWidth
-              margin="normal"
-            />
-            <TextField
-              required
-              label="Montant cible par membre"
               type="number"
-              value={memberCount}
-              onChange={(e) => setMemberCount(Number(e.target.value))}
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
               fullWidth
-              margin="normal"
+              placeholder="1000 000 000 000 000"
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">FCFA</InputAdornment>
+                ),
+              }}
+              inputProps={{
+                min: 1000, // Valeurs minimales autorisées
+              }}
             />
+            <label className="font-bold mt-" htmlFor="">
+              Début des cotisations
+            </label>
             <TextField
               required
-              label="Début des cotisations"
               type="date"
               value={startDate}
               onChange={(e) => setStartDate(e.target.value)}
-              InputLabelProps={{
-                shrink: true,
-              }}
               fullWidth
-              margin="normal"
+              inputProps={{ min: today }}
             />
+            <label className="font-bold mt-" htmlFor="">
+              Fin des cotisations
+            </label>
+
             <TextField
+              disabled={startDate.length == 0}
               required
-              label="Fin des cotisations"
               type="date"
               value={endDate}
               onChange={(e) => setEndDate(e.target.value)}
-              InputLabelProps={{
-                shrink: true,
-              }}
               fullWidth
-              margin="normal"
+              inputProps={{ min: startDate }}
             />
           </>
         )}
         {type === "sociale" && (
           <>
+            <label className="font-bold mt-" htmlFor="">
+              Raison d'être
+            </label>
             <TextField
               required
-              label="Nom de la tontine"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              fullWidth
-              margin="normal"
-            />
-            <TextField
-              required
-              label="Raison d'être"
               value={purpose}
               onChange={(e) => setPurpose(e.target.value)}
               fullWidth
-              margin="normal"
+              multiline
             />
+            <label className="font-bold mt-" htmlFor="">
+              Montant minimum attendu
+            </label>
             <TextField
               required
-              label="Montant minimum attendu"
               type="number"
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
               fullWidth
-              margin="normal"
+              placeholder="1000 000 000 000 000"
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">FCFA</InputAdornment>
+                ),
+              }}
+              inputProps={{
+                min: 1000, // Valeurs minimales autorisées
+              }}
             />
+
+            <label className="font-bold mt-" htmlFor="">
+              Date d'ouverture
+            </label>
             <TextField
               required
-              label="Date d'ouverture"
+              label=""
               type="date"
               value={startDate}
               onChange={(e) => setStartDate(e.target.value)}
-              InputLabelProps={{
-                shrink: true,
-              }}
               fullWidth
-              margin="normal"
+              inputProps={{ min: today }}
             />
+            <label className="font-bold mt-" htmlFor="">
+              Date de fermeture
+            </label>
             <TextField
               required
-              label="Date de fermeture"
               type="date"
               value={endDate}
               onChange={(e) => setEndDate(e.target.value)}
-              InputLabelProps={{
-                shrink: true,
-              }}
               fullWidth
-              margin="normal"
+              inputProps={{ min: today }}
             />
           </>
         )}
-
         <DualSelect
           label1="Validateur 1"
           label2="Validateur 2"
@@ -298,7 +315,7 @@ const ConfirmationDialogRaw = (props: any) => {
   return (
     <Dialog
       sx={{
-        "& .MuiDialog-paper": { width: "35%", maxHeight: 600 },
+        "& .MuiDialog-paper": { width: "40%", maxHeight: 600 },
       }}
       maxWidth="md"
       open={open}
@@ -307,10 +324,10 @@ const ConfirmationDialogRaw = (props: any) => {
       <DialogTitle className="font-bold">
         {step === 1 ? "Choisir le type de tontine" : "Créer une tontine"}
       </DialogTitle>
-      <DialogContent dividers>
+      <DialogContent  dividers>
         {step === 1 ? (
           <FormControl fullWidth margin="normal">
-            <label>Type de tontine</label>
+            <label className="mb-3 font-bold">Type de tontine</label>
             <Select value={type} onChange={handleTypeChange}>
               {tontineTypes.map((option) => (
                 <MenuItem key={option.value} value={option.value}>

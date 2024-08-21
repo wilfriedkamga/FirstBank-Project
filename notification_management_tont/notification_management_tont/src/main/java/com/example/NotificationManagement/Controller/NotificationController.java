@@ -8,9 +8,11 @@ import com.example.NotificationManagement.Modele.SendInvitationModel;
 import com.example.NotificationManagement.dto.NotificationDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.MessageSource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,13 +25,14 @@ public class NotificationController {
     @Autowired
     private NotificationService notificationService;
 
+    @Autowired
+    private MessageSource messageSource;
 
     @PostMapping("/email")
     public ResponseEntity<String> sendEmail(@RequestParam String to, @RequestParam String subject, @RequestParam String text) {
         notificationService.sendEmail(to, subject, text);
         return ResponseEntity.ok("Email sent successfully");
     }
-
 
     @PostMapping("/sms")
     public ResponseEntity<String> sendSms(@RequestParam String phone, @RequestParam String message) {
@@ -46,10 +49,22 @@ public class NotificationController {
         return ResponseEntity.ok("SMS sent successfully");
     }
 
+    @PostMapping("/registerTokenPhone")
+    public ResponseEntity<String> registerPhonesToken(@RequestBody String phone, @RequestParam String token) {
 
-    @PostMapping("/push")
-    public ResponseEntity<String> sendPushNotification(@RequestParam String recipientToken, @RequestParam String title, @RequestParam String messageBody) {
+        notificationService.registerTokenPhone(phone,token);
+        return ResponseEntity.ok("sucess of registration");
+    }
+
+    @PostMapping("/pushNotificationByToken")
+    public ResponseEntity<String> sendPushNotificationByToken(@RequestParam String recipientToken, @RequestParam String title, @RequestParam String messageBody) {
         notificationService.sendPushNotification(recipientToken, title, messageBody);
+        return ResponseEntity.ok("Push notification sent successfully");
+    }
+
+    @PostMapping("/pushNotificationByPhone")
+    public ResponseEntity<String> sendPushNotificationByPhone(@RequestParam String phone, @RequestParam String title, @RequestParam String messageBody) {
+        notificationService.sendPushNotificationWithPhone(phone, title, messageBody);
         return ResponseEntity.ok("Push notification sent successfully");
     }
 
@@ -65,7 +80,7 @@ public class NotificationController {
         data.add(notification2.getUtilisateur().getPhone());
 
         CommonResponseModel commonResponseModel=new CommonResponseModel("Sucess", "0",data);
-        System.out.println("Voici le numero de telephone"+createNotifModel.getPhone());
+        System.out.println("Voici le numero de telephone"+createNotifModel.getReceiverPhone());
         return ResponseEntity.ok().body(commonResponseModel);
     }
 
@@ -83,6 +98,12 @@ public class NotificationController {
     public void readNotifications(@RequestBody List<String> notificationIds, @RequestParam String phone) {
         notificationService.readNotifications(notificationIds, phone);
     }
+
+    @PostMapping("/answerNotification")
+    public void answerNotifications(@RequestBody String notificationId, @RequestParam boolean status) {
+        notificationService.answerNotification(notificationId, status);
+    }
+
 
 
     @DeleteMapping("/delete/{notificationId}")

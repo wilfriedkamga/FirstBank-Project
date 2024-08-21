@@ -1,0 +1,33 @@
+/* OtpInputField.css */
+
+.p-inputotp-input {
+  border-radius: 0.625rem; /* 10px comme dans le TextFieldSimple */
+  border-width: 2px;
+  width: 60px;
+  border-color: #e5e7eb; /* Couleur de bordure par défaut */
+  height: 60px; /* Hauteur comme dans TextFieldSimple */
+  font-size: 2rem; /* Taille du texte */
+}
+
+.p-inputotp-input:focus {
+  border-color: #ef4444; /* Couleur de bordure en focus */
+  border-width: 1px; /* Pas de bordure en focus */
+  box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.4); /* Ombre comme dans TextFieldSimple *//* 10px comme dans le TextFieldSimple */
+
+}
+
+
+.p-inputotp.read-only {
+  background-color: #e5e7eb; /* Couleur de fond pour lecture seule */
+}
+
+/* Styles pour les messages d'aide */
+.helper-text {
+  font-size: 0.625rem; /* Taille du texte d'aide */
+  margin-top: 0.3125rem; /* Espace au-dessus du texte d'aide */
+  color: #6b7280; /* Couleur du texte d'aide par défaut */
+}
+
+.helper-text.error {
+  color: #ef4444; /* Couleur du texte d'aide en cas d'erreur */
+}

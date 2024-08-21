@@ -1,54 +1,36 @@
 package com.example.AssociationManagement.Dao.Dto;
 
 import java.time.LocalDate;
-
+import java.util.Date;
 
 
 public class TontineDto {
     private String id;
-    private String name;
+    private String tontineName;
     private LocalDate creationDate;
-    private String type;// dette epargne, sociale
-    private String montant;
-    private String periodicite;
+    private String type;
+    private String amount;
+    private Date startDate;
+    private Date endDate;
+    private String purpose;
+    private String nbMembres;
+    private String nbNotifications;
 
-    public TontineDto(String id, String name, LocalDate creationDate) {
-        this.id = id;
-        this.name = name;
-        this.creationDate = creationDate;
+
+    public String getNbMembres() {
+        return nbMembres;
     }
 
-    public TontineDto(String id, String name, LocalDate creationDate, String type, String montant_freq, String periodicite) {
-        this.id = id;
-        this.name = name;
-        this.creationDate = creationDate;
-        this.type = type;
-        this.montant = montant_freq;
-        this.periodicite = periodicite;
+    public void setNbMembres(String nbMembres) {
+        this.nbMembres = nbMembres;
     }
 
-    public String getType() {
-        return type;
+    public String getNbNotifications() {
+        return nbNotifications;
     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getMontant_freq() {
-        return montant;
-    }
-
-    public void setMontant_freq(String montant_freq) {
-        this.montant = montant_freq;
-    }
-
-    public String getPeriodicite() {
-        return periodicite;
-    }
-
-    public void setPeriodicite(String periodicite) {
-        this.periodicite = periodicite;
+    public void setNbNotifications(String nbNotifications) {
+        this.nbNotifications = nbNotifications;
     }
 
     public String getId() {
@@ -59,12 +41,12 @@ public class TontineDto {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getTontineName() {
+        return tontineName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTontineName(String tontineName) {
+        this.tontineName = tontineName;
     }
 
     public LocalDate getCreationDate() {
@@ -73,5 +55,45 @@ public class TontineDto {
 
     public void setCreationDate(LocalDate creationDate) {
         this.creationDate = creationDate;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getAmount() {
+        return amount;
+    }
+
+    public void setAmount(String amount) {
+        this.amount = amount;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    public String getPurpose() {
+        return purpose;
+    }
+
+    public void setPurpose(String purpose) {
+        this.purpose = purpose;
     }
 }

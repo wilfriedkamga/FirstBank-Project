@@ -1,16 +1,26 @@
 import React, { useEffect, useState } from "react";
-import logo from "../../../../Assets/Images/FBLogo.png";
 import axios from "axios";
 import { Await, useNavigate } from "react-router-dom";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import "./Signin.css";
+import logo from "../../../../Assets/Images/FBLogo.png";
 import Popup from "reactjs-popup";
 import SimpleDialog from "../../Elementary/Dialog/SimpleDialog";
 import { ProgressSpinner } from "primereact/progressspinner";
 import useAuthStore2 from "../../../../Store/AuthStore2";
 import Authentications from "../../../../Services/Authentications";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import Variable from "../../../../Variable";
+import { useTranslation } from "react-i18next";
+import TextFieldPassword from "../../MuiCustomComponent/TextFieldPassword";
+import SpinnerComponent from "../../MuiCustomComponent/SpinnerComponent";
+import spinnerLoading from "../../../../Assets/Spinners/circle-submit.svg";
+import SubmitedButton from "../../MuiCustomComponent/SubmitedButton";
+import SimpleButtonLink from "../../MuiCustomComponent/SimpleButtonLink";
+import { Box } from "@mui/material";
+import LabelField from "../../MuiCustomComponent/LabelField";
+import PhoneInputRole from "../../Elementary/MesTontines/PhoneInputRole";
 
 /* definitiion des nouveaux types*/
 
@@ -29,20 +39,26 @@ const Signup: React.FC<ChildComponentProps> = ({
 
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
-  const [photo, setPhoto] = useState("");
-  const [cniRecto, setCniRecto] = useState("");
-  const [cniVerso, setCniVerso] = useState("");
-  const [response, setResponse] = useState("");
+  const [contact,setContact]=useState("")
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [errorVisibility, setErrorVisibility] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  const [visible, setVisible] = useState<boolean>(false);
-  const [isGood, setIsGood] = useState<boolean>(false);
   const [dialogMessage, setDialogMessage] = useState(
     "Incorrect password or phone"
   );
+
+  const [showPasswordError, setShowPasswordError] = useState(false);
   const navigate = useNavigate();
 
+  const handlePasswordChange2 = (value: string) => {
+    setPassword(value);
+    setShowPasswordError(value.length < 6); // Ex: Erreur si le mot de passe a moins de 6 caractères
+  };
+
   /** Definition des différentes fonctions à utiliser */
+
+  // fonction de tradcution
+  const { t } = useTranslation();
 
   function togglePasswordVisibility() {
     setIsPasswordVisible((prevState) => !prevState);
@@ -60,15 +76,16 @@ const Signup: React.FC<ChildComponentProps> = ({
     e.preventDefault();
 
     if (phone.length <= 3) {
-      setDialogMessage("Please enter a valid number phone");
+      setDialogMessage("veuillez entrer un numéro de téléphone correct");
       setErrorVisibility(true);
     } else {
-      setDialogMessage("Incorrect password or phone");
+      setDialogMessage("Téléphone ou mot de passe incorrects");
 
       const tempUser = {
         phone: phone,
         password: password,
       };
+      setIsLoading(true);
 
       Authentications.loginService(tempUser)
         .then((response: any) => {
@@ -84,13 +101,19 @@ const Signup: React.FC<ChildComponentProps> = ({
   };
 
   return (
-    <section className="bg-white w-full h-full shadow-xl lg:w-[28vw] lg:h-[90vh] relative p-5 dark:bg-gray-900 lg:rounded-xl z-3">
+    <section className="bg-white w-full h-full shadow-xl lg:w-[28vw] lg:h-[90vh] relative px-5 dark:bg-gray-900 lg:rounded-xl z-3">
+      <button
+        onClick={() => handleClick()}
+        className=" flex justify-start text-center ml-4 mt-4 items-center rounded-lg"
+      >
+        <ArrowBackIosIcon />{" "}
+      </button>
+      <h1 className="text-2xl font-semibold tracking-wider justify-center items-center flex  mb-4  text-red-600 text-gray-800   capitalize dark:text-white">
+        {t("usermanagement.signin.title")}
+      </h1>
       <div className="">
         <div className=" max-w-2xl mx-auto lg:w-4/5 ">
-          <div className="w-full h-full  bg-gree-300 ">
-            <h1 className="text-2xl font-semibold tracking-wider text-red-600 text-gray-800 text-center mt-3 capitalize dark:text-white">
-              Connexion
-            </h1>
+          <div className="w-full h-full ">
             <div className="absolute z-20 ml-4 lg:ml-0  mt-20 lg:mt-20 lg:mr-15 w-4/5">
               {errorVisibility ? (
                 <SimpleDialog
@@ -99,14 +122,12 @@ const Signup: React.FC<ChildComponentProps> = ({
                 />
               ) : null}
             </div>
-
-            <p className="mt-4 text-gray-700 dark:text-gray-400 text-center ">
-              Remplir ces champs pour vous connecter.
-            </p>
-
-            <form className="gap-6 mt-6 " onSubmit={(e) => handleSubmit(e)}>
-              <div>
-                <label className="block mb-1 lg:mb-2 ">Teléphone</label>
+            <form
+              className="gap- mt-6 flex flex-col "
+              onSubmit={(e) => handleSubmit(e)}
+            >
+              <div className="mt-3">
+                <LabelField text={t("usermanagement.signin.labelPhone")} />
                 <PhoneInput
                   inputClass="block required:true w-full h-full mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-red-400 dark:focus:border-red-400 focus:ring-red-400 focus:outline-none focus:ring focus:ring-opacity-40"
                   country={"cm"}
@@ -115,51 +136,47 @@ const Signup: React.FC<ChildComponentProps> = ({
                 />
               </div>
 
-              <div>
-                <label className="block mb-2 text-sm mt-3 ">Mot de passe</label>
-                <input
-                  value={password}
-                  onChange={handlePasswordChange}
-                  type={isPasswordVisible ? "text" : "password"}
-                  placeholder="Entrez votre mot de passe"
-                  className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-red-400 dark:focus:border-red-400 focus:ring-red-400 focus:outline-none focus:ring focus:ring-opacity-40"
-                  required
-                />
-
-                <button
-                  className="float-right text-red-600 text-xs hover:text-red-700 cursor-pointer"
-                  onClick={() => togglePassword()}
-                >
-                  Mot de passe oublié?
-                </button>
-                <label className="flex items-center mt-4">
-                  <input
-                    type="checkbox"
-                    className="mr-2  w-4 h-4"
-                    checked={isPasswordVisible}
-                    onChange={togglePasswordVisibility}
+              <div className="mt-5">
+                <LabelField text={t("usermanagement.signin.labelPassword")} />
+                <Box>
+                  <TextFieldPassword
+                    required
+                    label="Mot de passe"
+                    value={password}
+                    onChange={handlePasswordChange2}
+                    placeholder={t("usermanagement.signin.placeHolderPassword")}
+                    helperText={
+                      showPasswordError
+                        ? "Le mot de passe doit contenir au moins 6 caractères"
+                        : ""
+                    }
+                    error={showPasswordError}
+                    unview={true} // Par défaut, le mot de passe est masqué
                   />
-                  <span className="text-xs  text-gray-600">Voir mot de passe</span>
-                </label>
+                </Box>
+                <div className="mb-6">
+                  <SimpleButtonLink
+                    text={t("usermanagement.signin.messageForgetPassword")}
+                    float="right"
+                    onClick={() => togglePassword()}
+                  />
+                </div>
+              </div>
+              <div className="mt-6 ">
+                <SubmitedButton
+                  timeout={3000}
+                  isLoading={isLoading}
+                  text={t("usermanagement.signin.signinButton")}
+                />
               </div>
 
-              <button
-                // onClick={() => handleSubmit()}
-                type="submit"
-                className="flex items-center justify-center w-full mt-9 font-bold  lg:mt-10 px-6 py-3 text-sm tracking-wide text-white capitalize transition-colors duration-300 transform bg-red-600 rounded-lg hover:bg-red-400 focus:outline-none focus:ring focus:ring-red-300 focus:ring-opacity-50"
-              >
-                Se connecter 
-              </button>
-
-              <p className="flex items-center justify-center mr-1 mt-2">
-                Vous n'avez pas de compte ?
-                <button
-                  className="signin hover:text-red-800 ml-1 text-red-600"
+              <p className="flex items-center justify-center mr-1 mt-3">
+                {t("usermanagement.signin.haveAccountMessage")}
+                <SimpleButtonLink
+                  fontSize="14px"
+                  text={t("usermanagement.signin.signupButton")}
                   onClick={() => handleClick()}
-                >
-                  {""}
-                  S'inscrire
-                </button>
+                />
               </p>
             </form>
             <img

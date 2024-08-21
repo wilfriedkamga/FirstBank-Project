@@ -9,12 +9,18 @@ import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import SavingsOutlinedIcon from "@mui/icons-material/SavingsOutlined";
 import UserInfo from "./UserInfo";
 import { Link } from "react-router-dom";
+import { AssociationModel } from "../../../../Services/Types/AssociationModels";
 
 
 const add = (baseUrl: string, id: string) => {
   return baseUrl + id;
 };
-const AssociationCardM = ({ association }: any) => {
+
+type props={
+  association:AssociationModel
+}
+
+const AssociationCardM = ({ association }: props) => {
 
   const bull = (
     <Box
@@ -37,10 +43,10 @@ const AssociationCardM = ({ association }: any) => {
           <PeopleOutlineIcon /> Membres : {association.nbMembre}
         </Typography>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          <SavingsOutlinedIcon /> Tontines : {association.nbMembre}
+          <SavingsOutlinedIcon /> Tontines : {association.nbTontine}
         </Typography>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          <NotificationsNoneIcon /> Notifications: {association.nbMembre}
+          <NotificationsNoneIcon /> Notifications: {association.creationDate}
         </Typography>
       </CardContent>
       <CardActions className="flex justify-center  items-center">

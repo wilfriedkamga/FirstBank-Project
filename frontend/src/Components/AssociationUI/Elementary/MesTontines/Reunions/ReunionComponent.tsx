@@ -5,7 +5,7 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import DownloadForOfflineIcon from "@mui/icons-material/DownloadForOffline";
 import CancelIcon from "@mui/icons-material/Cancel";
-import ExpandCircleDownIcon from "@mui/icons-material/ExpandCircleDown";
+import VisibilityIcon from "@mui/icons-material/Visibility"; // Icône pour visualiser la réunion
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -24,6 +24,7 @@ type ReunionProps = {
   receveur: string;
   etat: number;
   rapport: string;
+  typeReunion: string; // Ajouter typeReunion ici
 };
 
 const ReunionComponent: React.FC<ReunionProps> = ({
@@ -35,6 +36,7 @@ const ReunionComponent: React.FC<ReunionProps> = ({
   receveur,
   etat,
   rapport,
+  typeReunion, // Nouveau prop
 }) => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -70,12 +72,16 @@ const ReunionComponent: React.FC<ReunionProps> = ({
           <Typography sx={{ textAlign: "left", fontSize: "12px" }}>
             Heure de fin: {endTime}
           </Typography>
-          <Typography sx={{ textAlign: "left", fontSize: "12px" }}>
-            Lieu: {lieu}
-          </Typography>
-          <Typography sx={{ textAlign: "left", fontSize: "12px" }}>
-            {receveur}
-          </Typography>
+          {typeReunion === "présentiel" && (
+            <>
+              <Typography sx={{ textAlign: "left", fontSize: "12px" }}>
+                Lieu: {lieu}
+              </Typography>
+              <Typography sx={{ textAlign: "left", fontSize: "12px" }}>
+                {receveur}
+              </Typography>
+            </>
+          )}
         </div>
         <div className="left-[50px] flex items-center gap-2 rounded-lg relative left-[60px]">
           <div className="hover:bg-gray-200 rounded-lg">
@@ -91,7 +97,7 @@ const ReunionComponent: React.FC<ReunionProps> = ({
                 navigate(location.pathname + "/" + id)
               }}
             >
-              <ExpandCircleDownIcon
+              <VisibilityIcon
                 sx={{ fontSize: "35px", color: "#bb0000", zIndex: "0" }}
               />
             </button>

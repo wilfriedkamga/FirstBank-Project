@@ -2,30 +2,30 @@ import axios from "axios";
 import Variable from "../Variable";
 
 const routes_create_association =
-  Variable.routeApiAssociation + "/api/associationmanagement/create";
-  const routes_create_tontine =
+  Variable.routeApiAssociation +
+  "/api/associationmanagement/create_association";
+const routes_create_tontine =
   Variable.routeApiAssociation + "/api/associationmanagement/createTontine";
 const routes_get_association_details =
-  Variable.routeApiAssociation + "/api/associationmanagement/getAssociation";
+  Variable.routeApiAssociation + "/api/associationmanagement/association_by_id";
 const route_get_all_association =
   Variable.routeApiAssociation +
-  "/api/associationmanagement/associations-by-phone";
+  "/api/associationmanagement/associations_by_phone";
 const route_get_tontines_by_association =
   Variable.routeApiAssociation +
-  "/api/associationmanagement/association/{id}/tontines";
+  "/api/associationmanagement/get_tontines_by_association";
 const route_get_members_by_association =
   Variable.routeApiAssociation +
   "/api/associationmanagement/association/{id}/members";
 const route_get_reunions_by_association =
   Variable.routeApiAssociation +
   "/api/associationmanagement/association/{id}/reunions";
-  const route_get_roles_by_association =
-  Variable.routeApiAssociation +
-  "/api/associationmanagement/roles";
+const route_get_roles_by_association =
+  Variable.routeApiAssociation + "/api/associationmanagement/roles";
 const route_get_events_by_association =
   Variable.routeApiAssociation +
   "/api/associationmanagement/association/{id}/events";
-  const route_get_documents_by_associationId =
+const route_get_documents_by_associationId =
   Variable.routeApiAssociation +
   "/api/associationmanagement/documentsByAssociation";
 const route_add_member =
@@ -37,11 +37,18 @@ const route_update_association =
 const route_delete_member =
   Variable.routeApiAssociation +
   "/api/associationmanagement/delete-member/{memberId}";
+const route_verify_name_association_before_creation =
+  Variable.routeApiAssociation +
+  "/api/associationmanagement/verify_name_before_creation";
 const route_change_member_role =
   Variable.routeApiAssociation +
   "/api/associationmanagement/change-member-role";
+  const route_delete_document =
+  Variable.routeApiAssociation + "/api/associationmanagement/delete_document";
 const route_get_member_details =
   Variable.routeApiAssociation + "/api/associationmanagement/member-details";
+const route_upload_file_for_association =
+  Variable.routeApiAssociation + "/api/associationmanagement/uploadFile";
 const route_get_default_role =
   Variable.routeApiAssociation + "/api/associationmanagement/getDefaultRoles";
 const route_get_default_frequency =
@@ -58,13 +65,30 @@ class AssociationServices {
   }
   // Créer une association
   CreateAssociation(data: any) {
-    console.log(data)
+    console.log(data);
     return axios.post(routes_create_association, data);
+  }
+
+  VerifryAssociationNameBeforeCreation(assoName: string, phone: string) {
+    console.log(
+      route_verify_name_association_before_creation +
+        "?associationName=" +
+        assoName +
+        "&phoneCreator=" +
+        phone
+    );
+    return axios.post(
+      route_verify_name_association_before_creation +
+        "?associationName=" +
+        assoName +
+        "&phoneCreator=" +
+        phone
+    );
   }
 
   // Créer une tontine
   Createtontine(data: any) {
-    console.log(data)
+    console.log(data);
     return axios.post(routes_create_tontine, data);
   }
 
@@ -73,8 +97,10 @@ class AssociationServices {
     return axios.get(route_get_all_association + "?phone=" + phone);
   }
 
-  GetRoleByAssociation(associationId:string){
-    return axios.get(route_get_roles_by_association + "?associationId=" + associationId);
+  GetRoleByAssociation(associationId: string) {
+    return axios.get(
+      route_get_roles_by_association + "?associationId=" + associationId
+    );
   }
 
   // Récupérer les détails d'une association
@@ -83,8 +109,10 @@ class AssociationServices {
     return axios.get(routes_get_association_details + "?associationId=" + id);
   }
 
-  GetDocumentsByAssociationId(associationId:string){
-    return axios.get(route_get_documents_by_associationId + "?associationId=" + associationId);
+  GetDocumentsByAssociationId(associationId: string) {
+    return axios.get(
+      route_get_documents_by_associationId + "?associationId=" + associationId
+    );
   }
 
   // Récupérer les détails d'un membre
@@ -94,7 +122,9 @@ class AssociationServices {
 
   // Récupérer les tontines d'une association
   GetTontinesByAssociationId(id: string) {
-    return axios.get(route_get_tontines_by_association.replace("{id}", id));
+    return axios.get(
+      route_get_tontines_by_association + "?associationId=" + id
+    );
   }
 
   // Récupérer les membres d'une association
@@ -112,14 +142,22 @@ class AssociationServices {
     return axios.get(route_get_events_by_association.replace("{id}", id));
   }
 
+
+
   // Ajouter un membre dans une association
   AddMember(data: any) {
     return axios.post(route_add_member, data);
   }
 
+
   // Créer un nouveau rôle dans une association
   CreateRole(data: any) {
     return axios.post(route_create_role, data);
+  }
+
+  // Créer un nouveau rôle dans une association
+  Upload_file_for_association(data: any) {
+    return axios.post(route_upload_file_for_association, data);
   }
 
   // Modifier les informations d'une association
@@ -130,6 +168,10 @@ class AssociationServices {
   // Retirer un membre de l'association
   DeleteMember(memberId: string) {
     return axios.delete(route_delete_member.replace("{memberId}", memberId));
+  }
+
+  DeleteDocument(documentId: string, associationId:string) {
+    return axios.delete(route_delete_document+"?documentId="+documentId+"&associationId="+associationId);
   }
 
   // Changer le rôle d'un membre de l'association

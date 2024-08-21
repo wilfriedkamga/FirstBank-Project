@@ -169,7 +169,7 @@ const EditProfile: React.FC = () => {
 
       <div className="flex mt-[10vh] mb-[10vh] p-4 justify-center flex-col  h-full w-full space-y-6 ">
         <div className="rounded-t-lg h-[15vh] flex items-center font-bold text-white text-3xl pl-6 overflow-hidden bg-red-700">
-          Edit profil
+          Editer votre profil
         </div>
         <div className="bg-white w-[15vw] sm:w-[10vw] flex justify-center items-center   shadow h-[10vh]">
           <button
@@ -201,7 +201,7 @@ const EditProfile: React.FC = () => {
           }}
           className="bg-red-600 md:w-1/5 w-4/5 mx-auto p-2 font-bold text-white rounded-lg"
         >
-          Change profil image
+          Changer votre image de profil
         </button>
 
         <div className="w-full">
@@ -211,7 +211,7 @@ const EditProfile: React.FC = () => {
                 htmlFor="fullname"
                 className="block mb-2 text-md font-title font-medium text-gray-900"
               >
-                Your full name
+                Nom complet
               </label>
               <div className="flex gap-4 items-center">
                 <input
@@ -243,7 +243,7 @@ const EditProfile: React.FC = () => {
                 htmlFor="phone"
                 className="block mb-2 text-md font-title font-medium text-gray-900"
               >
-                Your phone number
+                Téléphone
               </label>
               <div className="flex items-center gap-4">
                 <PhoneInput country={"cm"} value={phone} disabled />
@@ -266,7 +266,7 @@ const EditProfile: React.FC = () => {
                 htmlFor="email"
                 className="block mb-2 text-md font-title font-medium text-gray-900"
               >
-                Your email address
+                Adresse email
               </label>
               <div className="flex items-center gap-4">
                 <input
@@ -298,7 +298,7 @@ const EditProfile: React.FC = () => {
                 htmlFor="birthdate"
                 className="block mb-2 text-md font-title font-medium text-gray-900"
               >
-                Your birthdate
+                Date de naissance
               </label>
               <div className="flex  gap-4 items-center">
                 <input
@@ -340,7 +340,7 @@ const EditProfile: React.FC = () => {
                 <span className="mr-2">
                   <FontAwesomeIcon icon={faCloudArrowUp} />
                 </span>
-                Save Changes
+                Sauvegarder les modifications
               </button>
               <AssoNotificationDialog
                 title={notifTitle}

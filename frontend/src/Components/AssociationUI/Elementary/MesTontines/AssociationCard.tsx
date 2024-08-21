@@ -19,8 +19,15 @@ import UserInfo from "./UserInfo";
 import { Link } from "react-router-dom";
 import Tooltip from "@mui/material/Tooltip";
 import TooltipSpan from "./TooltipSpan";
+import { TontineModel } from "../../../../Services/Types";
+import { AssociationModel } from "../../../../Services/Types/AssociationModels";
+import Variable from "../../../../Variable";
 
-const AssociationCard = ({ association }: any) => {
+
+type props={
+  association:AssociationModel
+}
+const AssociationCard = ({ association }: props) => {
   const bull = (
     <Box
       component="span"
@@ -42,13 +49,13 @@ const AssociationCard = ({ association }: any) => {
           <PeopleOutlineIcon /> Membres : {association.nbMembre}
         </Typography>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          <SavingsOutlinedIcon /> Tontines : {association.nbMembre}
+          <SavingsOutlinedIcon /> Tontines : {association.nbTontine}
         </Typography>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          <NotificationsNoneIcon /> Notifications: {association.nbMembre}
+          <NotificationsNoneIcon /> Notifications: {0}
         </Typography>
         <Typography sx={{ fontSize: 14 }} color="text.secondary">
-          <NotificationsNoneIcon /> Créer le: {formatDate(new Date())}
+          <NotificationsNoneIcon /> Créer le: {Variable.formatDate(association.creationDate)}
         </Typography>
       </CardContent>
       <CardActions className="flex justify-center z-0   items-center">

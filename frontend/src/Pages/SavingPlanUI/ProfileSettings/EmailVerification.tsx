@@ -58,26 +58,27 @@ const EmailVerification = () => {
     <div className="w-full bg-white h-[100vh]  flex flex-col">
       <Header />
 
-      <form action="" onSubmit={(e) => handleSubmit(e)}>
-        <div className="flex p-2.5 mt-[10vh] flex-col justify-center items-center  h-50vh bg-white w-full  md:w-4/5 mx-auto">
-          <div className="flex flex-row w-full md:w-2/5">
-            <div className=" bg-white w-[15vw] sm:w-[10vw]  flex justify-center items-center border  shadow h-[10vh]">
-              <button
-                className=" px-2 rounded-lg "
-                onClick={() => window.history.back()}
-              >
-                <KeyboardBackspaceIcon style={{ fontSize: "3rem" }} />
-              </button>
-            </div>
-            <div className=" bg-white w-full flex justify-center items-center  shadow h-[10vh]">
-              Vérification de l'adresse mail
-            </div>
-          </div>
+      <div className="flex mt-[13vh] mb-[] p-4 justify-center flex-col  h-full w-full space-y-6 ">
+        <div className="rounded-t-lg h-[15vh] flex items-center font-bold text-white text-3xl pl-6 overflow-hidden bg-red-700">
+          Verifier votre adresse mail
+        </div>
+        <div className="bg-white w-[15vw] sm:w-[10vw] flex justify-center items-center   shadow h-[10vh]">
+          <button
+            className="  rounded-lg"
+            onClick={() => window.history.back()}
+          >
+            <KeyboardBackspaceIcon style={{ fontSize: "2rem" }} />
+          </button>
+        </div>
+      </div>
 
-          <div className="flex flex-col font-semibold bg-white mt-2 rounded-lg mb-2 mx-auto w-full md:w-2/5 p-2 md:p-5 shadow-lg border h-full">
+      <form action="" onSubmit={(e) => handleSubmit(e)}>
+        <div className="  p-2.5 mt-[10vh]  h-40vh bg-white w-full  md:w-4/5 mx-auto">
+
+          <div className="flex flex-col font-semibold bg-white  rounded-lg mb-[10vh] mx-auto w-full md:w-3/5 p-2 md:p-5 shadow-lg border h-30vh">
             <div className="flex w-full flex-col  ">
               <p>
-                Un email contenant un code à 5 chiffres a été envoyé à l'adresse
+                Un un code à 5 chiffres a été envoyé à l'adresse
                 : {mail}
               </p>
               <p>
@@ -104,7 +105,7 @@ const EmailVerification = () => {
                 type="submit"
                 value="Verifier"
                 placeholder="Le nouveau numero de telephone"
-                className="  px-5 py-2 mt-5 bg-gray-600 rounded hover:bg-gray-800 text-white font-bold cursor-pointer"
+                className="  px-5 py-2 mt-5 bg-red-600 rounded hover:bg-red-800 text-white font-bold cursor-pointer"
               />
             </div>
             <AssoNotificationDialog

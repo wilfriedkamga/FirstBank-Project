@@ -27,7 +27,11 @@ public class Membre_Asso {
 
     private String phone;
 
-    private boolean isActif=false;
+    private boolean statusConfirmation=false;
+
+    private int numOrdre;
+
+    private boolean stateConfirmation=false;
 
     private LocalDate creationDate;
 
@@ -74,13 +78,31 @@ public class Membre_Asso {
         return role;
     }
 
-    public boolean isActif() {
-        return isActif;
+    public int getNumOrdre() {
+        return numOrdre;
     }
 
-    public void setActif(boolean actif) {
-        isActif = actif;
+    public boolean isStatusConfirmation() {
+        return statusConfirmation;
     }
+
+    public void setStatusConfirmation(boolean statusConfirmation) {
+        this.statusConfirmation = statusConfirmation;
+    }
+
+    public boolean isStateConfirmation() {
+        return stateConfirmation;
+    }
+
+    public void setStateConfirmation(boolean stateConfirmation) {
+        this.stateConfirmation = stateConfirmation;
+    }
+
+    public void setNumOrdre(int numOrdre) {
+        this.numOrdre = numOrdre;
+    }
+
+
 
     public void setRole(Role_Asso role) {
         this.role = role;

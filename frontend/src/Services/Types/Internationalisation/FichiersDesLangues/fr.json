@@ -1,0 +1,77 @@
+{
+  "translation": {
+    "hello": "Traduction française pour hello",
+    "usermanagement": {
+      "signin": {
+        "title": "Connexion",
+        "welcomeMessage": "Remplir ces champs pour vous connecter.",
+        "signupButton": "S'inscrire",
+        "signinButton": "Se connecter",
+        "haveAccountMessage": "Vous n'avez pas de compte ?",
+        "labelViewPassword": "Voir mot de passe",
+        "messageForgetPassword": "Mot de passe oublié",
+        "placeHolderPassword": "Entrez votre mot de passe",
+        "labelPassword": "Mot de passe",
+        "labelPhone": "Téléphone"
+      },
+      "signup": {
+        "title": "S'inscrire",
+        "labelFullName": "Nom complet",
+        "labelEmail": "Email",
+        "labelBirthDate": "Date de naissance",
+        "labelGender": "Sexe",
+        "placeHolderGender": "choisir votre genre",
+        "valueMale": "Homme",
+        "valueFemale": "Femme",
+        "welcomeMessage": "Remplir ces champs pour vous connecter.",
+        "nextButton": "Suivant",
+        "signinButton": "Connexion",
+        "signupButton": "Créer son compte",
+        "haveAccountMessage": "Avez-vous déjà un compte ?",
+        "labelViewPassword": "Voir mot de passe",
+        "messageForgetPassword": "Mot de passe oublié",
+        "placeHolderConfirmPassword": "Confirmation de votre mot de passe",
+        "labelConfirmPassword": "Confirmer votre mot de passe"
+      },
+      "otp": {
+        "title": "Verification de l'otp",
+        "welcomeMessage1": "Un code à 5 chiffre a été envoyé sur ce numero : ",
+        "welcomeMessage2": "Veuillez entrer ce code dans le champ ci-dessous. ",
+        "labelOtp": "Entrer le code",
+        "verifyButton": "Verifier",
+        "haventReceive": "Vous ne l'avez pas reçu ?",
+        "resendButton": "Renvoyer",
+        "signinButton": "Connexion"
+      },
+      "putPhone": {
+        "title": "Mot de passe oublié",
+        "welcomeMessage": "Entrez votre numéro de téléphone",
+        "sendButton": "Envoyer le code de vérification",
+        "backMessage": "Aller à",
+        "signinButton": "Connexion"
+      },
+      "passwordManagement": {
+        "title": "Définir votre mot de passe",
+        "title2": "Réinitialiser votre mot de passe",
+        "labelActualPassword": "Mot de passe actuel",
+        "validateButton": "Valider",
+        "cancelButton": "Annuler",
+        "saveButton": "Enregistrer"
+      }
+    },
+
+    "association": {
+      "list": {
+        "name": "Nom",
+        "address": "Adresse",
+        "actions": "Actions"
+      }
+    },
+
+    "saving": {
+      "add": "Ajouter",
+      "edit": "Modifier",
+      "delete": "Supprimer"
+    }
+  }
+}

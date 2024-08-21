@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 
 type SimpleSelectProps = {
-  options: string[];
+  options: any[];
   onSelect: (selected: string) => void;
   defaultValue?: string;
 };

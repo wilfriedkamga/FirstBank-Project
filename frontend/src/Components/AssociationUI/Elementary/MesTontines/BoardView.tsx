@@ -1,59 +1,21 @@
 import React, { CSSProperties, useEffect, useRef, useState } from "react";
-import TontineCard from "./TontineCard";
-import AddTontine from "./AddTontine";
-import TontineCardM from "./TontineCardM";
-
 import PropagateLoader from "react-spinners/PropagateLoader";
-import { Alert, dividerClasses } from "@mui/material";
-
 import AssociationCard from "./AssociationCard";
 import AssociationCardM from "./AssociationCardM";
-import Sucess from "../Notifications/Sucess";
 import AssoNotificationDialog from "./AssoNotificationDialog";
-import logo from "../../../Assets/Images/logoFB.png";
 import Variable from "../../../../Variable";
 import AssociationServices from "../../../../Services/AssociationServices";
 import AddAssociationDialog from "./AddAssociation";
-
-type Tontine = {
-  id: string;
-  nom: string;
-  description: string;
-  type: string;
-  frequence: string;
-  jourReunion: string;
-  nbCaisse: number;
-  nbMembre: number;
-};
-type TTontineModel = {
-  id: string;
-  nom: string;
-  description: string;
-  type: string;
-  frequence: string;
-  jourReunion: string;
-  nbCaisse: number;
-  nbMembre: number;
-  create_par: string;
-  id_admin1: string;
-  id_admin2: string;
-  id_admin3: string;
-};
+import { AssociationModel } from "../../../../Services/Types/AssociationModels";
 
 const BoardView: React.FC = () => {
-  const [toogle, setToogle] = useState(false);
-  const butRef = useRef<HTMLDivElement | null>(null);
-  const menuRef = useRef<HTMLDivElement | null>(null);
-  const [tontinesList, setTontinesList] = useState<TTontineModel[]>([]);
-  const [associationList, setAssociationList] = useState<any[]>([]);
-  const [tontine, setTontine] = useState<TTontineModel>();
+  const [associationList, setAssociationList] = useState<AssociationModel[]>(
+    []
+  );
   const [notify, setNotify] = useState<boolean>(false);
-
   const [notifTitle, setNotifTitle] = useState<string>("");
   const [notifMessage, setNotifMessage] = useState<string>("");
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
-  const [addTontineVisibility, setAddTontineVisibility] =
-    useState<boolean>(false);
 
   useEffect(() => {
     const user = Variable.getLocalStorageItem("user");
@@ -88,25 +50,21 @@ const BoardView: React.FC = () => {
     AssociationServices.GetMyAssociations(phone)
       .then((response) => {
         //setTontinesList(response.data.data);
-
+        console.log(response.data);
         setAssociationList(response.data);
-       
+
         if (response.data.data.length != 0) {
           setIsLoading(false);
         }
       })
-      .catch((error) => {
-        
-      });
+      .catch((error) => {});
   };
 
   const printError = (title: string, message: string) => {
     setNotify(true);
-    
   };
 
-  const addAssociation = (association: any) => {
-    
+  const addAssociation = (association: AssociationModel) => {
     setAssociationList(associationList.concat(association));
   };
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -117,7 +75,6 @@ const BoardView: React.FC = () => {
     position: "absolute",
     fontWeight: "bold",
   };
- 
 
   return (
     <div className="">
@@ -133,13 +90,13 @@ const BoardView: React.FC = () => {
         </div>
       ) : (
         <div>
-          <div className="w-full grid  grid-cols-2 sm:grid-cols-2 md:grid-cols-4 mb-5 gap-4 2xl:gap-10 ">
+          <div className="w-full grid  grid-cols-2 sm:grid-cols-2 md:grid-cols-4  2xl:gap-10 ">
             {associationList.map((asso, index) => (
               <div key={index}>
                 <div className="hidden sm:block lg:block">
                   <AssociationCard association={asso} />
                 </div>
-                <div  className="block sm:hidden lg:hidden">
+                <div className="block sm:hidden lg:hidden">
                   <AssociationCardM association={asso} />
                 </div>
               </div>
@@ -153,11 +110,14 @@ const BoardView: React.FC = () => {
           ) : null}
         </div>
       )}
-
-      <AddAssociationDialog
-        printError={(title:string, message:string) => printError(title, message)}
-        setData={addAssociation}
-      />
+      
+        <AddAssociationDialog
+          printError={(title: string, message: string) =>
+            printError(title, message)
+          }
+          setData={addAssociation}
+        />
+     
 
       <AssoNotificationDialog
         title={notifTitle}
@@ -165,7 +125,6 @@ const BoardView: React.FC = () => {
         open={dialogOpen}
         onClose={() => setDialogOpen(false)}
       />
-  
     </div>
   );
 };

@@ -2,6 +2,7 @@ import React from 'react';
 import { RouterProvider } from 'react-router-dom';
 import { router } from './Routes/Routes';
 import './index.css'
+import { PrimeReactProvider } from "primereact/api";
 
 function App() {
 
@@ -10,6 +11,8 @@ function App() {
       event.stopImmediatePropagation();
     }
   }
+  
+    
   
   window.addEventListener('error', handleError);
   return (

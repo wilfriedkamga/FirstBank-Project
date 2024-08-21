@@ -44,6 +44,7 @@ type TUploadFileModel = {
 class Authentication {
   loginService(loginModel: TLoginModel) {
     return axios.post(routes, loginModel);
+    
   }
 
   verifyPasswordService(phone: string, password: string) {

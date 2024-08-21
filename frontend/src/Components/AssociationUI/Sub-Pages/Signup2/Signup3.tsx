@@ -9,6 +9,11 @@ import SimpleDialog from "../../Elementary/Dialog/SimpleDialog";
 import Variable from "../../../../Variable";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import Authentications from "../../../../Services/Authentications";
+import { useTranslation } from "react-i18next";
+import LabelField from "../../MuiCustomComponent/LabelField";
+import TextFieldPassword from "../../MuiCustomComponent/TextFieldPassword";
+import SubmitedButton from "../../MuiCustomComponent/SubmitedButton";
+import SimpleButtonLink from "../../MuiCustomComponent/SimpleButtonLink";
 
 type ChildComponentProps = {
   handleClick: () => void;
@@ -43,9 +48,12 @@ const Signup3: React.FC<ChildComponentProps> = ({
   const [Confirmpassword, setConfirmPassword] = useState("");
   const [response, setResponse] = useState("");
   const [errorVisibility, setErrorVisibility] = useState(false);
+  const [isLoading,setIsLoading]=useState<boolean>(false)
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [dialogVisibility, setDialogVisibility] = useState(false);
   const [dialogMessage, setDialogMessage] = useState(messageError);
+
+  const { t } = useTranslation();
 
   function togglePasswordVisibility() {
     setIsPasswordVisible((prevState) => !prevState);
@@ -56,23 +64,35 @@ const Signup3: React.FC<ChildComponentProps> = ({
   const handlePhoneChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPhone(event.target.value);
   };
-  const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(event.target.value);
+  const handlePasswordChange = (value:string) => {
+    setPassword(value);
   };
-  const handleConfirmPasswordChange = (
-    event: React.ChangeEvent<HTMLInputElement>
+  const handleConfirmPasswordChange = (value:string
   ) => {
-    setConfirmPassword(event.target.value);
+    setConfirmPassword(value);
   };
 
   const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    if (password != Confirmpassword) {
-      setDialogMessage("Password doesn't match with confirm password !");
-      setDialogVisibility(true);
+    
+    setIsLoading(true)
+    
+    if (password != Confirmpassword || phone.length<=3) {
+      
+       if(phone.length<=3){
+        setDialogMessage("veuillez entrer un numéro de téléphone correct");
+        setDialogVisibility(true);
+        setIsLoading(false)
+        
+       }
+       else{
+        setDialogMessage("Password doesn't match with confirm password !");
+        setDialogVisibility(true);
+        setIsLoading(false)
+       }
+     
     } else {
       setDialogMessage(messageError);
       const tempUser = {
@@ -83,34 +103,39 @@ const Signup3: React.FC<ChildComponentProps> = ({
         gender: gender,
         password: password,
       };
-      const tempLogin={
-        phone:phone,
-        password:password
-      }
+      const tempLogin = {
+        phone: phone,
+        password: password,
+      };
       const route = Variable.routeApi + "api/usermanagement/signup";
 
       axios
         .post(`${route}`, tempUser)
         .then((response) => {
-
           Authentications.loginService(tempLogin)
-          .then((response: any) => {
-            const data = Variable.setLocalStorageItem("user", response.data.data);
-            
-          })
-          .catch((error: any) => {
-            console.log("Une erreure s'est produite lors du login")
-          });
-          
+            .then((response: any) => {
+              const data = Variable.setLocalStorageItem(
+                "user",
+                response.data.data
+               
+              );
+              setIsLoading(false)
+            })
+            .catch((error: any) => {
+              console.log("Une erreure s'est produite lors du login");
+              setIsLoading(false)
+            });
+
           setDialogVisibility(true);
           uploadCodeToComponent(phone);
           toggleSinup2();
         })
         .catch((error) => {
-          console.log()
+          console.log();
           setDialogMessage(error.response.data.message);
           setDialogVisibility(true);
           console.log(error);
+          setIsLoading(false)
         });
     }
   };
@@ -122,12 +147,21 @@ const Signup3: React.FC<ChildComponentProps> = ({
           <div className="w-full">
             <h1 className="text-2xl font-semibold tracking-wider flex gap-10  text-red-600 mt-10 lg:mt-3 text-gray-800 text-center  capitalize dark:text-white">
               <button
-                onClick={() => {console.log(fullName+mail+birthDate+gender);uploadFieldValueCodeToPrevious(fullName,mail,birthDate,gender); togglePrevious();  }}
+                onClick={() => {
+                  console.log(fullName + mail + birthDate + gender);
+                  uploadFieldValueCodeToPrevious(
+                    fullName,
+                    mail,
+                    birthDate,
+                    gender
+                  );
+                  togglePrevious();
+                }}
                 className=" flex justify-center text-center p-1 items-center rounded-lg"
               >
                 <ArrowBackIosIcon />{" "}
               </button>
-              S'inscrire
+              {t("usermanagement.signup.title")}
             </h1>
             <div className="absolute z-20 ml-4 lg:ml-0  mt-20 lg:mt-20 lg:mr-15 w-4/5">
               {dialogVisibility ? (
@@ -138,9 +172,9 @@ const Signup3: React.FC<ChildComponentProps> = ({
               ) : null}
             </div>
 
-            <form className="gap-6 mt-4 " onSubmit={(e) => handleSubmit(e)}>
+            <form className="gap-7 mt-4 flex flex-col " onSubmit={(e) => handleSubmit(e)}>
               <div>
-                <label className="block mb-2 ">Teléphone</label>
+                <LabelField text={t("usermanagement.signin.labelPhone")} />
                 <PhoneInput
                   inputClass="block w-full h-full mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-red-400 dark:focus:border-red-400 focus:ring-red-400 focus:outline-none focus:ring focus:ring-opacity-40"
                   country={"cm"}
@@ -150,51 +184,33 @@ const Signup3: React.FC<ChildComponentProps> = ({
               </div>
 
               <div>
-                <label className="block mb-2 text-sm mt-3 ">Mot de passe</label>
-                <input
+                <LabelField text={t("usermanagement.signin.labelPassword")} />
+                <TextFieldPassword
+                  required
+                  label="Mot de passe"
                   value={password}
-                  onChange={handlePasswordChange}
-                  type={isPasswordVisible ? "text" : "password"}
-                  placeholder="Entrez votre mot de passe"
-                  className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-red-400 dark:focus:border-red-400 focus:ring-red-400 focus:outline-none focus:ring focus:ring-opacity-40"
-                  required
+                  onChange={(value)=>handlePasswordChange(value)}
+                  placeholder={t("usermanagement.signin.placeHolderPassword")}
                 />
-                <label className="block mb-2 text-sm mt-3 ">
-                  Confirmer le mot de passe
-                </label>
-                <input
-                  value={Confirmpassword}
-                  onChange={handleConfirmPasswordChange}
-                  type={isPasswordVisible ? "text" : "password"}
-                  placeholder="Entrez votre mot de passe"
-                  className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-red-400 dark:focus:border-red-400 focus:ring-red-400 focus:outline-none focus:ring focus:ring-opacity-40"
-                  required
-                />
-                <label className="flex items-center mt-2"></label>
-                <input
-                  type="checkbox"
-                  className="mr-2 w-4 h-4"
-                  checked={isPasswordVisible}
-                  onChange={togglePasswordVisibility}
-                />
-                <span className="text-sm text-gray-600">Voir le mot de passe</span>
+                
               </div>
-              <button
-                // onClick={() => handleSubmit()}
-                type="submit"
-                className="flex font-bold items-center justify-center w-full mt-10 px-6 py-3 text-sm tracking-wide text-white capitalize transition-colors duration-300 transform bg-red-600 rounded-lg hover:bg-red-400 focus:outline-none focus:ring focus:ring-red-300 focus:ring-opacity-50"
-              >
-                Créer son compte
-              </button>
+
+              <div >
+                <LabelField
+                  text={t("usermanagement.signup.labelConfirmPassword")}
+                />
+                <TextFieldPassword
+                  required
+                  label="Mot de passe"
+                  value={Confirmpassword}
+                  onChange={(value)=>handleConfirmPasswordChange(value)}
+                  placeholder={t("usermanagement.signin.placeHolderPassword")}
+                />
+              </div>
+              <SubmitedButton isLoading={isLoading} text={t("usermanagement.signup.signupButton")}/>
               <p className="flex items-center justify-center mt-2">
-                Avez vous déjà un compte ?
-                <button
-                  className="signin ml-2 hover:text-red-800  text-red-600"
-                  onClick={() => handleClick()}
-                >
-                  {" "}
-                  Connexion
-                </button>
+                {t("usermanagement.signup.haveAccountMessage")}
+                <SimpleButtonLink text={t("usermanagement.signup.signinButton")} fontSize="14px" onClick={() => handleClick()}/>
               </p>
             </form>
             <img

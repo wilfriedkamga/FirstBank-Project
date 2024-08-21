@@ -5,6 +5,10 @@ import SimpleDialog from "../../Elementary/Dialog/SimpleDialog";
 import logo from "../../../../Assets/Images/FBLogo.png";
 import Variable from "../../../../Variable";
 import Authentications from "../../../../Services/Authentications";
+import { useTranslation } from "react-i18next";
+import LabelField from "../../MuiCustomComponent/LabelField";
+import TextFieldPassword from "../../MuiCustomComponent/TextFieldPassword";
+import SubmitedButton from "../../MuiCustomComponent/SubmitedButton";
 
 type ChildComponentProps = {
   toggleSignin: () => void;
@@ -28,7 +32,7 @@ export default function SetPassword2({
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [dialogVisibility, setDialogVisibility] = useState(false);
   const [dialogMessage, setDialogMessage] = useState(messageError);
-
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   const handleCloseDialog = () => {
@@ -90,8 +94,8 @@ export default function SetPassword2({
       <div className="">
         <div className=" max-w-2xl mx-auto lg:w-4/5">
           <div className="w-full">
-            <h1 className="text-2xl font-semibold tracking-wider text-gray-800 text-center mt-3 capitalize dark:text-white">
-              Set Password
+            <h1 className="text-lg text-red-600 font-semibold tracking-wider text-gray-800 text-center mt-3 capitalize dark:text-white">
+            {t("usermanagement.passwordManagement.title")}
             </h1>
 
             <div className="absolute z-20 ml-4 lg:ml-0  mt-20 lg:mt-20 lg:mr-15 w-4/5">
@@ -102,53 +106,34 @@ export default function SetPassword2({
                 />
               ) : null}
             </div>
-            <p className="mt-4 text-gray-500 dark:text-gray-400 text-center">
-              Veuillez renseigner ce formulaire pour Créer votre compte.
-            </p>
 
             <form className="gap-6 mt-8 " onSubmit={(e) => handleSubmit(e)}>
               <div>
-                <label className="block mb-2 text-sm mt-3 ">Password</label>
-                <input
-                  value={password}
-                  onChange={handlePasswordChange}
-                  type={isPasswordVisible ? "text" : "password"}
-                  placeholder="Enter your password"
-                  className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-red-400 dark:focus:border-red-400 focus:ring-red-400 focus:outline-none focus:ring focus:ring-opacity-40"
+              <LabelField text={t("usermanagement.signin.labelPassword")} />
+                <TextFieldPassword
                   required
+                  label="password"
+                  value={password}
+                  placeholder={t("usermanagement.signin.placeHolderPassword")}
+                  onChange={() => setPassword}
                 />
               </div>
 
               <div>
-                <label className="block mb-2 text-sm mt-3 ">
-                  Password confirmation
-                </label>
-                <input
-                  value={confirmPassword}
-                  onChange={handlePasswordConfirmationChange}
-                  type={isPasswordVisible ? "text" : "password"}
-                  placeholder="Enter your password"
-                  className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-red-400 dark:focus:border-red-400 focus:ring-red-400 focus:outline-none focus:ring focus:ring-opacity-40"
-                  required
+              <LabelField
+                  text={t("usermanagement.signin.labelConfirmPassword")}
                 />
-
-                <label className="flex items-center mt-2">
-                  <input
-                    type="checkbox"
-                    className="mr-2  w-4 h-4"
-                    checked={isPasswordVisible}
-                    onChange={togglePasswordVisibility}
-                  />
-                  <span className="text-sm  text-gray-600">Show password</span>
-                </label>
+                <TextFieldPassword
+                  required
+                  label="confirmPassword"
+                  value={confirmPassword}
+                  placeholder={t(
+                    "usermanagement.signin.placeHolderConfirmPassword"
+                  )}
+                  onChange={() => handlePasswordConfirmationChange}
+                />
               </div>
-
-              <button
-                type="submit"
-                className=" flex items-center justify-center w-full mt-10 px-6 py-3 text-sm tracking-wide text-white capitalize transition-colors duration-300 transform bg-red-600 rounded-lg hover:bg-red-800 focus:outline-none focus:ring focus:ring-red-300 focus:ring-opacity-50"
-              >
-                <span className="text-center ">Valider</span>
-              </button>
+              <SubmitedButton text={t("usermanagement.passwordManagement.validateButton")}/>
             </form>
             <img
               src={logo}

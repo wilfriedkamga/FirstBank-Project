@@ -10,6 +10,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -22,15 +23,20 @@ public class Tontine {
     private String id;
 
     private String nb_membre;
-    private String name;
-    private LocalDate date_creation;
+    private String tontineName;
+    private LocalDate creationDate;
     private String type;// dette epargne, sociale
-    private String montant;
-    private String periodicite;
-    private boolean isDeletable;
-    private boolean onChangeType;
-    private boolean canRemove;
-    private boolean onChangeParam;
+    private String amount;
+    private String purpose;
+    private Date startDate;
+    private Date endDate;
+    private String phoneValidator1;
+    private String phoneValidator2;
+    private boolean isDeletable=true;
+    private boolean onChangeType=true;
+    private boolean canRemove=true;
+    private boolean onChangeParam=true;
+    private String phoneCreator;
 
 
     @ManyToOne
@@ -40,9 +46,6 @@ public class Tontine {
     @OneToMany(mappedBy = "tontine", cascade = CascadeType.ALL)
     private List<Role_Tont> roles_tont = new ArrayList<>();
 
-//    @ManyToOne
-//    @JoinColumn(name = "create_by", nullable = false)
-//    private Membre_Asso createBy;
 
     @ManyToMany
     @JoinTable(
@@ -68,16 +71,76 @@ public class Tontine {
         this.nb_membre = nb_membre;
     }
 
-    public String getName() {
-        return name;
+    public String getTontineName() {
+        return tontineName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTontineName(String tontineName) {
+        this.tontineName = tontineName;
     }
 
-    public LocalDate getDate_creation() {
-        return date_creation;
+    public LocalDate getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(LocalDate creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getAmount() {
+        return amount;
+    }
+
+    public void setAmount(String amount) {
+        this.amount = amount;
+    }
+
+    public String getPurpose() {
+        return purpose;
+    }
+
+    public void setPurpose(String purpose) {
+        this.purpose = purpose;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    public String getPhoneValidator1() {
+        return phoneValidator1;
+    }
+
+    public void setPhoneValidator1(String phoneValidator1) {
+        this.phoneValidator1 = phoneValidator1;
+    }
+
+    public String getPhoneValidator2() {
+        return phoneValidator2;
+    }
+
+    public void setPhoneValidator2(String phoneValidator2) {
+        this.phoneValidator2 = phoneValidator2;
     }
 
     public boolean isDeletable() {
@@ -112,32 +175,12 @@ public class Tontine {
         this.onChangeParam = onChangeParam;
     }
 
-    public void setDate_creation(LocalDate date_creation) {
-        this.date_creation = date_creation;
+    public String getPhoneCreator() {
+        return phoneCreator;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getMontant_freq() {
-        return montant;
-    }
-
-    public void setMontant_freq(String montant_freq) {
-        this.montant = montant_freq;
-    }
-
-    public String getPeriodicite() {
-        return periodicite;
-    }
-
-    public void setPeriodicite(String periodicite) {
-        this.periodicite = periodicite;
+    public void setPhoneCreator(String phoneCreator) {
+        this.phoneCreator = phoneCreator;
     }
 
     public Association getAssociation() {
@@ -155,7 +198,6 @@ public class Tontine {
     public void setRoles_tont(List<Role_Tont> roles_tont) {
         this.roles_tont = roles_tont;
     }
-
 
     public List<Membre_Tont> getMembres_tont() {
         return membres_tont;

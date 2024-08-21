@@ -1,16 +1,28 @@
 import React, { useState, ChangeEvent } from "react";
-import { MenuItem, Select, FormControl, InputLabel,SelectChangeEvent } from "@mui/material";
+import {
+  MenuItem,
+  Select,
+  FormControl,
+  InputLabel,
+  SelectChangeEvent,
+} from "@mui/material";
 import { MembreAssociationModel } from "../../../../Services/Types/MembreAssociationModel";
 
 interface DualSelectProps {
   options: MembreAssociationModel[];
-  label1:string;
-  label2:string;
-  setValue1: (valid1:string)=>void;
-  setValue2: (valid2:string)=>void;
+  label1: string;
+  label2: string;
+  setValue1: (valid1: string) => void;
+  setValue2: (valid2: string) => void;
 }
 
-const DualSelect: React.FC<DualSelectProps> = ({ options, setValue1, setValue2, label1,label2 }) => {
+const DualSelect: React.FC<DualSelectProps> = ({
+  options,
+  setValue1,
+  setValue2,
+  label1,
+  label2,
+}) => {
   const [selectedValue1, setSelectedValue1] = useState<string>("");
   const [selectedValue2, setSelectedValue2] = useState<string>("");
 
@@ -18,8 +30,6 @@ const DualSelect: React.FC<DualSelectProps> = ({ options, setValue1, setValue2, 
     const value = event.target.value as string;
     setSelectedValue1(value);
     setValue1(value);
-
-    // Remove selected item from the other select options
     setSelectedValue2((prev) => (prev === value ? "" : selectedValue2));
   };
 
@@ -27,42 +37,49 @@ const DualSelect: React.FC<DualSelectProps> = ({ options, setValue1, setValue2, 
     const value = event.target.value as string;
     setSelectedValue2(value);
     setValue2(value);
-
-    // Remove selected item from the other select options
     setSelectedValue1((prev) => (prev === value ? "" : selectedValue1));
   };
 
-  const filteredOptions1 = options.filter((option) => option.id !== selectedValue2);
-  const filteredOptions2 = options.filter((option) => option.id !== selectedValue1);
+  const filteredOptions1 = options.filter(
+    (option) => option.id !== selectedValue2
+  );
+  const filteredOptions2 = options.filter(
+    (option) => option.id !== selectedValue1
+  );
 
   return (
     <div className="">
-      <FormControl  style={{marginBottom:"10px"}} fullWidth>
-        <label>{label2}</label>
+      <FormControl style={{ marginBottom: "10px" }} fullWidth>
+        <label className="font-bold mt-" htmlFor="">
+          {label1}
+        </label>
         <Select
           value={selectedValue1}
-          onChange={(event)=> handleChangeValue1(event)}
-          label="Option 1"
+          onChange={(event) => handleChangeValue1(event)}
         >
           {filteredOptions1.map((option) => (
-            <MenuItem key={option.id} value={option.id}>
-              {option.name +"  "+option.phone+" "+option.role} 
+            <MenuItem key={option.id} value={option.phone}>
+              {option.name + "  " + option.phone + " " + option.role}
             </MenuItem>
           ))}
         </Select>
       </FormControl>
-      
-      <FormControl style={{marginBottom:"10px"}}  className="mb-4" fullWidth>
-        <label>{label1}</label>
+
+      <FormControl style={{ marginBottom: "10px" }} className="mb-4" fullWidth>
+        <label className="font-bold mt-" htmlFor="">
+          {label2}
+        </label>
         <Select
           value={selectedValue2}
-          onChange={(event)=>handleChangeValue2(event)}
-          label="Option 2"
+          onChange={(event) => handleChangeValue2(event)}
           className=""
         >
           {filteredOptions2.map((option) => (
-            <MenuItem key={option.id} value={option.id}>
-              {option.name +"  "+option.phone+" "+option.role} 
+            <MenuItem key={option.id} value={option.phone}>
+              <div className="rounded flex border p-2">
+                  { option.name + "  "+option.role+ " " + option.phone  }
+              </div>
+              
             </MenuItem>
           ))}
         </Select>

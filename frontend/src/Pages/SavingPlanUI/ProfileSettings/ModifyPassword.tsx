@@ -76,23 +76,22 @@ const ModifyPassword = () => {
   return (
     <div className="w-full bg-white h-[100vh] flex flex-col">
       <Header />
-
+      <div className="flex mt-[13vh] mb-[] p-4 justify-center flex-col  h-full w-full space-y-6 ">
+        <div className="rounded-t-lg h-[15vh] flex items-center font-bold text-white text-3xl pl-6 overflow-hidden bg-red-700">
+          Modifier votre mot de passe
+        </div>
+        <div className="bg-white w-[15vw] sm:w-[10vw] flex justify-center items-center   shadow h-[10vh]">
+          <button
+            className="  rounded-lg"
+            onClick={() => window.history.back()}
+          >
+            <KeyboardBackspaceIcon style={{ fontSize: "2rem" }} />
+          </button>
+        </div>
+      </div>
       <form action="" onSubmit={(e) => handleClick(e)}>
-        <div className="flex p-2 mt-[10vh] flex-col justify-center items-center  h-50vh bg-white w-full  md:w-4/5 mx-auto">
-          <div className="flex flex-row w-full md:w-2/5">
-            <div className=" bg-white w-[15vw] sm:w-[10vw]  flex justify-center items-center border  shadow h-[10vh]">
-              <button
-                className=" px-2 rounded-lg "
-                onClick={() => window.history.back()}
-              >
-                <KeyboardBackspaceIcon style={{ fontSize: "3rem" }} />
-              </button>
-            </div>
-            <div className=" font-bold text-xl bg-white  w-full flex pl-4 items-center  shadow h-[10vh]">
-              Modifier votre mot de passe
-            </div>
-          </div>
-          <div className="flex flex-col font-semibold  bg-white mt-2 rounded-lg mb-2 mx-auto w-full md:w-2/5 p-2 md:p-5 shadow-lg border h-full">
+        <div className="flex p-2 mt-[0vh] flex-col justify-center items-center  h-50vh bg-white w-full  md:w-4/5 mx-auto">
+          <div className="flex flex-col font-semibold  bg-white rounded-lg mb-2 mx-auto w-full md:w-3/5 p-2 md:p-5 shadow-lg border h-full">
             <div className="flex w-full flex-col  ">
               <label className="block mb-1 text-sm mt-3 ">
                 Mot de passe actuel
@@ -101,7 +100,7 @@ const ModifyPassword = () => {
                 type={passwordVisibility ? "text" : "password"}
                 value={nowPassword}
                 onChange={(e) => setNowPassword(e.target.value)}
-                placeholder="Enter your password"
+                placeholder="Entrez votre mot de passe actuel"
                 className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-red-400 dark:focus:border-red-400 focus:ring-red-400 focus:outline-none focus:ring focus:ring-opacity-40"
                 required
               />
@@ -114,7 +113,7 @@ const ModifyPassword = () => {
                 type={passwordVisibility ? "text" : "password"}
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
-                placeholder="Enter your password"
+                placeholder="Entrez votre nouveau mot de passe"
                 className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-red-400 dark:focus:border-red-400 focus:ring-red-400 focus:outline-none focus:ring focus:ring-opacity-40"
                 required
               />
@@ -127,38 +126,29 @@ const ModifyPassword = () => {
                 type={passwordVisibility ? "text" : "password"}
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                placeholder="Enter your password"
+                placeholder="Confirmer votre nouveau mot de passe"
                 className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-red-400 dark:focus:border-red-400 focus:ring-red-400 focus:outline-none focus:ring focus:ring-opacity-40"
                 required
               />
-              <div className="flex flex-row  h-[20px] mt-2 relative ml-2">
+              <div className="flex flex-row mb-6  h-[20px] mt-2 relative ml-2">
                 <input
                   type="checkbox"
                   onChange={() => setPasswordVisibility(!passwordVisibility)}
                   className="border  h-[20px] w-[20px] "
                 />
-                <label htmlFor="" className="ml-2 relative bottom-[2px]  ">
+                <label htmlFor="" className="ml-2 relative  bottom-[2px]  ">
                   Voir
                 </label>
               </div>
             </div>
-
-            <div className="flex flex-row w-full mt-8 justify-between ">
               <input
                 type="submit"
                 value={"Valider"}
                 placeholder="Enter your password"
-                className=" px-5 py-2 bg-red-600 hover:bg-red-900  text-white font-bold rounded cursor-pointer"
+                className=" px-5 py-2 bg-red-600 hover:bg-red-900 w-full  text-white font-bold rounded cursor-pointer"
               />
 
-              <input
-                type="button"
-                value={"Annuler"}
-                onClick={() => navigate("/settings")}
-                placeholder="Enter your password"
-                className="  px-5 py-2 bg-gray-600 rounded hover:bg-gray-800 text-white font-bold cursor-pointer"
-              />
-            </div>
+            
             <AssoNotificationDialog
               title={notifTitle}
               message={notifMessage}

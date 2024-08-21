@@ -9,33 +9,25 @@ import { TontineModel } from "../../../../Services/Types";
 const stats: TontineModel[] = [
   {
     id: "1hjkl",
-    nom: "Caisse Épargne",
-    total: "4",
+    tontineName: "Caisse Épargne",
     type: "épargne",
-    montant: "50 000 FCFA",
-    bg: "bg-[#1d4ed8]",
     association_id: "",
-    creerPar: "",
+    creatorPhone: "",
     nbMembres: 3,
-    typeCaisse: "épargne",
-    montantEpargne: "50 000 FCFA",
-    date_creation: "",
-  },
-  {
-    id: "2hjkl",
-    nom: "Caisse Sociale",
-    total: "4",
-    type: "sociale",
-    montant: "60 000 FCFA",
-    bg: "bg-[#1d4ed8]",
-    association_id: "",
-    creerPar: "",
-    nbMembres: 5,
-    typeCaisse: "sociale",
-    montantEpargne: "30 000 FCFA",
-    date_creation: "",
-  },
+    amount: "50 000 FCFA",
+    creationDate: "",
+    nbNotifications:0
+  }
+
 ];
+
+interface cardProps{
+  id:string,
+  amount:string|null,
+  nbMembre:number|null,
+  tontineName:string,
+  type:string|null
+}
 
 const MesCaisse = () => {
   const navigate = useNavigate();
@@ -55,8 +47,7 @@ const MesCaisse = () => {
   const Initializepage = (idAssociation: string) => {
     AssociationServices.GetTontinesByAssociationId(idAssociation)
       .then((response) => {
-        const tontines = TontineModel.fromSimpleList(response.data);
-        setTontineList(tontines);
+        setTontineList(response.data);
         console.log(response.data);
       })
       .catch((error) => {
@@ -65,32 +56,29 @@ const MesCaisse = () => {
   };
 
   const Card = ({
-    label,
-    nbMembre,
-    bg,
+    id,
+    tontineName,
     type,
-    montant,
-    typeCaisse,
-    montantEpargne,
-    montantCotisation,
-  }: any) => {
+    nbMembre,
+    amount,
+  }: cardProps) => {
     return (
       <div className="sm:w-[250px] w-full h-[150px] bg-white p-5 shadow-md rounded-md flex items-center">
         <div className="h-full flex flex-1 flex-col">
           <p className="font-bold text-xl text-gray-600">
-            <p className="">{label}</p>
+            <p className="">{tontineName}</p>
             <p className="text-lg font-normal ">{type}</p>
           </p>
           <span className="text-sm mt-2 text-gray-400">
             {"(" + nbMembre + ")"} membres
           </span>
           <span className="text-lg mt-2 font-semibold text-gray-800">
-            {typeCaisse === "épargne" || typeCaisse === "sociale"
-              ? montant
-              : montant}
+            {type === "épargne" || type=== "dette"? (<><span className="text-xs font-normal text-gray-400">cible  </span> {amount}</>):""}
+           
+            {type === "sociale"? <span> + {amount}</span>:""}
           </span>
         </div>
-        <div className={bg + " text-xl text-white font-bold"}>
+        <div className={"w-10 h-10 rounded-full flex items-center bg-red-700 justify-center text-white text-xl text-white font-bold"}>
           <KeyboardArrowRightIcon />
         </div>
       </div>
@@ -105,15 +93,10 @@ const MesCaisse = () => {
           (
             {
               type,
-              bg,
-              nom,
+              tontineName,
               nbMembres,
-              montant,
-              total,
               id,
-              typeCaisse,
-              montantEpargne,
-              montantCotisation,
+              amount,
             },
             index
           ) => (
@@ -123,14 +106,11 @@ const MesCaisse = () => {
               key={index}
             >
               <Card
-                montant={montant}
+                amount={amount}
                 type={type}
-                bg="w-10 h-10 rounded-full flex items-center bg-red-700 justify-center text-white"
-                label={nom}
+                tontineName={tontineName}
                 nbMembre={nbMembres}
-                typeCaisse={typeCaisse}
-                montantEpargne={montantEpargne}
-                montantCotisation={montantCotisation}
+                id={id}
               />
             </div>
           )
@@ -139,7 +119,7 @@ const MesCaisse = () => {
       {tontineList == null || tontineList.length == 0 ? (
         <div className="text-lg">
           {" "}
-          Vous n'êtes dans aucune Caisse de cette tontine !
+          Vous n'êtes dans aucune tontine de cette association !
         </div>
       ) : null}
       <AddTontineDialog />

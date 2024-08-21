@@ -6,7 +6,26 @@ import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import "../Signin/Signin.css";
 import Variable from "../../../../Variable";
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import { useTranslation } from "react-i18next";
+import { FormControl, FormLabel, MenuItem, Select } from "@mui/material";
+import SelectItem from "../../MuiCustomComponent/SelectItem";
+import TextFieldDate from "../../MuiCustomComponent/TextFieldDate";
+import LabelField from "../../MuiCustomComponent/LabelField";
+import TextFieldSimple from "../../MuiCustomComponent/TextFieldSimple";
+import SubmitedButton from "../../MuiCustomComponent/SubmitedButton";
+import SimpleButtonLink from "../../MuiCustomComponent/SimpleButtonLink";
+import { setDate } from "date-fns";
+
+interface GenderOption {
+  id: string;
+  name: string;
+}
+
+const genderOptions: GenderOption[] = [
+  { id: "male", name: "Masculin" },
+  { id: "female", name: "Féminin" },
+];
 
 type ChildComponentProps = {
   handleClick: () => void;
@@ -17,10 +36,10 @@ type ChildComponentProps = {
     birthDate: string,
     gender: string
   ) => void;
-  fullnameE:string;
-  mailE:string;
-  birthDateE:string;
-  genderE:string;
+  fullnameE: string;
+  mailE: string;
+  birthDateE: string;
+  genderE: string;
 };
 const Signup2: React.FC<ChildComponentProps> = ({
   handleClick,
@@ -33,19 +52,25 @@ const Signup2: React.FC<ChildComponentProps> = ({
 }) => {
   const [name, setName] = useState(fullnameE);
   const [mail, setMail] = useState(mailE);
-  const [gender, setGender] = useState(genderE);
-  const [birthDate, setBirthdate] = useState(birthDateE);
-  const [password, setPassword] = useState("");
-  const [response, setResponse] = useState("");
-  const [errorVisibility, setErrorVisibility] = useState(false);
+  const [gender, setGender] = useState<string>("default");
+  const [birthDate, setBirthdate] = useState<string>("")
+  const [birthDate2, setBirthdate2] = useState<Date>();
+  const [isLoading,setIsLoading]=useState<boolean>(false)
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  useEffect(()=>{
+    setBirthdate(birthDate2? birthDate2.toISOString:"")
+  })
+  
+  // fonction de tradcution
+  const { t } = useTranslation();
 
   function togglePasswordVisibility() {
     setIsPasswordVisible((prevState) => !prevState);
   }
+  
 
-  const handleGenderChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setGender(event.target.value);
+  const handleGenderChange = (value: string) => {
+    setGender(value);
   };
 
   const navigate = useNavigate();
@@ -58,105 +83,90 @@ const Signup2: React.FC<ChildComponentProps> = ({
   };
 
   return (
-    <section className="bg-white w-full  box-shadow lg:w-[28vw] lg:h-[90vh] p-4 dark:bg-gray-900 lg:rounded-xl">
+    <section className="bg-white w-full h-full shadow-xl lg:w-[28vw] lg:h-[90vh] relative p-5 dark:bg-gray-900 lg:rounded-xl z-3">
       <div className="">
-        <div className=" max-w-2xl mx-auto lg:w-4/5">
+        <div className=" max-w-2xl mx-auto lg:w-4/5 ">
           <div className="w-full">
-          
-            <h1 className="text-2xl font-semibold tracking-wider flex gap-10  mt-10 lg:mt-0 text-red-600 text-gray-800 text-center  capitalize dark:text-white">
-              <button onClick={() => handleClick()} className=" flex justify-center text-center p-1 items-center rounded-lg"><ArrowBackIosIcon/> </button>
-               S'inscrire
+            <h1 className="text-2xl font-semibold tracking-wider flex gap-10  mb-4  text-red-600 text-gray-800 text-center  capitalize dark:text-white">
+              <button
+                onClick={() => handleClick()}
+                className=" flex justify-center text-center p-1 items-center rounded-lg"
+              >
+                <ArrowBackIosIcon />{" "}
+              </button>
+              {t("usermanagement.signup.title")}
             </h1>
 
-            <form className="gap-6 mt-4 " onSubmit={(e) => handleSubmit(e)}>
-              <div>
-                <label className="block mb-2  mt-2 text-sm ">Nom complet</label>
-                <input
+            <form
+              className="mt-3 flex flex-col "
+              onSubmit={(e) => handleSubmit(e)}
+            >
+              <div className="mt-3">
+                <LabelField text={t("usermanagement.signup.labelFullName")} />
+                <TextFieldSimple
                   value={name}
-                  defaultValue={name}
                   onChange={(e) => {
-                    setName(e.target.value);
+                    setName(e);
                   }}
-                  required
-                  type="text"
-                  placeholder="John"
-                  className="block w-full h-13  px-5 py-3 mb-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-red-400 dark:focus:border-red-400 focus:ring-red-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                  helperText={""}
+                  placeholder="Entrez votre nom complet"
+                  required={true}
+                  readOnly={false}
+                  disabled={false}
                 />
               </div>
-              <div>
-                <label className="block mb-2  mt-2 text-sm ">Email</label>
-                <input
+
+              <div className="mt-3">
+                <LabelField text={t("usermanagement.signup.labelEmail")} />
+                <TextFieldSimple
                   value={mail}
-                  defaultValue={mail}
                   onChange={(e) => {
-                    setMail(e.target.value);
+                    setMail(e);
                   }}
-                  required
-                  type="text"
+                  helperText={""}
                   placeholder="mail@gmail.com"
-                  className="block w-full h-13  px-5 py-3 mb-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-red-400 dark:focus:border-red-400 focus:ring-red-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                  required={true}
+                  readOnly={false}
+                  disabled={false}
                 />
               </div>
 
-              <div>
-                <label className="block mb-2  mt-2">Date de naissance</label>
-                <input
-                  value={birthDate}
-                  onChange={(e) => {
-                    setBirthdate(e.target.value);
-                  }}
-                  defaultValue={birthDate}
+              <div className="mt-3">
+                <LabelField text={t("usermanagement.signup.labelBirthDate")} />
+                <TextFieldDate
+                  onChange={() => setBirthdate2}
+                  value={birthDate2!}
                   required
-                  type="date"
-                  placeholder="Snow"
-                  className="block w-full px-5 h-13 py-3 mb-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-red-400 dark:focus:border-red-400 focus:ring-red-400 focus:outline-none focus:ring focus:ring-opacity-40"
                 />
               </div>
 
-              <div>
-                <label htmlFor="countries" className="block mt-2 mb-2  ">
-                  Sexe
-                </label>
-                <select
-                  required
+              <div className="mt-3 mb-[60px] lg:mb-6">
+                <LabelField text={t("usermanagement.signup.labelGender")} />
+                <SelectItem<GenderOption>
+                  label="Sexe"
+                  options={genderOptions}
+                  valueKey="id"
+                  labelKey="name"
                   value={gender}
-                  defaultValue={gender}
-                  onChange={(e: any) => setGender(e.target.value)}
-                  id="countries"
-                  className="bg-gray-50 border h-14 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500block w-full px-5 py-3 mb-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-red-400 dark:focus:border-red-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-                >
-                  <option className="text-gray-500" value="" disabled selected hidden>
-                    sexe
-                  </option>
-                  <option value="Homme" selected>
-                    Homme
-                  </option>
-                  <option value="Femme">Femme</option>
-                </select>
+                  onChange={handleGenderChange}
+                  placeholder="Sélectionnez un sexe"
+                />
               </div>
 
-              <button
-                // onClick={() => handleSubmit()}
-                type="submit"
-                className="flex items-center justify-center w-full mt-10 px-6 py-3 text-sm tracking-wide text-white capitalize transition-colors duration-300 transform bg-red-600 rounded-lg hover:bg-red-400 focus:outline-none focus:ring focus:ring-red-300 focus:ring-opacity-50"
-              >
-                Suivant
-              </button>
+                <SubmitedButton
+                  timeout={3000}
+                  isLoading={isLoading}
+                  text={t("usermanagement.signup.nextButton")}
+                />
               <p className="flex items-center justify-center  mt-2">
-                Avez vous déjà un compte ?
-                <button
-                  className="signin text-red-600 ml-2 hover:text-red-800"
-                  onClick={() => handleClick()}
-                >
-                  {" "}
-                  Connexion
-                </button>
+                {t("usermanagement.signup.haveAccountMessage")}
+                <SimpleButtonLink fontSize="14px" text={t("usermanagement.signup.signinButton")} onClick={()=>handleClick()}/>
               </p>
             </form>
             <img
               src={logo}
               alt="Logo Afriland First Bank"
-              className="lg:mb-2 p-5 lg:w-50 lg:h-25 lg:relative relative mb-2 "
+              className="lg:mb-2 p-5 lg:w-[300px] lg:h-[130px] bottom-5 text-center lg:h-25 lg:relative relative mb-2 "
             ></img>
           </div>
         </div>

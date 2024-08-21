@@ -56,27 +56,27 @@ const SettingForm = () => {
   const Items: Item[] = [
     {
       label: "Informations de l'association",
-      link: "/tontine/mestontines/:idTontine/parametres/info",
+      link: "/association/mes associations/:idassociation/parametres/info",
       Icon: <InformationCircleIcon className="w-8 h-8" />
     },
     {
       label: "Gérer les rôles",
-      link: "/tontine/mestontines/:idTontine/parametres/roles",
+      link: "/association/mes associations/:idassociation/parametres/roles",
       Icon: <UsersIcon className="w-8 h-8" />
     },
     {
       label: "Configurer les réunions",
-      link: "/tontine/mestontines/:idTontine/parametres/reunions",
+      link: "/association/mes associations/:idassociation/parametres/reunions",
       Icon: <CalendarIcon className="w-8 h-8" />
     },
     {
       label: "Configurer les sanctions",
-      link: "/tontine/mestontines/:idTontine/parametres/sanctions",
+      link: "/association/mes associations/:idassociation/parametres/sanctions",
       Icon: <ExclamationCircleIcon className="w-8 h-8" />
     },
     {
       label: "Configurer les sessions",
-      link: "/tontine/mestontines/:idTontine/parametres/sessions",
+      link: "/association/mes associations/:idassociation/parametres/sessions",
       Icon: <ClockIcon className="w-8 h-8" />
     }
   ];

@@ -11,6 +11,8 @@ import AccountMenu from "./AccountMenu";
 import Notification from "./Notification";
 import NotificationService from "../../../Services/NotificationService";
 import FullScreenDialog from "../../AssociationUI/Elementary/Notifications/FullScreenDialog";
+import NotificationSection from "./Notifications";
+
 
 const Header = () => {
   const [listNotifs, setListNotifs] = useState<any[]>([]);
@@ -56,6 +58,9 @@ const Header = () => {
         </div>
         <div className="h-full ">
           <Notification />
+        </div>
+        <div className="hidden ">
+          <NotificationSection  />
         </div>
         <div className="h-full ">
           <AccountMenu />

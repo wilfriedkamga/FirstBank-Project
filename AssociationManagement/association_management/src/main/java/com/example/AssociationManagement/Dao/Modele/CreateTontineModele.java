@@ -1,17 +1,59 @@
 package com.example.AssociationManagement.Dao.Modele;
 
+import java.util.Date;
+
 public class CreateTontineModele {
-    private String nom;
+    private String tontineName;
     private String type;
-    private String montant_freq;
-    private String creationDate;
+    private String amount;
+    private Date creationDate;
     private String associationId;
     private String phoneValidateur1;
     private String phoneValidateur2;
-    //private String CreatorPhone;
+    private String purpose;
+    private Date startDate;
+    private Date endDate;
+    private String phoneCreator;
 
+    public String getTontineName() {
+        return tontineName;
+    }
 
+    public void setTontineName(String tontineName) {
+        this.tontineName = tontineName;
+    }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getAmount() {
+        return amount;
+    }
+
+    public void setAmount(String amount) {
+        this.amount = amount;
+    }
+
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public String getAssociationId() {
+        return associationId;
+    }
+
+    public void setAssociationId(String associationId) {
+        this.associationId = associationId;
+    }
 
     public String getPhoneValidateur1() {
         return phoneValidateur1;
@@ -29,43 +71,35 @@ public class CreateTontineModele {
         this.phoneValidateur2 = phoneValidateur2;
     }
 
-    public String getNom() {
-        return nom;
+    public String getPurpose() {
+        return purpose;
     }
 
-    public String getAssociationId() {
-        return associationId;
+    public void setPurpose(String purpose) {
+        this.purpose = purpose;
     }
 
-    public void setAssociationId(String associationId) {
-        this.associationId = associationId;
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 
-    public String getType() {
-        return type;
+    public Date getEndDate() {
+        return endDate;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 
-    public String getMontant_freq() {
-        return montant_freq;
+    public String getPhoneCreator() {
+        return phoneCreator;
     }
 
-    public void setMontant_freq(String montant_freq) {
-        this.montant_freq = montant_freq;
-    }
-
-    public String getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(String creationDate) {
-        this.creationDate = creationDate;
+    public void setPhoneCreator(String phoneCreator) {
+        this.phoneCreator = phoneCreator;
     }
 }

@@ -6,6 +6,9 @@ import sendSMS from "../../SendSMS/SendSms";
 import PhoneInput from "react-phone-input-2";
 import SimpleDialog from "../../Elementary/Dialog/SimpleDialog";
 import Variable from "../../../../Variable";
+import { useTranslation } from "react-i18next";
+import SubmitedButton from "../../MuiCustomComponent/SubmitedButton";
+import SimpleButtonLink from "../../MuiCustomComponent/SimpleButtonLink";
 
 type ChildComponentProps = {
   handleClick: (code: string) => void;
@@ -23,7 +26,7 @@ const PutPhone: React.FC<ChildComponentProps> = ({
   uploadOtpCodeToParent,
 }) => {
   const messageError =
-    "The user with this phone number don't exist in our data base. Please verify the phone number";
+    "L'utilisateur avec ce numéro de téléphone n'existe pas dans notre base de données. Veuillez vérifier si vous n'avez pas fait d'erreure";
 
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
@@ -52,13 +55,16 @@ const PutPhone: React.FC<ChildComponentProps> = ({
   const handlePhoneChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPhone(event.target.value);
   };
+  const { t } = useTranslation();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsLoading(true)
 
     if (phone.length <= 3) {
       setDialogMessage("Please enter a valid number phone");
       setDialogVisibility(true);
+      setIsLoading(false)
     } else {
       setDialogMessage(messageError);
       setTimeout(() => {
@@ -79,15 +85,17 @@ const PutPhone: React.FC<ChildComponentProps> = ({
             setDialogMessage("otp code has been send in your phone ");
             setDialogVisibility(true);
             handleClick(otp);
+            setIsLoading(false);
           })
           .catch((error) => {
             console.log(error);
             setDialogMessage(dialogMessage);
             setDialogVisibility(true);
+            setIsLoading(false);
           });
 
-        setIsLoading(false); // Désactiver le chargement après l'exécution
-      }, Variable.preTimeOut);
+         // Désactiver le chargement après l'exécution
+      }, 3000);
     }
   };
 
@@ -96,8 +104,8 @@ const PutPhone: React.FC<ChildComponentProps> = ({
       <div className="">
         <div className=" max-w-2xl mx-auto lg:w-4/5">
           <div className="w-full">
-            <h1 className="text-2xl font-semibold tracking-wider text-gray-800 text-center  mt-3 capitalize dark:text-white">
-              Forgot Password
+            <h1 className="text-xl text-red-600 font-semibold tracking-wider text-gray-800 text-center  mt-3 capitalize dark:text-white">
+              {t("usermanagement.putPhone.title")}
             </h1>
             <div className="absolute z-20 ml-4 lg:ml-0  mt-20 lg:mt-20 lg:mr-15 w-4/5">
               {dialogVisibility ? (
@@ -109,12 +117,12 @@ const PutPhone: React.FC<ChildComponentProps> = ({
             </div>
 
             <p className="mt-4 text-gray-500 dark:text-gray-400 text-center">
-              Enter your phone number for verification
+            {t("usermanagement.putPhone.welcomeMessage")}
             </p>
 
             <form className="gap-6 mt-8 " onSubmit={(e) => handleSubmit(e)}>
-              <div>
-                <label className="block mb-2 ">Phone number</label>
+              <div className="mb-[40px]">
+                <label className="block mb-2 ">{t("usermanagement.signin.labelPhone")}</label>
                 <PhoneInput
                   inputClass="block w-full h-full mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-red-400 dark:focus:border-red-400 focus:ring-red-400 focus:outline-none focus:ring focus:ring-opacity-40"
                   country={"cm"}
@@ -123,20 +131,14 @@ const PutPhone: React.FC<ChildComponentProps> = ({
                 />
               </div>
 
-              <button
-                type="submit"
-                className="flex items-center justify-center w-full mt-10 px-6 py-3 text-sm tracking-wide text-white capitalize transition-colors duration-300 transform bg-red-600 rounded-lg hover:bg-red-400 focus:outline-none focus:ring focus:ring-red-300 focus:ring-opacity-50"
-              >
-                Send verification code
-              </button>
-              <p className="mt-3 inline flex justify-center">
-                Back to &nbsp;
-                <button
-                  className="signin text-red-400"
+              <SubmitedButton isLoading={isLoading} text={t("usermanagement.putPhone.sendButton")}/>
+              <p className="mt-3  text-center ">
+                {t("usermanagement.putPhone.backMessage")} &nbsp;
+                <SimpleButtonLink
+                  fontSize="14px"
+                  text={t("usermanagement.putPhone.signinButton")}
                   onClick={() => togglePassword()}
-                >
-                  Signin
-                </button>
+                />
               </p>
             </form>
             <img

@@ -8,7 +8,11 @@ import { Navigate, useNavigate } from "react-router-dom";
 import Variable from "../../../../Variable";
 import Authentications from "../../../../Services/Authentications";
 import { Box } from "@mui/material";
-
+import { useTranslation } from "react-i18next";
+import OtpInputField from "../../MuiCustomComponent/OtpInputField";
+import LabelField from "../../MuiCustomComponent/LabelField";
+import SubmitedButton from "../../MuiCustomComponent/SubmitedButton";
+import SimpleButtonLink from "../../MuiCustomComponent/SimpleButtonLink";
 
 type ChildComponentProps = {
   OtpCode: string;
@@ -27,19 +31,23 @@ export default function CheckOTP({
   gender,
 }: ChildComponentProps) {
   const messageError = "Invalid otp code";
-  const [token, setTokens] = useState("");
+  const [token1, setTokens1] = useState("");
   const [inputOTP, setInputOTP] = useState("");
   const [yet, setYet] = useState(false);
   const [dialogVisibility, setDialogVisibility] = useState(false);
   const [dialogMessage, setDialogMessage] = useState(messageError);
-
+  const { t } = useTranslation();
   const navigate = useNavigate();
+  const [token, setTokens] = useState<string | number | null | undefined>();
 
   const handleCloseDialog = () => {
     setDialogVisibility(false);
   };
 
   const verify = (e: React.FormEvent<HTMLFormElement>) => {
+    
+    e.preventDefault()
+
     if (inputOTP.length != 5) {
       setDialogMessage("Otp must have 5 digits");
       setDialogVisibility(true);
@@ -102,6 +110,7 @@ export default function CheckOTP({
       .catch((error) => {
         setDialogMessage(messageError);
         setDialogVisibility(true);
+        e.preventDefault()
       });
   };
 
@@ -128,8 +137,8 @@ export default function CheckOTP({
       <div className="">
         <div className=" max-w-2xl mx-auto lg:w-4/5">
           <div className="w-full">
-            <h1 className="text-2xl font-semibold tracking-wider text-gray-800 text-center mt-3 capitalize dark:text-white">
-              OTP Verification
+            <h1 className="text-xl font-semibold text-red-600 tracking-wider text-gray-800 text-center mt-3 capitalize">
+              {t("usermanagement.otp.title")}
             </h1>
 
             <div className="absolute z-20 ml-4 lg:ml-0  mt-20 lg:mt-20 lg:mr-15 w-4/5">
@@ -141,8 +150,9 @@ export default function CheckOTP({
               ) : null}
             </div>
 
-            <p className="mt-4 text-gray-500 dark:text-gray-400 text-center">
-              Un code de validation vous a été envoyé sur ce numero :
+            <p className="mt-4 text-gray-500 text-sm dark:text-gray-400 text-justify">
+              {t("usermanagement.otp.welcomeMessage1")} {phone}.{" "}
+              {t("usermanagement.otp.welcomeMessage2")}
             </p>
 
             <form
@@ -151,36 +161,19 @@ export default function CheckOTP({
                 verify(e);
               }}
             >
-              <div className=" flex flex-col gap-4">
-                <label className="block mb-2 ">code verify</label>
-                <input
-                  value={inputOTP}
-                  required
-                  onChange={(e) => setInputOTP(e.target.value)}
-                  placeholder="X X X X X"
-                  className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-red-400 dark:focus:border-red-400 focus:ring-red-400 focus:outline-none focus:ring focus:ring-opacity-40"
-                />
-                
-                  
-                
+              <div className=" flex gap-4 mb-[4rem] flex-col">
+                <LabelField text={t("usermanagement.otp.labelOtp")} />
+                <OtpInputField value={inputOTP} onChange={() => setInputOTP} />
               </div>
-              <div className="card flex justify-content-center"></div>
-
-              <input
-                type="submit"
-                value={"Verifier"}
-                className="flex items-center justify-center w-full mt-10 px-6 py-3 text-sm tracking-wide text-white capitalize transition-colors duration-300 transform bg-red-600 rounded-lg hover:bg-red-400 focus:outline-none focus:ring focus:ring-red-300 focus:ring-opacity-50"
-              />
+              
+              <SubmitedButton  text={t("usermanagement.otp.verifyButton")}/>
             </form>
+
             <p className="mt-3 text-center">
-              Havn't receive it?
-              <button
-                className="signin text-red-600 hover:text-white hover:bg-red-600 rounded-lg"
-                onClick={() => resendOTP()}
-              >
-                Resend
-              </button>
+              {t("usermanagement.otp.haventReceive")} &nbsp;
+              <SimpleButtonLink onClick={()=>resendOTP()} fontSize="14px" text={t("usermanagement.otp.resendButton")}/>
             </p>
+
             <img
               src={logo}
               alt="Logo Afriland First Bank"

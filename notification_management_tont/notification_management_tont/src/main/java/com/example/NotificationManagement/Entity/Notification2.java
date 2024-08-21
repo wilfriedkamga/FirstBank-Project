@@ -3,6 +3,7 @@ package com.example.NotificationManagement.Entity;
 import javax.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -18,7 +19,13 @@ public class Notification2 {
     private String title;
     private String message;
     private boolean isRead;
-
+    private boolean requiredConfirmation=false;
+    private boolean statusConfirmation;
+    private boolean confirmationState=false;
+    private Date creationDate;
+    private String imageUrl;
+    private String senderPhone;
+    private String receiverPhone;
     @ManyToOne
     @JoinColumn(name = "utilisateur_id")
     private Utilisateur utilisateur;
@@ -61,7 +68,63 @@ public class Notification2 {
         return utilisateur;
     }
 
+    public boolean isConfirmationState() {
+        return confirmationState;
+    }
+
+    public void setConfirmationState(boolean confirmationState) {
+        this.confirmationState = confirmationState;
+    }
+
     public void setUtilisateur(Utilisateur utilisateur) {
         this.utilisateur = utilisateur;
+    }
+
+    public boolean isRequiredConfirmation() {
+        return requiredConfirmation;
+    }
+
+    public void setRequiredConfirmation(boolean requiredConfirmation) {
+        this.requiredConfirmation = requiredConfirmation;
+    }
+
+    public boolean isStatusConfirmation() {
+        return statusConfirmation;
+    }
+
+    public void setStatusConfirmation(boolean statusConfirmation) {
+        this.statusConfirmation = statusConfirmation;
+    }
+
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getSenderPhone() {
+        return senderPhone;
+    }
+
+    public void setSenderPhone(String senderPhone) {
+        this.senderPhone = senderPhone;
+    }
+
+    public String getReceiverPhone() {
+        return receiverPhone;
+    }
+
+    public void setReceiverPhone(String receiverPhone) {
+        this.receiverPhone = receiverPhone;
     }
 }

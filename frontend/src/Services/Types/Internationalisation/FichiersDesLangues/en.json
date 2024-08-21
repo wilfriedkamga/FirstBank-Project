@@ -1,0 +1,54 @@
+{
+  "translation": {
+    "hello": "English translation for hello",
+    "usermanagement": {
+      "signin": {
+        "title": "Signin",
+        "welcomeMessage": "Fill in these fields to sign in.",
+        "signupButton": "Sign up",
+        "signinButton": "Sign in",
+        "haveAccountMessage": "Don't have an account?",
+        "labelViewPassword": "View password",
+        "messageForgetPassword": "Forgot password",
+        "placeHolderPassword": "Enter your password",
+        "labelPassword": "Password",
+        "labelPhone": "Phone"
+      },
+      "signup":{
+        
+          "title": "Sign up",
+          "labelFullName": "Full name",
+          "labelEmail": "Email",
+          "labelBirthDate": "Date of birth",
+          "labelGender": "Gender",
+          "placeHolderGender": "Choose your gender",
+          "valueMale": "Male",
+          "valueFemale": "Female",
+          "welcomeMessage": "Fill in these fields to sign in.",
+          "nextButton": "Next",
+          "signinButton": "Sign in",
+          "signupButton": "Create an account",
+          "haveAccountMessage": "Do you already have an account?",
+          "labelViewPassword": "View password",
+          "messageForgetPassword": "Forgot password",
+          "placeHolderConfirmPassword": "Confirm your password",
+          "labelConfirmPassword": "Confirm your password"
+        }
+
+      }
+    },
+
+    "association": {
+      "list": {
+        "name": "Nom",
+        "address": "Adresse",
+        "actions": "Actions"
+      }
+    },
+
+    "saving": {
+      "add": "Ajouter",
+      "edit": "Modifier",
+      "delete": "Supprimer"
+    }
+  }

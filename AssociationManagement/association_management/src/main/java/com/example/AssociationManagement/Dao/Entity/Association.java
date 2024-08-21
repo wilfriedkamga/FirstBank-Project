@@ -25,6 +25,10 @@ public class Association {
 
     private String modeReunion;
 
+    private boolean state1;
+    private boolean state2;
+    private boolean state3;
+
     private LocalDate creationDate;
 
     private boolean isDeletable;
@@ -32,6 +36,8 @@ public class Association {
     private int nbMembers=0;
 
     private int nbTontines=0;
+
+    private String phoneCreator;
 
     @OneToMany(mappedBy = "association", cascade = CascadeType.ALL)
     private List<Role_Asso> roles = new ArrayList<>();
@@ -68,6 +74,26 @@ public class Association {
         return id;
     }
 
+    public void setState1(boolean state1) {
+        this.state1 = state1;
+    }
+
+    public void setState2(boolean state2) {
+        this.state2 = state2;
+    }
+
+    public void setState3(boolean state3) {
+        this.state3 = state3;
+    }
+
+    public String getPhoneCreator() {
+        return phoneCreator;
+    }
+
+    public void setPhoneCreator(String phoneCreator) {
+        this.phoneCreator = phoneCreator;
+    }
+
     public void setId(String id) {
         this.id = id;
     }
@@ -102,6 +128,9 @@ public class Association {
 
     public List<Document> getDocument() {
         return document;
+    }
+    public void setDocuments(List<Document> evenements) {
+        this.document = evenements;
     }
 
     public void addDocument(Document document) {
@@ -170,6 +199,18 @@ public class Association {
 
     public List<Reunion> getReunions() {
         return reunions;
+    }
+
+    public boolean isState1() {
+        return state1;
+    }
+
+    public boolean isState2() {
+        return state2;
+    }
+
+    public boolean isState3() {
+        return state3;
     }
 
     public void setReunions(List<Reunion> reunions) {

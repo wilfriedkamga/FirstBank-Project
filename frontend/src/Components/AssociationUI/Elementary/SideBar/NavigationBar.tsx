@@ -3,6 +3,15 @@
 import React, { useMemo } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
+// Mapping des chemins vers des noms plus lisibles
+const breadcrumbNameMap: { [key: string]: string } = {
+  '/inbox': 'Inbox',
+  '/inbox/important': 'Important',
+  '/trash': 'Corbeille',
+  '/spam': 'Spam',
+  '/drafts': 'Brouillons',
+};
+
 const NavigationBar: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -13,7 +22,9 @@ const NavigationBar: React.FC = () => {
 
     return segments.map((segment, index) => {
       const path = `/${segments.slice(0, index + 1).join('/')}`;
-      return { label: segment, lien: path };
+      // Utilisation de decodeURIComponent pour décoder les segments d'URL
+      const label = breadcrumbNameMap[path] || decodeURIComponent(segment);
+      return { label, lien: path };
     });
   };
 
@@ -31,23 +42,25 @@ const NavigationBar: React.FC = () => {
   };
 
   return (
-    <div className="sm:w-[85vw] w-full mt-[10vh]  flex items-center text-red-600 font-extrabold px-4 z-1000 bg-gray-400 h-[7vh]">
+    <div className="sm:w-[85vw] w-full mt-[10vh]  flex items-center text-red-600 font-semibold px-4 z-1000 bg-gray-400 h-[7vh]">
       <div className="hidden sm:flex">
         {navigationItems.map((item, index) => (
           <div
             key={index}
             className="mx-2 cursor-pointer "
             onClick={() => handleNavigation(item.lien)}
-          ><span className="bg-white hover:bg-gray-200 rounded-lg p-2">{item.label}</span>
-            
+          >
+            <span className="bg-white text-xs hover:bg-gray-200 rounded-lg p-2">
+              {item.label}
+            </span>
             {index < navigationItems.length - 1 && " /"}
           </div>
         ))}
       </div>
-      <div className="flex  sm:hidden ">
+      <div className="flex sm:hidden">
         <button
           onClick={handleBack}
-          className="bg-gray-700  px-2 py-1 rounded text-white mr-2"
+          className="bg-gray-700 px-2 py-1 rounded text-white mr-2"
           disabled={navigationItems.length <= 1}
         >
           Retour
@@ -61,4 +74,3 @@ const NavigationBar: React.FC = () => {
 };
 
 export default NavigationBar;
-

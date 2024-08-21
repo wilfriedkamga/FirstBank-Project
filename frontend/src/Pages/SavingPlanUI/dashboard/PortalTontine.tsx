@@ -14,8 +14,8 @@ const PortalTontine = () => {
             className="text-[#0C1013] bg-gray-400 rounded-full md:p-5 p-2.5"
           />
         </div>
-        <span className="font-account text-center block">
-          Créer association
+        <span className="font-semibold text-center block">
+          Mes associations
         </span>
       </Link>
       <Link
@@ -29,8 +29,8 @@ const PortalTontine = () => {
             className="text-[#0C1013] bg-gray-400 rounded-full md:p-5 p-2.5"
           />
         </div>
-        <span className="font-account text-center block">
-          Dashbord association
+        <span className="font-semibold text-center block">
+          Dashbord
         </span>
       </Link>
     </div>

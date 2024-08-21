@@ -5,6 +5,11 @@ import logo from "../../../../Assets/Images/FBLogo.png";
 import axios from "axios";
 import SimpleDialog from "../../Elementary/Dialog/SimpleDialog";
 import Variable from "../../../../Variable";
+import { useTranslation } from "react-i18next";
+import LabelField from "../../MuiCustomComponent/LabelField";
+import OtpInputField from "../../MuiCustomComponent/OtpInputField";
+import SubmitedButton from "../../MuiCustomComponent/SubmitedButton";
+import SimpleButtonLink from "../../MuiCustomComponent/SimpleButtonLink";
 
 type ChildComponentProps = {
   OtpCode: string;
@@ -26,7 +31,7 @@ export default function CheckOTP2({
 }: ChildComponentProps) {
   const messageError = "Invalid otp code";
   const [token, setTokens] = useState("");
-  const [inputOTP, setInputOTP] = useState("");
+  const [inputOTP, setInputOTP] = useState<string>("");
   const [yet, setYet] = useState(false);
   const [dialogVisibility, setDialogVisibility] = useState(false);
   const [dialogMessage, setDialogMessage] = useState(messageError);
@@ -36,6 +41,8 @@ export default function CheckOTP2({
   };
 
   const verify = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    
     if (inputOTP.length != 5) {
       setDialogMessage("Otp must have 5 digits");
       setDialogVisibility(true);
@@ -51,7 +58,7 @@ export default function CheckOTP2({
 
   const verifyOTP = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+    alert(inputOTP)
     setYet(true);
 
     const route = Variable.routeApi + "api/usermanagement/verifyOTP";
@@ -72,7 +79,7 @@ export default function CheckOTP2({
 
   const verifyOTP1 = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+    
     const route = Variable.routeApi + "api/usermanagement/verifyOTP";
 
     const tempUser = {
@@ -88,6 +95,8 @@ export default function CheckOTP2({
         setDialogVisibility(true);
       });
   };
+
+  const { t } = useTranslation();
 
   const resendOTP = () => {
     const route = Variable.routeApi + "api/usermanagement/sendOTP";
@@ -111,8 +120,8 @@ export default function CheckOTP2({
       <div className="">
         <div className=" max-w-2xl mx-auto lg:w-4/5">
           <div className="w-full">
-            <h1 className="text-2xl font-semibold tracking-wider text-gray-800 text-center mt-3 capitalize dark:text-white">
-              OTP2 Verification
+            <h1 className="text-xl text-red-600 font-semibold tracking-wider text-center mt-3 capitalize">
+              {t("usermanagement.otp.title")}
             </h1>
 
             <div className="absolute z-20 ml-4 lg:ml-0  mt-20 lg:mt-20 lg:mr-15 w-4/5">
@@ -124,8 +133,9 @@ export default function CheckOTP2({
               ) : null}
             </div>
 
-            <p className="mt-4 text-gray-500 dark:text-gray-400 text-center">
-              Un code de validation vous a été envoyé sur ce numero :
+            <p className="mt-4 text-gray-500 text-sm   dark:text-gray-400 text-justify">
+              {t("usermanagement.otp.welcomeMessage1")} : {phone}{" "}
+              {t("usermanagement.otp.welcomeMessage2")}
             </p>
 
             <form
@@ -135,43 +145,27 @@ export default function CheckOTP2({
               }}
             >
               <div>
-                <label className="block mb-2 ">code verify</label>
-                <input
-                  value={inputOTP}
-                  required
-                  onChange={(e) => setInputOTP(e.target.value)}
-                  placeholder="X X X X X"
-                  className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-red-400 dark:focus:border-red-400 focus:ring-red-400 focus:outline-none focus:ring focus:ring-opacity-40"
-                />
-              </div>
-              <div className="card flex justify-content-center"></div>
+                <div className=" flex gap-4 mb-[4rem] flex-col">
+                  <LabelField text={t("usermanagement.otp.labelOtp")} />
+                  <OtpInputField
+                    value={inputOTP}
+                    onChange={(value) => setInputOTP(value)}
+                  />
+                </div>
 
-              <button
-                type="submit"
-                className="flex items-center justify-center w-full mt-10 px-6 py-3 text-sm tracking-wide text-white capitalize transition-colors duration-300 transform bg-red-600 rounded-lg hover:bg-red-400 focus:outline-none focus:ring focus:ring-red-300 focus:ring-opacity-50"
-              >
-                <span className="">Verify </span>
-              </button>
+                <SubmitedButton text={t("usermanagement.otp.verifyButton")} />
+              </div>
             </form>
+
             <p className="mt-3 text-center">
-              Havn't receive it?
-              <button
-                className="signin hover:bg-red-600 text-red-600 m-2 p-1 rounded-lg  hover:text-white"
-                onClick={resendOTP}
-              >
-                {" "}
-                Resend
-              </button>
+              {t("usermanagement.otp.haventReceive")}
+              <SimpleButtonLink onClick={()=>resendOTP()} fontSize="14px" text={t("usermanagement.otp.resendButton")}/>
             </p>
+
             <p className="mt-3 inline flex justify-center">
-              Back to &nbsp;
-              <button
-                className="signin text-red-400"
-                onClick={() => tooglePassword}
-              >
-                Signin
-              </button>
+              <SimpleButtonLink onClick={() => tooglePassword()} text={t("usermanagement.otp.signinButton")}/>
             </p>
+
             <img
               src={logo}
               alt="Logo Afriland First Bank"

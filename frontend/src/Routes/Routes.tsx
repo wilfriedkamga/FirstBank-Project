@@ -346,7 +346,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/add_signature",
-        element: <AddCNI />,
+        element: <AddSignature />,
         errorElement: <ErrorElement />,
       },
     ],

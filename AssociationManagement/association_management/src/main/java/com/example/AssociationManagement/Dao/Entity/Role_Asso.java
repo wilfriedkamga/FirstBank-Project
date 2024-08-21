@@ -17,10 +17,11 @@ public class Role_Asso {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
-
     private String id;
 
     private String label;
+
+    private String labelV;
 
     private boolean isDeletable;
 
@@ -71,7 +72,13 @@ public class Role_Asso {
         isDeletable = deletable;
     }
 
+    public String getLabelV() {
+        return labelV;
+    }
 
+    public void setLabelV(String labelV) {
+        this.labelV = labelV;
+    }
     public void setAssociation(Association association) {
         this.association = association;
     }

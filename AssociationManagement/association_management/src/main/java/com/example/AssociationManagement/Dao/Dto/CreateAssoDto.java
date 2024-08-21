@@ -24,8 +24,11 @@ public class CreateAssoDto {
     private LocalDate creationDate;
     private List<RoleAssoDto> roles;
     private List<MembreAssoDto> membres;
+    private int nbMembres;
+    private int nbTontines;
+    private int nbNotifications;
 
-    public CreateAssoDto(String id, String name, String frequenceReunion, String jourReunion, LocalDate creationDate, List<RoleAssoDto> roles, List<MembreAssoDto> membres) {
+    public CreateAssoDto(String id, String name, String frequenceReunion, String jourReunion, LocalDate creationDate, List<RoleAssoDto> roles, List<MembreAssoDto> membres, int nbMembres, int nbTntines, int nbNotifications) {
         this.id = id;
         this.name = name;
         this.frequenceReunion = frequenceReunion;
@@ -33,8 +36,9 @@ public class CreateAssoDto {
         this.creationDate = creationDate;
         this.roles = roles;
         this.membres = membres;
+        this.nbMembres = nbMembres;
+        this.nbTontines = nbTntines;
+        this.nbNotifications = nbNotifications;
     }
-
-
 }
 

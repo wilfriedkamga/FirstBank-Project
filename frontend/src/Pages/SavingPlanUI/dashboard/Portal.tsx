@@ -38,8 +38,8 @@ const Portal = () => {
         <div className="font-bold text-xl">Bienvenue, {name}</div>
         <AccountBalanceBox />
         <div className="mb-5 border-b border-gray-200">
-          <h3 className="font-title font-semibold text-[#0C1013] text-md">
-            Savings App Services
+          <h3 className="font-title font-bold text-[#0C1013] text-lg">
+            Gestion des épargnes
           </h3>
         </div>
         <div className="flex md:justify-normal justify-center items-center flex-row w-full justify-start space-x-6 md:space-x-24">
@@ -51,8 +51,8 @@ const Portal = () => {
                 className="text-[#0C1013] bg-gray-400 rounded-full md:p-5 p-2.5"
               />
             </div>
-            <span className="font-account text-center block">
-              Créer un plan
+            <span className="font-semibold text-center block">
+              Mes plans
             </span>
           </Link>
           <Link
@@ -66,36 +66,15 @@ const Portal = () => {
                 className="text-[#0C1013] bg-gray-400 rounded-full md:p-5 p-2.5"
               />
             </div>
-            <span className="font-account text-center block">Contribuer</span>
-          </Link>
-          <Link
-            to="/savings/app/contribute/plan"
-            className="w-18 justify-center"
-          >
-            <div className="rounded-lg border-gray-500 border-[2px] h-16 w-16 mb-1 mx-5 md:h-24 md:w-24 p-2.5 md:p-3.5">
-              <FontAwesomeIcon
-                icon={faHandHoldingUsd}
-                size="lg"
-                className="text-[#0C1013] bg-gray-400 rounded-full md:p-5 p-2.5"
-              />
-            </div>
-            <span className="font-account text-center block">Historique</span>
+            <span className="font-semibold text-center block">Dashbord</span>
           </Link>
         </div>
         <div className="mb-5  border-b border-gray-200">
-          <h3 className="font-title font-semibold text-[#0C1013] text-md">
-            Dashbord
+          <h3 className="font-title font-bold text-[#0C1013] text-lg">
+            Gestion des associations
           </h3>
         </div>
         <PortalTontine />
-
-        <div className="h-fit">
-          <div className="mb-5  border-b border-gray-200">
-            <h3 className="font-title font-semibold text-[#0C1013] text-md">
-              Create Tontine
-            </h3>
-          </div>
-        </div>
         <div className="mt-16">
           <div className="mb-5 ml-5 border-b border-gray-200">
             <h3 className="font-title font-semibold text-[#0C1013] text-md">

@@ -5,13 +5,19 @@ import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 
+import 'primereact/resources/themes/saga-blue/theme.css'; // Thème de votre choix
+import 'primereact/resources/primereact.min.css'; // Styles de base de Primereact
+import 'primeicons/primeicons.css'; // Icônes de Primereact
+import { PrimeReactProvider } from 'primereact/api';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <PrimeReactProvider value={{ unstyled: false }}>
+        <App />
+    </PrimeReactProvider>
   </React.StrictMode>
 );
 

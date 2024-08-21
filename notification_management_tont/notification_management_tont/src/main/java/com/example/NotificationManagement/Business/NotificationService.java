@@ -23,10 +23,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 @Service
@@ -100,7 +97,49 @@ public class NotificationService {
             e.printStackTrace();
         }
     }
+    public  void sendPushNotificationWithPhone(String phone, String title, String messageBody) {
+        Notification notification = Notification.builder()
+                .setTitle(title)
+                .setBody(messageBody)
+                .build();
 
+        Utilisateur utilisateur = utilisateurRepository.findByPhone(phone).orElse(null);
+        if(utilisateur == null){
+            throw  new RuntimeException("Utilisateur not found");
+        }
+
+        Message message = Message.builder()
+                .setToken(utilisateur.getAccesstoken())
+                .setNotification(notification)
+                .build();
+
+        try {
+            String response = FirebaseMessaging.getInstance().send(message);
+            System.out.println("Successfully sent message: " + response);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public void registerTokenPhone(String phone, String token){
+        // Verifier que ni ce token,ni ce telephone n'est déjà enregistrer dans la base de donnees.
+
+        Utilisateur utilisateur = utilisateurRepository.findByPhoneAndAccesstoken(phone,token ).orElse(null);
+        if(utilisateur==null){
+            Utilisateur utilisateur2=utilisateurRepository.findByPhone(phone).orElse(null);
+            Utilisateur utilisateur3=utilisateurRepository.findByAccesstoken(token).orElse(null);
+
+            if(utilisateur2 !=null){
+                utilisateur2.setAccesstoken(token);
+                utilisateurRepository.save(utilisateur2);
+            }
+
+            if(utilisateur3 !=null){
+                utilisateur3.setPhone(phone);
+                utilisateurRepository.save(utilisateur3);
+            }
+        }
+
+    }
     private boolean isUserExist(String phone) {
         String url = userManagementApiUrl + "/userExist";
         Map<String, String> requestBody = Map.of("phone", phone);
@@ -110,6 +149,13 @@ public class NotificationService {
         return response != null && "0".equals(response.getResponseCode());
     }
 
+    public NotificationDto answerNotification(String notificationId, boolean status){
+        Notification2 notification2=notificationRepository.findById(notificationId).orElse(null);
+        notification2.setStatusConfirmation(status);
+        NotificationDto notificationDto=new NotificationDto(notification2);
+
+        return notificationDto;
+    }
 
     public Utilisateur getUtilisateurByPhone(String phone) {
         return utilisateurRepository.findByPhone(phone)
@@ -122,7 +168,7 @@ public class NotificationService {
 
         String url = userManagementApiUrl + "/userExist";
 
-        Map<String, String> requestBody = Map.of("phone", createNotifModel.getPhone());
+        Map<String, String> requestBody = Map.of("phone", createNotifModel.getReceiverPhone());
         ResponseEntity<CommonResponseModel> responseEntity = restTemplate.postForEntity(url, requestBody, CommonResponseModel.class);
         CommonResponseModel response = responseEntity.getBody();
 
@@ -133,22 +179,24 @@ public class NotificationService {
         @SuppressWarnings("unchecked")
         Map<String, Object> userDetails = (Map<String, Object>) response.getData();
         String phone = (String) userDetails.get("phone");
-
-        Utilisateur utilisateur = utilisateurRepository.findByPhone(createNotifModel.getPhone()).orElse(null);
+        System.out.println("Voici l'erreur");
+        Utilisateur utilisateur = utilisateurRepository.findByPhone(createNotifModel.getReceiverPhone()).orElse(null);
         if(utilisateur == null){
             utilisateur=new Utilisateur();
             utilisateur.setPhone(phone);
         }
-        System.out.println("passe bien par ici");
 
         Notification2 notification = new Notification2();
         notification.setTitle(createNotifModel.getTitle());
+        notification.setSenderPhone(createNotifModel.getSenderPhone());
+        notification.setReceiverPhone(createNotifModel.getReceiverPhone());
         notification.setMessage(createNotifModel.getMessage());
+        notification.setCreationDate(new Date());
+        notification.setRequiredConfirmation(createNotifModel.isRequiredConfirmation());
+        notification.setStatusConfirmation(createNotifModel.isStatusConfirmation());
+        notification.setImageUrl(createNotifModel.getImageUrl());
         notification.setRead(false);
         notification.setUtilisateur(utilisateur);
-        System.out.println("passe bien par ici2");
-
-        System.out.println("passe bien par ici3");
         Utilisateur utilisateur1 =utilisateurRepository.save(utilisateur);
         Notification2 notification2=notificationRepository.save(notification);
         utilisateur1.getNotifications().add(notification2);
@@ -158,8 +206,11 @@ public class NotificationService {
 
 
     public List<NotificationDto> getNotifications(String phone) {
-        Utilisateur utilisateur = getUtilisateurByPhone(phone);
-        System.out.println("passe dans le service1");
+        Utilisateur utilisateur = utilisateurRepository.findByPhone(phone).orElse(null);
+        if(utilisateur == null){
+            throw new RuntimeException("Cette utilisateur n'a pas de notification");
+        }
+
         List<Notification2> notifications =utilisateur.getNotifications();
         List<NotificationDto> notificationDtos=new ArrayList<>();
         if(notifications.isEmpty()){return null;}
@@ -167,7 +218,6 @@ public class NotificationService {
         for(Notification2 notif:notifications){
             notificationDtos.add(new NotificationDto(notif));
         }
-        System.out.println("passe dans le service2");
         return notificationDtos;
     }
 

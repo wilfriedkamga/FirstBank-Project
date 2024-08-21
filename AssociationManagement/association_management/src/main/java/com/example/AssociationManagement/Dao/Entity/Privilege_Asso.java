@@ -18,8 +18,7 @@ public class Privilege_Asso {
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
-
-
+    private String label;
     @ManyToMany(mappedBy = "privileges")
     private List<Role_Asso> roles;
 
@@ -37,5 +36,13 @@ public class Privilege_Asso {
 
     public void setRoles(List<Role_Asso> roles) {
         this.roles = roles;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
     }
 }
