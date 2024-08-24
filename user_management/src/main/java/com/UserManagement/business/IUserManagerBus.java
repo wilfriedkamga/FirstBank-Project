@@ -11,7 +11,7 @@ import java.util.*;
 
 public interface IUserManagerBus {
 
-	User signin(String phone,String password) throws Exception;
+	boolean signin(String phone,String password) throws Exception;
 
 	User userExist(String phone) throws Exception;
 

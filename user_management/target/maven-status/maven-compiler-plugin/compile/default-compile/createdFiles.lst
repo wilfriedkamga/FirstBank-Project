@@ -12,7 +12,6 @@ com\UserManagement\dao\entities\Validation_Email.class
 com\UserManagement\dao\model\VerifyOTPModel.class
 com\UserManagement\dao\model\UploadFileModel.class
 com\UserManagement\dao\repositories\UploadFileRepository.class
-com\UserManagement\dao\model\UserLoginModel$UserLoginModelBuilder.class
 com\UserManagement\dao\repositories\ValidationEmailRepository.class
 com\UserManagement\config\JwtAuthenticationEntryPoint.class
 com\UserManagement\business\IUserManagerBus.class
@@ -30,6 +29,7 @@ com\UserManagement\dao\repositories\ValidationRepository.class
 com\UserManagement\config\JwtRequestFilter.class
 com\UserManagement\dao\model\CommonResponseModel.class
 com\UserManagement\dao\model\DownloadImageModel.class
+com\UserManagement\dao\dto\UserDto.class
 com\UserManagement\config\JwtTokenUtil.class
 com\UserManagement\dao\entities\Validation.class
 com\UserManagement\business\UserManagerBus.class

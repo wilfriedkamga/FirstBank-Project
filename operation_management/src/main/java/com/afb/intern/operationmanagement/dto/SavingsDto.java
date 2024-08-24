@@ -13,13 +13,7 @@ import java.util.Date;
 @Data
 public class SavingsDto {
 
-    private String Id;
-    private Date validity;
-    private String reason;
+    private String id;
     private String status;
-    private String reminder;
     private Double savingBalance;
-    private Double amountTarget;
-    private Date dueDate;
-    private String phone;
 }

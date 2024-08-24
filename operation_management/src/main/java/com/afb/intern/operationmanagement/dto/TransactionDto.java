@@ -13,7 +13,7 @@ public class TransactionDto {
 
     private Double amount;
     private String TransactionType;
-    private Long paymentMethod;
+    private String paymentMethod;
     private String initiator;
     private String senderwalletId;
     private String receiverwalletId;

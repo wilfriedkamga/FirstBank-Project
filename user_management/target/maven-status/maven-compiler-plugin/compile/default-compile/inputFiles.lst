@@ -22,6 +22,7 @@ C:\Users\jorda\Desktop\Projet First Bank\tontine\user_management\src\main\java\c
 C:\Users\jorda\Desktop\Projet First Bank\tontine\user_management\src\main\java\com\UserManagement\controller\UserManagerController.java
 C:\Users\jorda\Desktop\Projet First Bank\tontine\user_management\src\main\java\com\UserManagement\dao\model\CommonResponseModel.java
 C:\Users\jorda\Desktop\Projet First Bank\tontine\user_management\src\main\java\com\UserManagement\dao\model\SignupModel.java
+C:\Users\jorda\Desktop\Projet First Bank\tontine\user_management\src\main\java\com\UserManagement\dao\dto\UserDto.java
 C:\Users\jorda\Desktop\Projet First Bank\tontine\user_management\src\main\java\com\UserManagement\dao\entities\Privilege.java
 C:\Users\jorda\Desktop\Projet First Bank\tontine\user_management\src\main\java\com\UserManagement\dao\entities\Role.java
 C:\Users\jorda\Desktop\Projet First Bank\tontine\user_management\src\main\java\com\UserManagement\business\IUserManagerBus.java

@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  pulsar:
+    image: "apachepulsar/pulsar:latest"
+    command: bin/pulsar standalone
+    container_name: "pulsarCommunication"
+    environment:
+      - PULSAR_MEM_LIMIT=2g
+      - PULSAR_LOG_LEVEL=INFO
+    ports:
+      - "6650:6650"
+      - "8080:8080"
+    restart: unless-stopped
+    networks:
+      - pulsar_network
+
+networks:
+  pulsar_network:
+    name: pulsar_network
+    driver: bridge

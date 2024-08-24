@@ -18,13 +18,6 @@ public class WithdrawFromSavingsDto {
     private String paymentMethodId;
     private String code;
     private Double amount;
-    private String SavingsId;
-    private Date validity;
-    private String reason;
     private String status;
-    private String reminder;
     private Double savingBalance;
-    private Double amountTarget;
-    private Date dueDate;
-    private String phone;
 }

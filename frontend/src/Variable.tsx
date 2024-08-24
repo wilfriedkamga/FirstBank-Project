@@ -10,7 +10,7 @@ class Variable {
   static secret_key = "your_secret_key";
   static local_storage_key = "userFB";
   static saving_base_url = "http://localhost:8085";
-  static operation_service_base_url = "http://localhost:8083";
+  static operation_service_base_url = "http://localhost:8092";
   static notification_baseUrlc = "http://localhost:8000";
   static notification_2 = "http://localhost:8091"; //http://localhost:8091
 
@@ -25,6 +25,8 @@ class Variable {
     const item = localStorage.getItem(key);
     return item ? JSON.parse(item) : null;
   };
+
+  static notification_permissions:boolean=false;
 
   static setLocalStorageItem = (key: string, data: any): boolean => {
     localStorage.setItem(key, JSON.stringify(data));

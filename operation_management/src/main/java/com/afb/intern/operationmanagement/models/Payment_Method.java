@@ -17,7 +17,7 @@ public class Payment_Method {
 
     @Id
     @Column(name = "Id", nullable = false)
-    private Long Id;
+    private String Id;
 
     @Column(name = "method_name", nullable = false)
     private String methodName;

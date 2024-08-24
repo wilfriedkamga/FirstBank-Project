@@ -1,53 +1,51 @@
 import { createBrowserRouter } from "react-router-dom";
-import Authentification from "../Pages/AssociationUI/Authentification/Authentification";
+import Authentification from "../Front_Usermanagement/Page/Authentification/Authentification";
 import { ErrorElement } from "./ErrorElement";
 import ProtectedRoute from "./ProtectedRoutes";
-import TontineHomePage from "../Pages/AssociationUI/TontineHomePage/TontineHomePage";
-import Dashboard from "../Components/AssociationUI/Elementary/Dashboard/Dashboard";
-import MesTontines from "../Components/AssociationUI/Elementary/MesTontines/MesTontines";
-import BoardView from "../Components/AssociationUI/Elementary/MesTontines/BoardView";
-import TontineContent from "../Components/AssociationUI/Elementary/maTontine/TontineContent";
-import { MaTontine } from "../Components/AssociationUI/Elementary/maTontine/MaTontine";
-import CaisseContent from "../Components/AssociationUI/Elementary/Caisses/CaisseContent";
-import MaCaisse from "../Components/AssociationUI/Elementary/Caisses/MaCaisse";
-import MesCaisse from "../Components/AssociationUI/Elementary/Caisses/MesCaisse";
-import UneCaisseContent from "../Components/AssociationUI/Elementary/Caisses/UneCaisseContent";
-import UneCaisse from "../Components/AssociationUI/Elementary/Caisses/UneCaisse";
-import Parametres from "../Components/AssociationUI/Elementary/ParametresTontines/Parametres";
-import Cotisation from "../Components/AssociationUI/Elementary/Caisses/Cotisation";
-import MembresCaisseContent from "../Components/AssociationUI/Elementary/Caisses/MembresCaisseContent";
-import MesReunnionsContent from "../Components/AssociationUI/Elementary/MesTontines/Reunions/MesReunnionsContent";
-import MesReunions from "../Components/AssociationUI/Elementary/MesTontines/Reunions/MesReunions";
-import UneReunion from "../Components/AssociationUI/Elementary/MesTontines/Reunions/UneReunion";
-import MembresTontine from "../Components/AssociationUI/Elementary/MesTontines/MembresTontine";
-import MesDocuments  from "../Components/AssociationUI/Elementary/MesDocuments/MesDocuments";
-import ParametreContent from "../Components/AssociationUI/Elementary/ParametresTontines/ParametreContent";
-import RoleAssociation from "../Components/AssociationUI/Elementary/ParametresTontines/RoleAssociation";
-import MesCotisation from "../Components/AssociationUI/Elementary/Dashboard/MesCotisation";
-import MesSanctions from "../Components/AssociationUI/Elementary/Dashboard/MesSanctions";
-import Settings from "../Pages/SavingPlanUI/Settings/Settings";
-import ProfileSettings from "../Pages/SavingPlanUI/ProfileSettings/ProfileSettings";
-import Notifications from "../Pages/SavingPlanUI/nootifications/Notifications";
-import Search from "../Pages/SavingPlanUI/search/Search";
-import SavingsDash from "../Pages/SavingPlanUI/savingsApp/dashboard/SavingsDash";
-import CreatePlan from "../Pages/SavingPlanUI/savingsApp/plan/CreatePlan";
-import EditProfile from "../Pages/SavingPlanUI/ProfileSettings/EditProfile";
-import ModifyPassword from "../Pages/SavingPlanUI/ProfileSettings/ModifyPassword";
-import EmailVerification from "../Pages/SavingPlanUI/ProfileSettings/EmailVerification";
-import Plans from "../Pages/SavingPlanUI/savingsApp/plan/Plans";
-import AddSignature from "../Pages/SavingPlanUI/ProfileSettings/AddSignature";
-import AddCNI from "../Pages/SavingPlanUI/ProfileSettings/AddCNI";
-import Details from "../Pages/SavingPlanUI/savingsApp/plan/Details";
-import Portal from "../Pages/SavingPlanUI/dashboard/Portal";
-import ParamInfo from "../Components/AssociationUI/Elementary/ParametresTontines/ParamInfo";
-import ParamRoles from "../Components/AssociationUI/Elementary/ParametresTontines/ParamRoles";
-import ParamReunions from "../Components/AssociationUI/Elementary/ParametresTontines/ParamReunions";
-import ParamSanction from "../Components/AssociationUI/Elementary/ParametresTontines/ParamSanction";
-import ParamSession from "../Components/AssociationUI/Elementary/ParametresTontines/ParamSession";
-import FeatureInProgress from "../Components/AssociationUI/Elementary/FeatureInProgress";
-import UneReunionContent from "../Components/AssociationUI/Elementary/MesTontines/Reunions/UneReunionContent";
-import Cotisations from "../Components/AssociationUI/Elementary/MesTontines/Reunions/Cotisations";
-import ParamTontines from "../Components/AssociationUI/Elementary/Caisses/ParamTontines ";
+import TontineHomePage from "../Front_Association/Pages/TontineHomePage/TontineHomePage";
+import Dashboard from "../Front_Association/Component/Elementary/Dashboard/Dashboard";
+import MesTontines from "../Front_Association/Component/Elementary/MesTontines/MesTontines";
+import BoardView from "../Front_Association/Component/Elementary/MesTontines/BoardView";
+import TontineContent from "../Front_Association/Component/Elementary/maTontine/TontineContent";
+import { MaTontine } from "../Front_Association/Component/Elementary/maTontine/MaTontine";
+import CaisseContent from "../Front_Association/Component/Elementary/Caisses/CaisseContent";
+import MaCaisse from "../Front_Association/Component/Elementary/Caisses/MaCaisse";
+import MesCaisse from "../Front_Association/Component/Elementary/Caisses/MesCaisse";
+import UneCaisseContent from "../Front_Association/Component/Elementary/Caisses/UneCaisseContent";
+import UneCaisse from "../Front_Association/Component/Elementary/Caisses/UneCaisse";
+import ParamTontines from "../Front_Association/Component/Elementary/Caisses/ParamTontines ";
+import Cotisation from "../Front_Association/Component/Elementary/Caisses/Cotisation";
+import FeatureInProgress from "../Front_Association/Component/Elementary/FeatureInProgress";
+import MembresCaisseContent from "../Front_Association/Component/Elementary/Caisses/MembresCaisseContent";
+import MesReunnionsContent from "../Front_Association/Component/Elementary/MesTontines/Reunions/MesReunnionsContent";
+import MesReunions from "../Front_Association/Component/Elementary/MesTontines/Reunions/MesReunions";
+import UneReunionContent from "../Front_Association/Component/Elementary/MesTontines/Reunions/UneReunionContent";
+import MembresTontine from "../Front_Association/Component/Elementary/MesTontines/MembresTontine";
+import MesDocuments from "../Front_Association/Component/Elementary/MesDocuments/MesDocuments";
+import ParametreContent from "../Front_Association/Component/Elementary/ParametresTontines/ParametreContent";
+import Parametres from "../Front_Association/Component/Elementary/ParametresTontines/Parametres";
+import ParamInfo from "../Front_Association/Component/Elementary/ParametresTontines/ParamInfo";
+import ParamRoles from "../Front_Association/Component/Elementary/ParametresTontines/ParamRoles";
+import ParamReunions from "../Front_Association/Component/Elementary/ParametresTontines/ParamReunions";
+import ParamSanction from "../Front_Association/Component/Elementary/ParametresTontines/ParamSanction";
+import ParamSession from "../Front_Association/Component/Elementary/ParametresTontines/ParamSession";
+import MesCotisation from "../Front_Association/Component/Elementary/Dashboard/MesCotisation";
+import MesSanctions from "../Front_Association/Component/Elementary/Dashboard/MesSanctions";
+import Settings from "../Front_Saving/Page/Settings/Settings";
+import ProfileSettings from "../Front_Usermanagement/Component/ProfileSettings/ProfileSettings";
+import Notifications from "../Front_Usermanagement/Component/nootifications/Notifications";
+import Search from "../Front_Saving/Page/search/Search";
+import SavingsDash from "../Front_Saving/Page/dashboard/SavingsDash";
+import EditProfile from "../Front_Usermanagement/Component/ProfileSettings/EditProfile";
+import ModifyPassword from "../Front_Usermanagement/Component/ProfileSettings/ModifyPassword";
+import EmailVerification from "../Front_Usermanagement/Component/ProfileSettings/EmailVerification";
+import AddSignature from "../Front_Usermanagement/Component/ProfileSettings/AddSignature";
+import AddCNI from "../Front_Usermanagement/Component/ProfileSettings/AddCNI";
+import UneReunion from "../Front_Association/Component/Elementary/MesTontines/Reunions/UneReunion";
+import CreatePlan from "../Front_Saving/Page/plan/CreatePlan";
+import Plans from "../Front_Saving/Page/plan/Plans";
+import Details from "../Front_Saving/Page/plan/Details";
+import Portal from "../Front_Usermanagement/Page/Dashboard/Portal";
 
 const isKeyInLocalStorage = (key: string): boolean => {
   const token = localStorage.getItem(key);
@@ -58,7 +56,7 @@ const isKeyInLocalStorage = (key: string): boolean => {
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <Authentification />,
+    element: <Authentification/>,
     errorElement: <ErrorElement />,
   },
   {
@@ -78,12 +76,12 @@ export const router = createBrowserRouter([
         children: [
           {
             path: "/association/",
-            element: <Dashboard />,
+            element: <Dashboard/>,
             errorElement: <ErrorElement />,
           },
           {
             path: "/association/mes associations",
-            element: <MesTontines />,
+            element: <MesTontines/>,
             errorElement: <ErrorElement />,
             children: [
               {
@@ -200,7 +198,7 @@ export const router = createBrowserRouter([
                           },
                           {
                             path: "/association/mes associations/:idassociation/reunions/:idReunion/cotisation/:idtontine",
-                            element: <Cotisations />,
+                            element: <Cotisation />,
                           }
                         ]
                       },
@@ -306,7 +304,7 @@ export const router = createBrowserRouter([
         errorElement: <ErrorElement />,
       },
       {
-        path: "/newPlan",
+        path: "/savings/newPlan",
         element: <CreatePlan />,
         errorElement: <ErrorElement />,
       },

@@ -60,15 +60,31 @@ public class UserManagerController {
 		CommonResponseModel response = new CommonResponseModel();
 
 		try {
-			authenticate(authenticationRequest.getPhone(), authenticationRequest.getPassword());
-			final UserDetails userDetails = jwtInMemoryUserDetailsService
+
+			UserLoginModel user=usermanagerBus.getUserLoginDetails(authenticationRequest.getPhone());
+			user.getPassword();
+			final UserDetails userDetails1 = jwtInMemoryUserDetailsService
 					.loadUserByUsername(authenticationRequest.getPhone());
-			final String token = jwtTokenUtil.generateToken(userDetails);
+			final String token1 = jwtTokenUtil.generateToken(userDetails1);
 
-			response.setMessage("Success");
-			response.setResponseCode("0");
-			response.setData(new JwtResponse(token, usermanagerBus.getUserLoginDetails(authenticationRequest.getPhone()/*,authenticationRequest.getPassword()*/)));
+			if(!user.isActivate() && usermanagerBus.signin(authenticationRequest.getPhone(),authenticationRequest.getPassword())){
+				response.setMessage("Ce compte n'est pas activé, il faut l'activer.");
+				response.setResponseCode("2");
+				response.setData(user);
+				response.setData(new JwtResponse(token1, user/*,authenticationRequest.getPassword()*/));
+			}
+			else{
 
+				authenticate(authenticationRequest.getPhone(), authenticationRequest.getPassword());
+				final UserDetails userDetails = jwtInMemoryUserDetailsService
+						.loadUserByUsername(authenticationRequest.getPhone());
+				final String token = jwtTokenUtil.generateToken(userDetails);
+
+				response.setMessage("Success de l'authentification");
+				response.setResponseCode("0");
+				response.setData(new JwtResponse(token, user/*,authenticationRequest.getPassword()*/));
+
+			}
 			return new ResponseEntity(response, HttpStatus.OK);
 
 		}catch (Exception e){

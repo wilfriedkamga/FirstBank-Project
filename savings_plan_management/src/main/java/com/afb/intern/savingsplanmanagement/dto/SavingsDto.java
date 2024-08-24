@@ -17,6 +17,7 @@ public class SavingsDto {
     private String reason;
     private List<Date> reminder;
     private Double amountTarget;
+    private Date startDate;
     private Date dueDate;
     private String phone;
 }

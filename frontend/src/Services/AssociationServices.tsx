@@ -4,6 +4,12 @@ import Variable from "../Variable";
 const routes_create_association =
   Variable.routeApiAssociation +
   "/api/associationmanagement/create_association";
+  const routes_delete_association =
+  Variable.routeApiAssociation +
+  "/api/associationmanagement/delete_association_by_id";
+  const routes_opening_association =
+  Variable.routeApiAssociation +
+  "/api/associationmanagement/initialize_association";
 const routes_create_tontine =
   Variable.routeApiAssociation + "/api/associationmanagement/createTontine";
 const routes_get_association_details =
@@ -163,6 +169,14 @@ class AssociationServices {
   // Modifier les informations d'une association
   UpdateAssociation(data: any) {
     return axios.put(route_update_association, data);
+  }
+  // Modifier les informations d'une association
+  initialize_association(data: string) {
+    return axios.post(routes_opening_association+"?associationId="+ data);
+  }
+  // Modifier les informations d'une association
+  delete_association(data: string) {
+    return axios.delete(routes_delete_association+"?associationId="+ data);
   }
 
   // Retirer un membre de l'association

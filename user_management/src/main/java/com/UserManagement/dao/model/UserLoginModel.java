@@ -16,9 +16,6 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
-@Setter
-@Getter
-@Builder
 public class UserLoginModel {
 
     private String phone;
@@ -31,8 +28,17 @@ public class UserLoginModel {
     private String cniRecto;
     private String cniVerso;
     private String signature;
+    private boolean isActivate;
     private String photo;
     private List<String> privilegelist = new ArrayList<String>();
+
+    public boolean isActivate() {
+        return isActivate;
+    }
+
+    public void setActivate(boolean activate) {
+        isActivate = activate;
+    }
 
     public boolean isEmailIsVallid() {
         return emailIsVallid;
@@ -130,7 +136,7 @@ public class UserLoginModel {
         this.privilegelist = privilegelist;
     }
 
-    public UserLoginModel(String phone, String fullName, LocalDate birthDate, String gender, String password, String email, boolean emailIsVallid, String cniRecto, String cniVerso, String signature, String photo, List<String> privilegelist) {
+    public UserLoginModel(String phone, String fullName, LocalDate birthDate, String gender, String password, String email, boolean emailIsVallid, String cniRecto, String cniVerso, String signature, String photo, List<String> privilegelist, boolean isActivate) {
         this.phone = phone;
         this.fullName = fullName;
         this.birthDate = birthDate;
@@ -143,6 +149,7 @@ public class UserLoginModel {
         this.signature = signature;
         this.photo = photo;
         this.privilegelist = privilegelist;
+        this.isActivate=isActivate;
     }
 
 

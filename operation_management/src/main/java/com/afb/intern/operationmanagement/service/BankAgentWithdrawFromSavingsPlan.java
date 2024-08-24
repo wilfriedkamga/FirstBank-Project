@@ -35,7 +35,7 @@ public class BankAgentWithdrawFromSavingsPlan implements WithdrawFromSavingsPlan
         String adpToken = operationService.getADPToken();
         Double fees = operationService.getFees(adpToken, dto.getAmount());
         TransactionDto transactionDto = new TransactionDto();
-        if (dto.getCode().equals(wallet.getCode())){
+       /* if (dto.getCode().equals(wallet.getCode())){
             if (paymentMethod.getMethodName().equals("ORANGE-MONEY")){
                 transactionDto = operationService.requestTowithdraw(adpToken, dto.getAmount(), fees, paymentMethod.getMethodName(), dto.getInitiator(), wallet.getId());
             } else if (paymentMethod.getMethodName().equals("MOBILE-MONEY")){
@@ -62,7 +62,7 @@ public class BankAgentWithdrawFromSavingsPlan implements WithdrawFromSavingsPlan
                     throw new AppException("Error updating account balance", HttpStatus.INTERNAL_SERVER_ERROR);
                 }
             }
-        }
+        }*/
         return transactionDto;
     }
 }

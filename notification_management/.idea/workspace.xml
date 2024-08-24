@@ -1,7 +1,585 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="29a3af1b-7f43-41fb-bab1-d309e9c78728" name="Default Changelist" comment="" />
+    <list default="true" id="29a3af1b-7f43-41fb-bab1-d309e9c78728" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../association_management/src/main/java/com/example/AssociationManagement/Dao/Entity/Invitation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../association_management/src/main/java/com/example/AssociationManagement/Dao/Repository/InvitationRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../user_management/src/main/java/com/UserManagement/dao/dto/UserDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/.idea/AssociationManagement.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/AssociationManagementApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Business/AssociationBus.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Config/CorsConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Config/DefaultRolesConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Config/RestTemplateConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Config/SecurityConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Config/WebConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Controller/AssociationController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Controller/DocumentController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Controller/MeetingController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Controller/TontineController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Controller/test.rest" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/CustomException/AssociationAlreadyExistsException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/CustomException/AssociationNotFoundException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/CustomException/GlobalExceptionHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/CustomException/RoleAlreadyExistException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/CustomException/UndeletableRoleException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/CustomException/UserNotFoundException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Dao/Dto/AssociationDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Dao/Dto/CreateAssoDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Dao/Dto/DTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Dao/Dto/DocumentDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Dao/Dto/EventDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Dao/Dto/MemberDetailsDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Dao/Dto/MembreAssoDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Dao/Dto/ReunionDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Dao/Dto/RoleAssoDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Dao/Dto/TontineDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Dao/Entity/Association.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Dao/Entity/Cotisation.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Dao/Entity/Dette.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Dao/Entity/Document.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Dao/Entity/Evenement.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Dao/Entity/Membre_Asso.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Dao/Entity/Membre_Asso_Temp.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Dao/Entity/Membre_Tont.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Dao/Entity/Privilege_Asso.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Dao/Entity/Privilege_Tont.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Dao/Entity/Remboursement.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Dao/Entity/Reunion.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Dao/Entity/Role_Asso.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Dao/Entity/Role_Tont.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Dao/Entity/Sanction.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Dao/Entity/Tontine.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Dao/Modele/ChangeMemberRoleModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Dao/Modele/CommonResponseModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Dao/Modele/ConfirmerCreationAssoModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Dao/Modele/CreateNotifModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Dao/Modele/CreateTontineModele.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Dao/Modele/CreaterAssoModele.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Dao/Modele/DeleteRoleAssociationModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Dao/Modele/MembreCreationModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Dao/Modele/Modeles.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Dao/Modele/RoleCreationModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Dao/Modele/UpdateAssoModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Dao/Modele/UploadFileModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Dao/Repository/AssociationRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Dao/Repository/DocumentRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Dao/Repository/MembreAssoRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Dao/Repository/MembreAssoTempRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Dao/Repository/MembreTontRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Dao/Repository/PrivilegeAssoRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Dao/Repository/ReunionRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Dao/Repository/RoleAssoRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Dao/Repository/RoleTontRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/java/com/example/AssociationManagement/Dao/Repository/TontineRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/resources/application-prod.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AssociationManagement/association_management/src/test/java/com/example/AssociationManagement/AssociationManagementApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SearchFiles.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../api_gateway/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../api_gateway/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../api_gateway/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../api_gateway/target/classes/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../association_managementOLD/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../association_managementOLD/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../association_managementOLD/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../association_managementOLD/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../association_managementOLD/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../association_managementOLD/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../association_managementOLD/src/main/java/com/example/AssociationManagement/Business/AssociationBus.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../association_managementOLD/src/main/java/com/example/AssociationManagement/Config/CorsConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../association_managementOLD/src/main/java/com/example/AssociationManagement/Config/SecurityConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../association_managementOLD/src/main/java/com/example/AssociationManagement/Config/WebConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../association_managementOLD/src/main/java/com/example/AssociationManagement/Controller/test.rest" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../association_managementOLD/src/main/java/com/example/AssociationManagement/Dao/Dto/AssociationDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../association_managementOLD/src/main/java/com/example/AssociationManagement/Dao/Dto/CreateAssoDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../association_managementOLD/src/main/java/com/example/AssociationManagement/Dao/Dto/DTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../association_managementOLD/src/main/java/com/example/AssociationManagement/Dao/Dto/EventDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../association_managementOLD/src/main/java/com/example/AssociationManagement/Dao/Dto/MemberDetailsDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../association_managementOLD/src/main/java/com/example/AssociationManagement/Dao/Dto/MembreAssoDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../association_managementOLD/src/main/java/com/example/AssociationManagement/Dao/Dto/ReunionDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../association_managementOLD/src/main/java/com/example/AssociationManagement/Dao/Dto/RoleAssoDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../association_managementOLD/src/main/java/com/example/AssociationManagement/Dao/Dto/TontineDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../association_managementOLD/src/main/java/com/example/AssociationManagement/Dao/Entity/Association.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../association_managementOLD/src/main/java/com/example/AssociationManagement/Dao/Entity/Cotisation.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../association_managementOLD/src/main/java/com/example/AssociationManagement/Dao/Entity/Dette.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../association_managementOLD/src/main/java/com/example/AssociationManagement/Dao/Entity/Document.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../association_managementOLD/src/main/java/com/example/AssociationManagement/Dao/Entity/Evenement.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../association_managementOLD/src/main/java/com/example/AssociationManagement/Dao/Entity/Membre_Asso.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../association_managementOLD/src/main/java/com/example/AssociationManagement/Dao/Entity/Membre_Tont.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../association_managementOLD/src/main/java/com/example/AssociationManagement/Dao/Entity/Remboursement.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../association_managementOLD/src/main/java/com/example/AssociationManagement/Dao/Entity/Reunion.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../association_managementOLD/src/main/java/com/example/AssociationManagement/Dao/Entity/Role_Asso.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../association_managementOLD/src/main/java/com/example/AssociationManagement/Dao/Entity/Role_Tont.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../association_managementOLD/src/main/java/com/example/AssociationManagement/Dao/Entity/Sanction.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../association_managementOLD/src/main/java/com/example/AssociationManagement/Dao/Entity/Tontine.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../association_managementOLD/src/main/java/com/example/AssociationManagement/Dao/Modele/Modeles.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../association_managementOLD/src/main/resources/application-prod.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../association_managementOLD/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../association_managementOLD/src/main/resources/messages.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../association_managementOLD/src/main/resources/messages_fr.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../discovery/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../discovery/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../documentmanagement/documentmanagement/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../documentmanagement/documentmanagement/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../documentmanagement/documentmanagement/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../documentmanagement/documentmanagement/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../documentmanagement/documentmanagement/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../documentmanagement/documentmanagement/src/main/java/com/example/documentmanagement/Business/DocumentBus.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../documentmanagement/documentmanagement/src/main/java/com/example/documentmanagement/Controller/DocumentController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../documentmanagement/documentmanagement/src/main/java/com/example/documentmanagement/Dao/Entity/Document.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../documentmanagement/documentmanagement/src/main/java/com/example/documentmanagement/Dao/Modele/CommonResponseModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../documentmanagement/documentmanagement/src/main/java/com/example/documentmanagement/Dao/Repository/DocumentRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../documentmanagement/documentmanagement/src/main/java/com/example/documentmanagement/DocumentmanagementApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../documentmanagement/documentmanagement/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../documentmanagement/documentmanagement/src/test/java/com/example/documentmanagement/DocumentmanagementApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Assets/Images/Excel.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Assets/Images/FBLogo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Assets/Images/fichier.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Assets/Images/image.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Assets/Images/logoFB.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Assets/Images/pdf.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Assets/Images/powerpoint.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Assets/Images/word.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/Caisses/AccountCard.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/Caisses/AddCaisse.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/Caisses/AddCaisseMembre.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/Caisses/AddTontineDialog.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/Caisses/CaisseContent.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/Caisses/CaisseInfo.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/Caisses/Cotisation.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/Caisses/CotisationMembre.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/Caisses/MaCaisse.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/Caisses/MaCaisseContent.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/Caisses/MembresCaisseContent.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/Caisses/MesCaisse.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/Caisses/ParamTontines .tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/Caisses/UneCaisse.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/Caisses/UneCaisseContent.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/Caisses/membreCard.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/Component/AddMemberForm.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/Component/DualSelect.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/Component/SelectItem.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/Component/SelectItem2.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/Component/test.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/Component/test/ContactModal.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/Component/test/ContactPicker.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/Dashboard/Dashboard.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/Dashboard/MesCotisation.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/Dashboard/MesSanctions.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/Dashboard/ReactVirtualizedTable.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/Dashboard/TableSanction.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/Dialog/SimpleDialog.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/FeatureInProgress.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/Footer/Footer.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/MesDocuments/Icons.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/MesDocuments/MesDocuments.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/MesTontines/AddAssociation.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/MesTontines/AddMembreTontine.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/MesTontines/AddTontine.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/MesTontines/AddTontineMembre.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/MesTontines/AssoNotificationDialog.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/MesTontines/AssociationCard.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/MesTontines/AssociationCardM.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/MesTontines/BoardView.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/MesTontines/ConfirmationDialogRaw.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/MesTontines/EditMembreAssociation.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/MesTontines/MembresTontine.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/MesTontines/MembresTontineCard.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/MesTontines/MesTontines.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/MesTontines/PhoneInputController.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/MesTontines/PhoneInputRole.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/MesTontines/RemoveMembreAssociation.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/MesTontines/Reunions/Cotisations.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/MesTontines/Reunions/MesReunions.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/MesTontines/Reunions/MesReunnionsContent.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/MesTontines/Reunions/ResponsiveGrid.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/MesTontines/Reunions/ReunionComponent.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/MesTontines/Reunions/UneReunion.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/MesTontines/Reunions/UneReunionContent.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/MesTontines/Reunions/UneReunionM.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/MesTontines/TontineCard.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/MesTontines/TontineCardM.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/MesTontines/TooltipSpan.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/MesTontines/TooltipSpan.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/MesTontines/UserInfo.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/MesTontines/test.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/Navbar/Navbar.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/Navbar/NotificationPanel.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/Navbar/UserAvatar.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/Notifications/AlertDialog.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/Notifications/BottomAppBar.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/Notifications/FullScreenDialog.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/Notifications/NotificationPanel.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/Notifications/ScrollDialog.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/Notifications/Sucess.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/ParametresTontines/AddPrivilegeDialog.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/ParametresTontines/AddRole.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/ParametresTontines/DeletePrivillegeDialog.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/ParametresTontines/MultipleSelect.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/ParametresTontines/ParamInfo.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/ParametresTontines/ParamItem.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/ParametresTontines/ParamReunions.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/ParametresTontines/ParamRoles.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/ParametresTontines/ParamSanction.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/ParametresTontines/ParamSession.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/ParametresTontines/ParametreContent.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/ParametresTontines/Parametres.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/ParametresTontines/RoleAssociation.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/ParametresTontines/SettingForm.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/ParametresTontines/SimpleSelect.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/ParametresTontines/ViewRoleDialog.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/SideBar/NavigationBar.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/SideBar/SideBar.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/SideBar/SideBarItem.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/Utils/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/maTontine/DataCardViewM.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/maTontine/DataTable.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/maTontine/MaTontine.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/maTontine/RoleDialog.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Elementary/maTontine/TontineContent.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/MuiCustomComponent/ButtonCompoenent.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/MuiCustomComponent/LabelField.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/MuiCustomComponent/OtpInputField.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/MuiCustomComponent/OtpInputField.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/MuiCustomComponent/SelectItem.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/MuiCustomComponent/SimpleButtonLink.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/MuiCustomComponent/SpinnerComponent.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/MuiCustomComponent/SpinnerComponent2.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/MuiCustomComponent/SubmitedButton.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/MuiCustomComponent/TextFieldAmount.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/MuiCustomComponent/TextFieldDate.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/MuiCustomComponent/TextFieldPassword.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/MuiCustomComponent/TextFieldSimple.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/SendSMS/SendSms.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Sub-Pages/CheckOTP/CheckOTP.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Sub-Pages/CheckOTP/CheckOTP2.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Sub-Pages/PutPhone/PutPhone.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Sub-Pages/SetPassword/ChangePassword.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Sub-Pages/SetPassword/SetPassword.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Sub-Pages/SetPassword/SetPassword2.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Sub-Pages/Signin/Signin.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Sub-Pages/Signin/Signin.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Sub-Pages/Signup2/Signup.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Sub-Pages/Signup2/Signup2.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/AssociationUI/Sub-Pages/Signup2/Signup3.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/SavingPlan/Card/Plan/PlanCard.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/SavingPlan/Charts/Progess bar/Circular/CircularProgressBar.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/SavingPlan/Charts/Progess bar/Line/LineProgressBar.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/SavingPlan/Ongoing Plans/LastOngoingPlan.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/SavingPlan/accountBalance/AccountBalanceBox.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/SavingPlan/bottom navigation/BottomNavigation.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/SavingPlan/bottom navigation/tabs.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/SavingPlan/calendar/Calendar.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/SavingPlan/header/AccountMenu.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/SavingPlan/header/Header.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/SavingPlan/header/HeaderSearchPage.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/SavingPlan/header/HeaderTontine.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/SavingPlan/header/Notification.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/SavingPlan/header/NotificationComponent.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/SavingPlan/header/Notifications/Chip.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/SavingPlan/header/Notifications/MainCard.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/SavingPlan/header/Notifications/NotificationList.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/SavingPlan/header/Notifications/Transitions.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/SavingPlan/header/Notifications/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/SavingPlan/header/Notifications/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/SavingPlan/header/UserAvatar.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/SavingPlan/popover/Popover.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/SavingPlan/recentTontine/Carousel.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/SavingPlan/recentTontine/RecentTontine.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/SavingPlan/tabs/Tab.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/SavingPlan/tabs/Tabs.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/SavingPlan/user profile card/UserProfileCard.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Components/SavingPlan/user profile card/UserProfileCard_2.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Firebase.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Pages/AssociationUI/Authentification/Authentification.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Pages/AssociationUI/TontineHomePage/TontineHomePage.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Pages/SavingPlanUI/ProfileSettings/AddCNI.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Pages/SavingPlanUI/ProfileSettings/AddSignature.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Pages/SavingPlanUI/ProfileSettings/ChangePhone.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Pages/SavingPlanUI/ProfileSettings/EditProfile.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Pages/SavingPlanUI/ProfileSettings/EmailVerification.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Pages/SavingPlanUI/ProfileSettings/ModifyPassword.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Pages/SavingPlanUI/ProfileSettings/ProfileSettings.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Pages/SavingPlanUI/Settings/LanguageModal.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Pages/SavingPlanUI/Settings/Settings.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Pages/SavingPlanUI/dashboard/Portal.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Pages/SavingPlanUI/dashboard/PortalTontine.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Pages/SavingPlanUI/nootifications/AllNotification.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Pages/SavingPlanUI/nootifications/Notifications.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Pages/SavingPlanUI/savingsApp/dashboard/SavingsDash.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Pages/SavingPlanUI/savingsApp/plan/CreatePlan.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Pages/SavingPlanUI/savingsApp/plan/Details.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Pages/SavingPlanUI/savingsApp/plan/Plans.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Pages/SavingPlanUI/search/Search.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Routes/Routes.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/Routes/Routes.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Services/AssociationServices.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/Services/AssociationServices.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Services/NotificationService.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/Services/NotificationService.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Utils/Assets/Avatar.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Utils/Assets/Evenement.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Utils/Assets/caisse.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Utils/Assets/cotisation.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Utils/Assets/logo384.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Utils/Assets/membre.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Utils/Assets/parametre.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Utils/Assets/reunion.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/Variable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/Variable.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/firebase-messaging-sw.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/firebase-messaging-sw.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__antlr_antlr_2_7_7.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__ch_qos_logback_logback_classic_1_2_12.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__ch_qos_logback_logback_core_1_2_12.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_classmate_1_5_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_core_2_13_5.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_databind_2_13_5.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_dataformat_jackson_dataformat_xml_2_13_5.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_datatype_jackson_datatype_jdk8_2_13_5.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_datatype_jackson_datatype_jsr310_2_13_5.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_module_jackson_module_parameter_names_2_13_5.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_ben_manes_caffeine_caffeine_2_9_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_waffle_waffle_jna_3_2_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_code_gson_gson_2_9_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_inject_guice_4_1_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_jayway_jsonpath_json_path_2_7_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_netflix_eureka_eureka_client_1_10_17.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_netflix_eureka_eureka_core_1_10_17.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_netflix_netflix_commons_netflix_eventbus_0_3_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_netflix_netflix_commons_netflix_infix_0_3_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_netflix_servo_servo_core_0_12_21.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_stoyanr_evictor_1_0_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_sun_activation_jakarta_activation_1_2_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_sun_istack_istack_commons_runtime_3_0_12.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_sun_jersey_contribs_jersey_apache_client4_1_19_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_sun_jersey_jersey_client_1_19_4.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_sun_jersey_jersey_core_1_19_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_sun_jersey_jersey_server_1_19_4.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_sun_jersey_jersey_servlet_1_19_4.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_thoughtworks_xstream_xstream_1_4_18.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_vaadin_external_google_android_json_0_0_20131108_vaadin1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_zaxxer_HikariCP_4_0_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__commons_codec_commons_codec_1_15.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__commons_configuration_commons_configuration_1_10.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__commons_jxpath_commons_jxpath_1_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__commons_lang_commons_lang_2_6.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_github_x_stream_mxparser_1_2_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_micrometer_micrometer_core_1_9_16.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_projectreactor_addons_reactor_extra_3_4_10.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_projectreactor_reactor_core_3_4_33.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__jakarta_activation_jakarta_activation_api_1_2_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__jakarta_annotation_jakarta_annotation_api_1_3_5.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__jakarta_persistence_jakarta_persistence_api_2_2_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__jakarta_transaction_jakarta_transaction_api_1_3_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__jakarta_xml_bind_jakarta_xml_bind_api_2_3_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__javax_inject_javax_inject_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__javax_ws_rs_jsr311_api_1_1_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__joda_time_joda_time_2_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__net_bytebuddy_byte_buddy_1_12_23.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__net_bytebuddy_byte_buddy_agent_1_12_23.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__net_java_dev_jna_jna_5_12_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__net_java_dev_jna_jna_platform_5_12_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__net_minidev_accessors_smart_2_4_11.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__net_minidev_json_smart_2_4_11.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_antlr_antlr_runtime_3_4.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_antlr_stringtemplate_3_2_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_commons_commons_math_2_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpclient_4_5_14.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpcore_4_4_16.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_logging_log4j_log4j_api_2_17_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_logging_log4j_log4j_to_slf4j_2_17_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_core_9_0_82.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_el_9_0_82.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_websocket_9_0_82.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apiguardian_apiguardian_api_1_1_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_aspectj_aspectjweaver_1_9_7.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_assertj_assertj_core_3_22_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_bouncycastle_bcpkix_jdk15on_1_69.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_bouncycastle_bcprov_jdk15on_1_69.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_bouncycastle_bcutil_jdk15on_1_69.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_checkerframework_checker_qual_3_23_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_codehaus_jettison_jettison_1_4_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_codehaus_woodstox_stax2_api_4_2_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_freemarker_freemarker_2_3_32.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_jaxb_jaxb_runtime_2_3_8.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_jaxb_txw2_2_3_8.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_hamcrest_hamcrest_2_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_hdrhistogram_HdrHistogram_2_1_12.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_common_hibernate_commons_annotations_5_1_2_Final.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_hibernate_core_5_6_15_Final.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_jboss_jandex_2_4_2_Final.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_jboss_logging_jboss_logging_3_4_3_Final.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_5_8_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_api_5_8_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_engine_5_8_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_params_5_8_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_commons_1_8_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_engine_1_8_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_latencyutils_LatencyUtils_2_0_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_mariadb_jdbc_mariadb_java_client_3_1_4.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_mockito_mockito_core_4_5_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_mockito_mockito_junit_jupiter_4_5_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_objenesis_objenesis_3_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_opentest4j_opentest4j_1_2_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_ow2_asm_asm_9_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_reactivestreams_reactive_streams_1_0_4.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_skyscreamer_jsonassert_1_5_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_jcl_over_slf4j_1_7_36.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_jul_to_slf4j_1_7_36.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_36.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_2_7_17.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_actuator_2_7_17.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_actuator_autoconfigure_2_7_17.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_autoconfigure_2_7_17.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_2_7_17.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_actuator_2_7_17.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_aop_2_7_17.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_cache_2_7_17.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_data_jpa_2_7_17.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_freemarker_2_7_17.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_jdbc_2_7_17.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_json_2_7_17.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_logging_2_7_17.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_test_2_7_17.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_tomcat_2_7_17.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_web_2_7_17.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_test_2_7_17.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_test_autoconfigure_2_7_17.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_commons_3_1_7.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_context_3_1_7.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_loadbalancer_3_1_7.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_netflix_eureka_client_3_1_7.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_netflix_eureka_server_3_1_7.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_starter_3_1_7.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_starter_loadbalancer_3_1_7.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_starter_netflix_eureka_server_3_1_7.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_data_spring_data_commons_2_7_17.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_data_spring_data_jpa_2_7_17.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_security_spring_security_crypto_5_7_11.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_security_spring_security_rsa_1_0_11_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_aop_5_3_30.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_aspects_5_3_30.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_beans_5_3_30.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_context_5_3_30.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_context_support_5_3_30.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_core_5_3_30.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_expression_5_3_30.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_jcl_5_3_30.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_jdbc_5_3_30.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_orm_5_3_30.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_test_5_3_30.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_tx_5_3_30.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_web_5_3_30.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_webmvc_5_3_30.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_xmlunit_xmlunit_core_2_9_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_yaml_snakeyaml_1_30.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__xmlpull_xmlpull_1_1_3_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NotificationManagement.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/NotificationManagement/NotificationManagementApp.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/NotificationManagement/business/INotificationManagerBus.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/NotificationManagement/business/NotificationManagerBus.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/NotificationManagement/controller/NotificationManagerController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/NotificationManagement/dao/entities/BaseAuditEntity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/NotificationManagement/dao/entities/Notification.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/NotificationManagement/dao/model/CommonResponseModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/NotificationManagement/dao/model/SendEmailModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/NotificationManagement/dao/repositories/NotificationRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application-prod.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application-prod.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/NotificationManagement/NotificationManagementApp.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/NotificationManagement/business/INotificationManagerBus.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/NotificationManagement/business/NotificationManagerBus.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/NotificationManagement/controller/NotificationManagerController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/NotificationManagement/dao/entities/BaseAuditEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/NotificationManagement/dao/entities/Notification.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/NotificationManagement/dao/model/CommonResponseModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/NotificationManagement/dao/model/SendEmailModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/NotificationManagement/dao/repositories/NotificationRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../notification_management_tont/notification_management_tont/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../notification_management_tont/notification_management_tont/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../notification_management_tont/notification_management_tont/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../notification_management_tont/notification_management_tont/NotificationController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../notification_management_tont/notification_management_tont/firebase-service-account.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../notification_management_tont/notification_management_tont/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../notification_management_tont/notification_management_tont/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../notification_management_tont/notification_management_tont/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../notification_management_tont/notification_management_tont/src/firebase-service-account.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../notification_management_tont/notification_management_tont/src/main/java/com/example/NotificationManagement/Business/DateUtils.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../notification_management_tont/notification_management_tont/src/main/java/com/example/NotificationManagement/Business/NotificationService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../notification_management_tont/notification_management_tont/src/main/java/com/example/NotificationManagement/Config/CorsConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../notification_management_tont/notification_management_tont/src/main/java/com/example/NotificationManagement/Config/FirebaseConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../notification_management_tont/notification_management_tont/src/main/java/com/example/NotificationManagement/Config/SwaggerConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../notification_management_tont/notification_management_tont/src/main/java/com/example/NotificationManagement/Config/WebSecurityConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../notification_management_tont/notification_management_tont/src/main/java/com/example/NotificationManagement/Config/firebase-service-account.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../notification_management_tont/notification_management_tont/src/main/java/com/example/NotificationManagement/Controller/NotificationController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../notification_management_tont/notification_management_tont/src/main/java/com/example/NotificationManagement/Entity/Notification2.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../notification_management_tont/notification_management_tont/src/main/java/com/example/NotificationManagement/Entity/Utilisateur.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../notification_management_tont/notification_management_tont/src/main/java/com/example/NotificationManagement/Modele/CommonResponseModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../notification_management_tont/notification_management_tont/src/main/java/com/example/NotificationManagement/Modele/CreateNotifModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../notification_management_tont/notification_management_tont/src/main/java/com/example/NotificationManagement/Modele/SendInvitationModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../notification_management_tont/notification_management_tont/src/main/java/com/example/NotificationManagement/NotificationManagementTontApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../notification_management_tont/notification_management_tont/src/main/java/com/example/NotificationManagement/Repository/NotificationRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../notification_management_tont/notification_management_tont/src/main/java/com/example/NotificationManagement/Repository/UtilisateurRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../notification_management_tont/notification_management_tont/src/main/java/com/example/NotificationManagement/dto/NotificationDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../notification_management_tont/notification_management_tont/src/main/resources/application-prod.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../notification_management_tont/notification_management_tont/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../notification_management_tont/notification_management_tont/src/main/resources/messages.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../notification_management_tont/notification_management_tont/src/main/resources/messages_en.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../notification_management_tont/notification_management_tont/src/main/resources/messages_fr.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../notification_management_tont/notification_management_tont/src/main/resources/serviceAccountKey.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../notification_management_tont/notification_management_tont/src/test/java/com/example/NotificationManagement/NotificationManagementApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../operation_management/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../operation_management/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../operation_management/src/main/java/com/afb/intern/operationmanagement/controller/OperationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../operation_management/src/main/java/com/afb/intern/operationmanagement/controller/OperationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../operation_management/src/main/java/com/afb/intern/operationmanagement/dto/ContributeToSavingsPlanDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/../operation_management/src/main/java/com/afb/intern/operationmanagement/dto/ContributeToSavingsPlanDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../operation_management/src/main/java/com/afb/intern/operationmanagement/dto/SavingsDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/../operation_management/src/main/java/com/afb/intern/operationmanagement/dto/SavingsDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../operation_management/src/main/java/com/afb/intern/operationmanagement/dto/TransactionDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/../operation_management/src/main/java/com/afb/intern/operationmanagement/dto/TransactionDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../operation_management/src/main/java/com/afb/intern/operationmanagement/dto/WalletDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/../operation_management/src/main/java/com/afb/intern/operationmanagement/dto/WalletDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../operation_management/src/main/java/com/afb/intern/operationmanagement/dto/WithdrawFromSavingsDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/../operation_management/src/main/java/com/afb/intern/operationmanagement/dto/WithdrawFromSavingsDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../operation_management/src/main/java/com/afb/intern/operationmanagement/models/Payment_Method.java" beforeDir="false" afterPath="$PROJECT_DIR$/../operation_management/src/main/java/com/afb/intern/operationmanagement/models/Payment_Method.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../operation_management/src/main/java/com/afb/intern/operationmanagement/service/BankAgentWithdrawFromSavingsPlan.java" beforeDir="false" afterPath="$PROJECT_DIR$/../operation_management/src/main/java/com/afb/intern/operationmanagement/service/BankAgentWithdrawFromSavingsPlan.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../operation_management/src/main/java/com/afb/intern/operationmanagement/service/CollectorContributeToSavingsPlanStrategy.java" beforeDir="false" afterPath="$PROJECT_DIR$/../operation_management/src/main/java/com/afb/intern/operationmanagement/service/CollectorContributeToSavingsPlanStrategy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../operation_management/src/main/java/com/afb/intern/operationmanagement/service/OperationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../operation_management/src/main/java/com/afb/intern/operationmanagement/service/OperationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../operation_management/src/main/java/com/afb/intern/operationmanagement/service/SimpleUserContributeToSavingsPlanStrategy.java" beforeDir="false" afterPath="$PROJECT_DIR$/../operation_management/src/main/java/com/afb/intern/operationmanagement/service/SimpleUserContributeToSavingsPlanStrategy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../operation_management/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../operation_management/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../savings_plan_management/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../savings_plan_management/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../savings_plan_management/src/main/java/com/afb/intern/savingsplanmanagement/SavingsPlanManagementApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/../savings_plan_management/src/main/java/com/afb/intern/savingsplanmanagement/SavingsPlanManagementApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../savings_plan_management/src/main/java/com/afb/intern/savingsplanmanagement/config/WebConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../savings_plan_management/src/main/java/com/afb/intern/savingsplanmanagement/config/WebConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../savings_plan_management/src/main/java/com/afb/intern/savingsplanmanagement/controllers/SavingsPlanController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../savings_plan_management/src/main/java/com/afb/intern/savingsplanmanagement/controllers/SavingsPlanController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../savings_plan_management/src/main/java/com/afb/intern/savingsplanmanagement/dto/SavingsDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/../savings_plan_management/src/main/java/com/afb/intern/savingsplanmanagement/dto/SavingsDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../savings_plan_management/src/main/java/com/afb/intern/savingsplanmanagement/models/Saving.java" beforeDir="false" afterPath="$PROJECT_DIR$/../savings_plan_management/src/main/java/com/afb/intern/savingsplanmanagement/models/Saving.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../savings_plan_management/src/main/java/com/afb/intern/savingsplanmanagement/service/SavingsPlanService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../savings_plan_management/src/main/java/com/afb/intern/savingsplanmanagement/service/SavingsPlanService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../savings_plan_management/src/main/resources/application-prod.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../savings_plan_management/src/main/resources/application-prod.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../savings_plan_management/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../savings_plan_management/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../user_management/src/main/java/com/UserManagement/business/IUserManagerBus.java" beforeDir="false" afterPath="$PROJECT_DIR$/../user_management/src/main/java/com/UserManagement/business/IUserManagerBus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../user_management/src/main/java/com/UserManagement/business/UserManagerBus.java" beforeDir="false" afterPath="$PROJECT_DIR$/../user_management/src/main/java/com/UserManagement/business/UserManagerBus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../user_management/src/main/java/com/UserManagement/controller/UserManagerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../user_management/src/main/java/com/UserManagement/controller/UserManagerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../user_management/src/main/java/com/UserManagement/dao/model/UserLoginModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/../user_management/src/main/java/com/UserManagement/dao/model/UserLoginModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../user_management/target/classes/com/UserManagement/business/IUserManagerBus.class" beforeDir="false" afterPath="$PROJECT_DIR$/../user_management/target/classes/com/UserManagement/business/IUserManagerBus.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../user_management/target/classes/com/UserManagement/business/UserManagerBus.class" beforeDir="false" afterPath="$PROJECT_DIR$/../user_management/target/classes/com/UserManagement/business/UserManagerBus.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../user_management/target/classes/com/UserManagement/controller/UserManagerController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../user_management/target/classes/com/UserManagement/controller/UserManagerController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../user_management/target/classes/com/UserManagement/dao/model/UserLoginModel$UserLoginModelBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../user_management/target/classes/com/UserManagement/dao/model/UserLoginModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/../user_management/target/classes/com/UserManagement/dao/model/UserLoginModel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../user_management/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/../user_management/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../user_management/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/../user_management/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -13,43 +591,60 @@
     <session id="188528239">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="2" />
-          <entry key="project.open.time.1" value="2" />
-          <entry key="project.open.time.16" value="1" />
-          <entry key="project.open.time.5" value="1" />
-          <entry key="project.opened" value="4" />
+          <entry key="project.open.time.1" value="1" />
+          <entry key="project.open.time.15" value="1" />
+          <entry key="project.open.time.40" value="1" />
+          <entry key="project.opened" value="3" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="java" value="5" />
-          <entry key="properties" value="1" />
+          <entry key="java" value="4" />
+          <entry key="xml" value="1" />
+          <entry key="yml" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="JAVA" value="5" />
-          <entry key="Properties" value="1" />
+          <entry key="JAVA" value="4" />
+          <entry key="XML" value="1" />
+          <entry key="YAML" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="15" />
-          <entry key="properties" value="20" />
+          <entry key="properties" value="12" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="15" />
-          <entry key="Properties" value="20" />
+          <entry key="Properties" value="12" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="187">
+              <caret line="11" column="42" selection-start-line="11" selection-start-column="42" selection-end-line="11" selection-end-column="42" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pom.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1666">
+              <caret line="98" column="21" selection-start-line="98" selection-start-column="21" selection-end-line="98" selection-end-column="21" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/docker-compose.yml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="272">
               <caret line="16" selection-start-line="16" selection-end-line="16" />
@@ -58,68 +653,37 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/NotificationManagement/controller/NotificationManagerController.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/afb/intern/savtont/controller/NotificationsController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="29" column="5" selection-start-line="29" selection-start-column="5" selection-end-line="29" selection-end-column="5" />
+            <state relative-caret-position="493">
+              <caret line="57" column="38" selection-start-line="57" selection-start-column="38" selection-end-line="57" selection-end-column="38" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/NotificationManagement/dao/model/SendEmailModel.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="21" column="28" selection-start-line="21" selection-start-column="28" selection-end-line="21" selection-end-column="28" />
-              <folding>
-                <element signature="e#202#203#0" expanded="true" />
-                <element signature="e#220#221#0" expanded="true" />
-                <element signature="e#257#258#0" expanded="true" />
-                <element signature="e#280#281#0" expanded="true" />
-                <element signature="e#324#325#0" expanded="true" />
-                <element signature="e#359#360#0" expanded="true" />
-                <element signature="e#380#381#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/NotificationManagement/dao/model/CommonResponseModel.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="10" column="32" selection-start-line="10" selection-start-column="32" selection-end-line="10" selection-end-column="32" />
-              <folding>
-                <element signature="e#211#212#0" expanded="true" />
-                <element signature="e#254#255#0" expanded="true" />
-                <element signature="e#283#284#0" expanded="true" />
-                <element signature="e#319#320#0" expanded="true" />
-                <element signature="e#345#346#0" expanded="true" />
-                <element signature="e#398#399#0" expanded="true" />
-                <element signature="e#437#438#0" expanded="true" />
-                <element signature="e#465#466#0" expanded="true" />
-                <element signature="e#483#484#0" expanded="true" />
-                <element signature="e#520#521#0" expanded="true" />
-                <element signature="e#543#544#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/NotificationManagement/business/NotificationManagerBus.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="21" column="41" selection-start-line="21" selection-start-column="41" selection-end-line="21" selection-end-column="41" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/NotificationManagement/business/INotificationManagerBus.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/afb/intern/savtont/service/NotificationService.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="119">
-              <caret line="8" column="31" selection-start-line="8" selection-start-column="31" selection-end-line="8" selection-end-column="31" />
+              <caret line="31" column="13" selection-start-line="31" selection-start-column="13" selection-end-line="31" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/afb/intern/savtont/service/FCMService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="102">
+              <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/afb/intern/savtont/config/FirebaseConfig.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="289">
+              <caret line="27" column="5" lean-forward="true" selection-start-line="27" selection-start-column="5" selection-end-line="27" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -133,18 +697,24 @@
       </list>
     </option>
   </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>twil</find>
+    </findStrings>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/resources/application.properties" />
         <option value="$PROJECT_DIR$/src/main/java/com/NotificationManagement/controller/NotificationManagerController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/NotificationManagement/dao/model/CommonResponseModel.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/NotificationManagement/dao/model/SendEmailModel.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/NotificationManagement/business/INotificationManagerBus.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/NotificationManagement/business/NotificationManagerBus.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/application.properties" />
+        <option value="$PROJECT_DIR$/pom.xml" />
       </list>
     </option>
   </component>
@@ -154,19 +724,145 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
-    <option name="width" value="1920" />
-    <option name="height" value="1020" />
+  <component name="MavenProjectNavigator">
+    <treeState>
+      <expand>
+        <path>
+          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
+          <item name="NotificationManagement" type="9519ce18:MavenProjectsStructure$ProjectNode" />
+        </path>
+        <path>
+          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
+          <item name="NotificationManagement" type="9519ce18:MavenProjectsStructure$ProjectNode" />
+          <item name="Plugins" type="7aea1407:MavenProjectsStructure$PluginsNode" />
+        </path>
+        <path>
+          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
+          <item name="NotificationManagement" type="9519ce18:MavenProjectsStructure$ProjectNode" />
+          <item name="Plugins" type="7aea1407:MavenProjectsStructure$PluginsNode" />
+          <item name="spring-boot" type="36feed69:MavenProjectsStructure$PluginNode" />
+        </path>
+      </expand>
+      <select />
+    </treeState>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-10" />
+    <option name="y" value="-10" />
+    <option name="width" value="865" />
+    <option name="height" value="440" />
   </component>
   <component name="ProjectId" id="2eokqcBENUauys6213G8pnDqP7X" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
-    <navigator proportions="" version="1">
+    <navigator currentView="Scope" currentSubView="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope" proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
       <pane id="PackagesPane" />
-      <pane id="Scope" />
+      <pane id="Scope">
+        <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
+          <expand>
+            <path>
+              <item name="NotificationManagement" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="NotificationManagement" type="2674bda8:ScopeViewTreeModel$GroupNode" />
+            </path>
+            <path>
+              <item name="NotificationManagement" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="NotificationManagement" type="2674bda8:ScopeViewTreeModel$GroupNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="NotificationManagement" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="NotificationManagement" type="2674bda8:ScopeViewTreeModel$GroupNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="NotificationManagement" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="NotificationManagement" type="2674bda8:ScopeViewTreeModel$GroupNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="NotificationManagement" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="NotificationManagement" type="2674bda8:ScopeViewTreeModel$GroupNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="com" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="NotificationManagement" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="NotificationManagement" type="2674bda8:ScopeViewTreeModel$GroupNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="com" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="afb" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="NotificationManagement" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="NotificationManagement" type="2674bda8:ScopeViewTreeModel$GroupNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="com" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="afb" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="intern" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="NotificationManagement" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="NotificationManagement" type="2674bda8:ScopeViewTreeModel$GroupNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="com" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="afb" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="intern" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="savtont" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="NotificationManagement" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="NotificationManagement" type="2674bda8:ScopeViewTreeModel$GroupNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="com" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="afb" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="intern" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="savtont" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="config" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="NotificationManagement" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="NotificationManagement" type="2674bda8:ScopeViewTreeModel$GroupNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="com" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="afb" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="intern" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="savtont" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="controller" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="NotificationManagement" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="NotificationManagement" type="2674bda8:ScopeViewTreeModel$GroupNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="com" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="afb" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="intern" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="savtont" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="service" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -262,33 +958,26 @@
   </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="RequestMappingsPanelOrder0" value="0" />
-    <property name="RequestMappingsPanelOrder1" value="1" />
-    <property name="RequestMappingsPanelWidth0" value="75" />
-    <property name="RequestMappingsPanelWidth1" value="75" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1716147454710" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../operation_management" />
-    <property name="node.js.detected.package.eslint" value="true" />
-    <property name="node.js.detected.package.tslint" value="true" />
-    <property name="node.js.path.for.package.eslint" value="project" />
-    <property name="node.js.path.for.package.tslint" value="project" />
-    <property name="node.js.selected.package.eslint" value="(autodetect)" />
-    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1724276160969" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../operation_managementOLD" />
     <property name="project.structure.last.edited" value="Project" />
-    <property name="project.structure.proportion" value="0.0" />
-    <property name="project.structure.side.proportion" value="0.29617485" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.0" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\aslikeproject\tontine\notification_management\src\main\java\com\afb\intern\savtont\repository" />
+      <recent name="D:\aslikeproject\tontine\notification_management\src\main\java\com\afb\intern\savtont\models" />
       <recent name="C:\Users\Willy Kungne\Downloads\tontine\NotificationManagementapp\src\main\java\com\NotificationManagement\controller" />
       <recent name="C:\Users\Willy Kungne\Downloads\tontine\NotificationManagementapp\src\main\java\com\NotificationManagement\business\NotificationManager" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.afb.intern.savtont.service" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -307,16 +996,32 @@
         </RuleState>
       </list>
     </option>
-    <option name="contentProportion" value="0.097811215" />
   </component>
-  <component name="RunManager">
-    <configuration name="NotificationManagementApp" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+  <component name="RunManager" selected="Spring Boot.NotificationsManagementApplication">
+    <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
+      <deployment type="docker-compose.yml">
+        <settings />
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration name="NotificationsManagementApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="NotificationManagement" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="com.NotificationManagement.NotificationManagementApp" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.afb.intern.savtont.NotificationsManagementApplication" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="docker-compose.yml: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="sourceFilePath" value="docker-compose.yml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Spring Boot.NotificationsManagementApplication" />
+    </list>
   </component>
   <component name="ServiceViewManager">
     <option name="viewStates">
@@ -340,6 +1045,7 @@
       </list>
     </option>
   </component>
+  <component name="SpellCheckerSettings" BundledDictionaries="0" Folders="0" CustomDictionaries="0" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="application-level" UseSingleDictionary="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -359,18 +1065,55 @@
       <workItem from="1716186052269" duration="474000" />
       <workItem from="1717417937342" duration="805000" />
       <workItem from="1717479839352" duration="592000" />
+      <workItem from="1720085349762" duration="2058000" />
+      <workItem from="1720123390167" duration="5489000" />
+      <workItem from="1720185546276" duration="5233000" />
+      <workItem from="1720268712989" duration="774000" />
+      <workItem from="1720439665811" duration="782000" />
+      <workItem from="1720695414464" duration="1176000" />
+      <workItem from="1720700721375" duration="300000" />
+      <workItem from="1721067148068" duration="599000" />
+      <workItem from="1721123297391" duration="10929000" />
+      <workItem from="1721339053738" duration="747000" />
+      <workItem from="1721484221533" duration="7539000" />
+      <workItem from="1721931177649" duration="1156000" />
+      <workItem from="1722008517442" duration="1769000" />
+      <workItem from="1722079552485" duration="635000" />
+      <workItem from="1722497087365" duration="921000" />
+      <workItem from="1722502576664" duration="5089000" />
+      <workItem from="1722608594004" duration="1604000" />
+      <workItem from="1722868040330" duration="2342000" />
+      <workItem from="1722946000301" duration="1283000" />
+      <workItem from="1722963664569" duration="298000" />
+      <workItem from="1723012032502" duration="1238000" />
+      <workItem from="1723041918524" duration="1002000" />
+      <workItem from="1723128107876" duration="1502000" />
+      <workItem from="1723200754416" duration="2839000" />
+      <workItem from="1723207863321" duration="909000" />
+      <workItem from="1723220711077" duration="1197000" />
+      <workItem from="1723229574870" duration="1031000" />
+      <workItem from="1723309920159" duration="819000" />
+      <workItem from="1723357430096" duration="934000" />
+      <workItem from="1723409421608" duration="870000" />
+      <workItem from="1723418099297" duration="896000" />
+      <workItem from="1723658114591" duration="592000" />
+      <workItem from="1723878509143" duration="1470000" />
+      <workItem from="1724242044322" duration="4429000" />
+      <workItem from="1724276565419" duration="558000" />
+      <workItem from="1724328629325" duration="2467000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2781000" />
+    <option name="totallyTimeSpent" value="10235000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="830" extended-state="7" />
+    <frame x="-7" y="-7" width="1550" height="830" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25771812" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info id="Persistence" order="2" side_tool="true" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49786323" visible="true" weight="0.21879195" />
+      <window_info id="Structure" order="1" sideWeight="0.50213677" side_tool="true" weight="0.2590604" />
+      <window_info id="Persistence" order="2" sideWeight="0.50213677" side_tool="true" weight="0.2590604" />
       <window_info id="Designer" order="3" />
       <window_info id="Image Layers" order="4" />
       <window_info id="UI Designer" order="5" />
@@ -379,25 +1122,25 @@
       <window_info id="Web" order="8" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3295129" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Spring" order="7" />
-      <window_info anchor="bottom" id="Terminal" order="8" />
-      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
+      <window_info anchor="bottom" id="Spring" order="7" sideWeight="0.49932885" weight="0.3295129" />
+      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.49932885" weight="0.3295129" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.50067115" side_tool="true" weight="0.3295129" />
       <window_info anchor="bottom" id="Java Enterprise" order="10" />
       <window_info anchor="bottom" id="Database Changes" order="11" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="12" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Run Dashboard" order="13" visible="true" weight="0.3295129" />
+      <window_info anchor="bottom" id="Run Dashboard" order="13" weight="0.2922636" />
       <window_info anchor="bottom" id="Messages" order="14" weight="0.3295129" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="right" id="Capture Analysis" order="4" />
-      <window_info anchor="right" id="Maven Projects" order="5" />
+      <window_info anchor="right" id="Maven Projects" order="5" visible="true" weight="0.147651" />
       <window_info anchor="right" id="Database" order="6" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
       <window_info anchor="right" id="Theme Preview" order="8" />
@@ -406,115 +1149,157 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
-  <component name="WindowStateProjectService">
-    <state x="361" y="74" key="#Project_Structure" timestamp="1712578666942">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="361" y="74" key="#Project_Structure/0.0.1536.824@0.0.1536.824" timestamp="1712578666942" />
-    <state x="549" y="170" key="FileChooserDialogImpl" timestamp="1712581395110">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="549" y="170" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1712581395110" />
-    <state width="1024" height="338" key="GridCell.Tab.0.bottom" timestamp="1712585798990">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1024" height="338" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1712585798990" />
-    <state width="1024" height="338" key="GridCell.Tab.0.center" timestamp="1712585798988">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1024" height="338" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1712585798988" />
-    <state width="1024" height="338" key="GridCell.Tab.0.left" timestamp="1712585798987">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1024" height="338" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1712585798987" />
-    <state width="1024" height="338" key="GridCell.Tab.0.right" timestamp="1712585798989">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1024" height="338" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1712585798989" />
-    <state width="1024" height="338" key="GridCell.Tab.1.bottom" timestamp="1712585798992">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1024" height="338" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1712585798992" />
-    <state width="1024" height="338" key="GridCell.Tab.1.center" timestamp="1712585798991">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1024" height="338" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1712585798991" />
-    <state width="1024" height="338" key="GridCell.Tab.1.left" timestamp="1712585798991">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1024" height="338" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1712585798991" />
-    <state width="1024" height="338" key="GridCell.Tab.1.right" timestamp="1712585798992">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1024" height="338" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1712585798992" />
-  </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/NotificationManagement/controller/NotificationManagerController.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/NotificationManagement/dao/model/SendEmailModel.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/NotificationManagement/dao/model/CommonResponseModel.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/NotificationManagement/business/NotificationManagerBus.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/NotificationManagement/business/INotificationManagerBus.java" />
     <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="42" selection-start-line="11" selection-start-column="42" selection-end-line="11" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1666">
+          <caret line="98" column="21" selection-start-line="98" selection-start-column="21" selection-end-line="98" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/docker-compose.yml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
           <caret line="16" selection-start-line="16" selection-end-line="16" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/NotificationManagement/controller/NotificationManagerController.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/afb/intern/savtont/controller/NotificationsController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="29" column="5" selection-start-line="29" selection-start-column="5" selection-end-line="29" selection-end-column="5" />
+        <state relative-caret-position="493">
+          <caret line="57" column="38" selection-start-line="57" selection-start-column="38" selection-end-line="57" selection-end-column="38" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/NotificationManagement/dao/model/SendEmailModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="21" column="28" selection-start-line="21" selection-start-column="28" selection-end-line="21" selection-end-column="28" />
-          <folding>
-            <element signature="e#202#203#0" expanded="true" />
-            <element signature="e#220#221#0" expanded="true" />
-            <element signature="e#257#258#0" expanded="true" />
-            <element signature="e#280#281#0" expanded="true" />
-            <element signature="e#324#325#0" expanded="true" />
-            <element signature="e#359#360#0" expanded="true" />
-            <element signature="e#380#381#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/NotificationManagement/dao/model/CommonResponseModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="10" column="32" selection-start-line="10" selection-start-column="32" selection-end-line="10" selection-end-column="32" />
-          <folding>
-            <element signature="e#211#212#0" expanded="true" />
-            <element signature="e#254#255#0" expanded="true" />
-            <element signature="e#283#284#0" expanded="true" />
-            <element signature="e#319#320#0" expanded="true" />
-            <element signature="e#345#346#0" expanded="true" />
-            <element signature="e#398#399#0" expanded="true" />
-            <element signature="e#437#438#0" expanded="true" />
-            <element signature="e#465#466#0" expanded="true" />
-            <element signature="e#483#484#0" expanded="true" />
-            <element signature="e#520#521#0" expanded="true" />
-            <element signature="e#543#544#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/NotificationManagement/business/NotificationManagerBus.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="21" column="41" selection-start-line="21" selection-start-column="41" selection-end-line="21" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/NotificationManagement/business/INotificationManagerBus.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/afb/intern/savtont/service/NotificationService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
-          <caret line="8" column="31" selection-start-line="8" selection-start-column="31" selection-end-line="8" selection-end-column="31" />
+          <caret line="31" column="13" selection-start-line="31" selection-start-column="13" selection-end-line="31" selection-end-column="13" />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/afb/intern/savtont/service/FCMService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/afb/intern/savtont/config/FirebaseConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="27" column="5" lean-forward="true" selection-start-line="27" selection-start-column="5" selection-end-line="27" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>JPA</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>11</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>NotificationManagement</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+                <option value="0.6" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>Maven: com.fasterxml.jackson.core:jackson-annotations:2.13.5</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
   </component>
 </project>

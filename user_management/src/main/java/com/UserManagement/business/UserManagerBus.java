@@ -90,19 +90,18 @@ public class UserManagerBus  implements IUserManagerBus {
     private String GET_IMAGE_BASE_URL;
 
 	@Override
-	public User signin(String phone, String password) throws Exception {
+	public boolean signin(String phone, String password) throws Exception {
 		Optional<User> user = userRepository.findByPhone(phone);
-//
-//		if(!user.get().getIsActivated())
-//			throw new IllegalAccessException ("Votre compte n'est pas activé.");
+//       boolean test=false;
+        boolean test=true;
 
 		if (!user.isPresent())
 			throw new Exception("Ce compte n'existe pas dans notre base de données");
 
 		if (!passwordEncoder.matches(password, user.get().getPassword()))
-			throw new Exception("Mot de passe incorrect");
+			test=false;
 
-		return user.get();
+		return test;
 	}
 
 	@Override
@@ -164,7 +163,8 @@ public class UserManagerBus  implements IUserManagerBus {
 					user.getCniVerso(),
 					user.getSignature(),
 					user.getPhoto(),
-					roles // Liste des noms de rôles
+					roles,
+                    user.getActivated()// Liste des noms de rôles
 			);
 		}
 
@@ -452,10 +452,15 @@ public class UserManagerBus  implements IUserManagerBus {
         if (!user.isPresent()) {
             throw new IllegalArgumentException("User not found with phone number: " + updateProfil.getPhone());
         }
+        User user1=user.get();
 
+        if(user1.getEmail()!=updateProfil.getEmail()){
+			Optional<User> user2=userRepository.findByEmail(updateProfil.getEmail());
 
+			if(user2.isPresent())
+				throw new IllegalArgumentException("Cette adresse mail est déjà utilisé");
+		}
 
-        User user1 = user.get();
 
         if (updateProfil.getFullName() != null) {
             user1.setFullName(updateProfil.getFullName());

@@ -1,23 +1,61 @@
-// This a service worker file for receiving push notifitications.
-// See `Access registration token section` @ https://firebase.google.com/docs/cloud-messaging/js/client#retrieve-the-current-registration-token
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getMessaging, getToken } from "firebase/messaging";
 
-// Scripts for firebase and firebase messaging
-import {initializeApp} from "firebase/app"
-import 'firebase/messaging'
-import { getMessaging } from 'firebase/messaging'
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 
-// Initialize the Firebase app in the service worker by passing the generated config
 const firebaseConfig = {
-    apiKey: "AIzaSyB0tiMLG14EUrPPlXCw6z2uAImjgfzE-7Y",
-    authDomain: "notification-service-c1c19.firebaseapp.com",
-    projectId: "notification-service-c1c19",
-    storageBucket: "notification-service-c1c19.appspot.com",
-    messagingSenderId: "454445125367",
-    appId: "1:454445125367:web:f7b12ba65d18142900cdf2",
-    measurementId: "G-B8ZL4HJJVX"
-}
+  apiKey: "AIzaSyArIvyQODOclhpt9B-XzNwbOX2NFZ9gCXA",
+  authDomain: "react-pushnotif-spring-boot.firebaseapp.com",
+  projectId: "react-pushnotif-spring-boot",
+  storageBucket: "react-pushnotif-spring-boot.appspot.com",
+  messagingSenderId: "1022805273320",
+  appId: "1:1022805273320:web:3116ec09b8a0492244775d",
+  measurementId: "G-C1007X55KE",
+};
 
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+export const messaging = getMessaging(app);
+//const analytics = getAnalytics(app);
+// export const generateToken = async () => {
+//   const permission = await Notification.requestPermission();
+//   console.log(permission);
+//   if (permission === "granted") {
+//     const token = await getToken(messaging, {
+//       vapidKey:
+//         "BAI7U7mbQm9oWxe5dGxZGmJnHtqtCy7CsuHPs_0YLJyWYx_e0B54nBiIZCguQPYeEXF7mcJk2Gu73PYr4oXskKg",
+//     });
+//     console.log(token);
+    
+//   } else {
+//     console.log("Permission is not granted");
+    
+//   }
+// };
 
-const app = initializeApp(firebaseConfig)
-const messaging = getMessaging(app)
-
+export const generateToken = async () => {
+    try {
+      // Demander la permission pour les notifications
+      const permission = await Notification.requestPermission();
+      console.log(permission);
+  
+      // Vérifier si la permission est accordée
+      if (permission === "granted") {
+        // Obtenir le token de Firebase Cloud Messaging
+        const token = await getToken(messaging, {
+          vapidKey: "BAI7U7mbQm9oWxe5dGxZGmJnHtqtCy7CsuHPs_0YLJyWYx_e0B54nBiIZCguQPYeEXF7mcJk2Gu73PYr4oXskKg",
+        });
+        console.log(token);
+        return token; // Retourner le token obtenu
+      } else {
+        console.log("Permission is not granted");
+        return ""; // Retourner une chaîne vide si la permission est refusée
+      }
+    } catch (error) {
+      console.error("Error generating token:", error);
+      return ""; // Retourner une chaîne vide en cas d'erreur
+    }
+  };
+  

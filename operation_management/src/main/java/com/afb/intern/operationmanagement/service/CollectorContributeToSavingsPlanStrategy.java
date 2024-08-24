@@ -44,11 +44,11 @@ public class CollectorContributeToSavingsPlanStrategy implements ContributeToSav
             Transaction saved = transactionRepository.save(transaction);
             wallet.setBalance(wallet.getBalance() + dto.getAmount());
 
-            String url = "http://localhost:8085/savingsplanManagement/update-savings/" + wallet.getOwner() + "/" + dto.getSavingsPlanId();
+            String url = "http://localhost:8085/savingsplanManagement/update-savings/contri";
 
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
-            HttpEntity<SavingsDto> request= new HttpEntity<>(new SavingsDto(dto.getSavingsId(), dto.getValidity(), dto.getReason(), dto.getStatus(), dto.getReminder(), dto.getSavingBalance(), dto.getAmountTarget(), dto.getDueDate(), dto.getPhone()), headers);
+            HttpEntity<SavingsDto> request= new HttpEntity<>(new SavingsDto(dto.getSavingsPlanId(), dto.getStatus(), dto.getSavingBalance()), headers);
 
             RestTemplate restTemplate = new RestTemplate();
             ResponseEntity<SavingsDto> response = restTemplate.exchange(url, HttpMethod.PUT, request, SavingsDto.class);

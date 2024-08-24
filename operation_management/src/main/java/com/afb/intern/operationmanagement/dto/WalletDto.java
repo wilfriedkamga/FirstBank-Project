@@ -12,5 +12,5 @@ import lombok.NoArgsConstructor;
 public class WalletDto {
 
     private String owner;
-    private String accountBalance;
+    private Double accountBalance;
 }

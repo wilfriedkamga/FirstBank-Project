@@ -38,6 +38,9 @@ public class Saving {
     @Column(name = "set_amount", nullable = false)
     private Double amountTarget;
 
+    @Column(name = "startDate", nullable = false)
+    private Date startDate;
+
     @Column(name = "Deadline", nullable = false)
     private Date dueDate;
 

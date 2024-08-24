@@ -17,13 +17,7 @@ public class ContributeToSavingsPlanDto {
     private String savingsPlanId;
     private String paymentMethodId;
     private Double amount;
-    private String SavingsId;
-    private Date validity;
-    private String reason;
     private String status;
-    private String reminder;
     private Double savingBalance;
-    private Double amountTarget;
-    private Date dueDate;
-    private String phone;
+
 }

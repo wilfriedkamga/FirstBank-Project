@@ -1,9 +1,6 @@
 package com.afb.intern.operationmanagement.service;
 
-import com.afb.intern.operationmanagement.dto.ContributeToSavingsPlanDto;
-import com.afb.intern.operationmanagement.dto.SavingsDto;
-import com.afb.intern.operationmanagement.dto.TransactionDto;
-import com.afb.intern.operationmanagement.dto.WithdrawFromSavingsDto;
+import com.afb.intern.operationmanagement.dto.*;
 import com.afb.intern.operationmanagement.exceptions.AppException;
 import com.afb.intern.operationmanagement.models.Payment_Method;
 import com.afb.intern.operationmanagement.models.Transaction;
@@ -16,6 +13,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -33,23 +32,39 @@ public class SimpleUserContributeToSavingsPlanStrategy implements ContributeToSa
         Payment_Method paymentMethod = paymentMethodRepository.findById(dto.getPaymentMethodId())
                 .orElseThrow(()-> new AppException("Something happened to the server", HttpStatus.INTERNAL_SERVER_ERROR));
         String adpToken = operationService.getADPToken();
-        Double fees = operationService.getFees(adpToken, dto.getAmount());
+        //List<FeesDto> fees = operationService.getFees(adpToken, dto.getAmount());
         TransactionDto transactionDto = new TransactionDto();
-        if (paymentMethod.getMethodName().equals("ORANGE-MONEY")){
-            transactionDto = operationService.requestToPay(adpToken, dto.getAmount(), fees, paymentMethod.getMethodName(), dto.getInitiator(), dto.getWalletId());
+        /*if (paymentMethod.getMethodName().equals("ORANGE-MONEY")){
+            Double fee = 0.000;
+
+            for (FeesDto f : fees) {
+                if (f.getMeanCode().equals("ORANGE-MONEY")) {
+                    fee = f.getFeesAmount();
+                    break;
+                }
+            }
+            transactionDto = requestTowithdraw(adpToken, dto.getAmount(), fee, paymentMethod.getMethodName(), dto.getInitiator(), wallet.getId());
         } else if (paymentMethod.getMethodName().equals("MOBILE-MONEY")){
-            transactionDto = operationService.requestToPay(adpToken, dto.getAmount(), fees, paymentMethod.getMethodName(), dto.getInitiator(), dto.getWalletId());
+            Double fee = 0.00;
+
+            for (FeesDto f : fees) {
+                if (f.getMeanCode().equals("MOBILE-MONEY")) {
+                    fee = f.getFeesAmount();
+                    break;
+                }
+            }
+            transactionDto = requestTowithdraw(adpToken, dto.getAmount(), fee, paymentMethod.getMethodName(), dto.getInitiator(), wallet.getId());
         }
         if (transactionDto != null){
             Transaction transaction = modelMapper.map(transactionDto, Transaction.class);
             Transaction saved = transactionRepository.save(transaction);
             wallet.setBalance(wallet.getBalance() + dto.getAmount());
 
-            String url = "http://localhost:8085/savingsplanManagement/update-savings/" + wallet.getOwner() + "/" + dto.getSavingsPlanId();
+            String url = "http://localhost:8085/savingsplanManagement/update-savings/contri";
 
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
-            HttpEntity<SavingsDto> request= new HttpEntity<>(new SavingsDto(dto.getSavingsId(), dto.getValidity(), dto.getReason(), dto.getStatus(), dto.getReminder(), dto.getSavingBalance(), dto.getAmountTarget(), dto.getDueDate(), dto.getPhone()), headers);
+            HttpEntity<SavingsDto> request= new HttpEntity<>(new SavingsDto(dto.getSavingsPlanId(), dto.getStatus(), dto.getSavingBalance()), headers);
 
             RestTemplate restTemplate = new RestTemplate();
             ResponseEntity<SavingsDto> response = restTemplate.exchange(url, HttpMethod.PUT, request, SavingsDto.class);
@@ -59,7 +74,7 @@ public class SimpleUserContributeToSavingsPlanStrategy implements ContributeToSa
             } else {
                 throw new AppException("Error updating account balance", HttpStatus.INTERNAL_SERVER_ERROR);
             }
-        }
+        }*/
         return transactionDto;
     }
 
@@ -69,9 +84,9 @@ public class SimpleUserContributeToSavingsPlanStrategy implements ContributeToSa
         Payment_Method paymentMethod = paymentMethodRepository.findById(dto.getPaymentMethodId())
                 .orElseThrow(()-> new AppException("Something happened to the server", HttpStatus.INTERNAL_SERVER_ERROR));
         String adpToken = operationService.getADPToken();
-        Double fees = operationService.getFees(adpToken, dto.getAmount());
+        //Double fees = operationService.getFees(adpToken, dto.getAmount());
         TransactionDto transactionDto = new TransactionDto();
-        if (paymentMethod.getMethodName().equals("ORANGE-MONEY")){
+        /*if (paymentMethod.getMethodName().equals("ORANGE-MONEY")){
             transactionDto = operationService.requestTowithdraw(adpToken, dto.getAmount(), fees, paymentMethod.getMethodName(), dto.getInitiator(), wallet.getId());
         } else if (paymentMethod.getMethodName().equals("MOBILE-MONEY")){
             transactionDto = operationService.requestTowithdraw(adpToken, dto.getAmount(), fees, paymentMethod.getMethodName(), dto.getInitiator(), wallet.getId());
@@ -82,11 +97,11 @@ public class SimpleUserContributeToSavingsPlanStrategy implements ContributeToSa
             Transaction saved = transactionRepository.save(transaction);
             wallet.setBalance(wallet.getBalance() - dto.getAmount());
 
-            String url = "http://localhost:8085/savingsplanManagement/update-savings/" + wallet.getOwner() + "/" + dto.getSavingsPlanId();
+            String url = "http://localhost:8085/savingsplanManagement/update-savings/withdr";
 
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
-            HttpEntity<SavingsDto> request= new HttpEntity<>(new SavingsDto(dto.getSavingsId(), dto.getValidity(), dto.getReason(), dto.getStatus(), dto.getReminder(), dto.getSavingBalance(), dto.getAmountTarget(), dto.getDueDate(), dto.getPhone()), headers);
+            HttpEntity<SavingsDto> request= new HttpEntity<>(new SavingsDto(dto.getSavingsPlanId(), dto.getStatus(), dto.getSavingBalance()), headers);
 
             RestTemplate restTemplate = new RestTemplate();
             ResponseEntity<SavingsDto> response = restTemplate.exchange(url, HttpMethod.PUT, request, SavingsDto.class);
@@ -96,7 +111,7 @@ public class SimpleUserContributeToSavingsPlanStrategy implements ContributeToSa
             } else {
                 throw new AppException("Error updating account balance", HttpStatus.INTERNAL_SERVER_ERROR);
             }
-        }
+        }*/
         return transactionDto;
     }
 }

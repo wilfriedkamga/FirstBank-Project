@@ -34,6 +34,8 @@ export interface NotificationModel {
     secondaryAction?: string; // Like "Invitation accepted", etc.
     unread?: boolean; // Indicates if the notification is unread
     requiredConfirmation?: boolean; //
+    stateConfirmation?:boolean,
+    statusConfirmation?:boolean
   }
 
   export  type membre_AssoModel = {
