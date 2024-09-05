@@ -1,0 +1,59 @@
+{
+  "defaultRoles": [
+    {
+      "roleName": "SUPERADMIN",
+      "privileges": [
+        "SUPERADMIN",
+        "ADMIN",
+        "CENSEUR",
+        "SECRETAIRE",
+        "TRESORIER"
+      ],
+      "maxPeople": 1,
+      "isDeletable": false
+    },
+    {
+      "roleName": "ADMIN",
+      "privileges": [
+        "ADMIN",
+        "CENSEUR",
+        "SECRETAIRE",
+        "TRESORIER"
+      ],
+      "maxPeople": 2,
+      "isDeletable": false
+    },
+    {
+      "roleName": "CENSEUR",
+      "privileges": [
+        "CENSEUR"
+      ],
+      "maxPeople": 1,
+      "isDeletable": true
+    },
+    {
+      "roleName": "SECRETAIRE",
+      "privileges": [
+        "SECRETAIRE"
+      ],
+      "maxPeople": 1,
+      "isDeletable": true
+    },
+    {
+      "roleName": "TRESORIER",
+      "privileges": [
+        "TRESORIER"
+      ],
+      "maxPeople": 1,
+      "isDeletable": true
+    },
+    {
+      "roleName": "ADHERENT",
+      "privileges": [
+        "ADHERENT"
+      ],
+      "maxPeople": 0,
+      "isDeletable": true
+    }
+  ]
+}

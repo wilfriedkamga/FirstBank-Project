@@ -133,14 +133,14 @@ const AddCNI: React.FC = () => {
   };
 
   return (
-    <div className="w-full font-semibold bg-white h-full flex flex-col">
+    <div className="w-full font-semibold  h-full flex flex-col">
       <Header />
 
       <div className="flex mt-[13vh] mb-[] p-4 justify-center flex-col  h-full w-full space-y-6 ">
         <div className="rounded-t-lg h-[15vh] flex items-center font-bold text-white text-3xl pl-6 overflow-hidden bg-red-700">
           Ajouter l'image de vos CNI
         </div>
-        <div className="bg-white w-[15vw] sm:w-[10vw] flex justify-center items-center   shadow h-[10vh]">
+        <div className="w-[15vw] sm:w-[10vw] flex justify-center items-center   shadow h-[10vh]">
           <button
             className="  rounded-lg"
             onClick={() => window.history.back()}
@@ -150,7 +150,7 @@ const AddCNI: React.FC = () => {
         </div>
       </div>
 
-      <div className="flex  flex-col justify-center items-center h-50vh bg-white w-full md:w-4/5 mx-auto">
+      <div className="flex  flex-col justify-center items-center h-50vh w-full md:w-4/5 mx-auto">
         <div className="flex flex-col font-semibold  rounded-lg mb-2 mx-auto w-full md:w-3/5 p-2 md:p-5 shadow-lg  h-full">
           <div className="mb-5 w-full px-2.5">
             <div className="flex flex-col  md:p-4">

@@ -22,16 +22,16 @@ const ChangePhone = () => {
   const handleUpload = async () => {};
 
   return (
-    <div className="w-full bg-white h-[100vh] p-2.5 flex flex-col">
+    <div className="w-full h-[100vh] p-2.5 flex flex-col">
       <div className="border-b border-gray-200 w-full h-fit p-2 z-20">
         <Header />
       </div>
 
       {verifier ? (
         <form action="" onSubmit={(e) => null}>
-          <div className="flex mt-5 flex-col justify-center items-center  h-50vh bg-white w-full  md:w-4/5 mx-auto">
+          <div className="flex mt-5 flex-col justify-center items-center  h-50vh w-full  md:w-4/5 mx-auto">
             <div className="flex flex-row w-full md:w-2/5">
-              <div className=" bg-white w-[15vw] sm:w-[10vw] flex justify-center items-center border  shadow h-[10vh]">
+              <div className="w-[15vw] sm:w-[10vw] flex justify-center items-center border  shadow h-[10vh]">
                 <button
                   className="px-2 rounded-lg "
                   onClick={() => window.history.back()}
@@ -39,11 +39,11 @@ const ChangePhone = () => {
                   <KeyboardBackspaceIcon style={{ fontSize: "3rem" }} />
                 </button>
               </div>
-              <div className=" bg-white flex font-bold w-full flex pl-6  items-center  shadow h-[10vh]">
+              <div className="flex font-bold w-full flex pl-6  items-center  shadow h-[10vh]">
                 Modifier votre numero de telephone
               </div>
             </div>
-            <div className="flex flex-col font-semibold bg-white mt-2 rounded-lg mb-2 mx-auto w-full md:w-2/5 p-2 md:p-5 shadow-lg border h-full">
+            <div className="flex flex-col font-semibold mt-2 rounded-lg mb-2 mx-auto w-full md:w-2/5 p-2 md:p-5 shadow-lg border h-full">
               <div className="flex w-full flex-col  ">
                 <label className="block mb-2 text-sm mt-3 ">
                   Entrez votre numero de telephone
@@ -67,9 +67,9 @@ const ChangePhone = () => {
         </form>
       ) : (
         <form action="" onSubmit={(e) => null}>
-          <div className="flex mt-5 flex-col justify-center items-center  h-50vh bg-white w-full  md:w-4/5 mx-auto">
+          <div className="flex mt-5 flex-col justify-center items-center  h-50vh w-full  md:w-4/5 mx-auto">
             <div className="flex flex-row w-full md:w-2/5">
-              <div className=" bg-white w-[10vw]  flex justify-center items-center border  shadow h-[10vh]">
+              <div className=" w-[10vw]  flex justify-center items-center border  shadow h-[10vh]">
                 <button
                   className=" px-2 rounded-lg "
                   onClick={() => setVerifier(true)}
@@ -77,11 +77,11 @@ const ChangePhone = () => {
                   <KeyboardBackspaceIcon style={{ fontSize: "3rem" }} />
                 </button>
               </div>
-              <div className=" bg-white   font-bold w-full flex pl-6 items-center  shadow h-[10vh]">
+              <div className="font-bold w-full flex pl-6 items-center  shadow h-[10vh]">
                 Verification par otp
               </div>
             </div>
-            <div className="flex flex-col font-semibold bg-white mt-2 rounded-lg mb-2 mx-auto w-full md:w-2/5 p-2 md:p-5 shadow-lg border h-full">
+            <div className="flex flex-col font-semibold mt-2 rounded-lg mb-2 mx-auto w-full md:w-2/5 p-2 md:p-5 shadow-lg border h-full">
               <div className="flex w-full flex-col  ">
                 <label className="block mb-2 text-sm mt-3 ">
                   Entrez Le code qui vous a eté envoyé

@@ -125,7 +125,7 @@ export default function Authentification() {
 
   return <div>
     {isLoading?
-    <div className="text-[50px] h-[100vh] shadow-red-600  flex flex-col justify-center items-center text-white font-bold">
+    <div className="text-[50px] h-[100vh] shadow-red-600  flex flex-col justify-center p-3 items-center text-white font-bold">
       <img src={logo} className="bg-white rounded-lg" alt="" />
       <span className="font-bold text-red-600">Welcome page</span>
       </div>:
@@ -184,6 +184,7 @@ export default function Authentification() {
           phone={phone}
           gender={gender}
           toggleSignin={toggleSigninVisibility}
+          handleClick={()=>null}
         />
       ) : null}
       {checkOTPVisibility ? (

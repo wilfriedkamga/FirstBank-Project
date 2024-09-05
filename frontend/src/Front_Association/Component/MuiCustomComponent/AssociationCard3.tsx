@@ -24,11 +24,11 @@ const AssociationCard2: React.FC<AssociationModel> = (association) => {
         <div>
           <div className="flex items-center mb-2">
             <ParticipantAsso />
-            <span className="ml-2 ">{association.nbMembre} participants</span>
+            <span className="ml-2 ">{association.nbMembre} Membres</span>
           </div>
           <div className="flex items-center mb-2">
             <MoneyBag />
-            <span className="ml-2">{association.nbTontine} funds</span>
+            <span className="ml-2">{association.nbTontine} Tontines</span>
           </div>
           <div className="flex items-center">
             <Debt />
@@ -37,7 +37,7 @@ const AssociationCard2: React.FC<AssociationModel> = (association) => {
         </div>
         <div className="flex flex-col items-end">
           <span className="text-[#0C1013] relative top-5 font-bold text-sm">
-            Next meeting on
+            Réunion en cours
           </span>
           <div className="flex w-full  mb-4 justify-center relative top-5 items-center">
             <FontAwesomeIcon icon={faCaretDown} color="#BB0A01" size="lg" />
@@ -57,7 +57,7 @@ const AssociationCard2: React.FC<AssociationModel> = (association) => {
               </Link>
             ) : (
               <Link
-                className="text-white py-1 relative bottom-3 bg-gray-600 hover:bg-gray-800 px-7 rounded-lg  "
+                className="text-white py-1 relative bottom-3 bg-red-700 hover:bg-red-800 px-7 rounded-lg  "
                 to={"/association/mes associations/" + association.id}
               >
                 {" "}

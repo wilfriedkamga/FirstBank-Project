@@ -3,30 +3,24 @@ package com.example.AssociationManagement.Business;
 import com.example.AssociationManagement.Config.DefaultRolesConfig;
 import com.example.AssociationManagement.CustomException.AssociationAlreadyExistsException;
 import com.example.AssociationManagement.CustomException.AssociationNotFoundException;
-import com.example.AssociationManagement.CustomException.RoleAlreadyExistException;
 import com.example.AssociationManagement.Dao.Dto.*;
 import com.example.AssociationManagement.Dao.Entity.*;
+import com.example.AssociationManagement.Dao.Enumerations.*;
 import com.example.AssociationManagement.Dao.Modele.*;
 import com.example.AssociationManagement.Dao.Repository.*;
+import com.example.AssociationManagement.HelperClass.DefaultRole;
+import com.example.AssociationManagement.HelperClass.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.multipart.MultipartFile;
 
-import org.apache.commons.io.FileUtils;
-import java.io.File;
-import java.io.IOException;
-import java.text.Normalizer;
-import java.time.Instant;
 import java.time.LocalDate;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -39,10 +33,10 @@ public class AssociationBus {
     private MembreAssoRepository membreAssoRepository;
 
     @Autowired
-    private MembreAssoTempRepository membreAssoTempRepository;
+    private RoleAssoRepository roleAssoRepository;
 
     @Autowired
-    private RoleAssoRepository roleAssoRepository;
+    private PrivilegeAssoRepository privilegeAssoRepository;
 
     @Autowired
     private DocumentRepository documentRepository;
@@ -55,6 +49,9 @@ public class AssociationBus {
 
     @Autowired
     private ReunionRepository reunionRepository;
+
+    @Autowired
+    private InvitationRepository invitationRepository;
 
     @Autowired
     private RestTemplate restTemplate;
@@ -82,191 +79,269 @@ public class AssociationBus {
     private DefaultRolesConfig defaultRolesConfig;
 
 
+
+    // Creer une nouvelle association
     public AssociationDto createAssociation(CreaterAssoModele creerAssoModele) {
+        // Créer et retourner le DTO
+        // Les entites : etat ( ferme/ouvert)
+        CommonResponseModel response=new CommonResponseModel("delete operation success !","0", null);
 
-         if(!verifyNameBeforeCreation(creerAssoModele.getAssociationName(),creerAssoModele.getPhoneAdmin1())){
-             throw new AssociationAlreadyExistsException("Vous avez déjà crée une association avec ce nom");
-         }
-        // Création de l'objet Association
-        Association association = new Association();
-        association.setName(creerAssoModele.getAssociationName());
+        // Verifions si le membre est utilisateur de l'application
+        String phone1=creerAssoModele.getPhoneAdmin1();
+        String phone2=creerAssoModele.getPhoneAdmin2();
+        String phone3=creerAssoModele.getPhoneAdmin3();
+
+        // On recupère chaque membre
+        CommonResponseModel admin1Details=userHasAccount(phone1);
+        if(!admin1Details.getResponseCode().equals("0")){
+            throw new AssociationNotFoundException(admin1Details.getMessage());
+        }
+        CommonResponseModel admin2Details=userHasAccount(phone2);
+        if(!admin2Details.getResponseCode().equals("0")){
+            throw new AssociationNotFoundException(admin2Details.getMessage());
+        }
+        CommonResponseModel admin3Details=userHasAccount(phone3);
+        if(!admin3Details.getResponseCode().equals("0")){
+            throw new AssociationNotFoundException(admin3Details.getMessage());
+        }
+
+        if(phone1.equals(phone2) || phone1.equals(phone2) || phone2.equals(phone3)){
+            throw new AssociationAlreadyExistsException("Les trois administrateurs doivent être diffrents");
+        }
+        // Verifions si le nom de cette association est valide
+        Association association1 =associationRepository.findByAssoNameAndPhoneCreator(creerAssoModele.getAssociationName(),creerAssoModele.getPhoneAdmin1()).orElse(null);
+        if(association1!=null && association1.getState()!=EtatAsso.SUPPRIME){
+            throw new AssociationAlreadyExistsException("Vous ne pouvez pas cree deux associations avec le même nom.");
+        }
+
+        Association association=new Association();
+        association.setAssoName(creerAssoModele.getAssociationName());
         association.setPhoneCreator(creerAssoModele.getPhoneAdmin1());
-        association.setFrequenceReunion(creerAssoModele.getMeetingFrequency());
-        association.setJourReunion(creerAssoModele.getMeetingDay());
+        association.setMeetFrequency(creerAssoModele.getMeetingFrequency());
+        association.setMeetDay(creerAssoModele.getMeetingDay());
         association.setCreationDate(LocalDate.now());
-        association.setState1(true);
-        association.setState2(false);
-        association.setState3(false);
+        association.setState(EtatAsso.INITIE);
+        association=associationRepository.save(association);
 
-        // Sauvegarde de l'association pour générer l'ID et mettre à jour l'objet association
-        Association association2 = associationRepository.save(association);
+        // on cree les roles ici
+        List<Role_Asso> roles = new ArrayList<>();
+        for (DefaultRole defaultRole : defaultRolesConfig.getDefaultRoles()) {
+            Role_Asso role = new Role_Asso();
+            role.setLabel(defaultRole.getRoleName());
+            role.setLabelV(defaultRole.getLabel());
+            role.setNbMaxOcc(defaultRole.getMaxPeople());
+            role.setDeletable(defaultRole.isDeletable());
+            role.setAssociation(association);
 
-        // Ajouter le rôle "créateur" aux rôles par défaut
-        List<String> defaultRoles = defaultRolesConfig.getDefaultRoles();
-        List<String> uniqueRoles = defaultRolesConfig.getUniqueRoles();
-
-        // Création des rôles de base et les ajout à l'association
-        createRole(association2.getId(), "createur", false,1);
-
-        for (String role : defaultRoles) {
-            createRole(association2.getId(), role, true,1000);
+            // Association des privilèges au rôle
+            List<Privilege_Asso> privileges = new ArrayList<>();
+            for (String privilegeName : defaultRole.getPrivileges()) {
+                Privilege_Asso privilege = privilegeAssoRepository.findByLabel(PrivilegeAsso.valueOf(privilegeName));
+                if (privilege != null) {
+                    privileges.add(privilege);
+                }
+            }
+            role.setPrivileges(privileges);
+            roles.add(role);
         }
 
-        for (String role : uniqueRoles) {
-            createRole(association2.getId(), role, false,1);
-        }
-        // Envoi des invitations aux membres
+        roleAssoRepository.saveAll(roles);
 
-        envoyerNotification("Invitation pour une association","Vous invité à rejoindre l'association Dieu est grand",creerAssoModele.getPhoneAdmin3(),creerAssoModele.getPhoneAdmin1(),"1");
-        envoyerNotification("Invitation pour une association","Vous invité à rejoindre l'association Dieu est grand",creerAssoModele.getPhoneAdmin2(),creerAssoModele.getPhoneAdmin1(), "1");
-        envoyerNotification("Invitation pour une association","Vous avez initié la création de l'association Dieu est grand",creerAssoModele.getPhoneAdmin1(),creerAssoModele.getPhoneAdmin1(), "1");
+        // On ajoute les nouveau membres ( Il faut crire la methode d'ajout, c'est elle qui cree les invitation)
+        // le createur
 
-        // Traiter les membres après que les rôles de base sont créés
-        processMembre(association2, creerAssoModele.getPhoneAdmin1(), creerAssoModele.getRoleAdmin1(),1);
-        processMembre(association2, creerAssoModele.getPhoneAdmin2(), creerAssoModele.getRoleAdmin2(),2);
-        processMembre(association2, creerAssoModele.getPhoneAdmin3(), creerAssoModele.getRoleAdmin3(),3);
-//
-        List<RoleAssoDto> roles = association.getRoles().stream()
-                .map(role -> new RoleAssoDto(role.getId(), role.getLabel(), role.getNbMaxOcc()))
-                .collect(Collectors.toList());
+        User admin1=(User)admin1Details.getData();
+        User admin2=(User)admin2Details.getData();
+        User admin3=(User)admin3Details.getData();
+        // admin 1
+        Membre_Asso membre_asso1=addMemberInCreation(phone1,admin1.getFullName(),association,creerAssoModele.getRoleAdmin1());
+        Membre_Asso membre_asso2=addMemberInCreation(phone2, admin2.getFullName(),association,creerAssoModele.getRoleAdmin2());
+        Membre_Asso membre_asso3=addMemberInCreation(phone3,admin3.getFullName(),association,creerAssoModele.getRoleAdmin3());
 
-        List<MembreAssoDto> membres = association.getMembres().stream()
-                .map(membre -> new MembreAssoDto(membre))
-                .collect(Collectors.toList());
-//
-//        // Créer et retourner le DTO
-        CreateAssoDto createAssoDto = new CreateAssoDto(association.getId(), association.getName(), association.getFrequenceReunion(), association.getJourReunion(), association.getCreationDate(), roles, membres,3,1,0);
-
-        CreateTontineModele createTontineModele=new CreateTontineModele();
-        createTontineModele.setAssociationId(association2.getId());
-        createTontineModele.setCreationDate(new Date());
-        createTontineModele.setTontineName(creerAssoModele.getTontineName());
-        createTontineModele.setPhoneValidateur1(creerAssoModele.getPhoneValidator1());
-        createTontineModele.setPhoneValidateur2(creerAssoModele.getPhoneValidator2());
-        createTontineModele.setPhoneCreator(creerAssoModele.getPhoneAdmin1());
-        createTontineModele.setType(creerAssoModele.getType());
-        createTontineModele.setAmount(creerAssoModele.getAmount());
-        createTontineModele.setStartDate(creerAssoModele.getStartDate());
-        createTontineModele.setEndDate(creerAssoModele.getEndDate());
-
-        createTontine(createTontineModele);
-
-
-        // Retourner AssoDto
-        AssociationDto associationDto=new AssociationDto(association);
-
-        return associationDto;
-    }
-
-
-
-    public void Inviter_dans_association(String associationId,boolean requierConfirmation, String phoneMembre, String phoneExpéditeur){
-      String[] dest= new String[]{phoneMembre};
-      Invitation invitation =new Invitation();
-      invitation.setEmetteur(phoneExpéditeur);
-      invitation.setDate(new Date());
-      invitation.setMessageTitle("");
-      invitation.setMesssageBody("Invitation à rejoindre l'association Etudiant polytechnique comme membre");
-      invitation.setPhoneDest(dest);
-
-      envoyerNotification(invitation.getMesssageBody(),phoneMembre,phoneExpéditeur,phoneExpéditeur, "1");
-
-
-    }
-
-    public void annuler_invitation (String invitationId, String phone){
-       // Celui qui a émis une invitationpeut vouloir annuler cela, i pourra alors le faire en
-        // appelant cette méthode qui va se charger de répondre à tous les administrateurs de façons appropriés
-        // Et va bien sur supprimer la notification
-    }
-
-    public void repondre_invitation_par_membre(String invitationId, boolean reponse){
-       // si sa reponse est vrai alors il accepte l'invitation, modifier dans l'objet invitation
-        // Si la reponse est fausse, alors il refuse l'invitation, on va notifier les différents administrateurs administrateurs, pour dire que
-        // ce membre a refusé.
-        // On va alors supprimer l'invitation de la base de données.
-    }
-
-    public void repondre_invitation_par_validateur(String invitationId, boolean reponse, String phone){
-       // si sa reponse est vrai, alors il accepte l'invitation, il va modifier dans l'invitation et on va envoyer
-        // notification à celui qui a émis l'invitation.
-        // Si sa réponse est fausse, alors on va notifier l'administrateur qui a notifié et aussi celui qui devait repondre
-        //S'il faisait partie de ceux qui devaient absolument repondre, on va supprimer directement l'invitation,
-        // Si non, si le cotar peut encore etre atteint, on va tout simplement attendre.
-        //( On doit avoir ici une fonction pour determiner si le cotar peut etre atteint ou pas
-
-    }
-    public AssociationDto  confirmerCreationAssociation (ConfirmerCreationAssoModel confirmerCreationAssoModel){
-        Association association =associationRepository.findById(confirmerCreationAssoModel.getAssociationId()).orElse(null);
-        if(association==null){
-            throw  new AssociationNotFoundException("Cette association n'existe pas dans votre systeme");
-        }
-
-        Membre_Asso membreExist = association.getMembres().stream()
-                .filter(r -> r.getPhone().equals(confirmerCreationAssoModel.getIdAdmin())).findFirst()
-                .orElse(null);
-
-        if(membreExist==null){ throw new AssociationAlreadyExistsException("Cette utilisateur n'est pas membre de cette application");}
-
-        if(association.isState3() && association.isState2() && association.isState1()){
-            throw  new AssociationNotFoundException("Cette association est déjà opérationnelle");
-        }
-
-        if(membreExist.getNumOrdre()==1){association.setState1(confirmerCreationAssoModel.isReponse());}
-        if(membreExist.getNumOrdre()==2){association.setState2(confirmerCreationAssoModel.isReponse());}
-        if(membreExist.getNumOrdre()==3){association.setState3(confirmerCreationAssoModel.isReponse());}
+        association.getMembres().add(membre_asso1);
+        association.getMembres().add(membre_asso2);
+        association.getMembres().add(membre_asso3);
 
         return new AssociationDto(associationRepository.save(association));
     }
-    public boolean verifyNameBeforeCreation(String assoName, String phoneCreator){
 
-        Association association =associationRepository.findByNameAndPhoneCreator(assoName,phoneCreator).orElse(null);
-        if(association==null){
-            return true;
+    public CommonResponseModel CreateInvitation(Association association, Membre_Asso concerrnedMembre, Membre_Asso respondingMember,InvitationType type,int nbMinPos){
+        Invitation invitation=new Invitation();
+        invitation.setAssociation(association);
+        invitation.setConcernedMember(concerrnedMembre);
+        invitation.setType(type);
+        invitation.setRespondingMember(respondingMember);
+        invitation.setNbMinPositif(nbMinPos);
+        invitation.setState(false);
+        invitation.setResponse(false);
+        invitation=invitationRepository.save(invitation);
+        return new CommonResponseModel("sucess","0",invitation.getId());
+    }
+
+
+
+    public CommonResponseModel responseInvitation(RespondInvitationModele model){
+
+        Invitation invitation= invitationRepository.findByTypeAndAssociationIdAndRespondingMember_Id(model.getType(),model.getAssociationId(),model.getResponderId());
+
+        if(invitation==null){
+            return new CommonResponseModel("Erreur","2","Cette invitation n'existe pas dans notre base de donnees");
+
         }
 
-        return false;
+        if(invitation.isState()){
+            return new CommonResponseModel("Erreur","1","Cette invitation a déjà été repondue");
 
-    }
-
-    public AssociationDto getAssociation(String associationId){
-        Association association =associationRepository.findById(associationId).orElse(null);
-        if(association==null){
-            throw  new AssociationNotFoundException("Cette association n'existe pas dans votre systeme");
         }
-        List<RoleAssoDto> roles = association.getRoles().stream()
-                .map(role -> new RoleAssoDto(role.getId(), role.getLabel(), role.getNbMaxOcc()))
-                .collect(Collectors.toList());
 
-        List<MembreAssoDto> membres = association.getMembres().stream()
-                .map(membre -> new MembreAssoDto(membre))
-                .collect(Collectors.toList());
+        Membre_Asso membre_asso=membreAssoRepository.findByIdAndAndAssociation_Id(model.getResponderId(), invitation.getAssociation().getId());
+        if(membre_asso==null){throw new AssociationNotFoundException("Ce membre n'existe plus dans cette association");}
 
-        AssociationDto associationDto=new AssociationDto(association);//association.getId(),association.getName(),association.getFrequenceReunion(),association.getJourReunion(),association.getCreationDate(),association.getNbMembers(),association.getNbTontines(),association.getEvenements().size(),association.getReunions().size(),association.getDocument().size());
+        if(!invitation.getRespondingMember().getId().equals(model.getResponderId())){
+            return new CommonResponseModel("Echec","1","Cette invitation ne vous est pas destinée");
+        }
+        // creation de l'association
+        if(invitation.getType()==InvitationType.CREATE_ASSOCIATION){
+            invitation.setResponse(model.isResponse());
+            invitation.setState(true);
+            invitation =invitationRepository.save(invitation);
+            if(model.isResponse()){
+                membre_asso.setEtat(EtatMembre.ACTIF);
+                envoyerNotification("Invitation acceptée", "L'utilisateur ... a accepté de faire partie de votre association","http://localhot:3000",invitation.getAssociation().getPhoneCreator(),invitation.getRespondingMember().getPhone(),"1");
+                membre_asso= membreAssoRepository.save(membre_asso);
+                return new CommonResponseModel("Sucess","0",new MembreAssoDto(membre_asso));
+            }
+            else{
+                membre_asso.setEtat(EtatMembre.REFUSE);
+                envoyerNotification("Invitation refusée", "L'utilisateur ... a rejetté votre invitation","http://localhot:3000",invitation.getAssociation().getPhoneCreator(),invitation.getRespondingMember().getPhone(),"1");
+                membre_asso=membreAssoRepository.save(membre_asso);
+                return new CommonResponseModel("sucess","0", new MembreAssoDto(membre_asso));
+            }
+        }
 
+        if(invitation.getType()==InvitationType.CREATE_ROLE_ASSOCIATION){
+            Role_Asso role=invitation.getConcernedRole();
 
-        return associationDto;
+            if(role.getState()==EtatRole.VALIDE)throw new AssociationNotFoundException("Les autres administrateurs ont déjà validé la création de ce role");
+
+            List<Invitation> liste=invitationRepository.findAllByConcernedRole(role);
+            int n=countPositifInvitation(liste);
+            invitation.setResponse(model.isResponse());
+            invitation.setState(true);
+            invitation =invitationRepository.save(invitation);
+
+            if(model.isResponse()){
+                if(role.getNbMaxOcc()==n){
+                    role.setState(EtatRole.VALIDE);
+                    envoyerNotification("Validation de la creation du role", "L'admin ... a validé la création de ce role","http://localhot:3000",invitation.getAssociation().getPhoneCreator(),invitation.getRespondingMember().getPhone(),"1");
+                    envoyerNotification("Sucess de l'ajout du role", "La création du role ... est terminee","http://localhot:3000",invitation.getAssociation().getPhoneCreator(),invitation.getRespondingMember().getPhone(),"1");
+                }
+                else{
+                    envoyerNotification("Validation de la creation du role", "L'admin ... a validé la création de ce role","http://localhot:3000",invitation.getAssociation().getPhoneCreator(),invitation.getRespondingMember().getPhone(),"1");
+                }
+
+                return new CommonResponseModel("Sucess","0",invitation);
+            }
+            else{
+                envoyerNotification("Invitation refuse", "L'admin ... a refuse l'ajout de ce rôle dans cette association","http://localhot:3000",invitation.getAssociation().getPhoneCreator(),invitation.getRespondingMember().getPhone(),"1");
+
+                return new CommonResponseModel("Sucess","0",invitation);
+            }
+        }
+        return null;
     }
-    public static String removeAccentsAndLowercase(String input) {
-        // Normaliser le texte en décomposant les accents
-        String normalized = Normalizer.normalize(input, Normalizer.Form.NFD);
-        // Utiliser une expression régulière pour supprimer les diacritiques
-        String accentRemoved = normalized.replaceAll("\\p{M}", "");
-        // Convertir en minuscules
-        return accentRemoved.toLowerCase();
+
+    public CommonResponseModel cancelInvitation(CancelInvitationModel model){
+
+        Association association=associationRepository.findById(model.getAssociationId()).orElse(null);
+        if(association==null)throw new AssociationNotFoundException("Cette association n'existe pas dans notre base de données");
+
+        Membre_Asso membre_asso=membreAssoRepository.findByIdAndAndAssociation_Id(model.getResponderId(), association.getId());
+        if(membre_asso==null)throw new AssociationNotFoundException("Desole mais vous n'êtes membre de cette association");
+
+
+        if(model.getType()==InvitationType.CREATE_ASSOCIATION){
+            Invitation invitation= invitationRepository.findByTypeAndAssociationIdAndRespondingMember_Id(model.getType(),model.getAssociationId(),model.getResponderId());
+
+            if(invitation.isState() && invitation.isResponse() ){ return new CommonResponseModel("Erreur","1","Cette invitation a déjà été repondue donc on ne peut plus l'annuler"); }
+
+            if(invitation.isState() && !invitation.isResponse()){
+                    Membre_Asso membre=invitation.getRespondingMember();
+                    membre.setEtat(EtatMembre.SUPPRIME);
+                    membreAssoRepository.save(membre);
+                    invitationRepository.delete(invitation);
+                    return new CommonResponseModel("Sucess","0",new MembreAssoDto(membre));
+            }
+
+            if(!invitation.isState() && !invitation.isResponse()){
+                Membre_Asso membre=invitation.getRespondingMember();
+                membre.setEtat(EtatMembre.SUPPRIME);
+                membreAssoRepository.save(membre);
+                invitationRepository.delete(invitation);
+                envoyerNotification("Annulation de votre invitation", "L'admin ... a annule votre invitation","http://localhot:3000",invitation.getAssociation().getPhoneCreator(),invitation.getRespondingMember().getPhone(),"1");
+                return new CommonResponseModel("Sucess","0",new MembreAssoDto(membre));
+            }
+
+        }
+        return null;
+
+        }
+
+
+    public int countPositifInvitation(List<Invitation> listInvitation){
+
+        int n=0;
+
+        for(Invitation invitation:listInvitation){
+            if(invitation.isState() && invitation.isResponse()){
+                n++;
+            }
+
+        }
+        return n;
     }
 
-    public List<AssociationDto> getAssociationsByPhoneNumber(String phoneNumber) {
-        List<Membre_Asso> membres = membreAssoRepository.findByPhone(phoneNumber);
-        return membres.stream()
-                .flatMap(membre -> membre.getAssociations().stream())
-                .filter(association -> association.isVisibility())
-                .map(association -> new AssociationDto(association))
-                .collect(Collectors.toList());
-                
+    public Membre_Asso addMemberInCreation2(AddMemberAssociaitonModel model){
+        Association association=associationRepository.findById(model.getAssociationId()).orElse(null);
+        if(association==null)throw new AssociationNotFoundException("Cette association n'existe pas dans notre base de données");
+        if(userHasAccount(model.getPhone()).getResponseCode()!="0"){
+            if(association==null)throw new AssociationNotFoundException("Cette utilisateur n'existe pas dans notre base de donn");
+
+        };
+        return addMemberInCreation(model.getPhone(),model.getFullName(),association,model.getRole());
     }
 
-    public CommonResponseModel envoyerNotification(String titre, String message, String phoneDestinataire,String phoneEmetteur,String withSms) {
+    public Membre_Asso addMemberInCreation(String phone, String fullName, Association association, String roleLabel){
+        List<Membre_Asso> membres=membreAssoRepository.findByPhoneAndAndAssociation_Id(phone, association.getId());
+        for(Membre_Asso membre:membres){
+            if(membre!=null && membre.getEtat()!=EtatMembre.SUPPRIME)throw new AssociationNotFoundException("Ce membre existe deja dans cette associaiton");
+
+        }
+
+        Membre_Asso membre_asso2=new Membre_Asso();
+        membre_asso2.setName(fullName);
+        membre_asso2.setPhone(phone);
+        membre_asso2.setNumOrdre(association.getMembres().size()+1);
+        membre_asso2.setCreationDate(LocalDate.now());
+        membre_asso2.setRole(roleAssoRepository.findByLabelAndAssociation_Id(roleLabel, association.getId()));
+        membre_asso2.setAssociation(association);
+        membre_asso2.setEtat(EtatMembre.INVITE);
+        if(association.getPhoneCreator().equals(phone)){
+            membre_asso2.setEtat(EtatMembre.ACTIF);
+            membre_asso2= membreAssoRepository.save(membre_asso2);
+            envoyerNotification("Creation d'une nouvelle association", "Vous avez initié la création d'une nouvelle association","http://localhot:3000",phone,association.getPhoneCreator(),"1");
+
+        } else{
+            membre_asso2=membreAssoRepository.save(membre_asso2);
+            CreateInvitation(association,membre_asso2,membre_asso2,InvitationType.CREATE_ASSOCIATION,0);
+            // On lui envoi la notification pour dire qu'il est appele a integrer une assocciation
+            envoyerNotification("Invitation", "Vous etes invité","http://localhot:3000",phone,association.getPhoneCreator(),"1");
+        }
+
+
+        return membre_asso2;
+    }
+    public CommonResponseModel envoyerNotification(String titre, String message,String lien, String phoneDestinataire,String phoneEmetteur,String withSms) {
         // Créer le corps de la requête comme une carte (Map)
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -288,759 +363,427 @@ public class AssociationBus {
         }
     }
 
-    public AssociationDto ouvrir_association(String associationId){
-        Association association =associationRepository.findById(associationId).orElse(null);
-        System.out.println(associationId);
-        if(association==null){
-            throw  new AssociationNotFoundException("Cette association n'existe pas dans votre systeme");
-        }
-        if(association.isAlredryOpen()){
-            throw new  AssociationAlreadyExistsException("Cette association est déjà ouverte");
-        }
-
-        association.setAlredryOpen(true);
-
-        return new AssociationDto(associationRepository.save(association));
-    }
-
-    private void processMembre(Association association, String phone, String roleName, int numOrdre) {
-        // Vérifier si le rôle existe dans l'association
-        Role_Asso role = association.getRoles().stream()
-                .filter(r -> r.getLabel().equals(roleName))
-                .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("Role " + roleName + " does not exist in the association."));
-
-        // Vérifier si le rôle est unique et déjà alloué
-        // Récupérer tous les membres qui ont le rôle spécifié
-        List<Membre_Asso> membresAvecRole = membreAssoRepository.findByRole(role);
-
-        // Compter ceux qui ont l'association en question
-        long currentRoleCount = membresAvecRole.stream()
-                .filter(membre -> membre.getAssociations().contains(association))
-                .count();
-
-        if (currentRoleCount >= role.getNbMaxOcc()) {
-            throw new AssociationNotFoundException("The maximum number of occurrences for the role " + roleName + " has been reached.");
-        }
-
-        String url = userManagementApiUrl + "/userExist";
-        Map<String, String> requestBody = Map.of("phone", phone);
-       try{
-           ResponseEntity<CommonResponseModel> responseEntity = restTemplate.postForEntity(url, requestBody, CommonResponseModel.class);
-           CommonResponseModel response = responseEntity.getBody();
-
-               // User exists, extract user details
-               @SuppressWarnings("unchecked")
-               Map<String, Object> userDetails = (Map<String, Object>) response.getData();
-               String userName = (String) userDetails.get("fullName");
-
-               // Envoyer une notification pour demander d'intégrer le groupe.
-
-               //if(roleName.equals("createur"))
-//
-                    //envoyerNotification("Création d'une nouvelle tontine", "Vous avez été ajouté dans une nouvelle tontine", phone);
-
-
-               // sendInvitation()
-               Membre_Asso membre = new Membre_Asso();
-               membre.setName(userName);
-               membre.setPhone(phone);
-               membre.setNumOrdre(numOrdre);
-               if(roleName.equals("createur")){
-                   membre.setStateConfirmation(true);
-                   membre.setStatusConfirmation(true);
-               }
-               membre.setCreationDate(LocalDate.now());
-               membre.getAssociations().add(association);
-               membre.setRole(role);
-               membre = membreAssoRepository.save(membre);
-
-               association.getMembres().add(membre);
-               association.setNbMembers(association.getMembres().size());
-               associationRepository.save(association);
-
-       }catch (HttpClientErrorException e){
-           // User does not exist, send SMS invitation
-           String message = "Please create an account using this link: <link>";
-           sendSms(message, phone);
-
-           Membre_Asso_Temp membreTemp = new Membre_Asso_Temp();
-           membreTemp.setName("Inconnu"); // Storing phone as name temporarily
-           membreTemp.setPhone(phone);
-           membreTemp.setCreationDate(LocalDate.now());
-           membreTemp.getAssociations().add(association);
-           membreTemp.setRole(role);
-           membreTemp = membreAssoTempRepository.save(membreTemp);
-       }
-
-
-    }
-    public List<Role_Asso> getRoleAsso(String associationId){
+    public CommonResponseModel notifierAssociation(String titre, String message,String lien,String phoneEmetteur,String withSms, String associationId) {
+        // Créer le corps de la requête comme une carte (Map)
         Association association=associationRepository.findById(associationId).orElse(null);
-        if(association==null)throw  new AssociationNotFoundException("Association with id"+associationId+" don't exist");
-        return association.getRoles();
-    }
+        if(association==null)throw new AssociationNotFoundException("Cette association n'existe pas dans notre base de données");
 
-    public Association deleteAssociation(String id) {
-        Association association = associationRepository.findById(id).orElse(null);
-
-        if(association ==null){
-            throw new AssociationNotFoundException("Cette association n'existe pas dans notre base de données.");
+        for(Membre_Asso membre:association.getMembres()){
+            envoyerNotification(titre,message,lien,membre.getPhone(),phoneEmetteur,withSms);
         }
 
-            List<String> roleIdList = new ArrayList<>();
-            List<String> membreAssoList = new ArrayList<>();
-            // Supprimer tous ses roles
-            for(int i=0;i<association.getMembres().size();i++){
-                roleIdList.add(association.getRoles().get(i).getId());
-                membreAssoList.add(association.getMembres().get(i).getId());
+        return new CommonResponseModel("sucess","0","");
+    }
+
+    public CommonResponseModel notifierAssociationParPrivilege(String titre, String message,String lien,String phoneEmetteur,String withSms, String associationId,PrivilegeAsso privilege ) {
+        // Créer le corps de la requête comme une carte (Map)
+        Association association=associationRepository.findById(associationId).orElse(null);
+        if(association==null)throw new AssociationNotFoundException("Cette association n'existe pas dans notre base de données");
+
+        Privilege_Asso localPrivilege=privilegeAssoRepository.findByLabel(privilege);
+
+        for(Membre_Asso membre:association.getMembres()){
+            if(membre.getRole().getPrivileges().contains(localPrivilege)){
+                envoyerNotification(titre,message,lien,membre.getPhone(),phoneEmetteur,withSms);
             }
-            association.setVisibility(false);
 
-            return associationRepository.save(association);
-    }
-
-    public Role_Asso createRole(String associationId, String label, boolean isDeletable,int nbMaxOcc) {
-
-
-        Association association = associationRepository.findById(associationId).orElse(null);
-        if (association == null) {
-            throw new AssociationNotFoundException("Association with id"+associationId+" don't exist");
         }
 
-        List<Role_Asso> roles= association.getRoles();
+        return new CommonResponseModel("sucess","0","");
+    }
 
-        AtomicBoolean alreadyExist = new AtomicBoolean(false);
-        roles.forEach(role->{
-            if (role.getLabel().equals(removeAccentsAndLowercase(label))) {
-                alreadyExist.set(true);
-            } });
-        if(alreadyExist.get())throw new RoleAlreadyExistException("The role with base name "+label+" Already exist in the association "+association.getName());
+    public CommonResponseModel notifierParListResponderInvitation(String titre, String message,String lien,String phoneEmetteur,String withSms, String associationId,List<Invitation> liste ) {
+        // Créer le corps de la requête comme une carte (Map)
+        Association association=associationRepository.findById(associationId).orElse(null);
+        if(association==null)throw new AssociationNotFoundException("Cette association n'existe pas dans notre base de données");
 
-        Role_Asso role = new Role_Asso();
-        role.setLabel(removeAccentsAndLowercase(label));
-        role.setAssociation(association);
-        role.setNbMaxOcc(nbMaxOcc);
-        role.setIsDeletable(isDeletable); // Or set based on your business logic
+        for(Invitation invitation:liste){
+            envoyerNotification(titre,message,lien,invitation.getRespondingMember().getPhone(),phoneEmetteur,withSms);
+        }
 
-        roleAssoRepository.save(role);
-//
-        association.getRoles().add(role);
-        associationRepository.save(association);
+        return new CommonResponseModel("sucess","0","");
+    }
 
+
+    public CommonResponseModel notifierAssociationParRole(String titre, String message,String lien,String phoneEmetteur,String withSms, String associationId,String roleLabel ) {
+        // Créer le corps de la requête comme une carte (Map)
+        Association association=associationRepository.findById(associationId).orElse(null);
+        if(association==null)throw new AssociationNotFoundException("Cette association n'existe pas dans notre base de données");
+
+        for(Membre_Asso membre:association.getMembres()){
+            if(membre.getRole().getLabel().equals(roleLabel)){
+                envoyerNotification(titre,message,lien,membre.getPhone(),phoneEmetteur,withSms);
+            }
+
+        }
+
+        return new CommonResponseModel("sucess","0","tous les membres concernés ont reçu l'invitation");
+    }
+
+
+
+
+
+    public Role_Asso initRole(String label, String labelV, boolean isDeletable,int nbOccRest,List<Privilege_Asso> list){
+        Role_Asso role=new Role_Asso();
+        role.setLabel(label);
+        role.setLabelV(labelV);
+        role.setNbMaxOcc(nbOccRest);
+        role.setDeletable(true);
+        role.setPrivileges(list);
         return role;
     }
 
+    public CommonResponseModel userHasAccount (String phone){
+        String url = userManagementApiUrl + "/userExist";
+        Map<String, String> requestBody = Map.of("phone", phone);
+        try{
+            ResponseEntity<CommonResponseModel> responseEntity = restTemplate.postForEntity(url, requestBody, CommonResponseModel.class);
+            CommonResponseModel response = responseEntity.getBody();
 
+            // User exists, extract user details
+            Map<String ,  Object> userDetails = (Map<String, Object>) response.getData();
+            User user=new User();
+            System.out.println(userDetails);
+            user.setFullName((String) userDetails.get("fullName"));
+            user.setBirthDate((String) userDetails.get("birthDate"));
+            user.setEmail((String) userDetails.get("email"));
+            user.setGender((String) userDetails.get("gender"));
+            user.setId((String) userDetails.get("id"));
+            user.setCniRecto((String) userDetails.get("cniRecto"));
+            user.setCniVerso((String) userDetails.get("cniVerso"));
+            if( ((String)userDetails.get("isActivated")).equals("true")){
+                user.setActivated(true);
+            }else{user.setActivated(false);}
 
-    public void deleteRole(String roleId) {
-        Role_Asso role_asso=roleAssoRepository.findById(roleId).orElse(null);
-        if(role_asso==null)throw new AssociationNotFoundException("Role with id"+roleId+"doesn't exist");
-        roleAssoRepository.deleteById(roleId);
+            if( ((String)userDetails.get("isBlocked")).equals("true")){
+                user.setBlocked(true);
+            }else{user.setBlocked(false);}
 
-        Association association=role_asso.getAssociation();
-        List<Role_Asso> roles= association.getRoles();
-        AtomicBoolean roleExist=new AtomicBoolean(false);
-        AtomicInteger roleIndex=new AtomicInteger(-1);
-        AtomicInteger roleIndex2=new AtomicInteger(-1);
-        roles.forEach(role->{
-            roleIndex2.set(roleIndex.get()+1);
-            if(role.getId().equals(roleId)){
-                roleIndex.set(roleIndex2.get());
-            }
-        });
-
-        if(roleExist.get()){
-            roleAssoRepository.deleteById(roles.get(roleIndex.get()).getId());
-            roles.remove(roleIndex.get());
-            association.setRoles(roles);
+            user.setSignature((String) userDetails.get("signature"));
+            String userName = (String) userDetails.get("fullName");
+            CommonResponseModel response2=new CommonResponseModel("L'utilisateur a bien un compte.","0",user);
+            return response2;
         }
-        else{ throw new AssociationNotFoundException("This role doesn't existe in our database");}
+        catch (HttpClientErrorException e) {
+            // Capture d'autres erreurs HTTP
+            CommonResponseModel response2 = new CommonResponseModel("L'utilisateur avec le telephone suivant ne possède pas de compte :"+phone,"1",e.getMessage());
+            return response2;
+
+        } catch (RestClientException e) {
+            // Capture des erreurs génériques de RestTemplate, telles que les problèmes de connexion
+            CommonResponseModel response2 = new CommonResponseModel("Erreur de connexion avec l'API usermanagment : Nous n'avons pas pu verifie que le telephone suivant est celui d'un utilisateur :"+phone,"2",e.getMessage());
+            return response2;
+        }
 
     }
-    public void deleteAllRole(String associationId) {
+
+    // Initialiser ou ouvrir l'associaiton
+    public CommonResponseModel startAssociation(String associaitonId) {
+        // on va rechercher les invitations de ce gar pour le moment
+
+        Association association=associationRepository.findById(associaitonId).orElse(null);
+        if(association==null)throw new AssociationNotFoundException("Cette association n'existe pas dans notre base de données");
+        List<Invitation> invitationList=invitationRepository.findAllByAssociation_id(associaitonId);
+        if(invitationList.size()==0){
+            throw new AssociationNotFoundException("Erreur. Il y'a une incohérence dans notre base de données. Cette association n'a pas le droit d'exister.");
+        }
+        for(Invitation invit:invitationList){
+            if(!invit.isState() && !invit.isCancelled() && invit.getType()==InvitationType.CREATE_ASSOCIATION)throw new AssociationNotFoundException("Cette association ne peut pas être ouvert. Car des invitations n'ont pas encore été repondu.");
+            if(!invit.isResponse() && !invit.isCancelled()&& invit.getType()==InvitationType.CREATE_ASSOCIATION)throw new AssociationNotFoundException("Cette association ne peut pas êtreouvert. Il faut que le cota des invitations soient atteint.");
+        }
+        association.setAlredryOpen(true);
+        association.setState(EtatAsso.OUVERT);
+        return new CommonResponseModel("Sucess","0",new AssociationDto(associationRepository.save(association)));
+    }
+
+    // supprimer une associaiton
+    public CommonResponseModel deleteAssociation(String associaitonId) {
+        // cette methode va mettre l'etat a supprime, mettre l'etat de tout ses membres a inactif,ainsi que de ses roles
+        Association association=associationRepository.findById(associaitonId).orElse(null);
+        if(association==null)throw new AssociationNotFoundException("Cette association n'existe pas dans notre base de données");
+
+        association.setState(EtatAsso.SUPPRIME);
+        return new CommonResponseModel("","",new AssociationDto(associationRepository.save(association)));
+    }
+
+    // Modifier une association
+    public CommonResponseModel updateAssociation(UpdateAssoModel updateAssoModel) {
+        // cette methode va mettre l'etat a supprime, mettre l'etat de tout ses membres a inactif,ainsi que de ses roles
+        Association association=associationRepository.findById(updateAssoModel.getAssociationId()).orElse(null);
+        if(association==null)throw new AssociationNotFoundException("Cette association n'existe pas dans notre base de données");
+
+        association.setAssoName(updateAssoModel.getName());
+        association.setMeetDay(updateAssoModel.getMeetDay());
+        association.setMeetFrequency(updateAssoModel.getMeetFrequency());
+        association.setMeetMode(updateAssoModel.getMeetType());
+
+        return new CommonResponseModel("","",new AssociationDto(associationRepository.save(association)));
+
+    }
+
+    // Lister les associations d'un telephone
+    public CommonResponseModel getAssociationsByPhone(String phone) {
+        //cette methode va mettre l'etat a supprime, mettre l'etat de tout ses membres a inactif,ainsi que de ses roles
+
+        List<Membre_Asso> membres=membreAssoRepository.findByPhone(phone);
+        if(membres.size()==0){throw new AssociationNotFoundException("Cette utilisateur n'a pas d'association");}
+        List<AssociationDto> associations=new ArrayList<>();
+        for(Membre_Asso membre:membres){
+            if(membre.getAssociation().getState()!=EtatAsso.SUPPRIME) {associations.add(new AssociationDto(membre.getAssociation()));}
+        }
+        CommonResponseModel response=new CommonResponseModel("","",associations);
+        return response ;
+    }
+
+    public CommonResponseModel getMemberByPhoneAndAssociation(String phone, String associationId) {
+        //cette methode va mettre l'etat a supprime, mettre l'etat de tout ses membres a inactif,ainsi que de ses roles
+
         Association association=associationRepository.findById(associationId).orElse(null);
-        if (association == null) {
-            throw new AssociationNotFoundException("Association with id"+associationId+" don't exist");
+        if(association==null)throw new AssociationNotFoundException("Cette association n'existe pas dans notre base de données");
+
+        if(userHasAccount(phone).getResponseCode()!="0"){ throw new AssociationNotFoundException("Cette utilisateur n'existe pas dans notre base de donn");
+
+        };
+
+        List<Membre_Asso> membres=membreAssoRepository.findByPhoneAndAndAssociation_Id(phone, associationId);
+        System.out.println("-*-*-*-*-*-*-*-*-*-*-"+phone+"-*-*-*-*-*-*-*-*-"+associationId);
+        if(membres.size()==0){throw new AssociationNotFoundException("Cette utilisateur n'est pas dans cette association");}
+        for(Membre_Asso membre:membres){
+            if(membre.getEtat()==EtatMembre.ACTIF) { return new CommonResponseModel("votre message","0",new MembreAssoDto((membre)));}
         }
-        List<Role_Asso> roles =association.getRoles();
-        for(int i=0;i<roles.size();i++){
-            if(roles.get(i).isDeletable()){
-                roleAssoRepository.deleteById(roles.get(i).getId());
-            }
-        }
+        CommonResponseModel response=new CommonResponseModel("error","1","Cette utilisateur n'est pas dans cette association");
+        return response ;
     }
 
-    public void deleteRole2(String associationId, String role_label) {
+    // Afficher les details d'une associaiton
+    public CommonResponseModel getAssociationById(String associaitonId) {
+        // cette methode va mettre l'etat a supprime, mettre l'etat de tout ses membres a inactif,ainsi que de ses roles
+        Association association=associationRepository.findById(associaitonId).orElse(null);
+        if(association==null)throw new AssociationNotFoundException("Cette association n'existe pas dans notre base de données");
+
+        return new CommonResponseModel("Sucess","0",new AssociationDto(association));
+    }
+
+    // Suspendre une association
+    public CommonResponseModel suspendAssociation(String associaitonId) {
+        // cette methode va mettre l'etat a supprime, mettre l'etat de tout ses membres a inactif,ainsi que de ses roles
+        Association association=associationRepository.findById(associaitonId).orElse(null);
+        if(association==null)throw new AssociationNotFoundException("Cette association n'existe pas dans notre base de données");
+
+        association.setState(EtatAsso.BLOQUE);
+        return new CommonResponseModel("Sucess","0",new AssociationDto(associationRepository.save(association)));
+    }
+
+    // debloquer une association
+    public CommonResponseModel resumeAssociation(String associaitonId) {
+        // cette methode va mettre l'etat a supprime, mettre l'etat de tout ses membres a inactif,ainsi que de ses roles
+        Association association=associationRepository.findById(associaitonId).orElse(null);
+        if(association==null)throw new AssociationNotFoundException("Cette association n'existe pas dans notre base de données");
+
+        association.setState(EtatAsso.OUVERT);
+        return new CommonResponseModel("Sucess","0",new AssociationDto(associationRepository.save(association)));
+
+    }
+
+    // verifier le nom avant creation de l'associaiton une association
+    public CommonResponseModel verifyNameBeforeCreation(String name, String phone) {
+        // cette methode va mettre l'etat a supprime, mettre l'etat de tout ses membres a inactif,ainsi que de ses roles
+        Association association1 =associationRepository.findByAssoNameAndPhoneCreator(name,phone).orElse(null);
+        if(association1!=null && association1.getState()!=EtatAsso.SUPPRIME){
+            return new CommonResponseModel("sucess","0",true);        }
+
+        return new CommonResponseModel("sucess","0",false);
+    }
+
+
+    /***********Gestion des roles de l'association*/
+
+    public boolean verifyPermissions(String memberId,List<PrivilegeAsso> listePermissions){
+
+        Membre_Asso membreCall=membreAssoRepository.findById(memberId).orElse(null);
+        if(membreCall==null)throw new AssociationNotFoundException("Desolé, ce membre n'existe pas dans notre base de données.");
+        boolean test=false;
+        for(Privilege_Asso priv:membreCall.getRole().getPrivileges()){
+            if(listePermissions.contains(priv.getLabel())){
+                test=true;
+            }
+        }
+
+        return test;
+    }
+
+    public CommonResponseModel createRoleInAssociation(CreateAssoRoleModel model) {
+        // cette methode va mettre l'etat a supprime, mettre l'etat de tout ses membres a inactif,ainsi que de ses roles
+
+        Membre_Asso membreCall=membreAssoRepository.findById(model.getId_Caller()).orElse(null);
+        if(membreCall==null)throw new AssociationNotFoundException("Desolé, ce membre n'existe pas dans notre base de données.");
+
+        List<PrivilegeAsso> authorizePrivilege=List.of(PrivilegeAsso.ADMIN);
+        boolean verification=verifyPermissions(model.getId_Caller(),authorizePrivilege);
+        if(!verification) throw new AssociationNotFoundException("Désolé, vous n'avez pas les permissions pour créer un role dans cette association.");
+
+        Association association=associationRepository.findById(model.getAssociationId()).orElse(null);
+        if(association==null)throw new AssociationNotFoundException("Cette association n'existe pas dans notre base de données");
+        if(!association.isAlredryOpen()) throw new AssociationAlreadyExistsException("Aucune opération n'est possible dans une association qui est en cours de création");
+
+        Role_Asso role=new Role_Asso();
+        role.setLabel(model.getLabel());
+        role.setLabelV(model.getLabelV());
+        role.setNbMaxOcc(model.getNbMaxOcc());
+
+        List<Privilege_Asso> listPrivileges=new ArrayList<>();
+        for(PrivilegeAsso priv:model.getPrivilegeLIst()){
+            if(privilegeAssoRepository.findByLabel(priv)!=null){
+                listPrivileges.add(privilegeAssoRepository.findByLabel(priv));
+            }
+
+        }
+        role.setPrivileges(listPrivileges);
+        role.setState(EtatRole.INITIE);
+        role.setAssociation(association);
+
+        Role_Asso role1=roleAssoRepository.save(role);
+
+        if(role1.getNbMaxOcc()!=0){
+
+            List<Membre_Asso> valideur=new ArrayList<>();
+
+            for(PrivilegeAsso priv:authorizePrivilege){
+                Privilege_Asso priv2=privilegeAssoRepository.findByLabel(priv);
+                for(Membre_Asso membre:association.getMembres()){
+                    if(membre.getRole().getPrivileges().contains(priv2)){
+                        valideur.add(membre);
+                    }
+                }
+            }
+            for(Membre_Asso membre:valideur){
+                CreateInvitation(association,membre,membre,InvitationType.CREATE_ROLE_ASSOCIATION,2);
+                envoyerNotification("Création d'un nouveau role", "Demande de confirmation de la création d'un nouveau role dans votre associaiton ","http://localhot:3000",membre.getPhone(),membreCall.getPhone(),"0");
+            }
+        }
+        else{
+            // notifier tous les membres de l'association de l'ajout d'un nouveau role
+            role.setState(EtatRole.VALIDE);
+            roleAssoRepository.save(role);
+            notifierAssociation("Création d'un nouveau role","Un nouveau role a été ajouté dans votre association","",membreCall.getPhone(),"1",association.getId());
+        }
+
+        return new CommonResponseModel("sucess","0",role1);
+    }
+
+    // ajouter un role dans une association une association
+    public AssociationDto addRoleInAssociation(CreateAssoRoleModel model) {
+        // cette methode va mettre l'etat a supprime, mettre l'etat de tout ses membres a inactif,ainsi que de ses roles
+
+        return null;
+    }
+
+    // modifier un role dans une association ( nom du role,ses privilleges)
+    public AssociationDto updateRoleInAssociation(CreateAssoRoleModel model) {
+        // cette methode va mettre l'etat a supprime, mettre l'etat de tout ses membres a inactif,ainsi que de ses roles
+
+        return null;
+    }
+
+    // modifier un role dans une association ( nom du role,ses privilleges)
+    public AssociationDto deleteRole(String roleId) {
+        // cette methode va mettre l'etat a supprime, mettre l'etat de tout ses membres a inactif,ainsi que de ses roles
+
+        return null;
+    }
+
+    // recuperer les roles d'une association
+    public List<Role_Asso> getRoleByAssociaitonId(String associaitonId) {
+        // cette methode va mettre l'etat a supprime, mettre l'etat de tout ses membres a inactif,ainsi que de ses roles
+
+        return null;
+    }
+
+    // ajouter les privilleges a un role
+    public Role_Asso addPrivilegeRoleInAssociation(CreateAssoRoleModel createAssoRoleModel) {
+        // cette methode va mettre l'etat a supprime, mettre l'etat de tout ses membres a inactif,ainsi que de ses roles
+
+        return null;
+    }
+
+    // retirer les privilleges a un role
+    public Role_Asso removePrivilegeRoleInAssociation(CreateAssoRoleModel createAssoRoleModel) {
+        // cette methode va mettre l'etat a supprime, mettre l'etat de tout ses membres a inactif,ainsi que de ses roles
+
+        return null;
+    }
+
+
+    /*gestion des membres*/
+
+    // retirer les privilleges a un role
+    public Membre_Asso addOneMemberInAssociation(MembreCreationModel createAssoRoleModel) {
+        // cette methode va mettre l'etat a supprime, mettre l'etat de tout ses membres a inactif,ainsi que de ses roles
+
+        return null;
+    }
+    // retirer les privilleges a un role
+    public Membre_Asso addManyMemberInAssociation(MembreCreationModel createAssoRoleModel) {
+        // cette methode va mettre l'etat a supprime, mettre l'etat de tout ses membres a inactif,ainsi que de ses roles
+
+        return null;
+    }
+    // retirer les privilleges a un role
+    public CommonResponseModel getMembersByAssociationId(String associationId) {
 
         Association association=associationRepository.findById(associationId).orElse(null);
-        if (association == null) {
-            throw new AssociationNotFoundException("Association with id"+associationId+" don't exist");
-        }
-        List<Role_Asso> roles= association.getRoles();
-        AtomicBoolean roleExist=new AtomicBoolean(false);
-        AtomicInteger roleIndex=new AtomicInteger(-1);
-        AtomicInteger roleIndex2=new AtomicInteger(-1);
-        roles.forEach(role->{
-            roleIndex2.set(roleIndex.get()+1);
-            if(role.getLabel().equals(removeAccentsAndLowercase(role_label))){
-                roleExist.set(true);
-                roleIndex.set(roleIndex2.get());
+        if(association==null)throw new AssociationNotFoundException("Cette association n'existe pas dans notre base de données");
 
-            }
-        });
-        if(roleExist.get()){
-            roleAssoRepository.deleteById(roles.get(roleIndex.get()).getId());
-            roles.remove(roleIndex.get());
-            association.setRoles(roles);
-        }
-        else{ throw new AssociationNotFoundException("This role doesn't exist in our database");}
+        List<Membre_Asso> liste = association.getMembres();
+        List<MembreAssoDto> assoMemberLIst=new ArrayList<>();
 
+        for(Membre_Asso membre:liste){
+            assoMemberLIst.add(new MembreAssoDto(membre));
+        }
+        return new CommonResponseModel("sucess","0",assoMemberLIst);
     }
 
+    // retirer les privilleges a un role
+    public boolean deleteMemberInAssociation(String associationId) {
+        // cette methode va mettre l'etat a supprime, mettre l'etat de tout ses membres a inactif,ainsi que de ses roles
 
-    public Membre_Asso addMember(String associationId, String name, String phone, String roleLabel) {
-        Association association = associationRepository.findById(associationId).orElse(null);
-        if (association == null) {
-            throw new AssociationNotFoundException("Association not found");
-        }
-
-        Membre_Asso membreExist = association.getMembres().stream()
-                .filter(r -> r.getPhone().equals(phone)).findFirst()
-                .orElse(null);
-
-        if(membreExist!=null){ throw new AssociationAlreadyExistsException("Cette utilisateur existe déjà dans cette association");}
-
-
-        Role_Asso roleExist = association.getRoles().stream()
-                .filter(r -> r.getLabel().equals(roleLabel.toLowerCase())).findFirst()
-                .orElse(null);
-
-        if(roleExist==null){ throw new AssociationAlreadyExistsException("Le rôle que vous avez entré n'existe pas dans cette association");}
-        // Appeler la méthode processMembre pour ajouter le membre
-        processMembre(association, phone, roleLabel.toLowerCase(),0);
-
-        // Récupérer le membre ajouté pour le retourner
-        // Cela suppose que le membre ajouté a été enregistré dans la base de données et peut être récupéré par son téléphone et son rôle
-        Role_Asso role = roleAssoRepository.findByAssociationAndLabel(association, roleLabel);
-        Membre_Asso membre = membreAssoRepository.findByPhoneAndRoleAndAssociation(phone, role, association);
-
-        return membre;
-
-    }
-
-    public MemberDetailsDto getMemberDetails(String phone) {
-        // Récupérer tous les membres ayant ce numéro de téléphone
-        List<Membre_Asso> membres = membreAssoRepository.findByPhone(phone);
-
-        if (membres.isEmpty()) {
-            throw new AssociationNotFoundException("No member found with phone number: " + phone);
-        }
-
-        // Récupérer les Membre_Tont associés à ce membre
-        List<Membre_Tont> membresTont = membreTontRepository.findByPhone(phone);
-
-        // Calculer le nombre d'associations
-        int nbAssociations = membres.stream()
-                .flatMap(membre -> membre.getAssociations().stream())
-                .collect(Collectors.toSet())
-                .size();
-
-        // Calculer le nombre de tontines
-        int nbTontines = membres.stream()
-                .flatMap(membre -> membre.getAssociations().stream())
-                .mapToInt(Association::getNbTontines)
-                .sum();
-
-        // Calculer le nombre de cotisations
-        int nbCotisations = membresTont.stream()
-                .mapToInt(membreTont -> membreTont.getCotisations().size())
-                .sum();
-
-        // Calculer le nombre de dettes (à implémenter si la logique est définie)
-        int nbDettes = 0;
-
-        // Calculer le nombre de sanctions
-        int nbSanctions = membresTont.stream()
-                .mapToInt(membreTont -> membreTont.getSanctions().size())
-                .sum();
-
-        // Retourner les détails du membre
-        return new MemberDetailsDto(nbAssociations, nbTontines, nbCotisations, nbDettes, nbSanctions);
-    }
-
-    public boolean deleteMember(String memberId) {
-        Membre_Asso membre = membreAssoRepository.findById(memberId).orElse(null);
-        if (membre != null) {
-            membreAssoRepository.delete(membre);
-            return true;
-        }
         return false;
     }
 
-    public CreateAssoDto updateAssociation(UpdateAssoModel updateAssoModel) {
-        Association association = associationRepository.findById(updateAssoModel.getId()).orElse(null);
-        if (association == null) {
-            throw new AssociationNotFoundException("Association not found");
-        }
+    // modifier les roles d'un membre d'une association
+    public Role_Asso modifyMemberRoleInAssociaiton(CreateAssoRoleModel createAssoRoleModel) {
+        // cette methode va mettre l'etat a supprime, mettre l'etat de tout ses membres a inactif,ainsi que de ses roles
 
-        List<RoleAssoDto> roles = association.getRoles().stream()
-                .map(role -> new RoleAssoDto(role.getId(), role.getLabel(), role.getNbMaxOcc()))
-                .collect(Collectors.toList());
-
-        List<MembreAssoDto> membres = association.getMembres().stream()
-                .map(membre -> new MembreAssoDto(membre))
-                .collect(Collectors.toList());
-
-        // Créer et retourner le DTO
-
-        association.setName(updateAssoModel.getName());
-        association.setFrequenceReunion(updateAssoModel.getFrequenceReunion());
-        association.setJourReunion(updateAssoModel.getJourReunion());
-        association.setModeReunion(updateAssoModel.getModeReunion());
-
-        CreateAssoDto createAssoDto = new CreateAssoDto(association.getId(), updateAssoModel.getName(), updateAssoModel.getFrequenceReunion(), updateAssoModel.getJourReunion(), association.getCreationDate(), roles, membres,membres.size(),association.getNbTontines(),association.getNbTontines());
-        associationRepository.save(association);
-
-        return createAssoDto;
-    }
-
-    public List<TontineDto> getTontinesByAssociationId(String associationId) {
-        Association association = associationRepository.findById(associationId).orElse(null);
-        if (association == null) {
-            throw new RuntimeException("Association not found");
-        }
-
-        List<TontineDto> tontineDtos = new ArrayList<>();
-        List<String> table=new ArrayList<>();
-        for (Tontine tontine : association.getTontines()) {
-            TontineDto tontineDto = new TontineDto();
-            tontineDto.setTontineName(tontine.getTontineName());
-            tontineDto.setAmount(tontine.getAmount());
-            tontineDto.setType(tontine.getType());
-            tontineDto.setNbMembres(tontine.getNb_membre());
-            tontineDto.setCreationDate(tontine.getCreationDate());
-            tontineDto.setStartDate(tontine.getStartDate());
-            tontineDto.setEndDate(tontine.getEndDate());
-            tontineDto.setId(tontine.getId());
-            tontineDto.setPurpose(tontine.getPurpose());
-            tontineDtos.add(tontineDto);
-        }
-
-        return tontineDtos;
-    }
-
-    public List<MembreAssoDto> getMembersByAssociationId(String associationId) {
-        Association association = associationRepository.findById(associationId).orElse(null);
-        if (association == null) {
-            throw new RuntimeException("Association not found");
-        }
-        return association.getMembres().stream()
-                .map(member -> new MembreAssoDto(member))
-                .collect(Collectors.toList());
-    }
-
-    public List<ReunionDto> getReunionsByAssociationId(String associationId) {
-        Association association = associationRepository.findById(associationId).orElse(null);
-        if (association == null) {
-            throw new RuntimeException("Association not found");
-        }
-        return association.getReunions().stream()
-                .map(reunion -> new ReunionDto(reunion.getId(), reunion.getDateSeance()))
-                .collect(Collectors.toList());
-    }
-
-    public List<EventDto> getEventsByAssociationId(String associationId) {
-        Association association = associationRepository.findById(associationId).orElse(null);
-        if (association == null) {
-            throw new RuntimeException("Association not found");
-        }
-        return association.getEvenements().stream()
-                .map(event -> new EventDto(event.getId(), event.getDescription(), event.getDateEcheance()))
-                .collect(Collectors.toList());
-    }
-
-
-
-    private void sendSms(String message, String phone) {
-        RestTemplate restTemplate = new RestTemplate();
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("X-Api-Key", "2C250CF6-0B66-41D5-A7A5-59EC8B6942E0");
-        headers.set("X-Secret", "Fa20uInW2h2n3IpWs0f4NY6BRcPmC8snBioUcRJHmU9pC7");
-        headers.set("Content-Type", "application/json");
-
-        Map<String, Object> payload = new HashMap<>();
-        payload.put("senderId", "FirstSaving");
-        payload.put("message", message);
-        payload.put("msisdn", new String[]{phone});
-        payload.put("maskedMsisdn", false);
-        payload.put("flag", "GSM7");
-
-        org.springframework.http.HttpEntity<Map<String, Object>> request = new HttpEntity<>(payload, headers);
-
-        ResponseEntity<String> response = restTemplate.exchange(
-                "https://sms.lmtgroup.com/api/v1/pushes",
-                HttpMethod.POST,
-                request,
-                String.class
-        );
-
-
-    }
-
-
-
-    /***********************Gestion des tontines *********************************/
-
-    public Tontine createTontineInCreation(CreateTontineModele createTontineModel) {
-
-        Optional<Association> association = associationRepository.findById(createTontineModel.getAssociationId());
-
-        if (!association.isPresent()) throw new AssociationNotFoundException("Désolé, mais cette association n'existe pas");
-
-        Tontine tontine = new Tontine();
-        tontine.setAssociation(association.get());
-        tontine.setTontineName(createTontineModel.getTontineName());
-        tontine.setCreationDate(LocalDate.now());
-        tontine.setNb_membre("2");
-        tontine.setType(createTontineModel.getType());
-        tontine.setAmount(createTontineModel.getAmount());
-        Membre_Asso membre_asso=new Membre_Asso();
-        List<Membre_Asso> listMembres=membreAssoRepository.findByPhone("");
-
-        for(int i=0;i<listMembres.size();i++){
-            for(int j=0;j<listMembres.get(i).getAssociations().size();j++){
-                if(listMembres.get(i).getAssociations().get(j).getId().equals(createTontineModel.getAssociationId())){
-                    membre_asso=listMembres.get(i);
-                }
-            }
-
-        }
-
-        Tontine newTontine = tontineRepository.save(tontine);
-//        association.get().setNbTontines(association.get().getNbTontines() + 1);
-//        associationRepository.save(association.get());
-
-//        // Créer les rôles et ajouter les membres validateurs
-//        Role_Tont validateurRole = createRoleTontine("validateur", false, newTontine);
-//        createRoleTontine("membre", false, newTontine);
-//
-//        addMembreTontine(newTontine.getId(), validateurRole.getId(), createTontineModel.getPhoneValidateur1());
-//        addMembreTontine(newTontine.getId(), validateurRole.getId(), createTontineModel.getPhoneValidateur2());
-
-        return null;// newTontine;
-    }
-
-
-    public Tontine createTontine(CreateTontineModele createTontineModel) {
-
-        Optional<Association> association = associationRepository.findById(createTontineModel.getAssociationId());
-
-        if (!association.isPresent()) throw new AssociationNotFoundException("Désolé, mais cette association n'existe pas");
-
-        Tontine tontine = new Tontine();
-        tontine.setAssociation(association.get());
-        tontine.setTontineName(createTontineModel.getTontineName());
-        tontine.setCreationDate(LocalDate.now());
-        tontine.setNb_membre("2");
-        tontine.setType(createTontineModel.getType());
-        tontine.setAmount(createTontineModel.getAmount());
-        tontine.setPhoneValidator1(createTontineModel.getPhoneValidateur1());
-        tontine.setPhoneValidator2(createTontineModel.getPhoneValidateur2());
-
-        Membre_Asso membre_asso=new Membre_Asso();
-        List<Membre_Asso> listMembres=membreAssoRepository.findByPhone("");
-
-        for(int i=0;i<listMembres.size();i++){
-            for(int j=0;j<listMembres.get(i).getAssociations().size();j++){
-                if(listMembres.get(i).getAssociations().get(j).getId().equals(createTontineModel.getAssociationId())){
-                    membre_asso=listMembres.get(i);
-                }
-            }
-
-        }
-
-//
-        Tontine newTontine = tontineRepository.save(tontine);
-        association.get().setNbTontines(association.get().getNbTontines() + 1);
-        associationRepository.save(association.get());
-
-        // Créer les rôles et ajouter les membres validateurs
-        Role_Tont validateurRole = createRoleTontine("validateur", false, newTontine);
-        createRoleTontine("membre", false, newTontine);
-
-        addMembreTontine(newTontine.getId(), validateurRole.getId(), createTontineModel.getPhoneValidateur1());
-        addMembreTontine(newTontine.getId(), validateurRole.getId(), createTontineModel.getPhoneValidateur2());
-        addMembreTontine(newTontine.getId(), validateurRole.getId(), createTontineModel.getPhoneCreator());
-
-        return null;// newTontine;
-    }
-
-    private Role_Tont createRoleTontine(String label, boolean deletable, Tontine tontine) {
-        Role_Tont role = new Role_Tont();
-        role.setLabel(label);
-        role.setDeletable(deletable);
-        role.setTontine(tontine);
-        return roleTontRepository.save(role);
-    }
-
-    private void addMembreTontine(String idTontine, String idRole, String phoneMembre) {
-        // Récupérer le rôle
-        Optional<Role_Tont> roleOpt = roleTontRepository.findById(idRole);
-        if (!roleOpt.isPresent()) {
-            throw new AssociationNotFoundException("Le rôle avec l'ID " + idRole + " n'existe pas");
-        }
-        Role_Tont role = roleOpt.get();
-
-        // Récupérer la tontine
-        Optional<Tontine> tontineOpt = tontineRepository.findById(idTontine);
-        if (!tontineOpt.isPresent()) {
-            throw new AssociationNotFoundException("La tontine avec l'ID " + idTontine + " n'existe pas");
-        }
-        Tontine tontine = tontineOpt.get();
-
-        // Récupérer l'association de la tontine
-        Association association = tontine.getAssociation();
-
-        // Vérifier que le membre fait partie de l'association de la tontine
-        Membre_Asso membreAsso = null;
-        for (Membre_Asso membre : association.getMembres()) {
-            if (membre.getPhone().equals(phoneMembre)) {
-                membreAsso = membre;
-                break;
-            }
-        }
-        if (membreAsso == null) {
-            throw new AssociationNotFoundException("Le membre avec le numéro de téléphone " + phoneMembre + " n'appartient pas à l'association");
-        }
-
-        // Vérifier que le membre n'existe pas déjà dans les membres de la tontine
-
-
-
-        // Créer et ajouter le nouveau membre
-        Membre_Tont membreTont = new Membre_Tont();
-        membreTont.getTontines().add(tontine);
-        membreTont.setRole_tont(role);
-        membreTont.setPhone(phoneMembre);
-        membreTont.setName(membreAsso.getName());
-
-        membreTontRepository.save(membreTont);
-        tontine.getMembres_tont().add(membreTont);
-        tontineRepository.save(tontine);
-    }
-
-    // Delete a Tontine
-    public void deleteTontine(String tontineId) {
-        Optional<Tontine> tontine = tontineRepository.findById(tontineId);
-        if (tontine.isPresent() && tontine.get().isDeletable()) {
-            tontineRepository.deleteById(tontineId);
-        } else {
-            throw new RuntimeException("Tontine is not deletable");
-        }
-    }
-
-    // Modify a Tontine
-    public Tontine modifyTontine(String tontineId, Tontine tontineDetails) {
-        Optional<Tontine> tontine = tontineRepository.findById(tontineId);
-        if (tontine.isPresent()) {
-            Tontine existingTontine = tontine.get();
-            if (existingTontine.isOnChangeType()) {
-                existingTontine.setType(tontineDetails.getType());
-            }
-            existingTontine.setTontineName(tontineDetails.getTontineName());
-            existingTontine.setAmount(tontineDetails.getAmount());
-            return tontineRepository.save(existingTontine);
-        }
         return null;
     }
 
-    // Add a Member to a Tontine (simple)
-    public Membre_Tont addMemberToTontine(String tontineId, Membre_Tont membreTont) {
-        Optional<Tontine> tontine = tontineRepository.findById(tontineId);
-        if (tontine.isPresent()) {
-            List<Membre_Tont> existingMembers = tontine.get().getMembres_tont();
-            for (Membre_Tont member : existingMembers) {
-                if (member.getPhone().equals(membreTont.getPhone())) {
-                    throw new RuntimeException("Member already exists in the tontine");
-                }
-            }
-            membreTont.getTontines().add(tontine.get());
-            return membreTontRepository.save(membreTont);
-        }
-        return null;
-    }
 
-    // Add a List of Members to a Tontine
-    public void addMembersToTontine(String tontineId, List<Membre_Tont> membresTont) {
-        Optional<Tontine> tontine = tontineRepository.findById(tontineId);
-        if (tontine.isPresent()) {
-            for (Membre_Tont membreTont : membresTont) {
-                boolean exists = false;
-                for (Membre_Tont member : tontine.get().getMembres_tont()) {
-                    if (member.getPhone().equals(membreTont.getPhone())) {
-                        exists = true;
-                        break;
-                    }
-                }
-                if (!exists) {
-                    membreTont.getTontines().add(tontine.get());
-                    membreTontRepository.save(membreTont);
-                } else {
-                    throw new RuntimeException("Some members already exist in the tontine");
-                }
-            }
+
+    // modifier les roles d'un membre d'une association
+    public CommonResponseModel getMemberDetails(String phone) {
+
+        List<Membre_Asso> membres=membreAssoRepository.findByPhone(phone);
+        if(membres.size()==0){throw new AssociationNotFoundException("Cette utilisateur n'a pas d'association");}
+
+        List<AssociationDto> associations=new ArrayList<>();
+        for(Membre_Asso membre:membres){
+            if(membre.getAssociation().getState()!=EtatAsso.SUPPRIME) {associations.add(new AssociationDto(membre.getAssociation()));}
         }
+        MemberDetailsDto memberDetailsDto=new MemberDetailsDto(associations.size(),0,0,0,0);
+        CommonResponseModel response=new CommonResponseModel("","",memberDetailsDto);
+        return response ;
+
     }
 
 
-    // Create a Reunion
-    public Reunion createReunion(String associationId, Reunion reunion) {
-        Optional<Association> association = associationRepository.findById(associationId);
-        if (association.isPresent()) {
-            reunion.setAssociation(association.get());
-            return reunionRepository.save(reunion);
-        }
-        return null;
-    }
-
-    public DocumentDto uploadFile(UploadFileModel fileModel) throws IllegalArgumentException, IOException {
-        String associationId = fileModel.getAssociationId();
-        DocumentDto documentDto=new DocumentDto();
-        Optional<Association> optionalAsso =  associationRepository.findById(associationId);
-        if (!optionalAsso.isPresent()) {
-            throw new AssociationNotFoundException("Association with id: " + associationId+" don't exist in our database !!");
-        }
-
-        Association association= optionalAsso.get();
-
-        List<Document> documentList =association.getDocument();
-        for(int i=0;i<documentList.size();i++){
-            if(documentList.get(i).getNom().equals(fileModel.getNom())){
-                throw new AssociationAlreadyExistsException(" Le document avec ce nom existe déjà dans cette association ");
-            }
-        }
-
-        // Base directory where files will be stored
-        String baseDir = UPLOAD_DIR;
-
-//		// Check and upload cniRecto file
-        MultipartFile fileToUpload = fileModel.getFile();
-        Document document=new Document();
-
-        if (fileToUpload != null && !fileToUpload.isEmpty()) {
-            String fileName = fileModel.getNom() +"."+ getExtension(fileToUpload.getOriginalFilename());
-            // construir le chemin et le lien du fichier
-
-            String chemin=baseDir + fileName;
-
-            String lien=GET_IMAGE_BASE_URL+fileName;
-
-            File file=new File(chemin);
-
-            String encodedString = Base64.getEncoder().encodeToString(fileToUpload.getBytes());
-            byte[] data = Base64.getDecoder().decode(encodedString);
-            File outFile = new File(chemin);
-            FileUtils.writeByteArrayToFile(outFile, data);
-
-
-            document.setNom(fileModel.getNom());
-            document.setDescription(fileModel.getDescription());
-            document.setNomComplet(fileName);
-            document.setDate(Date.from(Instant.now()));
-            document.setTaille(fileToUpload.getSize()+"");
-            document.setChemin(chemin);
-            document.setLien_telechargement(lien);
-            document.setAssociation(association);
-            documentRepository.save(document);
-            association.addDocument(document);
-            associationRepository.save(association);
-            documentDto.setId(document.getId());
-            documentDto.setAssociationId(document.getAssociation().getId());
-            documentDto.setDescription(document.getDescription());
-            documentDto.setNomComplet(document.getNomComplet());
-            documentDto.setNom(document.getNom());
-            documentDto.setLien(document.getLien_telechargement());
-            documentDto.setTaille(document.getTaille());
-            documentDto.setDate(document.getDate());
-
-        }
-
-
-        return documentDto;
-    }
-
-    public String getExtension(String fileName) {
-        if (fileName != null && fileName.lastIndexOf('.') != -1) {
-            return fileName.substring(fileName.lastIndexOf('.') + 1);
-        }
-        return "";
-    }
-
-    public AssociationDto deleteDocument(String associationId, String documentId) {
-        Optional<Association> optionalAsso =  associationRepository.findById(associationId);
-        if (!optionalAsso.isPresent()) {
-            throw new AssociationNotFoundException("Association with id: " + associationId+" don't exist in our database !!");
-        }
-
-        Association association= optionalAsso.get();
-
-        List<Document> documentList =association.getDocument();
-
-        System.out.println("taille du document avant"+documentList.size());
-
-        boolean isFound=false;
-        for(int i=0;i<documentList.size();i++){
-            if(documentList.get(i).getId().equals(documentId)){
-                documentList.remove(i);
-                documentRepository.deleteById(documentId);
-                isFound=true;
-            }
-        }
-        System.out.println("taille du document apres"+documentList.size());
-        if(!isFound){throw  new AssociationNotFoundException("Désolé, mais ce document n'existe pas dans cette association");}
-
-        association.setDocuments(documentList);
-        associationRepository.save(association);
-        AssociationDto associationDto=new AssociationDto();
-        associationDto.setId(association.getId());
-        associationDto.setNbDocument(association.getDocument().size());
-        associationDto.setName(association.getName());
-        return associationDto;
-    }
-
-    public List<DocumentDto> getDocumentsByAssociationId(String associationId){
-        Association association=associationRepository.findById(associationId).orElse(null);
-        List<DocumentDto> documentDtos=new ArrayList<>();
-        if(association==null){
-            throw  new AssociationNotFoundException("Cette association n'existe pas dans votre systeme");
-        }
-
-        List<Document> listDocs=documentRepository.findByAssociation_Id(associationId);
-        System.out.println(listDocs.size());
-        if(listDocs.size()!=0){
-            for(int i=0;i<listDocs.size();i++){
-                Document doc=listDocs.get(i);
-                DocumentDto docDto=new DocumentDto();
-                docDto.setId(doc.getId());
-                docDto.setNom(doc.getNom());
-                docDto.setNomComplet(doc.getNomComplet());
-                docDto.setAssociationId(doc.getAssociation().getId());
-                docDto.setTaille(doc.getTaille());
-                docDto.setDescription(doc.getDescription());
-                docDto.setLien(doc.getLien_telechargement());
-                docDto.setDate(doc.getDate());
-
-                documentDtos.add(docDto);
-            }
-        }
 
 
 
-        return documentDtos;
 
-    }
+
+
+
 
 
 

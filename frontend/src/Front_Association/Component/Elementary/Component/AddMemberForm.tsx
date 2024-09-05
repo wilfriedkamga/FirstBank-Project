@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { Divider } from "@mui/material";
+import { Box, Divider } from "@mui/material";
 import AssoNotificationDialog from "../MesTontines/AssoNotificationDialog";
 import PhoneInputRole from "../MesTontines/PhoneInputRole";
 import Variable from "../../../../Variable";
@@ -31,7 +31,6 @@ export default function AdminForm(props: ConfirmationDialogRawProps) {
   const [notifTitle, setNotifTitle] = React.useState<string>("");
   const [notifMessage, setNotifMessage] = React.useState<string>("");
   const [dialogOpen, setDialogOpen] = React.useState<boolean>(false);
-  const [errorRole3, setErrorRole3] = React.useState<boolean>(true);
   const [contact1, setContact1] = React.useState("");
   const [rolesAvailable, setRolesAvailable] =
     React.useState<RoleModel[]>(rolesData);
@@ -106,9 +105,9 @@ export default function AdminForm(props: ConfirmationDialogRawProps) {
         open={dialogOpen}
         onClose={() => setDialogOpen(false)}
       />
-      <LabelField hiddenStar={contact.length !== 0} text="phone" />
+      <LabelField hiddenStar={contact?.length !== 0} text="Phone" />
       <PhoneInputRole defaultValue={contact} setPhone={setContact} />
-      {noContact3 && contact.length >= nb_chiffre_tel && (
+      {noContact3 && contact?.length >= nb_chiffre_tel && (
         <label className="text-xs text-red-500">
           Aucun compte avec ce numero.
           <button
@@ -124,15 +123,14 @@ export default function AdminForm(props: ConfirmationDialogRawProps) {
 
       {
         <>
-          <LabelField hiddenStar={role.length !== 0} text="Role" />
-          <SelectItem2
-            options={rolesData}
-            value={role}
-            onSelect={(role) => setRole(role.id)}
-          />
-          {errorRole3 && (
-            <p className="text-red-600 text-xs">Ce champ est obligatoire </p>
-          )}
+          <Box sx={{marginTop:2}}>
+            <LabelField hiddenStar={role.length !== 0} text="Role" />
+            <SelectItem2
+              options={rolesData}
+              value={role}
+              onSelect={(role) => setRole(role.id)}
+            />
+          </Box>
         </>
       }
     </div>

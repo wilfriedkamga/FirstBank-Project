@@ -1,8 +1,9 @@
 import React, { useState, ChangeEvent, FocusEvent, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import SimpleDialog from "../../../../Front_Association/Component/Elementary/Dialog/SimpleDialog";
-import logo from "../../../../Front_Association/Assets/FBLogo.png"
+import logo from "../../../../Front_Association/Assets/FBLogo.png";
 import Variable from "../../../../Variable";
 import Authentications from "../../../../Services/Authentications";
 import { useTranslation } from "react-i18next";
@@ -12,6 +13,7 @@ import SubmitedButton from "../../../../Front_Association/Component/MuiCustomCom
 
 type ChildComponentProps = {
   toggleSignin: () => void;
+  handleClick: () => void;
   fullName: string;
   birthDate: string;
   phone: string;
@@ -94,8 +96,11 @@ export default function SetPassword2({
       <div className="">
         <div className=" max-w-2xl mx-auto lg:w-4/5">
           <div className="w-full">
-            <h1 className="text-lg text-red-600 font-semibold tracking-wider text-gray-800 text-center mt-3 capitalize dark:text-white">
-            {t("usermanagement.passwordManagement.title")}
+            <h1 className="text-lg flex gap-10  mb-4 text-red-600 font-semibold tracking-wider  text-center mt-3 capitalize dark:text-white">
+              <button className=" flex justify-center text-center p-1 items-center rounded-lg">
+                <ArrowBackIosIcon />{" "}
+              </button>
+              {t("usermanagement.passwordManagement.title")}
             </h1>
 
             <div className="absolute z-20 ml-4 lg:ml-0  mt-20 lg:mt-20 lg:mr-15 w-4/5">
@@ -109,7 +114,7 @@ export default function SetPassword2({
 
             <form className="gap-6 mt-8 " onSubmit={(e) => handleSubmit(e)}>
               <div>
-              <LabelField text={t("usermanagement.signin.labelPassword")} />
+                <LabelField text={t("usermanagement.signin.labelPassword")} />
                 <TextFieldPassword
                   required
                   label="password"
@@ -120,7 +125,7 @@ export default function SetPassword2({
               </div>
 
               <div>
-              <LabelField
+                <LabelField
                   text={t("usermanagement.signin.labelConfirmPassword")}
                 />
                 <TextFieldPassword
@@ -133,7 +138,9 @@ export default function SetPassword2({
                   onChange={() => handlePasswordConfirmationChange}
                 />
               </div>
-              <SubmitedButton text={t("usermanagement.passwordManagement.validateButton")}/>
+              <SubmitedButton
+                text={t("usermanagement.passwordManagement.validateButton")}
+              />
             </form>
             <img
               src={logo}

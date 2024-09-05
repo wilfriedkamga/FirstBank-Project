@@ -2,44 +2,33 @@ package com.example.AssociationManagement.Dao.Dto;
 
 
 import com.example.AssociationManagement.Dao.Entity.Membre_Asso;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.example.AssociationManagement.Dao.Enumerations.EtatMembre;
 
 import java.time.LocalDate;
 
 
 public  class MembreAssoDto {
     private String id;
-    private String name;
-    private String phone;
+    private String memberName;
+    private String memberPhone;
     private LocalDate creationDate;
     private String role;
-    private boolean stateConfirmation;
-    private boolean statusConfirmation;
     private String avatarUrl;
-
-    public MembreAssoDto(String id, String name, String phone, LocalDate creationDate, String role, boolean stateConfirmation, boolean statusConfirmation, String avatarUrl) {
-        this.id = id;
-        this.name = name;
-        this.phone = phone;
-        this.creationDate = creationDate;
-        this.role = role;
-        this.stateConfirmation = stateConfirmation;
-        this.statusConfirmation = statusConfirmation;
-        this.avatarUrl = avatarUrl;
-    }
+    private boolean isCreator;
+    private String associationId;
+    private EtatMembre state;
 
     public MembreAssoDto(Membre_Asso membre_asso) {
         this.id = membre_asso.getId();
-        this.name = membre_asso.getName();
-        this.phone = membre_asso.getPhone();
+        this.memberName = membre_asso.getName();
+        this.memberPhone = membre_asso.getPhone();
         this.creationDate = membre_asso.getCreationDate();
         this.role = membre_asso.getRole().getLabelV();
-        this.stateConfirmation = membre_asso.isStateConfirmation();
-        this.statusConfirmation =membre_asso.isStatusConfirmation();
+        this.associationId =membre_asso.getAssociation().getId();
+        this.isCreator=membre_asso.getPhone()==membre_asso.getAssociation().getPhoneCreator();
+        this.state =membre_asso.getEtat();
         this.avatarUrl = null;
+
     }
 
     public String getId() {
@@ -50,20 +39,20 @@ public  class MembreAssoDto {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getMemberName() {
+        return memberName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setMemberName(String memberName) {
+        this.memberName = memberName;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getMemberPhone() {
+        return memberPhone;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setMemberPhone(String memberPhone) {
+        this.memberPhone = memberPhone;
     }
 
     public LocalDate getCreationDate() {
@@ -82,27 +71,35 @@ public  class MembreAssoDto {
         this.role = role;
     }
 
-    public boolean isStateConfirmation() {
-        return stateConfirmation;
-    }
-
-    public void setStateConfirmation(boolean stateConfirmation) {
-        this.stateConfirmation = stateConfirmation;
-    }
-
-    public boolean isStatusConfirmation() {
-        return statusConfirmation;
-    }
-
-    public void setStatusConfirmation(boolean statusConfirmation) {
-        this.statusConfirmation = statusConfirmation;
-    }
-
     public String getAvatarUrl() {
         return avatarUrl;
     }
 
     public void setAvatarUrl(String avatarUrl) {
         this.avatarUrl = avatarUrl;
+    }
+
+    public boolean isCreator() {
+        return isCreator;
+    }
+
+    public void setCreator(boolean creator) {
+        isCreator = creator;
+    }
+
+    public String getAssociationId() {
+        return associationId;
+    }
+
+    public void setAssociationId(String associationId) {
+        this.associationId = associationId;
+    }
+
+    public EtatMembre getState() {
+        return state;
+    }
+
+    public void setState(EtatMembre state) {
+        this.state = state;
     }
 }

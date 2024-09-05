@@ -55,7 +55,7 @@ const EmailVerification = () => {
   };
 
   return (
-    <div className="w-full bg-white h-[100vh]  flex flex-col">
+    <div className="w-full h-[100vh]  flex flex-col">
       <Header />
 
       <div className="flex mt-[13vh] mb-[] p-4 justify-center flex-col  h-full w-full space-y-6 ">
@@ -73,7 +73,7 @@ const EmailVerification = () => {
       </div>
 
       <form action="" onSubmit={(e) => handleSubmit(e)}>
-        <div className="  p-2.5 mt-[10vh]  h-40vh bg-white w-full  md:w-4/5 mx-auto">
+        <div className="  p-2.5 mt-[10vh]  h-40vh w-full  md:w-4/5 mx-auto">
 
           <div className="flex flex-col font-semibold bg-white  rounded-lg mb-[10vh] mx-auto w-full md:w-3/5 p-2 md:p-5 shadow-lg border h-30vh">
             <div className="flex w-full flex-col  ">

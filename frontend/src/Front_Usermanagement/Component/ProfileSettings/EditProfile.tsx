@@ -164,14 +164,14 @@ const EditProfile: React.FC = () => {
   };
 
   return (
-    <div className="w-full h-full bg-white flex flex-col">
+    <div className="w-full h-full flex flex-col">
       <Header />
 
       <div className="flex mt-[10vh] mb-[10vh] p-4 justify-center flex-col  h-full w-full space-y-6 ">
         <div className="rounded-t-lg h-[15vh] flex items-center font-bold text-white text-3xl pl-6 overflow-hidden bg-red-700">
           Editer votre profil
         </div>
-        <div className="bg-white w-[15vw] sm:w-[10vw] flex justify-center items-center   shadow h-[10vh]">
+        <div className="w-[15vw] sm:w-[10vw] flex justify-center items-center   shadow h-[10vh]">
           <button
             className="  rounded-lg"
             onClick={() => window.history.back()}

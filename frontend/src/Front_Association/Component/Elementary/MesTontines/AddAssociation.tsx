@@ -1054,7 +1054,7 @@ export default function AddAssociationDialog({
     <>
       <div
         onClick={handleClickListItem}
-        className="text-xl cursor-pointer absolute  sm:bottom-8 sm:right-8 right-8 bottom-[75px]  w-[70px] h-[70px] sm:h-[60px] sm:w-[60px] flex justify-center items-center  rounded-full  bg-red-700 text-white font-bold"
+        className="text-xl cursor-pointer absolute z-[1000]  sm:bottom-8 sm:right-8 right-8 bottom-[75px]  w-[70px] h-[70px] sm:h-[60px] sm:w-[60px] flex justify-center items-center  rounded-full  bg-red-700 text-white font-bold"
       >
         +
       </div>

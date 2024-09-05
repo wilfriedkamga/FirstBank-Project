@@ -26,9 +26,9 @@ const Header = () => {
   };
 
   return (
-    <div className="flex fixed bg-white shadow-lg border-gray-500 z-[1000]  border-b justify-between w-full border-[2px p-3">
+    <div className="flex fixed bg-white shadow-lg  z-[1000]  justify-between w-full p-2">
       <div className=" right-1 bottom-[10px] relative ">
-        <img src={logo} alt="logo" width={"30%"} height={"80%"} />
+        <img src={logo} alt="logo" className="w-[60%] lg:w-[35%]"  />
       </div>
       <div className="h-10 flex gap-2 space-x-1">
         <div className="h-full">

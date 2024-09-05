@@ -40,6 +40,7 @@ import {
 } from "./Icons"; // Importez vos icônes personnalisées ici
 import AssociationServices from "../../../../Services/AssociationServices";
 import { useLocation } from "react-router-dom";
+import MesDocuments2 from "./MesDocuments2";
 
 const initialDocuments: DocumentModel[] = [
   {
@@ -503,6 +504,8 @@ const MesDocuments: React.FC = () => {
           </DialogActions>
         </Dialog>
       )}
+
+      <MesDocuments2/>
     </Box>
   );
 };

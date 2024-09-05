@@ -1,39 +1,39 @@
 package com.example.AssociationManagement.Config;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import com.example.AssociationManagement.HelperClass.DefaultRole;
+import com.example.AssociationManagement.HelperClass.VarParam;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.Resource;
 
+import javax.annotation.PostConstruct;
+import java.io.IOException;
 import java.util.List;
 
 @Configuration
-@ConfigurationProperties(prefix = "association")
 public class DefaultRolesConfig {
 
-    private List<String> defaultRoles;
-    private List<String> uniqueRoles;
-    private List<String> frequenceReunion;
+    @Value("${default.roles.file}")
+    private Resource rolesFile;
 
-    public List<String> getDefaultRoles() {
+    @Value("${var.params.file}")
+    private Resource varParamsFile;
+
+    private List<DefaultRole> defaultRoles;
+
+    private VarParam varParam;
+
+    @PostConstruct
+    public void loadDefaultRoles() throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        this.defaultRoles = objectMapper.readValue(rolesFile.getInputStream(), new TypeReference<List<DefaultRole>>() {});
+        this.varParam=objectMapper.readValue(varParamsFile.getInputStream(), new TypeReference<VarParam>() {});
+    }
+
+    public List<DefaultRole> getDefaultRoles() {
         return defaultRoles;
     }
-
-    public void setDefaultRoles(List<String> defaultRoles) {
-        this.defaultRoles = defaultRoles;
-    }
-
-    public List<String> getUniqueRoles() {
-        return uniqueRoles;
-    }
-
-    public void setUniqueRoles(List<String> uniqueRoles) {
-        this.uniqueRoles = uniqueRoles;
-    }
-
-    public List<String> getFrequenceReunion() {
-        return frequenceReunion;
-    }
-
-    public void setFrequenceReunion(List<String> frequenceReunion) {
-        this.frequenceReunion = frequenceReunion;
-    }
+    public VarParam getVarParam(){return varParam;}
 }

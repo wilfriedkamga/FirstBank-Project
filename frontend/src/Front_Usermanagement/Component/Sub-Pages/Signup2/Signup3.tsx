@@ -145,7 +145,7 @@ const Signup3: React.FC<ChildComponentProps> = ({
       <div className="">
         <div className=" max-w-2xl mx-auto lg:w-4/5">
           <div className="w-full">
-            <h1 className="text-2xl font-semibold tracking-wider flex gap-10  text-red-600 mt-10 lg:mt-3 text-gray-800 text-center  capitalize dark:text-white">
+            <h1 className="text-2xl font-semibold tracking-wider  flex gap-10  text-red-600 mt-10 lg:mt-3 text-gray-800 text-center  capitalize dark:text-white">
               <button
                 onClick={() => {
                   console.log(fullName + mail + birthDate + gender);

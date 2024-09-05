@@ -77,7 +77,7 @@ const NotificationMenu: React.FC = () => {
     <React.Fragment>
       <Tooltip title="Notifications">
         <IconButton onClick={handleNotificationClick}>
-          <NotificationsIcon sx={{ color: "gray", fontSize: "30px" }} />
+          <NotificationsIcon sx={{ color: "#bb0000", fontSize: "30px" }} />
           {unreadCount > 0 && (
             <Box
               component="span"

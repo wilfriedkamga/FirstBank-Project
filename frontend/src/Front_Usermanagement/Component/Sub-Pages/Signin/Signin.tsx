@@ -92,7 +92,6 @@ const Signup: React.FC<ChildComponentProps> = ({
           const data = Variable.setLocalStorageItem("user", response.data.data);
           console.log("Voici le code " + response.data.responseCode);
           const fcmToken = Variable.getLocalStorageItem("fcmToken");
-
           if (response.data.responseCode == 2) {
             setDialogMessage(
               "votre compte n'est pas activé, Vous serez rediriger vers la vérification de votre compte"
@@ -125,7 +124,7 @@ const Signup: React.FC<ChildComponentProps> = ({
               })
               .catch((error) => {
                 console.log(
-                  "Désolé, mais vous ne pourrez pas recevoir de push notification. ", error
+                  "Désolé, mais vous ne pourrez pas recevoir de push notification. "
                 );
               });
             navigate("/home");
@@ -139,19 +138,19 @@ const Signup: React.FC<ChildComponentProps> = ({
   };
 
   return (
-    <section className="bg-white w-full h-full shadow-xl lg:w-[28vw] lg:h-[90vh] relative px-5 dark:bg-gray-900 lg:rounded-xl z-3">
-      <button
-        onClick={() => handleClick()}
-        className=" flex justify-start text-center ml-4 mt-4 items-center rounded-lg"
-      >
-        <ArrowBackIosIcon />{" "}
-      </button>
-      <h1 className="text-2xl font-semibold tracking-wider justify-center items-center flex  mb-4  text-red-600 text-gray-800   capitalize dark:text-white">
-        {t("usermanagement.signin.title")}
-      </h1>
+    <section className="bg-white w-full relative h-full lg:w-[28vw] lg:h-[90vh] dark:bg-gray-900 lg:rounded-xl p-4">
       <div className="">
         <div className=" max-w-2xl mx-auto lg:w-4/5 ">
           <div className="w-full h-full ">
+            <h1 className="text-xl flex gap-10  mb-4 text-red-600 font-semibold tracking-wider  text-center mt-3 capitalize dark:text-white">
+              <button
+                onClick={() => handleClick()}
+                className=" flex justify-start text-center ml-4 items-center rounded-lg"
+              >
+                <ArrowBackIosIcon />{" "}
+              </button>
+              {t("usermanagement.signin.title")}
+            </h1>
             <div className="absolute z-20 ml-4 lg:ml-0  mt-20 lg:mt-20 lg:mr-15 w-4/5">
               {errorVisibility ? (
                 <SimpleDialog

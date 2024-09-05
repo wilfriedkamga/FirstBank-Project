@@ -23,31 +23,32 @@ import NewPlan from "./Icons/NewPlan";
 import AssociationSlick from "./Association/AssociationSlick";
 import Header from "../../Component/header/Header";
 import NotificationService from "../../../Services/NotificationService";
+import { AddBoxOutlined, AddCircleOutline, AttachMoney, AttachMoneyOutlined, DashboardOutlined, DashboardRounded } from "@mui/icons-material";
 
 const listIconSaving = [
   {
     lien: "/savings/newPlan",
-    Icon: <NewPlan />,
-    span: "Create a plan",
+    Icon: <AddCircleOutline sx={{color:"#b00"}} />,
+    span: "Creer un plan",
   },
   {
     lien: "/savings/newPlan",
-    Icon: <ContributePlan />,
-    span: "Contribute for a plan",
-  },
+    Icon: <AttachMoneyOutlined sx={{color:"#b00"}}/>,
+    span: "Contribuer pour un plan",
+  }
 ];
 const listIconAssociation = [
   {
     lien: "/association/mes associations",
-    Icon: <NewAssociation />,
-    span: "Create a association",
+    Icon: <AddCircleOutline  sx={{color:"#b00"}} />,
+    span: "Creer une association",
   },
 
   {
     lien: "/association",
-    Icon: <ContributeFund />,
-    span: "Contribute for a plan",
-  },
+    Icon: <DashboardOutlined sx={{color:"#b00"}}  />,
+    span: "Mes associations",
+  }
 ];
 
 const Portal = () => {
@@ -60,18 +61,18 @@ const Portal = () => {
       <div className="flex flex-col p-2 mt-[10vh] pt-5 h-full w-full space-y-8 overflow-y-auto">
         <AccountBalanceBox />
         <div className="mb-5 ml-5 border-b border-gray-200">
-          <h3 className="font-title font-semibold text-[#0C1013] text-md">
-            Savings App Services
+          <h3 className="font-title font-bold text-[#0C1013] text-md">
+            Gestion des épargnes
           </h3>
         </div>
 
         <div className="flex flex-row w-full justify-start space-x-6 md:space-x-24">
           {listIconSaving.map((item, index) => (
-            <Link to={item.lien} className="w-18 justify-center">
-              <div className="rounded-full bg-[#FF6161] h-16 w-16 mb-1 mx-5 md:h-16 md:w-16 p-5 md:p-4 items-center flex">
+            <Link to={item.lien} key={index} className="w-18 justify-start">
+              <div className="rounded-lg shadow-lg text-black hover:bg-[#ddd] bg-white h-16 w-16 mb-1 mx-5 md:h-16 md:w-16 p-5 md:p-4 items-center flex">
                 {item.Icon}
               </div>
-              <span className="font-account text-center block">
+              <span className="font-account text-xs text-center block">
                 {item.span}
               </span>
             </Link>
@@ -79,31 +80,22 @@ const Portal = () => {
         </div>
 
         <div className="mb-5 ml-5 border-b border-gray-200">
-          <h3 className="font-title font-semibold text-[#0C1013] text-md">
-            Association App Services
+          <h3 className="font-title font-bold text-[#0C1013] text-md">
+            Gestion des associations
           </h3>
         </div>
 
         <div className="flex flex-row w-full justify-start space-x-6 md:space-x-24">
           {listIconAssociation.map((item, index) => (
-            <Link to={item.lien} className="w-18 justify-center">
-              <div className="rounded-full bg-[#FF6161] h-16 w-16 mb-1 mx-5 md:h-16 md:w-16 p-5 md:p-4 items-center flex">
+            <Link to={item.lien} key={index} className="w-18 justify-start">
+              <div className="rounded-lg hover:bg-[#ddd]  text-black shadow-lg bg-white h-16 w-16 mb-1 mx-5 md:h-16 md:w-16 p-5 md:p-4 items-center flex">
                 {item.Icon}
               </div>
-              <span className="font-account text-center block">
+              <span className="font-account text-xs text-center block">
                 {item.span}
               </span>
             </Link>
           ))}
-        </div>
-
-        <div className="h-fit">
-          <div className="mb-5 ml-5 border-b border-gray-200">
-            <h3 className="font-title font-semibold text-[#0C1013] text-md">
-              Recent Association
-            </h3>
-          </div>
-          <AssociationSlick />
         </div>
 
         <div className="mt-16">
@@ -113,7 +105,7 @@ const Portal = () => {
             </h3>
           </div>
           <Link to="/contact-us" className="w-2/3 flex flex-col">
-            <div className="rounded-full bg-[#FF6161] h-16 w-16 mb-1 mx-5 md:h-16 md:w-16 p-5 md:p-4 items-center flex">
+            <div className="rounded-full hover:bg-[#ccc] bg-red-600 h-16 w-16 mb-1 mx-5 md:h-16 md:w-16 p-5 md:p-4 items-center flex">
               <FontAwesomeIcon
                 icon={faHeadset}
                 size="lg"
@@ -124,19 +116,6 @@ const Portal = () => {
               Contact an agent
             </span>
           </Link>
-        </div>
-        <div className="fixed end-6 bottom-20 group z-30">
-          <button
-            type="button"
-            className="flex items-center justify-center text-white bg-gray-400 hover:bg-[#d07975] rounded-full shadow-md w-14 h-14 focus:ring-4"
-          >
-            <FontAwesomeIcon
-              icon={faComment}
-              size="lg"
-              className="text-[#0C1013] rounded-full md:p-5 p-2.5 w-5 h-5"
-            />
-            <span className="sr-only">Chatbot</span>
-          </button>
         </div>
       </div>
       <div className="w-full h-fit z-20">

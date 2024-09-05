@@ -4,6 +4,7 @@ import axios from "axios";
 import PhoneInput from "react-phone-input-2";
 import SimpleDialog from "../../../../Front_Association/Component/Elementary/Dialog/SimpleDialog";
 import Variable from "../../../../Variable";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import { useTranslation } from "react-i18next";
 import SubmitedButton from "../../../../Front_Association/Component/MuiCustomComponent/SubmitedButton";
 import SimpleButtonLink from "../../../../Front_Association/Component/MuiCustomComponent/SimpleButtonLink";
@@ -48,6 +49,7 @@ const PutPhone: React.FC<ChildComponentProps> = ({
 
     return otp;
   };
+
   const otpcode = "12345"; // OTPGenerate(5);
 
   const handlePhoneChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -57,12 +59,12 @@ const PutPhone: React.FC<ChildComponentProps> = ({
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsLoading(true)
+    setIsLoading(true);
 
     if (phone.length <= 3) {
       setDialogMessage("Please enter a valid number phone");
       setDialogVisibility(true);
-      setIsLoading(false)
+      setIsLoading(false);
     } else {
       setDialogMessage(messageError);
       setTimeout(() => {
@@ -92,7 +94,7 @@ const PutPhone: React.FC<ChildComponentProps> = ({
             setIsLoading(false);
           });
 
-         // Désactiver le chargement après l'exécution
+        // Désactiver le chargement après l'exécution
       }, 3000);
     }
   };
@@ -102,7 +104,10 @@ const PutPhone: React.FC<ChildComponentProps> = ({
       <div className="">
         <div className=" max-w-2xl mx-auto lg:w-4/5">
           <div className="w-full">
-            <h1 className="text-xl text-red-600 font-semibold tracking-wider text-gray-800 text-center  mt-3 capitalize dark:text-white">
+            <h1 className="text-xl p-2 rounded-lg flex gap-4 text-red-600 font-semibold tracking-wider   mt-3 capitalize dark:text-white">
+              <button className=" flex  bg-gray-100 shadow-lg p-1 justify-center text-center items-center rounded-lg">
+                <ArrowBackIosIcon />{" "}
+              </button>
               {t("usermanagement.putPhone.title")}
             </h1>
             <div className="absolute z-20 ml-4 lg:ml-0  mt-20 lg:mt-20 lg:mr-15 w-4/5">
@@ -115,12 +120,14 @@ const PutPhone: React.FC<ChildComponentProps> = ({
             </div>
 
             <p className="mt-4 text-gray-500 dark:text-gray-400 text-center">
-            {t("usermanagement.putPhone.welcomeMessage")}
+              {t("usermanagement.putPhone.welcomeMessage")}
             </p>
 
             <form className="gap-6 mt-8 " onSubmit={(e) => handleSubmit(e)}>
               <div className="mb-[40px]">
-                <label className="block mb-2 ">{t("usermanagement.signin.labelPhone")}</label>
+                <label className="block mb-2 ">
+                  {t("usermanagement.signin.labelPhone")}
+                </label>
                 <PhoneInput
                   inputClass="block w-full h-full mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-red-400 dark:focus:border-red-400 focus:ring-red-400 focus:outline-none focus:ring focus:ring-opacity-40"
                   country={"cm"}
@@ -129,7 +136,10 @@ const PutPhone: React.FC<ChildComponentProps> = ({
                 />
               </div>
 
-              <SubmitedButton isLoading={isLoading} text={t("usermanagement.putPhone.sendButton")}/>
+              <SubmitedButton
+                isLoading={isLoading}
+                text={t("usermanagement.putPhone.sendButton")}
+              />
               <p className="mt-3  text-center ">
                 {t("usermanagement.putPhone.backMessage")} &nbsp;
                 <SimpleButtonLink

@@ -17,10 +17,10 @@ export const request = (method: string, url: string, data: any) => {
   if (getAuthToken() !== null && getAuthToken() !== "null") {
     headers = { Authorization: `Bearer ${getAuthToken()}` };
   }
-  return axios({
+  return null /*axios({
     method: method,
     headers: headers,
     url: url,
     data: data,
-  });
+  });*/
 };

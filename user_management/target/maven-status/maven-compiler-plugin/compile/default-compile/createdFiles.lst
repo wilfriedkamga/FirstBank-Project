@@ -2,6 +2,7 @@ com\UserManagement\dao\model\JwtResponse.class
 com\UserManagement\dao\entities\Privilege.class
 com\UserManagement\dao\entities\Role.class
 com\UserManagement\controller\UserManagerController.class
+com\UserManagement\dao\entities\Signature.class
 com\UserManagement\config\WebSecurityConfig.class
 com\UserManagement\dao\model\SendOtpMailModel.class
 com\UserManagement\business\JwtUserDetailsService.class

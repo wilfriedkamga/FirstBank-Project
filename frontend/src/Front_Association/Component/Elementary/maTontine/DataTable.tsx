@@ -32,17 +32,7 @@ import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import AssociationServices from "../../../../Services/AssociationServices";
 import ButtonComponent from "../../MuiCustomComponent/ButtonCompoenent";
 import { AssociationModel } from "../../../../Services/Types/AssociationModels";
-
-type membre_AssoModel = {
-  id: string;
-  name: string;
-  phone: string;
-  creationDate: string;
-  role: string;
-  stateConfirmation: boolean;
-  statusConfirmation: boolean;
-  color?: string; // Ajouter une propriété de couleur
-};
+import { EtatMembre, membreAssoModel } from "../../../../Services/Types";
 
 // Tableau de couleurs prédéfinies
 const avatarColors = [
@@ -56,31 +46,20 @@ const avatarColors = [
   "#FFDD33", // Jaune vif
 ];
 
-const initialData: membre_AssoModel[] = [
-  {
-    id: "123",
-    name: "kamga djidjou",
-    phone: "2376506416",
-    creationDate: "12-08-2024",
-    role: "Admin",
-    stateConfirmation: true,
-    statusConfirmation: true,
-    color: avatarColors[0], // Assigner une couleur initiale
-  },
-];
 type props = {
-  data: membre_AssoModel[];
+  data: membreAssoModel[];
   nombre_max: number;
 };
 
 export default function AccessibleTable({ data, nombre_max = 2 }: props) {
-  const [localData, setLocalData] = React.useState<membre_AssoModel[]>([]);
+  const [localData, setLocalData] = React.useState<membreAssoModel[]>([]);
   const [open, setOpen] = React.useState(false);
   const [contact, setContact] = React.useState<string>("");
   const [role, setRole] = React.useState<string>("");
   const [searchTerm, setSearchTerm] = React.useState<string>("");
   const [order, setOrder] = React.useState<"asc" | "desc">("asc");
-  const [orderBy, setOrderBy] = React.useState<keyof membre_AssoModel>("name");
+  const [orderBy, setOrderBy] =
+    React.useState<keyof membreAssoModel>("memberName");
   const [loading, setLoading] = React.useState(true);
   const [buttonLoading, setButtonLoading] = React.useState(false);
   const [colorIndex, setColorIndex] = React.useState(1); // Suivi de l'indice de couleur
@@ -93,7 +72,6 @@ export default function AccessibleTable({ data, nombre_max = 2 }: props) {
       setLoading(false);
     }, 2000);
   }, []);
-  
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -102,15 +80,12 @@ export default function AccessibleTable({ data, nombre_max = 2 }: props) {
     setButtonLoading(true);
 
     setTimeout(() => {
-      const newMember: membre_AssoModel = {
+      const newMember: membreAssoModel = {
         id: (Math.random() * 1000).toString(),
-        name: "New Member",
-        phone: contact,
+        memberName: "New Member",
+        memberPhone: contact,
         creationDate: new Date().toLocaleDateString(),
-        role: role,
-        stateConfirmation: false,
-        statusConfirmation: false,
-        color: avatarColors[colorIndex % avatarColors.length], // Assigner une couleur en fonction de l'indice actuel
+        role: role, // Assigner une couleur en fonction de l'indice actuel
       };
 
       setLocalData((prevData) => [...prevData, newMember]);
@@ -126,23 +101,39 @@ export default function AccessibleTable({ data, nombre_max = 2 }: props) {
     setSearchTerm(event.target.value);
   };
 
-  const handleSort = (property: keyof membre_AssoModel) => {
+  const handleSort = (property: keyof membreAssoModel) => {
     const isAsc = orderBy === property && order === "asc";
     setOrder(isAsc ? "desc" : "asc");
     setOrderBy(property);
   };
 
-  const handleAnnuler=(member:membre_AssoModel)=>{
-    const updateMember={...member, statusConfirmation:false, stateConfirmation:true}
-    setLocalData(localData.map(m=>member.id==m.id?updateMember:m))
-    console.log(localData)
-  }
+  const handleAnnuler = (member: membreAssoModel) => {
+    AssociationServices.AnswerInvitation(member.id)
+      .then((response) => {
+        const updateMember = {
+          ...member,
+          statusConfirmation: false,
+          stateConfirmation: true,
+        };
+        setLocalData(
+          localData.map((m) => (member.id == m.id ? updateMember : m))
+        );
+        console.log(localData);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
-  const handleRessend=(member:membre_AssoModel)=>{
-    const updateMember={...member, statusConfirmation:false, stateConfirmation:false}
-    setLocalData(localData.map(m=>member.id==m.id?updateMember:m))
-    console.log(localData)
-  }
+  const handleRessend = (member: membreAssoModel) => {
+    const updateMember = {
+      ...member,
+      statusConfirmation: false,
+      stateConfirmation: false,
+    };
+    setLocalData(localData.map((m) => (member.id == m.id ? updateMember : m)));
+    console.log(localData);
+  };
 
   const handleRemoveMember = (memberId: string) => {
     setLocalData((prevData) =>
@@ -150,14 +141,17 @@ export default function AccessibleTable({ data, nombre_max = 2 }: props) {
     );
   };
 
-  const renderActionButton = (member: membre_AssoModel) => {
-    if (!member.stateConfirmation) {
+  const renderActionButton = (member: membreAssoModel) => {
+    if (member.state === EtatMembre.INVITE) {
       return (
         <Tooltip title="En attente de validation">
           <HourglassEmptyIcon sx={{ color: "orange" }} />
         </Tooltip>
       );
-    } else if (member.stateConfirmation && member.statusConfirmation) {
+    } else if (
+      member.state === EtatMembre.ACCEPTE ||
+      member.state === EtatMembre.ACTIF
+    ) {
       return (
         <Tooltip title="Invitation validée">
           <CheckCircleIcon sx={{ color: "green" }} />
@@ -166,7 +160,6 @@ export default function AccessibleTable({ data, nombre_max = 2 }: props) {
     } else {
       return (
         <div>
-         
           <Tooltip title="Retirer le membre">
             <IconButton onClick={() => handleRemoveMember(member.id)}>
               {buttonLoading ? (
@@ -181,16 +174,16 @@ export default function AccessibleTable({ data, nombre_max = 2 }: props) {
     }
   };
 
-  const handleResendInvitation = (member: membre_AssoModel) => {
+  const handleResendInvitation = (member: membreAssoModel) => {
     setButtonLoading(true);
     setTimeout(() => {
-      console.log("Renvoyer l'invitation à :", member.phone);
+      console.log("Renvoyer l'invitation à :", member.memberPhone);
       setButtonLoading(false);
     }, 2000);
   };
 
   const filteredData = localData.filter((member) =>
-    [member.name, member.phone, member.role]
+    [member.memberName, member.memberPhone, member.role]
       .join(" ")
       .toLowerCase()
       .includes(searchTerm.toLowerCase())
@@ -198,11 +191,15 @@ export default function AccessibleTable({ data, nombre_max = 2 }: props) {
 
   const sortedData = React.useMemo(() => {
     return filteredData.sort((a, b) => {
-      if (orderBy === "name" || orderBy === "phone" || orderBy === "role") {
+      if (
+        orderBy === "memberName" ||
+        orderBy === "memberPhone" ||
+        orderBy === "role"
+      ) {
         if (order === "asc") {
-          return a[orderBy].localeCompare(b[orderBy]);
+          return a[orderBy]!.localeCompare(b[orderBy]!);
         } else {
-          return b[orderBy].localeCompare(a[orderBy]);
+          return b[orderBy]!.localeCompare(a[orderBy]!);
         }
       }
       return 0;
@@ -230,14 +227,23 @@ export default function AccessibleTable({ data, nombre_max = 2 }: props) {
         />
         <Button
           onClick={handleOpen}
-          sx={{ backgroundColor: "#bb0000", borderRadius:"100%", "&hover":{backgroundColor:"#aa0000"} }}
-          disabled={sortedData.length>=nombre_max}
+          sx={{
+            backgroundColor: "#bb0000",
+            borderRadius: "100%",
+            "&hover": { backgroundColor: "#aa0000" },
+          }}
+          disabled={sortedData.length >= nombre_max}
         >
           {buttonLoading ? (
             <CircularProgress size={24} />
           ) : (
-            
-            <PersonAddIcon sx={{ fontSize: "20px", color:"#ffffff","&hover":{color:"#aa0000"}}} />
+            <PersonAddIcon
+              sx={{
+                fontSize: "20px",
+                color: "#ffffff",
+                "&hover": { color: "#aa0000" },
+              }}
+            />
           )}
         </Button>
       </Box>
@@ -253,12 +259,12 @@ export default function AccessibleTable({ data, nombre_max = 2 }: props) {
               <TableCell>Avatar</TableCell>
               <TableCell>
                 <TableSortLabel
-                  active={orderBy === "name"}
-                  direction={orderBy === "name" ? order : "asc"}
-                  onClick={() => handleSort("name")}
+                  active={orderBy === "memberName"}
+                  direction={orderBy === "memberName" ? order : "asc"}
+                  onClick={() => handleSort("memberName")}
                 >
                   Name
-                  {orderBy === "name" ? (
+                  {orderBy === "memberName" ? (
                     <Box component="span" sx={visuallyHidden}>
                       {order === "desc"
                         ? "sorted descending"
@@ -269,12 +275,12 @@ export default function AccessibleTable({ data, nombre_max = 2 }: props) {
               </TableCell>
               <TableCell>
                 <TableSortLabel
-                  active={orderBy === "phone"}
-                  direction={orderBy === "phone" ? order : "asc"}
-                  onClick={() => handleSort("phone")}
+                  active={orderBy === "memberPhone"}
+                  direction={orderBy === "memberPhone" ? order : "asc"}
+                  onClick={() => handleSort("memberPhone")}
                 >
                   Phone
-                  {orderBy === "phone" ? (
+                  {orderBy === "memberPhone" ? (
                     <Box component="span" sx={visuallyHidden}>
                       {order === "desc"
                         ? "sorted descending"
@@ -314,18 +320,20 @@ export default function AccessibleTable({ data, nombre_max = 2 }: props) {
                         avatarColors[index % avatarColors.length],
                     }}
                   >
-                    {member.name.charAt(0)}
+                    {member.memberName.charAt(0)}
                   </Avatar>
                 </TableCell>
-                <TableCell>{member.name}</TableCell>
-                <TableCell>{member.phone}</TableCell>
+                <TableCell>{member.memberName}</TableCell>
+                <TableCell>{member.memberPhone}</TableCell>
                 <TableCell>{member.role}</TableCell>
                 <TableCell>{member.creationDate}</TableCell>
                 <TableCell>{renderActionButton(member)}</TableCell>
                 <TableCell>
-                 {!member.stateConfirmation&&<ButtonComponent onClick={()=>handleAnnuler(member)} text="Annuler" type="error"/>}
-                 {member.stateConfirmation && !member.statusConfirmation?<ButtonComponent onClick={()=>handleRessend(member)} type="error" text="Renvoyer"/>: member.stateConfirmation &&<ButtonComponent type="warning" text="Terminé"/>}
-                
+                  <ButtonComponent
+                    onClick={() => handleAnnuler(member)}
+                    text="Annuler"
+                    type="error"
+                  />
                 </TableCell>
               </TableRow>
             ))}
@@ -337,7 +345,7 @@ export default function AccessibleTable({ data, nombre_max = 2 }: props) {
 
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Inviter un autre administrateur</DialogTitle>
-        <Divider/>
+        <Divider />
         <DialogContent>
           <AdminForm
             id="admin-form"
@@ -350,7 +358,7 @@ export default function AccessibleTable({ data, nombre_max = 2 }: props) {
             roleDate={[]} // Ajoutez ici vos données de rôle
           />
         </DialogContent>
-        <Divider/>
+        <Divider />
         <DialogActions>
           <Button onClick={handleClose} color="primary">
             Annuler

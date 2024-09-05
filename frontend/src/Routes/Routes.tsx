@@ -18,9 +18,7 @@ import Cotisation from "../Front_Association/Component/Elementary/Caisses/Cotisa
 import FeatureInProgress from "../Front_Association/Component/Elementary/FeatureInProgress";
 import MembresCaisseContent from "../Front_Association/Component/Elementary/Caisses/MembresCaisseContent";
 import MesReunnionsContent from "../Front_Association/Component/Elementary/MesTontines/Reunions/MesReunnionsContent";
-import MesReunions from "../Front_Association/Component/Elementary/MesTontines/Reunions/MesReunions";
 import UneReunionContent from "../Front_Association/Component/Elementary/MesTontines/Reunions/UneReunionContent";
-import MembresTontine from "../Front_Association/Component/Elementary/MesTontines/MembresTontine";
 import MesDocuments from "../Front_Association/Component/Elementary/MesDocuments/MesDocuments";
 import ParametreContent from "../Front_Association/Component/Elementary/ParametresTontines/ParametreContent";
 import Parametres from "../Front_Association/Component/Elementary/ParametresTontines/Parametres";
@@ -29,8 +27,7 @@ import ParamRoles from "../Front_Association/Component/Elementary/ParametresTont
 import ParamReunions from "../Front_Association/Component/Elementary/ParametresTontines/ParamReunions";
 import ParamSanction from "../Front_Association/Component/Elementary/ParametresTontines/ParamSanction";
 import ParamSession from "../Front_Association/Component/Elementary/ParametresTontines/ParamSession";
-import MesCotisation from "../Front_Association/Component/Elementary/Dashboard/MesCotisation";
-import MesSanctions from "../Front_Association/Component/Elementary/Dashboard/MesSanctions";
+import MesCotisation from "../Front_Association/Component/Elementary/Dashboard/Cotisations/MesCotisation";
 import Settings from "../Front_Saving/Page/Settings/Settings";
 import ProfileSettings from "../Front_Usermanagement/Component/ProfileSettings/ProfileSettings";
 import Notifications from "../Front_Usermanagement/Component/nootifications/Notifications";
@@ -46,6 +43,16 @@ import CreatePlan from "../Front_Saving/Page/plan/CreatePlan";
 import Plans from "../Front_Saving/Page/plan/Plans";
 import Details from "../Front_Saving/Page/plan/Details";
 import Portal from "../Front_Usermanagement/Page/Dashboard/Portal";
+import Messanctions from "../Front_Association/Component/Elementary/Dashboard/Sanctions/MesSanctions";
+import MesSanctions from "../Front_Association/Component/Elementary/Dashboard/Sanctions/MesSanctions";
+import MesDettes from "../Front_Association/Component/Elementary/Dashboard/Dettes/MesDettes";
+import MembresAssociation from "../Front_Association/Component/Elementary/MesTontines/Membres/MembresAssociaiton";
+import MesMembresTontine from "../Front_Association/Component/Elementary/maTontine/Membres/MesMembresTontines";
+import MesRemboursements from "../Front_Association/Component/Elementary/maTontine/Remboursements/MesRemboursements";
+import Mescagnottes from "../Front_Association/Component/Elementary/maTontine/Cagnottes/MesCagnottes";
+import MesDettesTontine from "../Front_Association/Component/Elementary/maTontine/Dettes/MesDettesTontines";
+import MesReunions from "../Front_Association/Component/Elementary/MesTontines/Reunions/MesReunions";
+
 
 const isKeyInLocalStorage = (key: string): boolean => {
   const token = localStorage.getItem(key);
@@ -56,7 +63,7 @@ const isKeyInLocalStorage = (key: string): boolean => {
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <Authentification/>,
+    element: <Authentification />,
     errorElement: <ErrorElement />,
   },
   {
@@ -76,12 +83,12 @@ export const router = createBrowserRouter([
         children: [
           {
             path: "/association/",
-            element: <Dashboard/>,
+            element: <Dashboard />,
             errorElement: <ErrorElement />,
           },
           {
             path: "/association/mes associations",
-            element: <MesTontines/>,
+            element: <MesTontines />,
             errorElement: <ErrorElement />,
             children: [
               {
@@ -143,31 +150,43 @@ export const router = createBrowserRouter([
 
                                   {
                                     path: "/association/mes associations/:idassociation/tontines/:idCaisse/dettes",
-                                    element: <div><FeatureInProgress/></div>,
+                                    element: (
+                                      <div>
+                                        <MesDettesTontine />
+                                      </div>
+                                    ),
                                     errorElement: <ErrorElement />,
                                   },
                                   {
                                     path: "/association/mes associations/:idassociation/tontines/:idCaisse/sanctions",
                                     element: (
-                                      <div><FeatureInProgress/></div>
+                                      <div>
+                                        <MesSanctions />
+                                      </div>
                                     ),
                                     errorElement: <ErrorElement />,
                                   },
                                   {
                                     path: "/association/mes associations/:idassociation/tontines/:idCaisse/cagnotte",
                                     element: (
-                                      <div><FeatureInProgress/></div>
+                                      <div>
+                                        <Mescagnottes />
+                                      </div>
                                     ),
                                     errorElement: <ErrorElement />,
                                   },
                                   {
                                     path: "/association/mes associations/:idassociation/tontines/:idCaisse/membre",
-                                    element: <MembresCaisseContent />,
+                                    element: <MesMembresTontine />,
                                     errorElement: <ErrorElement />,
                                   },
                                   {
                                     path: "/association/mes associations/:idassociation/tontines/:idCaisse/remboursements",
-                                    element: <div><FeatureInProgress/></div>,
+                                    element: (
+                                      <div>
+                                        <MesRemboursements />
+                                      </div>
+                                    ),
                                     errorElement: <ErrorElement />,
                                   },
                                 ],
@@ -191,7 +210,7 @@ export const router = createBrowserRouter([
                       {
                         path: "/association/mes associations/:idassociation/reunions/:idReunion",
                         element: <UneReunionContent />,
-                        children:[
+                        children: [
                           {
                             path: "/association/mes associations/:idassociation/reunions/:idReunion/",
                             element: <UneReunion />,
@@ -199,19 +218,24 @@ export const router = createBrowserRouter([
                           {
                             path: "/association/mes associations/:idassociation/reunions/:idReunion/cotisation/:idtontine",
                             element: <Cotisation />,
-                          }
-                        ]
+                          },
+                        ],
                       },
                     ],
                   },
                   {
                     path: "/association/mes associations/:idassociation/evenements",
-                    element: <div> <FeatureInProgress/></div>,
+                    element: (
+                      <div>
+                        {" "}
+                        <FeatureInProgress />
+                      </div>
+                    ),
                     errorElement: <ErrorElement />,
                   },
                   {
                     path: "/association/mes associations/:idassociation/membres",
-                    element: <MembresTontine />,
+                    element: <MembresAssociation />,
                     errorElement: <ErrorElement />,
                   },
                   {
@@ -262,12 +286,16 @@ export const router = createBrowserRouter([
           },
           {
             path: "/association/mes sanctions",
-            element: <MesSanctions />,
+            element: <Messanctions />,
             errorElement: <ErrorElement />,
           },
           {
             path: "/association/mes dettes",
-            element: <div><FeatureInProgress/></div>,
+            element: (
+              <div>
+                <MesDettes />
+              </div>
+            ),
             errorElement: <ErrorElement />,
           },
         ],

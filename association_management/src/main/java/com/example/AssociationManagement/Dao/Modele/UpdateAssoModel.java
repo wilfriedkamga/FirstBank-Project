@@ -1,24 +1,25 @@
 package com.example.AssociationManagement.Dao.Modele;
 
-import lombok.Getter;
-import lombok.Setter;
 
+import com.example.AssociationManagement.Dao.Enumerations.Frequence;
+import com.example.AssociationManagement.Dao.Enumerations.Jour;
+import com.example.AssociationManagement.Dao.Enumerations.MeetType;
 
 public class UpdateAssoModel {
-    private String id;
+    private String associationId;
     private String name;
-    private String frequenceReunion;
-    private String jourReunion;
-    private String modeReunion;
+    private Frequence meetFrequency;
+    private Jour meetDay;
+    private MeetType meetType;
 
     // Getters et Setters
 
-    public String getId() {
-        return id;
+    public String getAssociationId() {
+        return associationId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setAssociationId(String associationId) {
+        this.associationId = associationId;
     }
 
     public String getName() {
@@ -29,27 +30,27 @@ public class UpdateAssoModel {
         this.name = name;
     }
 
-    public String getFrequenceReunion() {
-        return frequenceReunion;
+    public Frequence getMeetFrequency() {
+        return meetFrequency;
     }
 
-    public void setFrequenceReunion(String frequenceReunion) {
-        this.frequenceReunion = frequenceReunion;
+    public void setMeetFrequency(Frequence meetFrequency) {
+        this.meetFrequency = meetFrequency;
     }
 
-    public String getJourReunion() {
-        return jourReunion;
+    public Jour getMeetDay() {
+        return meetDay;
     }
 
-    public void setJourReunion(String jourReunion) {
-        this.jourReunion = jourReunion;
+    public void setMeetDay(Jour meetDay) {
+        this.meetDay = meetDay;
     }
 
-    public String getModeReunion() {
-        return modeReunion;
+    public MeetType getMeetType() {
+        return meetType;
     }
 
-    public void setModeReunion(String modeReunion) {
-        this.modeReunion = modeReunion;
+    public void setMeetType(MeetType meetType) {
+        this.meetType = meetType;
     }
 }

@@ -130,28 +130,30 @@ const NotificationMenuComponent: React.FC<NotificationMenuComponentProps> = ({
       
       <Box sx={{ maxHeight: 500, maxWidth: 400, overflow: "x" }}>
         {liste && liste.length!=0 && liste.map((notif, index) => (
-          <React.Fragment key={index}>
+          <div key={index}>
             <MenuItem
               sx={{ padding: 1 }}
               onClick={() => handleNotificationItemClick(index)}
+              key={index}
             >
-              <ListItem
+              <Box
                 sx={{ maxWidth: 10, overflow: "none" }}
                 alignItems="flex-start"
+                key={index}
               >
-                <ListItemAvatar>
+                <ListItemAvatar key={index}>
                   <Avatar alt="User Avatar" />
                 </ListItemAvatar>
                 <ListItemText sx={{ whiteSpace: "nowrap" }}>
-                  voici mon composantjjjjjjjjjjjjjjjjjjjjjjj
+                  {notif.message}
                 </ListItemText>
                 
-              </ListItem>
+              </Box>
             </MenuItem>
             <Divider />
-          </React.Fragment>
+          </div>
         ))}
-        <MenuItem>
+        <MenuItem key={"uniquekey"}>
           <Link
             to="/notifications"
             style={{ textDecoration: "none", width: "100%" }}

@@ -16,7 +16,7 @@ const ParamItem = ({tab}:ParamItemProps) => {
     <div>
       <Link
             to={tab.link}
-            className="flex flex-row group  items-center justify-start bg-white rounded-lg w-full hover:bg-gray-100"
+            className="flex flex-row group  items-center justify-start rounded-lg w-full hover:bg-white"
           >
             <div className="p-5 group-hover:text-[#BB0A01]">
               {tab.Icon}

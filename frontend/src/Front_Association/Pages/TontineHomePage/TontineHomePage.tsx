@@ -47,10 +47,10 @@ export default function TontineHomePage() {
             <div className="w-[15%]  h-screen bg-white sticky z-100 top-0 hidden md:block">
               <SideBar />
             </div>
-            <div className="flex-1 bg-gray-500  overflow-y-auto">
+            <div className="flex-1 lg:p-4 p-0  overflow-y-auto">
               <>
                 <NavigationBar />
-                <div className=" mt-[1vh] min-h-[100%] h-auto  ">
+                <div className=" lg:mt-[1vh] h-full lg:min-h-[100%] lg:h-auto  ">
                   <Outlet />
                 </div>
               </>

@@ -1,6 +1,7 @@
 package com.example.AssociationManagement.Dao.Entity;
 
 
+import com.example.AssociationManagement.Dao.Enumerations.PrivilegeAsso;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
@@ -18,7 +19,8 @@ public class Privilege_Asso {
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
-    private String label;
+    @Enumerated(EnumType.STRING)
+    private PrivilegeAsso label;
     @ManyToMany(mappedBy = "privileges")
     private List<Role_Asso> roles;
 
@@ -38,11 +40,12 @@ public class Privilege_Asso {
         this.roles = roles;
     }
 
-    public String getLabel() {
+    public PrivilegeAsso getLabel() {
         return label;
     }
 
-    public void setLabel(String label) {
+    public void setLabel(PrivilegeAsso label) {
         this.label = label;
     }
 }
+

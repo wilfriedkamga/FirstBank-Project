@@ -1,4 +1,4 @@
-import React, {useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import logo from "../../../../Front_Association/Assets/FBLogo.png";
 import axios from "axios";
 import SimpleDialog from "../../../../Front_Association/Component/Elementary/Dialog/SimpleDialog";
@@ -9,6 +9,7 @@ import OtpInputField from "../../../../Front_Association/Component/MuiCustomComp
 import LabelField from "../../../../Front_Association/Component/MuiCustomComponent/LabelField";
 import SubmitedButton from "../../../../Front_Association/Component/MuiCustomComponent/SubmitedButton";
 import SimpleButtonLink from "../../../../Front_Association/Component/MuiCustomComponent/SimpleButtonLink";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 
 type ChildComponentProps = {
   OtpCode: string;
@@ -17,7 +18,7 @@ type ChildComponentProps = {
   phone: string;
   gender: string;
   handleClick: () => void;
-  fromSignin:boolean
+  fromSignin: boolean;
 };
 export default function CheckOTP({
   OtpCode,
@@ -26,7 +27,7 @@ export default function CheckOTP({
   birthDate,
   phone,
   gender,
-  fromSignin
+  fromSignin,
 }: ChildComponentProps) {
   const messageError = "Invalid otp code";
   const [token1, setTokens1] = useState("");
@@ -36,18 +37,16 @@ export default function CheckOTP({
   const [dialogMessage, setDialogMessage] = useState(messageError);
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const [fromSigninLocal, setFromSigninLocal]=useState<boolean>(fromSignin)
+  const [fromSigninLocal, setFromSigninLocal] = useState<boolean>(fromSignin);
   const [token, setTokens] = useState<string | number | null | undefined>();
 
   const handleCloseDialog = () => {
     setDialogVisibility(false);
   };
-  
 
   const verify = (e: React.FormEvent<HTMLFormElement>) => {
-    
-    e.preventDefault()
-    console.log("Voici la valeur du champ pour l'otp :"+inputOTP)
+    e.preventDefault();
+    console.log("Voici la valeur du champ pour l'otp :" + inputOTP);
 
     if (inputOTP.length != 5) {
       setDialogMessage("Otp must have 5 digits");
@@ -66,7 +65,7 @@ export default function CheckOTP({
     e.preventDefault();
 
     setYet(true);
-    
+
     const route = Variable.routeApi + "api/usermanagement/verifyOTP";
 
     const tempUser = {
@@ -79,7 +78,7 @@ export default function CheckOTP({
         setDialogMessage(
           "Verification réussi. vous serez redirigez vers le portail!!"
         );
-        
+
         setDialogVisibility(true);
         navigate("/home");
       })
@@ -93,7 +92,7 @@ export default function CheckOTP({
     e.preventDefault();
 
     const route = Variable.routeApi + "api/usermanagement/verifyOTP";
-    console.log(inputOTP)
+    console.log(inputOTP);
     const tempUser = {
       phone: phone,
       code: inputOTP,
@@ -111,11 +110,11 @@ export default function CheckOTP({
       .catch((error) => {
         setDialogMessage(messageError);
         setDialogVisibility(true);
-        e.preventDefault()
+        e.preventDefault();
       });
   };
 
- const resendOTP = () => {
+  const resendOTP = () => {
     const route = Variable.routeApi + "api/usermanagement/sendOTP";
 
     const tempUser = {
@@ -138,7 +137,10 @@ export default function CheckOTP({
       <div className="">
         <div className=" max-w-2xl mx-auto lg:w-4/5">
           <div className="w-full">
-            <h1 className="text-xl font-semibold text-red-600 tracking-wider text-gray-800 text-center mt-3 capitalize">
+            <h1 className="text-xl flex gap-10 font-semibold text-red-600 tracking-wider  text-center mt-3 capitalize">
+              <button className=" flex justify-center text-center p-1 items-center rounded-lg">
+                <ArrowBackIosIcon />{" "}
+              </button>
               {t("usermanagement.otp.title")}
             </h1>
 
@@ -164,15 +166,22 @@ export default function CheckOTP({
             >
               <div className=" flex gap-4 mb-[4rem] flex-col">
                 <LabelField text={t("usermanagement.otp.labelOtp")} />
-                <OtpInputField value={inputOTP} onChange={(value) => setInputOTP(value)} />
+                <OtpInputField
+                  value={inputOTP}
+                  onChange={(value) => setInputOTP(value)}
+                />
               </div>
-              
-              <SubmitedButton  text={t("usermanagement.otp.verifyButton")}/>
+
+              <SubmitedButton text={t("usermanagement.otp.verifyButton")} />
             </form>
 
             <p className="mt-3 text-center">
               {t("usermanagement.otp.haventReceive")} &nbsp;
-              <SimpleButtonLink onClick={()=>resendOTP()} fontSize="14px" text={t("usermanagement.otp.resendButton")}/>
+              <SimpleButtonLink
+                onClick={() => resendOTP()}
+                fontSize="14px"
+                text={t("usermanagement.otp.resendButton")}
+              />
             </p>
 
             <img

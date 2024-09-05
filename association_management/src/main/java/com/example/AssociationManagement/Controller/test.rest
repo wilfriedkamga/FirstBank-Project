@@ -1,7 +1,7 @@
 POST http://localhost:80/api/item
 Content-Type: application/x-www-form-urlencoded
 
-id=99&content=new-element
+associationId=99&content=new-element
 
 ###
 DELETE http://localhost:8082/api/associationmanagement/delete-role2

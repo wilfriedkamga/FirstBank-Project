@@ -1,10 +1,7 @@
 // Give the service worker access to Firebase Messaging.
-// Note that you can only use Firebase Messaging here. Other Firebase libraries
-// are not available in the service worker.
 importScripts("https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js");
-importScripts(
-  "https://www.gstatic.com/firebasejs/8.10.1/firebase-messaging.js"
-);
+importScripts("https://www.gstatic.com/firebasejs/8.10.1/firebase-messaging.js");
+
 
 firebase.initializeApp({
   apiKey: "AIzaSyArIvyQODOclhpt9B-XzNwbOX2NFZ9gCXA",
@@ -16,16 +13,16 @@ firebase.initializeApp({
   measurementId: "G-C1007X55KE",
 });
 
-// Retrieve an instance of Firebase Messaging so that it can handle background
-// messages.
-const messaging = firebase.messaging();
+function showNotification3(body,icon) {
+  if (Notification.permission === 'granted') {
+    new Notification('Hello!', {
+      body: body,
+      icon: icon
+    });
+  }
+}
 
-messaging.onBackgroundMessage((payload) => {
-  console.log(
-    "[firebase-messaging-sw.js] Received background message ",
-    payload
-  );
-  // Customize notification here
+function showNotification(payload) {
   const notificationTitle = payload.notification.title;
   const notificationOptions = {
     body: payload.notification.body,
@@ -33,4 +30,11 @@ messaging.onBackgroundMessage((payload) => {
   };
 
   self.registration.showNotification(notificationTitle, notificationOptions);
+}
+
+ const messaging = firebase.messaging();
+ 
+messaging.onBackgroundMessage((payload) => {
+  console.log("[firebase-messaging-sw.js] Message reçu de firebase ", payload);
+  showNotification(payload);
 });

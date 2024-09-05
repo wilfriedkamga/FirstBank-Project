@@ -173,6 +173,7 @@ public class UserManagerController {
         catch (IllegalIdentifierException e){
 			response.setMessage("User not  Exist");
 			response.setResponseCode("1");
+
 			return new ResponseEntity<>(response, HttpStatus.FORBIDDEN);
 
 		}

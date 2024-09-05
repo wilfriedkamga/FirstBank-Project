@@ -1,5 +1,9 @@
 package com.example.AssociationManagement.Dao.Entity;
 
+import com.example.AssociationManagement.Dao.Enumerations.EtatAsso;
+import com.example.AssociationManagement.Dao.Enumerations.Frequence;
+import com.example.AssociationManagement.Dao.Enumerations.Jour;
+import com.example.AssociationManagement.Dao.Enumerations.MeetType;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -17,138 +21,43 @@ public class Association {
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
 
-    private String name;
-
-    private String frequenceReunion;
-    private boolean visibility=true;
-    private String jourReunion;
-
-    private String modeReunion;
-
-    private boolean state1;
-    private boolean state2;
-    private boolean state3;
-
+    private String assoName;
     private LocalDate creationDate;
-
     private boolean isDeletable;
-
-    private int nbMembers=0;
-
-    private int nbTontines=0;
-
-    private String phoneCreator;
-
     private boolean isAlredryOpen;
+    private String phoneCreator;
+    private boolean visibility=true;
+    private EtatAsso state;
+    @Enumerated(EnumType.STRING)
+    private Frequence meetFrequency;
+    @Enumerated(EnumType.STRING)
+    private Jour meetDay;
+    @Enumerated(EnumType.STRING)
+    private MeetType meetMode;
 
     @OneToMany(mappedBy = "association", cascade = CascadeType.ALL)
     private List<Role_Asso> roles = new ArrayList<>();
 
-    @OneToMany(mappedBy = "association", cascade = CascadeType.ALL)
-    private List<Tontine> tontines = new ArrayList<>();
+//    @OneToMany(mappedBy = "association", cascade = CascadeType.ALL)
+//    private List<Tontine> tontines = new ArrayList<>();
 
-    @ManyToMany
-    @JoinTable(
-            name = "association_membre",
-            joinColumns = @JoinColumn(name = "association_id"),
-            inverseJoinColumns = @JoinColumn(name = "membre_id")
-    )
+    @OneToMany(mappedBy = "association", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Membre_Asso> membres = new ArrayList<>();
-
-    @OneToMany(mappedBy = "association")
-    private List<Reunion> reunions;
-
-    @OneToMany(mappedBy = "association")
-    private List<Document> document;
-
-    @OneToMany(mappedBy = "association")
-    private List<Evenement> evenements;
-
-    public List<Evenement> getEvenements() {
-        return evenements;
-    }
-
-    public void setEvenements(List<Evenement> evenements) {
-        this.evenements = evenements;
-    }
 
     public String getId() {
         return id;
-    }
-
-    public void setState1(boolean state1) {
-        this.state1 = state1;
-    }
-
-    public void setState2(boolean state2) {
-        this.state2 = state2;
-    }
-
-    public boolean isAlredryOpen() {
-        return isAlredryOpen;
-    }
-
-    public void setAlredryOpen(boolean alredryOpen) {
-        isAlredryOpen = alredryOpen;
-    }
-
-    public void setState3(boolean state3) {
-        this.state3 = state3;
-    }
-
-    public String getPhoneCreator() {
-        return phoneCreator;
-    }
-
-    public void setPhoneCreator(String phoneCreator) {
-        this.phoneCreator = phoneCreator;
     }
 
     public void setId(String id) {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getAssoName() {
+        return assoName;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getFrequenceReunion() {
-        return frequenceReunion;
-    }
-
-    public void setFrequenceReunion(String frequenceReunion) {
-        this.frequenceReunion = frequenceReunion;
-    }
-
-    public String getJourReunion() {
-        return jourReunion;
-    }
-
-    public void setJourReunion(String jourReunion) {
-        this.jourReunion = jourReunion;
-    }
-
-    public String getModeReunion() {
-        return modeReunion;
-    }
-
-    public List<Document> getDocument() {
-        return document;
-    }
-    public void setDocuments(List<Document> evenements) {
-        this.document = evenements;
-    }
-
-    public void addDocument(Document document) {
-        this.document.add(document);
-    }
-
-    public void setModeReunion(String modeReunion) {
-        this.modeReunion = modeReunion;
+    public void setAssoName(String assoName) {
+        this.assoName = assoName;
     }
 
     public LocalDate getCreationDate() {
@@ -167,32 +76,20 @@ public class Association {
         isDeletable = deletable;
     }
 
-    public int getNbMembers() {
-        return nbMembers;
+    public boolean isAlredryOpen() {
+        return isAlredryOpen;
     }
 
-    public void setNbMembers(int nbMembers) {
-        this.nbMembers = nbMembers;
+    public void setAlredryOpen(boolean alredryOpen) {
+        isAlredryOpen = alredryOpen;
     }
 
-    public int getNbTontines() {
-        return nbTontines;
+    public String getPhoneCreator() {
+        return phoneCreator;
     }
 
-    public void setNbTontines(int nbTontines) {
-        this.nbTontines = nbTontines;
-    }
-
-    public List<Role_Asso> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(List<Role_Asso> roles) {
-        this.roles = roles;
-    }
-
-    public List<Tontine> getTontines() {
-        return tontines;
+    public void setPhoneCreator(String phoneCreator) {
+        this.phoneCreator = phoneCreator;
     }
 
     public boolean isVisibility() {
@@ -203,8 +100,36 @@ public class Association {
         this.visibility = visibility;
     }
 
-    public void setTontines(List<Tontine> tontines) {
-        this.tontines = tontines;
+    public Frequence getMeetFrequency() {
+        return meetFrequency;
+    }
+
+    public void setMeetFrequency(Frequence meetFrequency) {
+        this.meetFrequency = meetFrequency;
+    }
+
+    public Jour getMeetDay() {
+        return meetDay;
+    }
+
+    public void setMeetDay(Jour meetDay) {
+        this.meetDay = meetDay;
+    }
+
+    public MeetType getMeetMode() {
+        return meetMode;
+    }
+
+    public void setMeetMode(MeetType meetMode) {
+        this.meetMode = meetMode;
+    }
+
+    public List<Role_Asso> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role_Asso> roles) {
+        this.roles = roles;
     }
 
     public List<Membre_Asso> getMembres() {
@@ -215,23 +140,11 @@ public class Association {
         this.membres = membres;
     }
 
-    public List<Reunion> getReunions() {
-        return reunions;
+    public EtatAsso getState() {
+        return state;
     }
 
-    public boolean isState1() {
-        return state1;
-    }
-
-    public boolean isState2() {
-        return state2;
-    }
-
-    public boolean isState3() {
-        return state3;
-    }
-
-    public void setReunions(List<Reunion> reunions) {
-        this.reunions = reunions;
+    public void setState(EtatAsso state) {
+        this.state = state;
     }
 }

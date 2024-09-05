@@ -55,7 +55,7 @@ const BoardView: React.FC = () => {
       .then((response) => {
         //setTontinesList(response.data.data);
         console.log(response.data);
-        setAssociationList(response.data);
+        setAssociationList(response.data.data);
 
         if (response.data.data.length != 0) {
           setIsLoading(false);
@@ -80,8 +80,6 @@ const BoardView: React.FC = () => {
     fontWeight: "bold",
   };
 
- 
-
   return (
     <div className="">
       {isLoading ? (
@@ -96,27 +94,20 @@ const BoardView: React.FC = () => {
         </div>
       ) : (
         <div>
-          <div className="w-full grid  grid-cols-2 sm:grid-cols-2 md:grid-cols-3  2xl:gap-10 ">
-            {associationList.map((asso, index) =>(
-              <div key={index}>
-                <div className="hidden sm:block lg:block">
-                  <AssociationCard3 {...asso} />
-                </div>
+          <div className="w-full grid mt-[5vh] ml-[2vh] grid-cols-1 sm:grid-cols-2 md:grid-cols-3  2xl:gap-10 ">
+            {associationList.length != 0
+              ? associationList.map((asso, index) => (
+                  <div key={index}>
+                    <div className="hidden mb-2 mt-2 sm:block lg:block">
+                      <AssociationCard3 {...asso} />
+                    </div>
 
-                <div className="block sm:hidden lg:hidden">
-                  <AssociationCardM association={asso} />
-                </div>
-               
-
-                <AddAssociationDialog
-                  printError={(title: string, message: string) =>
-                    printError(title, message)
-                  }
-                  setData={addAssociation}
-                />
-                
-              </div>
-            ))}
+                    <div className="block mb-2 sm:hidden lg:hidden">
+                      <AssociationCard3 {...asso} />
+                    </div>
+                  </div>
+                ))
+              : null}
           </div>
           {associationList == null || associationList.length == 0 ? (
             <div className="text-lg w-full text-center text-red font-bold">
@@ -126,6 +117,13 @@ const BoardView: React.FC = () => {
           ) : null}
         </div>
       )}
+
+      <AddAssociationDialog
+        printError={(title: string, message: string) =>
+          printError(title, message)
+        }
+        setData={addAssociation}
+      />
 
       <AssoNotificationDialog
         title={notifTitle}

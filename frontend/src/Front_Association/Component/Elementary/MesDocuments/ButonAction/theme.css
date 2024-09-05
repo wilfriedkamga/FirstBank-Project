@@ -1,0 +1,14 @@
+.p-button {
+  color: #ffffff;
+  background: #645e5e;
+  border: 1px solid #645e5e;
+  padding: 0.2rem 0.3rem;
+  font-size: 1rem;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s,
+    box-shadow 0.2s;
+  border-radius: 10px;
+}
+
+.p-button:hover {
+  background-color: #555;
+}

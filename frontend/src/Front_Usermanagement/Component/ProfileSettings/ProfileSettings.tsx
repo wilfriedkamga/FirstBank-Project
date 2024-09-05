@@ -42,13 +42,35 @@ const ProfileSettings = () => {
     }
   };
 
+  const listItems = [
+    {
+      lien: "/profile/edit-profile",
+      Icon: <PencilSquareIcon className="h-8 w-8" />,
+      span: "Éditer votre profil",
+    },
+    {
+      lien: "/modify_password",
+      Icon: <LockClosedIcon className="h-8 w-8" />,
+      span: "Modifier votre mot de passe",
+    },
+    {
+      lien: "/add_cni",
+      Icon: <IdentificationIcon className="h-8 w-8" />,
+      span: "Ajouter votre CNI",
+    },
+    {
+      lien: "/add_signature",
+      Icon: <InboxArrowDownIcon className="h-8 w-8" />,
+      span: "Ajouter / modifier votre signature",
+    },
+  ];
+
   return (
-    <div className="w-full bg-white h-full flex flex-col">
+    <div className="w-full  h-full flex flex-col">
       <div className="border-b border-gray-500 w-full   z-20">
         <Header />
       </div>
       <div className="flex mt-[10vh] mb-[10vh] flex-col pt-5 md:px-5 h-full w-full space-y-8 overflow-auto">
-
         <div className="font-medium bg-gray-400 w-full space-y-2">
           <UserProfileCard />
           <p className="font-title text-lg md:text-2xl ml-36 md:ml-56">
@@ -60,34 +82,26 @@ const ProfileSettings = () => {
             Paramètres
           </h3>
         </div>
-        <div className="flex flex-col bg-white w-full p-2 space-y-2">
-          <a
-            href="/profile/edit-profile"
-            className="flex flex-row group  items-center justify-start bg-white rounded-lg w-full hover:bg-gray-100"
-          >
-            <div className="p-5 group-hover:text-[#BB0A01]">
-              <PencilSquareIcon className="h-8 w-8" />
-            </div>
-            <p className="font-normal p-5 group-hover:text-[#BB0A01] text-gray-700 font-title">
-              Éditer votre profil
-            </p>
-          </a>
-          <a
-            href="/modify_password"
-            className="flex flex-row group border-gray-400 items-center bg-white rounded-lg w-full hover:bg-gray-100"
-          >
-            <div className="p-5 group-hover:text-[#BB0A01]">
-              <LockClosedIcon className="h-8 w-8" />
-            </div>
-            <p className="font-normal p-5 text-gray-700 group-hover:text-[#BB0A01] font-title">
-              Modifier votre mot de passe
-            </p>
-          </a>
+
+        <div className="flex flex-col  w-full p-2 space-y-2">
+          {listItems.map((item, index) => (
+            <a
+              href={item.lien}
+              className="flex flex-row group  items-center justify-start hover:bg-white rounded-lg w-full"
+            >
+              <div className="p-5 group-hover:text-[#BB0A01]">
+                {item.Icon}
+              </div>
+              <p className="font-normal p-5 group-hover:text-[#BB0A01] text-gray-700 font-title">
+                {item.span}
+              </p>
+            </a>
+          ))}
 
           <button
             disabled={emailIsValid}
             onClick={() => verfyEmail()}
-            className="flex flex-row group items-center justify-start bg-white rounded-lg w-full hover:bg-gray-100"
+            className="flex flex-row group items-center justify-start rounded-lg w-full hover:bg-white"
           >
             <div className="p-5 group-hover:text-[#BB0A01]">
               <IdentificationIcon className="h-8 w-8" />
@@ -98,29 +112,6 @@ const ProfileSettings = () => {
                 : "Verifier votre adresse (cliquer pour vérifier votre adresse mail)"}
             </p>
           </button>
-          <a
-            href="/add_cni"
-            className="flex flex-row group items-center justify-start bg-white rounded-lg w-full hover:bg-gray-100"
-          >
-            <div className="p-5 group-hover:text-[#BB0A01]">
-              <IdentificationIcon className="h-8 w-8" />
-            </div>
-            <p className="font-normal p-5 group-hover:text-[#BB0A01] text-gray-700 font-title">
-              Ajouter votre CNI
-            </p>
-          </a>
-
-          <a
-            href="/add_signature"
-            className="flex flex-row group items-center justify-start bg-white rounded-lg w-full hover:bg-gray-100"
-          >
-            <div className="p-5 group-hover:text-[#BB0A01]">
-              <InboxArrowDownIcon className="h-8 w-8" />
-            </div>
-            <p className="font-normal p-5 group-hover:text-[#BB0A01] text-gray-700 font-title">
-              Ajouter / modifier votre signature
-            </p>
-          </a>
         </div>
       </div>
       <div className="w-full h-fit z-20">

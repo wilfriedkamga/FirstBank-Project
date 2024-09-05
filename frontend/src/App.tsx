@@ -1,42 +1,59 @@
-import React, { useEffect, useState } from 'react';
-import { RouterProvider } from 'react-router-dom';
-import { router } from './Routes/Routes';
-import './index.css'
+import React, { useEffect, useRef, useState } from "react";
+import { RouterProvider } from "react-router-dom";
+import { router } from "./Routes/Routes";
+import "./index.css";
 import { PrimeReactProvider } from "primereact/api";
 import { generateToken, messaging } from "./firebase";
 import { onMessage } from "firebase/messaging";
-import { showNotification } from './Front_Usermanagement/Component/PushNotifications/PushNotifications';
+import { showNotification } from "./Front_Usermanagement/Component/PushNotifications/PushNotifications";
+import NotificationSnackbar from "./Front_Usermanagement/Component/PushNotification/NotificationSnackbar";
+import { Toast } from "primereact/toast";
+import { Button } from "@mui/material";
+
 
 function App() {
-
   const [token, setToken] = useState("");
 
   function handleError(event: any) {
-    if (event.message== 'ResizeObserver loop completed with undelivered notifications') {
+    if (
+      event.message ==
+      "ResizeObserver loop completed with undelivered notifications"
+    ) {
       event.stopImmediatePropagation();
     }
   }
- 
 
-   useEffect(()=>{
-    onMessage(messaging, (payload) => {
-      console.log('Message received. ', payload);
-      showNotification({
-        type: 'simple',
-        message: payload.notification?.body || 'Vous avez un nouveau message!',
-      });
+  const toast = useRef<Toast>(null);
+  const buttonRef = useRef<HTMLButtonElement | null>(null);
+  const [bodyMessage, setBodyMessage]=useState<String>("")
+  let message="message Content";
+  const show = () => {
+    toast.current?.show({
+      severity: "info",
+      summary: "Info",
+      detail: bodyMessage,
     });
-  }, []);
+  };
 
-   
-    // Écoutez les messages en premier plan
-    
- 
-  
-  
-  window.addEventListener('error', handleError);
+  function showNotification2() {
+    if (Notification.permission === 'granted') {
+      new Notification('Hello!', {
+        body: 'This is a simulated push notification.',
+        icon: 'https://via.placeholder.com/150'
+      });
+    }
+}
+
+
+  // Écoutez les messages en premier plan
+
+  window.addEventListener("error", handleError);
   return (
-    <RouterProvider router={router} ></RouterProvider>
+    <>
+      <Toast ref={toast} />
+      <RouterProvider router={router}></RouterProvider>
+      <Button  ref={buttonRef} onClick={show}></Button>
+    </>
   );
 }
 

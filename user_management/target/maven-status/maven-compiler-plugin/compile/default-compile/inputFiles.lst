@@ -2,6 +2,7 @@ C:\Users\jorda\Desktop\Projet First Bank\tontine\user_management\src\main\java\c
 C:\Users\jorda\Desktop\Projet First Bank\tontine\user_management\src\main\java\com\UserManagement\dao\model\SendOtpMailModel.java
 C:\Users\jorda\Desktop\Projet First Bank\tontine\user_management\src\main\java\com\UserManagement\dao\repositories\ValidationRepository.java
 C:\Users\jorda\Desktop\Projet First Bank\tontine\user_management\src\main\java\com\UserManagement\dao\model\JwtResponse.java
+C:\Users\jorda\Desktop\Projet First Bank\tontine\user_management\src\main\java\com\UserManagement\dao\entities\Signature.java
 C:\Users\jorda\Desktop\Projet First Bank\tontine\user_management\src\main\java\com\UserManagement\dao\model\UserLoginModel.java
 C:\Users\jorda\Desktop\Projet First Bank\tontine\user_management\src\main\java\com\UserManagement\config\WebSecurityConfig.java
 C:\Users\jorda\Desktop\Projet First Bank\tontine\user_management\src\main\java\com\UserManagement\dao\model\ProfilModel.java

@@ -1,23 +1,25 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import * as serviceWorkerRegistration from './serviceWorkerRegistration';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
+import reportWebVitals from "./reportWebVitals";
 
-import 'primereact/resources/themes/saga-blue/theme.css'; // Thème de votre choix
-import 'primereact/resources/primereact.min.css'; // Styles de base de Primereact
-import 'primeicons/primeicons.css'; // Icônes de Primereact
-import { PrimeReactProvider } from 'primereact/api';
-import { generateToken } from './firebase';
+import "primereact/resources/themes/saga-blue/theme.css"; // Thème de votre choix
+import "primereact/resources/primereact.min.css"; // Styles de base de Primereact
+import "primeicons/primeicons.css"; // Icônes de Primereact
+import { PrimeReactProvider } from "primereact/api";
+import { generateToken } from "./firebase";
+import NotificationSnackbar from "./Front_Usermanagement/Component/PushNotification/NotificationSnackbar";
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+  document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>
     <PrimeReactProvider value={{ unstyled: false }}>
-        <App />
+      <NotificationSnackbar />
+      <App />
     </PrimeReactProvider>
   </React.StrictMode>
 );
@@ -27,24 +29,23 @@ root.render(
 // Learn more about service workers: https://cra.link/PWA
 serviceWorkerRegistration.unregister();
 
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker
-    .register('/firebase-messaging-sw.js')
-    .then(async (registration) => {
-      console.log('Service Worker registered with scope:', registration.scope);
-      // Maintenant, que le Service Worker est enregistré, générez le token
-      const token = await generateToken();
-      if (token) {
-        console.log('firebase :', token);
-      }
-    })
-    .catch((error) => {
-      console.error('Service Worker registration failed:', error);
-    });
-} else {
-  console.error('Service Worker is not supported in this browser.');
-}
 
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker
+      .register('/firebase-messaging-sw.js')
+      .then((registration) => {
+        console.log('Service Worker registered with scope:', registration.scope);
+        const token =  generateToken();
+        if (token) {
+          console.log('firebase :', token);
+        }
+      })
+      .catch((error) => {
+        console.error('Service Worker registration failed:', error);
+      });
+  });
+}
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

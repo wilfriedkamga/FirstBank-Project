@@ -79,7 +79,7 @@ export default function AccountMenu() {
               <Avatar
                 sx={{
                   marginBottom: 0,
-                  bgcolor: "#888888",
+                  bgcolor: "#bb0000",
                   width: 39,
                   height: 39,
                   fontWeight: "bold",

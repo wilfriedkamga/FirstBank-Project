@@ -1,5 +1,6 @@
 package com.example.AssociationManagement.Dao.Entity;
 
+import com.example.AssociationManagement.Dao.Enumerations.EtatRole;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
@@ -25,6 +26,8 @@ public class Role_Asso {
 
     private boolean isDeletable;
 
+    private EtatRole state;
+
     private int nbMaxOcc;
 
 
@@ -39,6 +42,14 @@ public class Role_Asso {
             inverseJoinColumns = @JoinColumn(name = "privilege_id")
     )
     private List<Privilege_Asso> privileges;
+
+    public EtatRole getState() {
+        return state;
+    }
+
+    public void setState(EtatRole state) {
+        this.state = state;
+    }
 
     public String getId() {
         return id;

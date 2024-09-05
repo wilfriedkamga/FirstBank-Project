@@ -1,5 +1,6 @@
 package com.example.AssociationManagement.Dao.Entity;
 
+import com.example.AssociationManagement.Dao.Enumerations.EtatMembre;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -27,20 +28,28 @@ public class Membre_Asso {
 
     private String phone;
 
-    private boolean statusConfirmation=false;
-
     private int numOrdre;
 
-    private boolean stateConfirmation=false;
-
     private LocalDate creationDate;
+
+    @Enumerated(EnumType.STRING)
+    private EtatMembre etat;
 
     @ManyToOne
     @JoinColumn(name = "role_id", nullable = false)
     private Role_Asso role;
 
-    @ManyToMany(mappedBy = "membres")
-    private List<Association> associations = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "association_id", nullable = false)
+    private Association association;
+
+    public Association getAssociation() {
+        return association;
+    }
+
+    public void setAssociation(Association association) {
+        this.association = association;
+    }
 
     public String getId() {
         return id;
@@ -82,37 +91,19 @@ public class Membre_Asso {
         return numOrdre;
     }
 
-    public boolean isStatusConfirmation() {
-        return statusConfirmation;
-    }
-
-    public void setStatusConfirmation(boolean statusConfirmation) {
-        this.statusConfirmation = statusConfirmation;
-    }
-
-    public boolean isStateConfirmation() {
-        return stateConfirmation;
-    }
-
-    public void setStateConfirmation(boolean stateConfirmation) {
-        this.stateConfirmation = stateConfirmation;
-    }
-
     public void setNumOrdre(int numOrdre) {
         this.numOrdre = numOrdre;
     }
-
-
 
     public void setRole(Role_Asso role) {
         this.role = role;
     }
 
-    public List<Association> getAssociations() {
-        return associations;
+    public EtatMembre getEtat() {
+        return etat;
     }
 
-    public void setAssociations(List<Association> associations) {
-        this.associations = associations;
+    public void setEtat(EtatMembre etat) {
+        this.etat = etat;
     }
 }

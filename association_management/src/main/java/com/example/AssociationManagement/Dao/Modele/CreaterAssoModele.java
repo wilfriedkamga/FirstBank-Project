@@ -1,12 +1,15 @@
 package com.example.AssociationManagement.Dao.Modele;
 
+import com.example.AssociationManagement.Dao.Enumerations.Frequence;
+import com.example.AssociationManagement.Dao.Enumerations.Jour;
+
 import java.time.LocalDate;
 import java.util.Date;
 
 public class CreaterAssoModele {
     private String associationName;
-    private String meetingFrequency ;
-    private String meetingDay;
+    private Frequence meetingFrequency ;
+    private Jour meetingDay;
     private String phoneAdmin1;
     private String roleAdmin1;
     private String phoneAdmin2;
@@ -29,22 +32,6 @@ public class CreaterAssoModele {
 
     public void setAssociationName(String associationName) {
         this.associationName = associationName;
-    }
-
-    public String getMeetingFrequency() {
-        return meetingFrequency;
-    }
-
-    public void setMeetingFrequency(String meetingFrequency) {
-        this.meetingFrequency = meetingFrequency;
-    }
-
-    public String getMeetingDay() {
-        return meetingDay;
-    }
-
-    public void setMeetingDay(String meetingDay) {
-        this.meetingDay = meetingDay;
     }
 
     public String getPhoneAdmin1() {
@@ -165,5 +152,21 @@ public class CreaterAssoModele {
 
     public void setPurpose(String purpose) {
         this.purpose = purpose;
+    }
+
+    public Frequence getMeetingFrequency() {
+        return meetingFrequency;
+    }
+
+    public void setMeetingFrequency(Frequence meetingFrequency) {
+        this.meetingFrequency = meetingFrequency;
+    }
+
+    public Jour getMeetingDay() {
+        return meetingDay;
+    }
+
+    public void setMeetingDay(Jour meetingDay) {
+        this.meetingDay = meetingDay;
     }
 }

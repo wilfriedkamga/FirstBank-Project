@@ -50,7 +50,8 @@ function Dashboard() {
 
     AssociationServices.GetMemberDetails(phone)
       .then((response) => {
-        const data = response.data;
+        const data = response.data.data;
+        console.log(response.data.data)
         const updatedStats = [
           { ...stats[0], total: data.nbAssociations },
           { ...stats[1], total: data.nbTontines },

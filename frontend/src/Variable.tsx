@@ -26,7 +26,7 @@ class Variable {
     return item ? JSON.parse(item) : null;
   };
 
-  static notification_permissions:boolean=false;
+  static notification_permissions: boolean = false;
 
   static setLocalStorageItem = (key: string, data: any): boolean => {
     localStorage.setItem(key, JSON.stringify(data));

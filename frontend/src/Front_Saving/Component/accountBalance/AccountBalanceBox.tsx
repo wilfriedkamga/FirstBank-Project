@@ -12,7 +12,7 @@ const AccountBalanceBox = () => {
   const owner = "+237695964361";
 
   useEffect(() => {
-    const data = async () => {
+    /*const data = async () => {
       try {
         const response = await request("GET", "/api/operationService/get-account-balance", {
           owner: owner,
@@ -25,11 +25,11 @@ const AccountBalanceBox = () => {
       }
     }
 
-    data()
+    data()*/
   })
 
   return (
-    <div className='bg-[#BB0A01] rounded-xl h-32 w-full flex justify-between md:h-52 shadow-lg'>
+    <div className='bg-red-700 rounded-xl h-32 w-full flex justify-between md:h-52 shadow-lg'>
       <div className="p-5">
         <h3 className="font-medium text-white font-account text-xl">Account Balance</h3>
         <p className="text-2xl text-white ml-5 font-title mt-2 md:pt-12 md:text-3xl">

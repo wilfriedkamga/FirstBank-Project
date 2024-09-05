@@ -1,0 +1,39 @@
+[
+   {
+     "roleName": "SUPERADMIN",
+     "privileges": ["SUPERADMIN", "ADMIN"],
+     "maxPeople": 1,
+     "isDeletable": false
+   },
+   {
+     "roleName": "ADMIN",
+     "privileges": ["ADMIN", "CENSEUR"],
+     "maxPeople": 2,
+     "isDeletable": true
+   },
+   {
+     "roleName": "ADHERENT",
+     "privileges": [],
+     "maxPeople": 100,
+     "isDeletable": true
+   },
+   {
+     "roleName": "CENSEUR",
+     "privileges": ["CENSEUR"],
+     "maxPeople": 1,
+     "isDeletable": true
+   },
+   {
+     "roleName": "SECRETAIRE",
+     "privileges": ["SECRETAIRE"],
+     "maxPeople": 1,
+     "isDeletable": true
+   },
+   {
+     "roleName": "TRESORIER",
+     "privileges": ["TRESORIER"],
+     "maxPeople": 1,
+     "isDeletable": true
+   }
+ ]
+

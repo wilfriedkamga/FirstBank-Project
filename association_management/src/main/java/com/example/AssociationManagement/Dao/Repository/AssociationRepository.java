@@ -12,8 +12,9 @@ import java.util.Optional;
 
 @Repository
 public interface AssociationRepository extends JpaRepository<Association, String>{
-    boolean existsByName(String name);
-    Optional<Association> findByNameAndPhoneCreator(String name, String phone);
+    boolean existsByAssoName(String name);
+    Optional<Association> findByAssoNameAndPhoneCreator(String name, String phone);
+
 
 
 }

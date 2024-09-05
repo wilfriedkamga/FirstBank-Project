@@ -33,9 +33,9 @@ public class DocumentController {
         uploadFileModel.setDescription(description);
         uploadFileModel.setAssociationId(associationId);
         uploadFileModel.setFile(file);
-        DocumentDto document =associationService.uploadFile(uploadFileModel);
+        //DocumentDto document =associationService.uploadFile(uploadFileModel);
 
-        return ResponseEntity.ok(document);
+        return null; // ResponseEntity.ok(document);
     }
 
 
@@ -43,16 +43,16 @@ public class DocumentController {
     @GetMapping ("/documentsByAssociation")
     public ResponseEntity<List<DocumentDto>> getDocumentsByAssociationId(@RequestParam String associationId){
 
-        List<DocumentDto> documents=associationService.getDocumentsByAssociationId(associationId);
-        System.out.println(documents.size());
-        return ResponseEntity.ok(documents);
+        //List<DocumentDto> documents=associationService.getDocumentsByAssociationId(associationId);
+        //System.out.println(documents.size());
+        return null; // ResponseEntity.ok(documents);
 
     }
     @DeleteMapping ("/delete_document")
     public ResponseEntity<AssociationDto> deleteDocument(@RequestParam String documentId,@RequestParam String associationId) {
         // Créer et retourner le DTO
-        AssociationDto association = associationService.deleteDocument(associationId,documentId);
-        return ResponseEntity.ok(association);
+        //AssociationDto association = associationService.deleteDocument(associationId,documentId);
+        return null; // ResponseEntity.ok(association);
     }
 
     @PostMapping("/association/{id}/downloadFile")

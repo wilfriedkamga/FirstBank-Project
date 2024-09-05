@@ -10,6 +10,7 @@ import LabelField from "../../../../Front_Association/Component/MuiCustomCompone
 import OtpInputField from "../../../../Front_Association/Component/MuiCustomComponent/OtpInputField";
 import SubmitedButton from "../../../../Front_Association/Component/MuiCustomComponent/SubmitedButton";
 import SimpleButtonLink from "../../../../Front_Association/Component/MuiCustomComponent/SimpleButtonLink";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 
 type ChildComponentProps = {
   OtpCode: string;
@@ -42,7 +43,7 @@ export default function CheckOTP2({
 
   const verify = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
+
     if (inputOTP.length != 5) {
       setDialogMessage("Otp must have 5 digits");
       setDialogVisibility(true);
@@ -58,7 +59,7 @@ export default function CheckOTP2({
 
   const verifyOTP = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    alert(inputOTP)
+    alert(inputOTP);
     setYet(true);
 
     const route = Variable.routeApi + "api/usermanagement/verifyOTP";
@@ -79,7 +80,7 @@ export default function CheckOTP2({
 
   const verifyOTP1 = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
+
     const route = Variable.routeApi + "api/usermanagement/verifyOTP";
 
     const tempUser = {
@@ -120,7 +121,10 @@ export default function CheckOTP2({
       <div className="">
         <div className=" max-w-2xl mx-auto lg:w-4/5">
           <div className="w-full">
-            <h1 className="text-xl text-red-600 font-semibold tracking-wider text-center mt-3 capitalize">
+            <h1 className="text-xl flex gap-10 text-red-600 font-semibold tracking-wider text-center mt-3 capitalize">
+              <button className=" flex justify-center text-center p-1 items-center rounded-lg">
+                <ArrowBackIosIcon />{" "}
+              </button>
               {t("usermanagement.otp.title")}
             </h1>
 
@@ -159,11 +163,18 @@ export default function CheckOTP2({
 
             <p className="mt-3 text-center">
               {t("usermanagement.otp.haventReceive")}
-              <SimpleButtonLink onClick={()=>resendOTP()} fontSize="14px" text={t("usermanagement.otp.resendButton")}/>
+              <SimpleButtonLink
+                onClick={() => resendOTP()}
+                fontSize="14px"
+                text={t("usermanagement.otp.resendButton")}
+              />
             </p>
 
             <p className="mt-3 inline flex justify-center">
-              <SimpleButtonLink onClick={() => tooglePassword()} text={t("usermanagement.otp.signinButton")}/>
+              <SimpleButtonLink
+                onClick={() => tooglePassword()}
+                text={t("usermanagement.otp.signinButton")}
+              />
             </p>
 
             <img

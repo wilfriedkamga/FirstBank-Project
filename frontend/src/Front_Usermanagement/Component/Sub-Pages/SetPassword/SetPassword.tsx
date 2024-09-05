@@ -2,6 +2,7 @@ import React, { useState, ChangeEvent, FocusEvent, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Variable from "../../../../Variable";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import { useTranslation } from "react-i18next";
 import TextFieldPassword from "../../../../Front_Association/Component/MuiCustomComponent/TextFieldPassword";
 import LabelField from "../../../../Front_Association/Component/MuiCustomComponent/LabelField";
@@ -10,6 +11,7 @@ import SimpleButtonLink from "../../../../Front_Association/Component/MuiCustomC
 
 type ChildComponentProps = {
   toggleSignin: () => void;
+  handleClick: () => void;
   fullName: string;
   birthDate: string;
   phone: string;
@@ -135,7 +137,13 @@ export default function SetPassword({
       <div className="">
         <div className=" max-w-2xl mx-auto lg:w-4/5">
           <div className="w-full">
-            <h1 className="text-2xl font-semibold tracking-wider text-gray-800 text-center mt-3 capitalize dark:text-white">
+            <h1 className="text-2xl flex gap-10  mb-4 font-semibold tracking-wider text-gray-800 text-center mt-3 capitalize dark:text-white">
+            <button
+                
+                className=" flex justify-center text-center p-1 items-center rounded-lg"
+              >
+                <ArrowBackIosIcon />{" "}
+              </button>
               {t("usermanagement.passwordManagement.title")}
             </h1>
 
