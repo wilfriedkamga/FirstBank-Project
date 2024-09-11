@@ -1,19 +1,22 @@
 package com.example.AssociationManagement.Dao.Dto;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.Date;
 
+@Getter
+@Setter
 public class DocumentDto {
-    private String associationId;
+    private String id;
     private String nom;
     private String nomComplet;
+    private String chemin;
+    private String lienTelechargement;
     private String taille;
-    private String lien;
     private String description;
     private Date date;
-    private String id;
-    public String getAssociationId() {
-        return associationId;
-    }
+    private String associationId;
 
     public String getId() {
         return id;
@@ -21,10 +24,6 @@ public class DocumentDto {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public void setAssociationId(String associationId) {
-        this.associationId = associationId;
     }
 
     public String getNom() {
@@ -43,20 +42,28 @@ public class DocumentDto {
         this.nomComplet = nomComplet;
     }
 
+    public String getChemin() {
+        return chemin;
+    }
+
+    public void setChemin(String chemin) {
+        this.chemin = chemin;
+    }
+
+    public String getLienTelechargement() {
+        return lienTelechargement;
+    }
+
+    public void setLienTelechargement(String lienTelechargement) {
+        this.lienTelechargement = lienTelechargement;
+    }
+
     public String getTaille() {
         return taille;
     }
 
     public void setTaille(String taille) {
         this.taille = taille;
-    }
-
-    public String getLien() {
-        return lien;
-    }
-
-    public void setLien(String lien) {
-        this.lien = lien;
     }
 
     public String getDescription() {
@@ -73,5 +80,13 @@ public class DocumentDto {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public String getAssociationId() {
+        return associationId;
+    }
+
+    public void setAssociationId(String associationId) {
+        this.associationId = associationId;
     }
 }

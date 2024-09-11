@@ -1,66 +1,44 @@
 package com.example.AssociationManagement.Controller;
 
-import com.example.AssociationManagement.Business.AssociationBus;
-import com.example.AssociationManagement.Config.DefaultRolesConfig;
-import com.example.AssociationManagement.Dao.Dto.*;
-import com.example.AssociationManagement.Dao.Entity.*;
-import com.example.AssociationManagement.Dao.Modele.*;
+import com.example.AssociationManagement.Business.DocumentBus;
+import com.example.AssociationManagement.Dao.Dto.DocumentDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import java.io.IOException;
+
 import java.util.List;
 
-
 @RestController
-@RequestMapping("/api/associationmanagement")
+@RequestMapping("/api/associations/documents")
 public class DocumentController {
 
     @Autowired
-    private AssociationBus associationService;
+    private DocumentBus documentBus;
 
-    @Autowired
-    private DefaultRolesConfig defaultRolesConfig;
-
-    /* ********************* GESTION DES DOCUMENTS **************************** */
-
-    @PostMapping("/uploadFile")
-    public ResponseEntity<DocumentDto> uploadFile(@RequestPart String nom,@RequestPart String description,@RequestPart String associationId,@RequestPart MultipartFile file) throws IOException {
-
-        UploadFileModel uploadFileModel=new UploadFileModel();
-        uploadFileModel.setNom(nom);
-        uploadFileModel.setDescription(description);
-        uploadFileModel.setAssociationId(associationId);
-        uploadFileModel.setFile(file);
-        //DocumentDto document =associationService.uploadFile(uploadFileModel);
-
-        return null; // ResponseEntity.ok(document);
+    @GetMapping
+    public ResponseEntity<List<DocumentDto>> getAllDocuments() {
+        return new ResponseEntity<List<DocumentDto>>(documentBus.getAllDocuments(), HttpStatus.OK);
     }
 
-
-
-    @GetMapping ("/documentsByAssociation")
-    public ResponseEntity<List<DocumentDto>> getDocumentsByAssociationId(@RequestParam String associationId){
-
-        //List<DocumentDto> documents=associationService.getDocumentsByAssociationId(associationId);
-        //System.out.println(documents.size());
-        return null; // ResponseEntity.ok(documents);
-
-    }
-    @DeleteMapping ("/delete_document")
-    public ResponseEntity<AssociationDto> deleteDocument(@RequestParam String documentId,@RequestParam String associationId) {
-        // Créer et retourner le DTO
-        //AssociationDto association = associationService.deleteDocument(associationId,documentId);
-        return null; // ResponseEntity.ok(association);
+    @GetMapping("/{id}")
+    public ResponseEntity<DocumentDto> getDocumentById(@PathVariable String id) {
+        return new ResponseEntity<>(documentBus.getDocumentById(id), HttpStatus.OK);
     }
 
-    @PostMapping("/association/{id}/downloadFile")
-    public ResponseEntity<CreateAssoDto> downloadFile(@RequestBody CreaterAssoModele creerAssoModele) {
-        // Créer et retourner le DTO
-        //CreateAssoDto association = associationService.createAssociation(creerAssoModele);
-        return null;// ResponseEntity.ok(association);
+    @PostMapping
+    public ResponseEntity<DocumentDto> createDocument(@RequestBody DocumentDto documentDto) {
+        return new ResponseEntity<>(documentBus.createDocument(documentDto), HttpStatus.CREATED);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<DocumentDto> updateDocument(@PathVariable String id, @RequestBody DocumentDto documentDto) {
+        return new ResponseEntity<>(documentBus.updateDocument(id, documentDto), HttpStatus.OK);
+    }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteDocument(@PathVariable String id) {
+        documentBus.deleteDocument(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }

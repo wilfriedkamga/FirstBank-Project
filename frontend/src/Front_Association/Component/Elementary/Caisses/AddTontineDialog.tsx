@@ -321,10 +321,13 @@ const ConfirmationDialogRaw = (props: any) => {
       open={open}
       {...other}
     >
-      <DialogTitle className="font-bold">
+      <DialogTitle
+        sx={{ backgroundColor: "#b00", color: "white" }}
+        className="font-bold"
+      >
         {step === 1 ? "Choisir le type de tontine" : "Créer une tontine"}
       </DialogTitle>
-      <DialogContent  dividers>
+      <DialogContent dividers>
         {step === 1 ? (
           <FormControl fullWidth margin="normal">
             <label className="mb-3 font-bold">Type de tontine</label>
@@ -342,19 +345,49 @@ const ConfirmationDialogRaw = (props: any) => {
       </DialogContent>
       <DialogActions>
         {step === 2 && (
-          <Button sx={{ color: "red" }} onClick={handleBack}>
+          <Button
+            variant="contained"
+            sx={{
+              backgroundColor: "#c00",
+              "&:hover": { backgroundColor: "#a00" },
+            }}
+            onClick={handleBack}
+          >
             Retour
           </Button>
         )}
-        <Button sx={{ color: "red" }} autoFocus onClick={handleCancel}>
+        <Button
+          variant="contained"
+          sx={{
+            backgroundColor: "#666",
+            "&:hover": { backgroundColor: "#444" },
+          }}
+          autoFocus
+          onClick={handleCancel}
+        >
           Annuler
         </Button>
         {step === 1 ? (
-          <Button sx={{ color: "red" }} disabled={!type} onClick={handleNext}>
+          <Button
+            variant="contained"
+            sx={{
+              backgroundColor: "#b00",
+              "&:hover": { backgroundColor: "#c00" },
+            }}
+            disabled={!type}
+            onClick={handleNext}
+          >
             Suivant
           </Button>
         ) : (
-          <Button sx={{ color: "red" }} onClick={handleSubmit}>
+          <Button
+            variant="contained"
+            sx={{
+              backgroundColor: "#c00",
+              "&:hover": { backgroundColor: "#a00" },
+            }}
+            onClick={handleSubmit}
+          >
             Créer
           </Button>
         )}

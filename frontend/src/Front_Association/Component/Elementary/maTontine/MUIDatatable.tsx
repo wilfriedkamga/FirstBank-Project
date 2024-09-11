@@ -51,16 +51,14 @@ export default function MUIDatatable<T>({ data, columns }: Props<T>) {
     <Box
       sx={{
         maxHeight: 700,
-        minHeight:"100px",
+        minHeight: "100px",
         width: "100%",
         marginBottom: "1px",
         backgroundColor: "white",
-        display:"flex",
-        flexDirection:"column"
+        display: "flex",
+        flexDirection: "column",
       }}
     >
-      
-
       <DataGrid
         rows={data}
         columns={columns}

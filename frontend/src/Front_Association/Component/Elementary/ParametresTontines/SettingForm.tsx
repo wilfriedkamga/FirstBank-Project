@@ -23,8 +23,8 @@ import ParamItem from "./ParamItem";
 import UserProfileCard from "../../../../Front_Usermanagement/Component/header/UserProfileCard";
 import AssociationProfileCard from "./AssociationProfilCard";
 import AssociationServices from "../../../../Services/AssociationServices";
-import { AssociationModel } from "../../../../Services/Types/AssociationModels";
 import logo_asso from '../../../Assets/caisse.png'
+import { AssociationModel } from "../../../../Services/Types";
 
 type Item = {
   label: string;
@@ -37,7 +37,7 @@ const SettingForm = () => {
   const [emailIsValid, setEmailIsValid] = useState<boolean>(false);
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
-  const [association,setAssociation]=useState<string>("")
+  const [association,setAssociation]=useState<AssociationModel|undefined>()
   const location=useLocation()
 
   useEffect(() => {
@@ -48,7 +48,7 @@ const SettingForm = () => {
 
     AssociationServices.GetAssociationDetails(location.pathname.split("/")[3])
     .then((response) => {
-      setAssociation(response.data.name);
+      setAssociation(response.data.data);
     })
     .catch((error) => {
       console.log(error);
@@ -100,7 +100,7 @@ const SettingForm = () => {
         <div className="font-medium mt-7 bg-gray-400 w-full space-y-2">
           <AssociationProfileCard  />
           <p className="font-title text-lg md:text-2xl ml-36 md:ml-56">
-            {association}
+            {association?.assoName}
           </p>
         </div>
         <div className="ml-5 border-b border-gray-200">

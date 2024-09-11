@@ -89,7 +89,8 @@ public class UserManagerController {
 
 		}catch (Exception e){
 			response.setResponseCode("1");
-			response.setMessage(e.getMessage());
+			response.setData(e.getMessage());
+			response.setMessage("Telephone ou mot de passe incorrect");
 
 			return new ResponseEntity<>(response, HttpStatus.FORBIDDEN);
 
@@ -136,9 +137,10 @@ public class UserManagerController {
 		try{
 			response.setMessage("Success");
 			response.setResponseCode("0");
-			usermanagerBus.signup(signupModel.getPhone(),signupModel.getFullname(),signupModel.getEmail(),signupModel.getBirthDate(),signupModel.getGender(), signupModel.getPassword());
+			response.setData(usermanagerBus.signup(signupModel.getPhone(),signupModel.getFullname(),signupModel.getEmail(),signupModel.getBirthDate(),signupModel.getGender(), signupModel.getPassword()));
+
 //            System.out.println("passe parici v0");
-//			//authenticate(signupModel.getPhone(), signupModel.getPassword());
+//			authenticate(signupModel.getPhone(), signupModel.getPassword());
 //            System.out.println("passe par ici v1");
 //			final UserDetails userDetails = jwtInMemoryUserDetailsService
 //					.loadUserByUsername(signupModel.getPhone());

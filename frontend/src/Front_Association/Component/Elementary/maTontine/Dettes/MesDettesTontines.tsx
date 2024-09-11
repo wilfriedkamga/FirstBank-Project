@@ -1,6 +1,7 @@
-
 import { Box } from "@mui/material";
 import ListeDettes from "./ListeDettesTontine";
+import AddButton from "./ButtonActions/AddButton";
+import RefreshButton from "./ButtonActions/RefreshButton";
 
 export interface DetteModel {
   id: number;
@@ -13,7 +14,7 @@ export interface DetteModel {
   validateur2: string;
 }
 
-const MesDettesTontine= () => {
+const MesDettesTontine = () => {
   const data: DetteModel[] = [
     {
       id: 1,
@@ -30,8 +31,24 @@ const MesDettesTontine= () => {
   return (
     <div>
       <Box m={4}>
-      <Box sx={{ marginBottom: "12px",fontWeight:"bold", fontSize:"18px", color:"#dc2626", backgroundColor:"white",borderRadius:"10px", padding:2,  border:"1px solid gray" }}>
+        <Box
+          sx={{
+            marginBottom: "12px",
+            fontWeight: "bold",
+            fontSize: "18px",
+            color: "#dc2626",
+            backgroundColor: "white",
+            borderRadius: "10px",
+            padding: 2,
+            border: "1px solid gray",
+          }}
+        >
           <h1>Mes Dettes</h1>
+        </Box>
+
+        <Box sx={{ display: "flex", gap: 2, justifyContent: "end" }}>
+          <AddButton />
+          <RefreshButton />
         </Box>
         <ListeDettes data={data} />
       </Box>

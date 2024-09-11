@@ -203,9 +203,9 @@ const MesDocuments: React.FC = () => {
     link.href = url;
     //link.target = '_blank'
     const fileName = url.split("/").pop();
-    if(fileName?.split(".")[1])
-    // Définissez l'attribut `download` pour indiquer un téléchargement direct
-    link.setAttribute("download", fileName ? fileName : "");
+    if (fileName?.split(".")[1])
+      // Définissez l'attribut `download` pour indiquer un téléchargement direct
+      link.setAttribute("download", fileName ? fileName : "");
 
     // Ajoutez le lien au DOM, déclenchez le clic, puis retirez-le
     document.body.appendChild(link);
@@ -238,8 +238,8 @@ const MesDocuments: React.FC = () => {
       formData.append("description", newDocument.description);
       formData.append("file", file);
       console.log("nom du fichier " + file.name);
-      setNewDocument({...newDocument, file:file})
-      console.log(newDocument)
+      setNewDocument({ ...newDocument, file: file });
+      console.log(newDocument);
       AssociationServices.Upload_file_for_association(newDocument)
         .then((response) => {
           console.log("Voici la reponse que nous avons reçu", response);
@@ -273,239 +273,8 @@ const MesDocuments: React.FC = () => {
   });
 
   return (
-    <Box className="bg-white h-full p-4">
-      <Box display="flex" justifyContent="space-between" mb={2}>
-        <Select value={sortCriterion} onChange={handleSortChange}>
-          <MenuItem value="type">Type</MenuItem>
-          <MenuItem value="name">Nom</MenuItem>
-          <MenuItem value="date">Date</MenuItem>
-        </Select>
-        <Box display={"flex"} gap={"4"} justifyContent="space-between">
-          <Select value={sortOrder} onChange={handleSortOrderChange}>
-            <MenuItem value="asc">Croissant</MenuItem>
-            <MenuItem value="desc">Décroissant</MenuItem>
-          </Select>
-          <button
-            onClick={handleAddDocument}
-            className="text-white ml-4 bg-red-600 hover:bg-red-800 rounded-lg p-3"
-          >
-            <AddIcon />
-          </button>
-        </Box>
-      </Box>
-
-      {documents.length == 0 ? (
-        <div className="text-center text-lg font-bold">
-          Vous n'avez aucun documents pour le moment !!!
-        </div>
-      ) : (
-        <TableContainer>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>Icone</TableCell>
-                <TableCell>Nom</TableCell>
-                <TableCell>Date</TableCell>
-                <TableCell>Taille</TableCell>
-                <TableCell>Actions</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {sortedDocuments
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((doc) => {
-                  const Icon = documentTypes[doc.type] || documentTypes.default;
-                  return (
-                    <TableRow key={doc.id}>
-                      <TableCell>
-                        <Icon />
-                      </TableCell>
-                      <TableCell>{doc.name}</TableCell>
-                      <TableCell>{doc.date}</TableCell>
-                      <TableCell>{doc.size}</TableCell>
-                      <TableCell>
-                        <Tooltip title="Editer">
-                          <IconButton onClick={() => handleEditClick(doc)}>
-                            <EditIcon />
-                          </IconButton>
-                        </Tooltip>
-                        <Tooltip title="Supprimer">
-                          <IconButton onClick={() => handleDeleteClick(doc)}>
-                            <DeleteIcon />
-                          </IconButton>
-                        </Tooltip>
-                        <Tooltip title="Télécharger">
-                          <IconButton
-                            onClick={() =>
-                              handleDownloadClick(doc.downloadLink)
-                            }
-                          >
-                            <DownloadIcon />
-                          </IconButton>
-                        </Tooltip>
-                      </TableCell>
-                    </TableRow>
-                  );
-                })}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      )}
-      <TablePagination
-        rowsPerPageOptions={[5, 10, 25]}
-        component="div"
-        count={documents.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      />
-
-      {/* Modale pour ajouter un document */}
-      <Dialog open={addDialogOpen} onClose={handleAddDialogClose}>
-        <DialogTitle>Ajouter un document</DialogTitle>
-        <DialogContent>
-          <TextField
-            margin="normal"
-            label="Nom"
-            fullWidth
-            value={newDocument.nom}
-            onChange={(e) => {
-              setNewDocument({ ...newDocument, nom: e.target.value });
-            }}
-          />
-          <TextField
-            margin="normal"
-            label="Description"
-            fullWidth
-            multiline
-            value={newDocument.description}
-            onChange={(e) => {
-              setNewDocument({ ...newDocument, description: e.target.value });
-            }}
-          />
-          <Button
-            variant="contained"
-            sx={{
-              backgroundColor: "red",
-              ":hover": { backgroundColor: "ff0000" },
-            }}
-            component="label"
-          >
-            Choisir le document
-            <input
-              type="file"
-              hidden
-              onChange={(event) => handleInputFileChange(event)}
-            />
-          </Button>
-          {file && (
-            <>
-              <Typography variant="body2" color="textSecondary" marginTop={2}>
-                Document sélectionné : {(file as File).name}
-              </Typography>
-              <div className="loading-bar bg-gray-300 mt-2.5 w-[200px] h-2">
-                <div
-                  style={{ width: "20%" }}
-                  className="loading bg-red-700 w-[] h-2"
-                ></div>
-              </div>
-            </>
-          )}
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleAddDialogClose} color="primary">
-            Annuler
-          </Button>
-          <Button
-            onClick={() => handleUpload()}
-            color="primary"
-            disabled={!newDocument.nom}
-          >
-            Ajouter
-          </Button>
-        </DialogActions>
-      </Dialog>
-
-      {/* Modale pour éditer un document */}
-      {selectedDocument && (
-        <Dialog open={editDialogOpen} onClose={() => setEditDialogOpen(false)}>
-          <DialogTitle>Editer le document</DialogTitle>
-          <DialogContent>
-            <TextField
-              margin="normal"
-              label="Nom"
-              fullWidth
-              value={selectedDocument?.name || ""}
-              onChange={(e) =>
-                setSelectedDocument((prev) =>
-                  prev ? { ...prev, name: e.target.value } : null
-                )
-              }
-            />
-            <TextField
-              margin="normal"
-              label="Description"
-              fullWidth
-              multiline
-              value={selectedDocument?.description || ""}
-              onChange={(e) =>
-                setSelectedDocument((prev) =>
-                  prev ? { ...prev, description: e.target.value } : null
-                )
-              }
-            />
-            <Button variant="contained" component="label">
-              Changer le document
-              <input type="file" hidden />
-            </Button>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={() => setEditDialogOpen(false)} color="primary">
-              Annuler
-            </Button>
-            <Button onClick={() => setEditDialogOpen(false)} color="primary">
-              Sauvegarder
-            </Button>
-          </DialogActions>
-        </Dialog>
-      )}
-
-      {/* Modale pour confirmer la suppression */}
-      {selectedDocument && (
-        <Dialog
-          open={deleteDialogOpen}
-          onClose={() => setDeleteDialogOpen(false)}
-        >
-          <DialogTitle>Confirmer la suppression</DialogTitle>
-          <DialogContent>
-            Voulez-vous vraiment supprimer ce document ?
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={() => setDeleteDialogOpen(false)} color="primary">
-              Annuler
-            </Button>
-            <Button
-              onClick={() => {
-                deleteDocument(
-                  selectedDocument.id,
-                  selectedDocument.associationId
-                );
-                setDocuments(
-                  documents.filter((doc) => doc.id !== selectedDocument.id)
-                );
-                setDeleteDialogOpen(false);
-                
-              }}
-              color="primary"
-            >
-              Supprimer
-            </Button>
-          </DialogActions>
-        </Dialog>
-      )}
-
-      <MesDocuments2/>
+    <Box className=" h-full">
+      <MesDocuments2 />
     </Box>
   );
 };

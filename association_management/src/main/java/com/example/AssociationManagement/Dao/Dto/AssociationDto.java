@@ -25,6 +25,7 @@ public class AssociationDto {
     private EtatAsso state;
     private String PhoneCreator;
     private MeetType meetMode;
+    private String description;
 
 
     public AssociationDto(Association association){
@@ -34,6 +35,7 @@ public class AssociationDto {
         this.meetingDay = association.getMeetDay();
         this.creationDate = association.getCreationDate();
         this.nbMembre = association.getMembres().size();
+        this.description=association.getDescription();
         this.nbTontine = 0;
         this.nbMeetings = 0;
         this.nbEvents = 0;
@@ -44,6 +46,7 @@ public class AssociationDto {
         this.meetMode=association.getMeetMode();
         this.isDeletable=association.isDeletable();
         this.PhoneCreator=association.getPhoneCreator();
+        this.description=association.getDescription();
     }
 
     public Frequence getFrequenceReunion() {

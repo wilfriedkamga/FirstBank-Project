@@ -23,6 +23,8 @@ public class Membre_Tont {
 
     private String name;
 
+    private int nbOcc;
+
     private String phone;
 
     private LocalDate creationDate;
@@ -34,11 +36,20 @@ public class Membre_Tont {
     @JoinColumn(name = "role_tont_id", nullable = false)
     private Role_Tont role_tont;
 
+
     @OneToMany(mappedBy = "membre_tont", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Sanction> sanctions = new ArrayList<>();
 
     @OneToMany(mappedBy = "membre_tont", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Cotisation> cotisations = new ArrayList<>();
+
+    public int getNbOcc() {
+        return nbOcc;
+    }
+
+    public void setNbOcc(int nbOcc) {
+        this.nbOcc = nbOcc;
+    }
 
     public String getId() {
         return id;

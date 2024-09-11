@@ -1,14 +1,14 @@
 [
   {
     "roleName": "PRESIDENT",
-    "label":"President",
+    "label":"president",
     "privileges": ["SUPERADMIN", "ADMIN"],
     "maxPeople": 1,
     "deletable": false
   },
   {
     "roleName": "VICE-PRESIDENT",
-    "label":"Vice-President",
+    "label":"vice-president",
     "privileges": ["ADMIN", "CENSEUR"],
     "maxPeople": 2,
     "deletable": true
@@ -21,22 +21,15 @@
     "deletable": true
   },
   {
-    "roleName": "CENSEUR",
-    "label":"Censeur",
-    "privileges": ["CENSEUR"],
+    "roleName": "TRESORIER",
+    "label":"tresorier",
+    "privileges": ["TRESORIER"],
     "maxPeople": 1,
     "deletable": true
   },
   {
     "roleName": "SECRETAIRE",
-    "label":"Sécretaire",
-    "privileges": ["SECRETAIRE"],
-    "maxPeople": 1,
-    "deletable": true
-  },
-  {
-    "roleName": "TRESORIER",
-    "label":"Trésorier",
+    "label":"secretaire",
     "privileges": ["TRESORIER"],
     "maxPeople": 1,
     "deletable": true

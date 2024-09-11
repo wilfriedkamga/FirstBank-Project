@@ -8,12 +8,13 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { Delete } from "@mui/icons-material";
 import { CircularProgress, Divider, IconButton } from "@mui/material";
 import { DocumentModel } from "../../../../../Services/Types/DocumetType";
-import { MembresAssociationModel } from "./MembresAssociaiton";
+import { membreAssoModel } from "../../../../../Services/Types";
+
 
 
 interface props{
-    handleDelete:(doc:MembresAssociationModel)=>void;
-    member:MembresAssociationModel;
+    handleDelete:(doc:membreAssoModel)=>void;
+    member:membreAssoModel;
 }
 export default function DeleteButton({handleDelete, member}:props) {
   const [open, setOpen] = React.useState(false);
@@ -23,7 +24,7 @@ export default function DeleteButton({handleDelete, member}:props) {
     setOpen(true);
   };
 
-  const localHandleDelete=(member:MembresAssociationModel)=>{
+  const localHandleDelete=(member:membreAssoModel)=>{
     setIsLoading(true)
 
     setTimeout(() => {

@@ -22,11 +22,13 @@ public class Association {
     private String id;
 
     private String assoName;
+    private String description;
     private LocalDate creationDate;
     private boolean isDeletable;
     private boolean isAlredryOpen;
     private String phoneCreator;
     private boolean visibility=true;
+    @Enumerated(EnumType.STRING)
     private EtatAsso state;
     @Enumerated(EnumType.STRING)
     private Frequence meetFrequency;
@@ -38,11 +40,14 @@ public class Association {
     @OneToMany(mappedBy = "association", cascade = CascadeType.ALL)
     private List<Role_Asso> roles = new ArrayList<>();
 
-//    @OneToMany(mappedBy = "association", cascade = CascadeType.ALL)
-//    private List<Tontine> tontines = new ArrayList<>();
+    @OneToMany(mappedBy = "association", cascade = CascadeType.ALL)
+    private List<Tontine> tontines = new ArrayList<>();
 
     @OneToMany(mappedBy = "association", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Membre_Asso> membres = new ArrayList<>();
+
+    @OneToMany(mappedBy = "association", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Reunion> reunions= new ArrayList<>();
 
     public String getId() {
         return id;
@@ -78,6 +83,10 @@ public class Association {
 
     public boolean isAlredryOpen() {
         return isAlredryOpen;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public void setAlredryOpen(boolean alredryOpen) {

@@ -9,5 +9,4 @@ public class AssociationManagementApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(AssociationManagementApplication.class, args);
 	}
-
 }

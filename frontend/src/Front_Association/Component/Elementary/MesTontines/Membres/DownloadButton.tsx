@@ -15,11 +15,11 @@ import {
   Typography,
 } from "@mui/material";
 import { DocumentModel } from "../../../../../Services/Types/DocumetType";
-import { MembresAssociationModel } from "./MembresAssociaiton";
+import { membreAssoModel } from "../../../../../Services/Types";
 
 interface props {
-  handleDownload: (member: MembresAssociationModel) => void;
-  member: MembresAssociationModel;
+  handleDownload: (member: membreAssoModel) => void;
+  member: membreAssoModel;
 }
 export default function DownloadButton({ handleDownload, member }: props) {
   const [open, setOpen] = React.useState(false);

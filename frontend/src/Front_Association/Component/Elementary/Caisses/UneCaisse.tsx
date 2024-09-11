@@ -53,6 +53,13 @@ function UneCaisse() {
       icon: <AccountBalanceWalletIcon />,
       bg: "bg-[#be185d]" || 0,
     },
+    {
+      id: "cotisation",
+      label: "Cotisations",
+      total: "0",
+      icon: <AccountBalanceWalletIcon />,
+      bg: "bg-[#be185d]" || 0,
+    },
   ];
 
   const Card = ({ label, count, bg, icon }: any) => {

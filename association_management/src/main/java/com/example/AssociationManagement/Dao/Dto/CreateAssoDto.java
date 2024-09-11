@@ -35,7 +35,6 @@ public class CreateAssoDto {
         this.jourReunion = jourReunion;
         this.creationDate = creationDate;
         this.roles = roles;
-        this.membres = membres;
         this.nbMembres = nbMembres;
         this.nbTontines = nbTntines;
         this.nbNotifications = nbNotifications;

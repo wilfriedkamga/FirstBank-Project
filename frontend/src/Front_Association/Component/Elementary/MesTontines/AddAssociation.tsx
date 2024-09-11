@@ -30,7 +30,7 @@ import SelectItem from "../Component/SelectItem";
 import Authentications from "../../../../Services/Authentications";
 import NotificationService from "../../../../Services/NotificationService";
 import { days, frequencies, rolesData } from "../../../../Services/data";
-import { RoleModel } from "../../../../Services/Types/RoleModel";
+import { RoleAssoModel } from "../../../../Services/Types";
 import SelectItem2 from "../Component/SelectItem2";
 import { MembreAssociationModel } from "../../../../Services/Types/MembreAssociationModel";
 import DualSelect from "../Component/DualSelect";
@@ -82,9 +82,9 @@ function ConfirmationDialogRaw(props: ConfirmationDialogRawProps) {
   const [nameTontine, setNameTontine] = React.useState<string>("");
   const [errorRole3, setErrorRole3] = React.useState<boolean>(true);
   const [defaultRoles, setDefaultRoles] =
-    React.useState<RoleModel[]>(rolesData);
+    React.useState<RoleAssoModel[]>(rolesData);
   const [rolesAvailable, setRolesAvailable] =
-    React.useState<RoleModel[]>(rolesData);
+    React.useState<RoleAssoModel[]>(rolesData);
 
   const [defaultFrequencies, setDefaultFrequencies] = React.useState<any[]>([]);
   const [day, setDay] = React.useState("");
@@ -169,7 +169,7 @@ function ConfirmationDialogRaw(props: ConfirmationDialogRawProps) {
     validateDates();
   };
 
-  const handleRoleSelect = (index: number, role: RoleModel) => {
+  const handleRoleSelect = (index: number, role: RoleAssoModel) => {
     const newSelectedRoles = [...selectedRoles];
     newSelectedRoles[index] = role.id;
     setSelectedRoles(newSelectedRoles);

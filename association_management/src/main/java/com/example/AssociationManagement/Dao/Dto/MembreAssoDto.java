@@ -1,36 +1,29 @@
 package com.example.AssociationManagement.Dao.Dto;
-
-
 import com.example.AssociationManagement.Dao.Entity.Membre_Asso;
 import com.example.AssociationManagement.Dao.Enumerations.EtatMembre;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
-
-public  class MembreAssoDto {
+@Getter
+@Setter
+public class MembreAssoDto {
     private String id;
-    private String memberName;
-    private String memberPhone;
+    private String name;
+    private String phone;
+    private int numOrdre;
     private LocalDate creationDate;
-    private String role;
-    private String avatarUrl;
-    private boolean isCreator;
+    private EtatMembre etat;
+    private String roleId;
     private String associationId;
-    private EtatMembre state;
 
-    public MembreAssoDto(Membre_Asso membre_asso) {
-        this.id = membre_asso.getId();
-        this.memberName = membre_asso.getName();
-        this.memberPhone = membre_asso.getPhone();
-        this.creationDate = membre_asso.getCreationDate();
-        this.role = membre_asso.getRole().getLabelV();
-        this.associationId =membre_asso.getAssociation().getId();
-        this.isCreator=membre_asso.getPhone()==membre_asso.getAssociation().getPhoneCreator();
-        this.state =membre_asso.getEtat();
-        this.avatarUrl = null;
 
+    public MembreAssoDto(Membre_Asso membre){
+        this.id=membre.getId();
+        this.name=membre.getName();
+        this.associationId=membre.getAssociation().getId();
     }
-
     public String getId() {
         return id;
     }
@@ -39,20 +32,28 @@ public  class MembreAssoDto {
         this.id = id;
     }
 
-    public String getMemberName() {
-        return memberName;
+    public String getName() {
+        return name;
     }
 
-    public void setMemberName(String memberName) {
-        this.memberName = memberName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getMemberPhone() {
-        return memberPhone;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setMemberPhone(String memberPhone) {
-        this.memberPhone = memberPhone;
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public int getNumOrdre() {
+        return numOrdre;
+    }
+
+    public void setNumOrdre(int numOrdre) {
+        this.numOrdre = numOrdre;
     }
 
     public LocalDate getCreationDate() {
@@ -63,28 +64,20 @@ public  class MembreAssoDto {
         this.creationDate = creationDate;
     }
 
-    public String getRole() {
-        return role;
+    public EtatMembre getEtat() {
+        return etat;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setEtat(EtatMembre etat) {
+        this.etat = etat;
     }
 
-    public String getAvatarUrl() {
-        return avatarUrl;
+    public String getRoleId() {
+        return roleId;
     }
 
-    public void setAvatarUrl(String avatarUrl) {
-        this.avatarUrl = avatarUrl;
-    }
-
-    public boolean isCreator() {
-        return isCreator;
-    }
-
-    public void setCreator(boolean creator) {
-        isCreator = creator;
+    public void setRoleId(String roleId) {
+        this.roleId = roleId;
     }
 
     public String getAssociationId() {
@@ -93,13 +86,5 @@ public  class MembreAssoDto {
 
     public void setAssociationId(String associationId) {
         this.associationId = associationId;
-    }
-
-    public EtatMembre getState() {
-        return state;
-    }
-
-    public void setState(EtatMembre state) {
-        this.state = state;
     }
 }

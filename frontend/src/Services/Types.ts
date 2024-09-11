@@ -44,6 +44,15 @@ export interface NotificationModel {
   statusConfirmation?: boolean;
 }
 
+export type RoleAssoModel = {
+  id: string;
+  label: string;
+  labelV: string;
+  nbMaxOcc: string;
+  state: EtatRole;
+  associationId: string;
+};
+
 export type membreAssoModel = {
   id: string;
   memberName: string;
@@ -76,25 +85,32 @@ export type AssociationModel = {
 };
 
 export enum EtatMembre {
-  INVITE = 'INVITE',
-  VALIDE = 'VALIDE',
-  ACCEPTE = 'ACCEPTE',
-  REFUSE = 'REFUSE',
-  REJETTE = 'REJETTE',
-  ACTIF = 'ACTIF',
-  SUPPRIME='SUPPRIME'
+  INVITE = "INVITE",
+  VALIDE = "VALIDE",
+  ACCEPTE = "ACCEPTE",
+  REFUSE = "REFUSE",
+  REJETTE = "REJETTE",
+  ACTIF = "ACTIF",
+  SUPPRIME = "SUPPRIME",
 }
 
 export enum ActionType {
-  DELETE = 'DELETE',
-  CANCEL = 'CANCEL',
-  ADD = 'ADD',
-  
+  DELETE = "DELETE",
+  CANCEL = "CANCEL",
+  ADD = "ADD",
+}
+
+export enum EtatRole {
+  VALIDE = "VALIDE",
+  INITIE = "INITIE",
+  REFUSE = "REFUSE",
+  SUPPRIME = "SUPPRIME",
+  LIMITE = "LIMITE",
 }
 
 export enum InvitationType {
-  MEMBRE="MEMBRE",
-  ADMINISTRATEUR="ADMINISTRATEUR",
-  CREATE_ASSOCIATION="CREATE_ASSOCIATION",
-  CREATE_ROLE_ASSOCIATION="CREATE_ROLE_ASSOCIATION"
+  MEMBRE = "MEMBRE",
+  ADMINISTRATEUR = "ADMINISTRATEUR",
+  CREATE_ASSOCIATION = "CREATE_ASSOCIATION",
+  CREATE_ROLE_ASSOCIATION = "CREATE_ROLE_ASSOCIATION",
 }

@@ -28,6 +28,7 @@ export default function DeleteButton({ handleDelete, memb }: props) {
     setTimeout(() => {
       setIsLoading(false);
       handleDelete(memb, ActionType.CANCEL);
+      setOpen(false);
     }, 2000);
   };
 

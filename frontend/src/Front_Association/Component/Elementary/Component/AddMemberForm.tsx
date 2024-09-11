@@ -7,9 +7,10 @@ import Variable from "../../../../Variable";
 import Authentications from "../../../../Services/Authentications";
 import NotificationService from "../../../../Services/NotificationService";
 import { rolesData } from "../../../../Services/data";
-import { RoleModel } from "../../../../Services/Types/RoleModel";
+import { RoleAssoModel } from "../../../../Services/Types";
 import SelectItem2 from "../Component/SelectItem2";
 import LabelField from "../../MuiCustomComponent/LabelField";
+
 type childComponents = {
   options: string[];
 };
@@ -22,7 +23,7 @@ export interface ConfirmationDialogRawProps {
   setContact: (label: string) => void;
   setRole: (label: string) => void;
   role: string;
-  roleDate: RoleModel[];
+  roleDate: RoleAssoModel[];
 }
 
 export default function AdminForm(props: ConfirmationDialogRawProps) {
@@ -33,7 +34,7 @@ export default function AdminForm(props: ConfirmationDialogRawProps) {
   const [dialogOpen, setDialogOpen] = React.useState<boolean>(false);
   const [contact1, setContact1] = React.useState("");
   const [rolesAvailable, setRolesAvailable] =
-    React.useState<RoleModel[]>(rolesData);
+    React.useState<RoleAssoModel[]>(rolesData);
   const [inviter2IsLoading, setInviter2IsLoading] =
     React.useState<boolean>(false);
   const [noContact3, setNoContact3] = React.useState<boolean>(false);

@@ -1,5 +1,7 @@
 import { Box } from "@mui/material";
 import ListeDettes from "./ListeRemboursements";
+import AddButton from "./ButtonAction/AddButton";
+import RefreshButton from "./ButtonAction/RefreshButton";
 
 export interface RemboursementModel {
   id: number;
@@ -42,6 +44,10 @@ const MesRemboursements = () => {
           }}
         >
           <h1>Mes Dettes</h1>
+        </Box>
+        <Box sx={{ display: "flex", gap: 2, justifyContent: "end" }}>
+          <AddButton />
+          <RefreshButton />
         </Box>
         <ListeDettes data={data} />
       </Box>

@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PrivilegeAssoRepository extends JpaRepository<Privilege_Asso, String> {
-    Privilege_Asso findByLabel(PrivilegeAsso label);
+    Privilege_Asso findByLabel(PrivilegeAsso privilegeAsso);
 
 }

@@ -93,8 +93,8 @@ const ListMembersInCreation = ({ data, handleAction }: Props) => {
               </Tooltip>
               <Tooltip title="Supprimer cette utilisateur">
                 <IconButton onClick={()=>handleAction(params.row,ActionType.DELETE)}>
-                  <Delete sx={{ color: "#c00" }} />
-                </IconButton>
+                  <DeleteButton handleDelete={()=>handleAction(params.row,ActionType.DELETE)} memb={params.row} />
+                  </IconButton>
               </Tooltip>
             </>
           ) : null}

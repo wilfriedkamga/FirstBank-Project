@@ -1,12 +1,12 @@
 import { v4 as uuidv4 } from 'uuid';
-import { RoleModel } from './Types/RoleModel';
+import { EtatRole, RoleAssoModel } from './Types';
 
-export const rolesData:RoleModel[] = [
-    { id: "1", label: 'PRESIDENT', labelV: 'Président',isDeletable:false, nbMax: '1' },
-    { id: "2", label: 'VICE-PRESIDENT', labelV: 'Vice-Président' ,isDeletable:false, nbMax: '1'  },
-    { id: "3", label: 'SECRETAIRE', labelV: 'Sécretaire' ,isDeletable:false , nbMax: '1' },
-    { id: "4", label: 'TRESORIER', labelV: 'Trésorier' ,isDeletable:false , nbMax: '1' },
-    { id: "5", label: 'CENSEUR', labelV: 'Censeur' ,isDeletable:false, nbMax: '1'  }
+export const rolesData:RoleAssoModel[] = [
+    { id: "1", label: 'PRESIDENT', labelV: 'Président', nbMaxOcc: '1', associationId:"", state:EtatRole.VALIDE },
+    { id: "2", label: 'VICE-PRESIDENT', labelV: 'Vice-Président' , nbMaxOcc: '1', associationId:"", state:EtatRole.VALIDE  },
+    { id: "3", label: 'SECRETAIRE', labelV: 'Sécretaire' , nbMaxOcc: '1', associationId:"" , state:EtatRole.VALIDE},
+    { id: "4", label: 'TRESORIER', labelV: 'Trésorier' , nbMaxOcc: '1', associationId:"", state:EtatRole.VALIDE },
+    { id: "5", label: 'CENSEUR', labelV: 'Censeur' ,nbMaxOcc: '1' , associationId:"", state:EtatRole.VALIDE }
 ];
 
 export const supportedLanguages = [

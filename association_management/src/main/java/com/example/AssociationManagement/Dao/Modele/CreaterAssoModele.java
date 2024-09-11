@@ -16,10 +16,10 @@ public class CreaterAssoModele {
     private String roleAdmin2;
     private String phoneAdmin3;
     private String roleAdmin3;
-    private String tontineName;
-    private String type;
     private String amount;
     private Date creationDate;
+    private String tontineName;
+    private String type;
     private String phoneValidator1;
     private String phoneValidator2;
     private Date startDate;

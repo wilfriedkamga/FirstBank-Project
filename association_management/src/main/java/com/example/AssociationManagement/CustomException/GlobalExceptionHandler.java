@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    String message="Error while processing";
+    String message="Erreure lors du traitement";
     String codeError="1";
     @ExceptionHandler(AssociationAlreadyExistsException.class)
     public ResponseEntity<?> handleAssociationAlreadyExistsException(AssociationAlreadyExistsException ex) {

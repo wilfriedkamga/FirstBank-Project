@@ -15,9 +15,7 @@ import java.util.List;
 @Table(name = "membre_asso")
 @Setter
 @Getter
-@NoArgsConstructor
 public class Membre_Asso {
-
 
     @Id
     @GeneratedValue(generator = "uuid")
@@ -42,7 +40,6 @@ public class Membre_Asso {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "association_id", nullable = false)
     private Association association;
-
     public Association getAssociation() {
         return association;
     }

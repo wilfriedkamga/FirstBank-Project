@@ -37,27 +37,20 @@ import AccessibleTable from "../DataTable";
 import MobileCardView from "../DataCardViewM";
 import {
   AssociationModel,
+  EtatMembre,
   membreAssoModel,
 } from "../../../../../Services/Types";
 
 interface props {
   data: membreAssoModel[];
+  currentMember:membreAssoModel|undefined;
+  handleAnswer:(res:boolean)=>void;
+  association:AssociationModel|undefined;
 }
-export const InviteMemberView = ({ data }: props) => {
-  const [association, setAssociation] = useState<AssociationModel>();
-  const [data1, setData] = useState<membreAssoModel[]>([]);
-  const [nbTontine, setNbTontine] = useState("");
-  const [currentMemberId, setCurrentMemberId]=useState("")
-  const [nbEvenement, setNbEvenement] = useState("");
-  const [nbReunion, setNbReunion] = useState("");
-  const [nbMembre, setNbMembre] = useState("");
-  const [nbDocument, setNbDocument] = useState("");
-  const [isFunctional, setIsFunctional] = useState<boolean>(false);
-  const [open, setOpen] = useState<boolean>(false);
-  const [isCreator, setIsCreator] = useState<boolean>(true);
-  const [currentMember, setCurrentMember] = useState<
-    membreAssoModel | undefined
-  >();
+export const InviteMemberView = ({ data, handleAnswer, currentMember, association }: props) => {
+ 
+  const [open, setOpen] = useState<boolean>(false); 
+  const [message, setMessage] = useState<String>("");
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -65,81 +58,11 @@ export const InviteMemberView = ({ data }: props) => {
   useEffect(() => {
     const user = Variable.getLocalStorageItem("user");
     const myPhone = user.user.phone;
-
-    AssociationServices.GetMembersByAssociationId(
-      location.pathname.split("/")[3]
-    ).then((response) => {
-      setData(response.data.data);
-    });
-
-    AssociationServices.GetCurrentMember(
-      myPhone,
-      location.pathname.split("/")[3]
-    )
-      .then((response) => {
-        console.log("Current member"+response.data.data)
-        setCurrentMember(response.data.data);
-        setCurrentMemberId(response.data.data.memberPhone)
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
-    AssociationServices.GetAssociationDetails(location.pathname.split("/")[3])
-      .then((response) => {
-        setAssociation(response.data.data);
-        console.log(response);
-        setIsFunctional(response.data.alreadyOpen);
-        setNbDocument("0");
-        setNbTontine(response.data.nbTontine);
-        setNbEvenement(response.data.nbEvenement);
-        setNbReunion(response.data.nbReunion);
-        setNbMembre(response.data.nbMembre);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
   }, []);
-
-  const handleDelete = () => {
-    setMessage(messageList.deleting);
-    setOpen(true);
-    navigate("/association/mes associations");
-
-    AssociationServices.delete_association(location.pathname.split("/")[3])
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    setTimeout(() => {
-      setOpen(false);
-    }, 3000);
-  };
    
-const handleAnswer=(res:boolean)=>{
-    
-  const temp ={
-      "responderId":currentMember?.id,
-      "response":res,
-      "associationId":location.pathname.split("/")[3],
-      "type":"CREATE_ASSOCIATION",
-      "roleId":""}
-
-  AssociationServices.AnswerInvitation(temp)
-  .then((response)=>{
-         console.log(response)
-  })
-  .catch((error)=>{
-    console.log(error)
-  })
-}
-
   const handleRejectInvitation = () => {
     setMessage(messageList.deleting);
     setOpen(true);
-    
     setTimeout(() => {
       handleAnswer(false)
       setOpen(false)
@@ -150,7 +73,6 @@ const handleAnswer=(res:boolean)=>{
   const handleAcceptInvitation = () => {
     setMessage(messageList.accepting);
     setOpen(true);
-    
     setTimeout(() => {
       handleAnswer(true)
       setOpen(false)
@@ -163,22 +85,6 @@ const handleAnswer=(res:boolean)=>{
     rejecting: "Vous n'allez plus accéder à cette page ci.",
     accepting: "Bienvenue dans notre association",
   };
-
-  const [message, setMessage] = useState<String>("");
-  const Style =
-    "w-10 h-10 rounded-full flex items-center justify-center text-white";
-  const viewCard = (path: string) => {
-    navigate(path);
-  };
-
-  const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: "center",
-    color: theme.palette.text.secondary,
-  }));
-
   const currentPath = location.pathname + "/";
 
   return (
@@ -196,59 +102,8 @@ const handleAnswer=(res:boolean)=>{
             border: "1px solid gray",
           }}
         >
-          <h1>Mes Dettes</h1>
+          <h1>{association?.assoName}</h1>
         </Box>
-
-        <>
-          <div className="block lg:hidden">
-            <Box sx={{ flexGrow: 1, marginBottom: "50px" }}>
-              <Grid
-                container
-                sx={{ display: "flex", justifyContent: "center" }}
-                spacing={2}
-                columns={16}
-              >
-                <Grid
-                  sx={{
-                    display: "flex",
-                    gap: "10px",
-                    flexDirection: "column",
-                    justifyContent: "space-between",
-                  }}
-                  item
-                  sm={1}
-                >
-                  <WelcomeMessage>
-                    Nous sommes ravis de vous informer que vous avez été invité
-                    à rejoindre notre association. En tant que membre potentiel,
-                    nous vous invitons à explorer notre mission, nos activités,
-                    et la communauté dynamique que nous avons construite
-                    ensemble. Avant de pouvoir participer pleinement à nos
-                    activités, veuillez confirmer ou refuser votre invitation.
-                  </WelcomeMessage>
-
-                  <InvitationValidation
-                    handleReject={handleRejectInvitation}
-                    handleAccept={handleAcceptInvitation}
-                  />
-                </Grid>
-                <Grid item sx={{ width: "100%" }} xs={0}>
-                  <AssoInfo />
-                </Grid>
-              </Grid>
-
-              <Grid
-                container
-                spacing={2}
-                sx={{ marginTop: "14px" }}
-                columns={16}
-              >
-                <Grid item xs={8}></Grid>
-              </Grid>
-            </Box>
-          </div>
-
-          <div className="hidden lg:block">
             <Box sx={{ flexGrow: 1, marginBottom: "50px" }}>
               <Grid
                 container
@@ -277,10 +132,11 @@ const handleAnswer=(res:boolean)=>{
                   <InvitationValidation
                     handleReject={handleRejectInvitation}
                     handleAccept={handleAcceptInvitation}
+                    isAlreadyValid={!!currentMember && currentMember.state==EtatMembre.ACTIF}
                   />
                 </Grid>
                 <Grid item sx={{ width: "100%" }} xs={8}>
-                  <AssoInfo />
+                  <AssoInfo association={association} />
                 </Grid>
               </Grid>
 
@@ -294,8 +150,6 @@ const handleAnswer=(res:boolean)=>{
               </Grid>
             </Box>
           </div>
-        </>
-      </div>
       <Backdrop
         sx={{
           color: "#fff",

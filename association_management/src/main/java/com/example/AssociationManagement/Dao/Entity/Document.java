@@ -25,7 +25,7 @@ public class Document {
     private String nom;
     private String nomComplet;
     private String chemin;
-    private String lien_telechargement;
+    private String lienTelechargement;
     private String taille;
     private String description;
     private Date date;
@@ -66,12 +66,12 @@ public class Document {
         this.chemin = chemin;
     }
 
-    public String getLien_telechargement() {
-        return lien_telechargement;
+    public String getLienTelechargement() {
+        return lienTelechargement;
     }
 
-    public void setLien_telechargement(String lien_telechargement) {
-        this.lien_telechargement = lien_telechargement;
+    public void setLienTelechargement(String lienTelechargement) {
+        this.lienTelechargement = lienTelechargement;
     }
 
     public String getTaille() {

@@ -19,8 +19,10 @@ public class Privilege_Asso {
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
+
     @Enumerated(EnumType.STRING)
     private PrivilegeAsso label;
+
     @ManyToMany(mappedBy = "privileges")
     private List<Role_Asso> roles;
 

@@ -1,38 +1,45 @@
 package com.example.AssociationManagement.Dao.Dto;
+import com.example.AssociationManagement.Dao.Entity.Tontine;
+import com.example.AssociationManagement.Dao.Enumerations.TypeTontine;
 
-import java.time.LocalDate;
 import java.util.Date;
 
-
 public class TontineDto {
+
     private String id;
     private String tontineName;
-    private LocalDate creationDate;
-    private String type;
+    private Date creationDate;
+    private TypeTontine type;
     private String amount;
+    private String purpose;
     private Date startDate;
     private Date endDate;
-    private String purpose;
-    private String nbMembres;
-    private String nbNotifications;
+    private String phoneValidator1;
+    private String phoneValidator2;
+    private String phoneCreator;
+    private String associationId;
 
-
-    public String getNbMembres() {
-        return nbMembres;
+    // Constructeur vide
+    public TontineDto() {
     }
 
-    public void setNbMembres(String nbMembres) {
-        this.nbMembres = nbMembres;
+    // Constructeur avec Tontine
+    public TontineDto(Tontine tontine) {
+        this.id = tontine.getId();
+        this.tontineName = tontine.getTontineName();
+        this.creationDate = tontine.getCreationDate();
+        this.type = tontine.getType();
+        this.amount = tontine.getAmount();
+        this.purpose = tontine.getPurpose();
+        this.startDate = tontine.getStartDate();
+        this.endDate = tontine.getEndDate();
+        this.phoneValidator1 = tontine.getPhoneValidator1();
+        this.phoneValidator2 = tontine.getPhoneValidator2();
+        this.phoneCreator = tontine.getPhoneCreator();
+        this.associationId = tontine.getAssociation() != null ? tontine.getAssociation().getId() : null;
     }
 
-    public String getNbNotifications() {
-        return nbNotifications;
-    }
-
-    public void setNbNotifications(String nbNotifications) {
-        this.nbNotifications = nbNotifications;
-    }
-
+    // Getters and Setters
     public String getId() {
         return id;
     }
@@ -49,19 +56,19 @@ public class TontineDto {
         this.tontineName = tontineName;
     }
 
-    public LocalDate getCreationDate() {
+    public Date getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(LocalDate creationDate) {
+    public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
     }
 
-    public String getType() {
+    public TypeTontine getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(TypeTontine type) {
         this.type = type;
     }
 
@@ -71,6 +78,14 @@ public class TontineDto {
 
     public void setAmount(String amount) {
         this.amount = amount;
+    }
+
+    public String getPurpose() {
+        return purpose;
+    }
+
+    public void setPurpose(String purpose) {
+        this.purpose = purpose;
     }
 
     public Date getStartDate() {
@@ -89,11 +104,35 @@ public class TontineDto {
         this.endDate = endDate;
     }
 
-    public String getPurpose() {
-        return purpose;
+    public String getPhoneValidator1() {
+        return phoneValidator1;
     }
 
-    public void setPurpose(String purpose) {
-        this.purpose = purpose;
+    public void setPhoneValidator1(String phoneValidator1) {
+        this.phoneValidator1 = phoneValidator1;
+    }
+
+    public String getPhoneValidator2() {
+        return phoneValidator2;
+    }
+
+    public void setPhoneValidator2(String phoneValidator2) {
+        this.phoneValidator2 = phoneValidator2;
+    }
+
+    public String getPhoneCreator() {
+        return phoneCreator;
+    }
+
+    public void setPhoneCreator(String phoneCreator) {
+        this.phoneCreator = phoneCreator;
+    }
+
+    public String getAssociationId() {
+        return associationId;
+    }
+
+    public void setAssociationId(String associationId) {
+        this.associationId = associationId;
     }
 }

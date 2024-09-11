@@ -7,11 +7,11 @@ import {
   OutlinedInput,
   SelectChangeEvent,
 } from "@mui/material";
-import { RoleModel } from "../../../../Services/Types/RoleModel";
+import { RoleAssoModel } from "../../../../Services/Types";
 
 type SimpleSelectProps = {
-  options: RoleModel[];
-  onSelect: (selected: RoleModel) => void;
+  options: RoleAssoModel[];
+  onSelect: (selected: RoleAssoModel) => void;
   value: string;
 };
 

@@ -35,6 +35,7 @@ public class Role_Asso {
     @JoinColumn(name = "association_id", nullable = false)
     private Association association;
 
+
     @ManyToMany
     @JoinTable(
             name = "role_privilege",

@@ -1,11 +1,13 @@
 package com.example.AssociationManagement.HelperClass;
+import com.example.AssociationManagement.Dao.Enumerations.PrivilegeAsso;
+
 import java.util.List;
 
 public class DefaultRole {
 
     private String roleName;
     private String label;
-    private List<String> privileges;
+    private List<PrivilegeAsso> privileges;
     private int maxPeople;
     private boolean deletable;
 
@@ -25,11 +27,11 @@ public class DefaultRole {
         this.roleName = roleName;
     }
 
-    public List<String> getPrivileges() {
+    public List<PrivilegeAsso> getPrivileges() {
         return privileges;
     }
 
-    public void setPrivileges(List<String> privileges) {
+    public void setPrivileges(List<PrivilegeAsso> privileges) {
         this.privileges = privileges;
     }
 

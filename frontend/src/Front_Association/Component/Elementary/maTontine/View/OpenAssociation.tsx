@@ -87,16 +87,15 @@ export const OpenedAssociation = ({association}:props) => {
       total: nbMembre,
       logo: logo_membre,
     },
-
     {
-      _id: "4",
+      _id: "6",
       label: "parametres",
       lable_visible: "Paramètres",
       total: null,
       logo: logo_parametre,
     },
     {
-      _id: "5",
+      _id: "7",
       label: "documents",
       lable_visible: "Documents",
       total: nbDocument,
@@ -151,7 +150,7 @@ export const OpenedAssociation = ({association}:props) => {
           <div className="grid  grid-cols-2 md:grid-cols-4 gap-10">
             {stats.map(({ logo, lable_visible, label, total }, index) => (
               <div
-                onClick={() => viewCard(location.pathname.split("/")[3] + label)}
+                onClick={() => viewCard(location.pathname +"/"+ label)}
                 className="cursor-pointer "
                 key={index}
               >

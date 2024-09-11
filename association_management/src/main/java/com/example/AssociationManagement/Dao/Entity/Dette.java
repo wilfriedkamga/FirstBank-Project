@@ -43,4 +43,76 @@ public class Dette {
     private Document document;
 
     // Getters and Setters
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public BigDecimal getMontant() {
+        return montant;
+    }
+
+    public void setMontant(BigDecimal montant) {
+        this.montant = montant;
+    }
+
+    public LocalDate getDateDelai() {
+        return dateDelai;
+    }
+
+    public void setDateDelai(LocalDate dateDelai) {
+        this.dateDelai = dateDelai;
+    }
+
+    public BigDecimal getMontantNet() {
+        return montantNet;
+    }
+
+    public void setMontantNet(BigDecimal montantNet) {
+        this.montantNet = montantNet;
+    }
+
+    public BigDecimal getMontantARembourser() {
+        return montantARembourser;
+    }
+
+    public void setMontantARembourser(BigDecimal montantARembourser) {
+        this.montantARembourser = montantARembourser;
+    }
+
+    public String getEtat() {
+        return etat;
+    }
+
+    public void setEtat(String etat) {
+        this.etat = etat;
+    }
+
+    public Membre_Tont getMembre_tont() {
+        return membre_tont;
+    }
+
+    public void setMembre_tont(Membre_Tont membre_tont) {
+        this.membre_tont = membre_tont;
+    }
+
+    public Remboursement getRemboursement() {
+        return remboursement;
+    }
+
+    public void setRemboursement(Remboursement remboursement) {
+        this.remboursement = remboursement;
+    }
+
+    public Document getDocument() {
+        return document;
+    }
+
+    public void setDocument(Document document) {
+        this.document = document;
+    }
 }

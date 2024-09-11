@@ -1,5 +1,7 @@
 package com.example.AssociationManagement.Dao.Entity;
 
+import com.example.AssociationManagement.Dao.Enumerations.EtatReunion;
+import com.example.AssociationManagement.Dao.Enumerations.TypeReunion;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.Getter;
@@ -24,15 +26,15 @@ public class Reunion {
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
-
     private LocalDate dateSeance;
     private LocalTime heureDebut;
     private LocalTime heureFin;
-    private int nombreMembresPresents;
-    private int nombreCotisationsAttendues;
 
-    private boolean isFinish;
-    private String type;
+    @Enumerated(EnumType.STRING)
+    private EtatReunion state;
+
+    @Enumerated(EnumType.STRING)
+    private TypeReunion type;
 
     @ManyToOne
     @JoinColumn(name = "association_id", nullable = false)
@@ -40,6 +42,7 @@ public class Reunion {
 
     @OneToMany(mappedBy = "reunion", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Cotisation> cotisations = new ArrayList<>();
+
 
     // Getters and Setters
 
@@ -75,21 +78,22 @@ public class Reunion {
         this.heureFin = heureFin;
     }
 
-    public int getNombreMembresPresents() {
-        return nombreMembresPresents;
+    public EtatReunion getState() {
+        return state;
     }
 
-    public void setNombreMembresPresents(int nombreMembresPresents) {
-        this.nombreMembresPresents = nombreMembresPresents;
+    public void setState(EtatReunion state) {
+        this.state = state;
     }
 
-    public int getNombreCotisationsAttendues() {
-        return nombreCotisationsAttendues;
+    public TypeReunion getType() {
+        return type;
     }
 
-    public void setNombreCotisationsAttendues(int nombreCotisationsAttendues) {
-        this.nombreCotisationsAttendues = nombreCotisationsAttendues;
+    public void setType(TypeReunion type) {
+        this.type = type;
     }
+
 
     public Association getAssociation() {
         return association;

@@ -1,5 +1,6 @@
 package com.example.AssociationManagement.Dao.Entity;
 
+import com.example.AssociationManagement.Dao.Enumerations.TypeTontine;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.GeneratedValue;
@@ -21,21 +22,15 @@ public class Tontine {
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
-
-    private String nb_membre;
     private String tontineName;
-    private LocalDate creationDate;
-    private String type;// dette epargne, sociale
+    private Date creationDate;
+    private TypeTontine type;// dette epargne, sociale
     private String amount;
     private String purpose;
     private Date startDate;
     private Date endDate;
     private String phoneValidator1;
     private String phoneValidator2;
-    private boolean isDeletable=true;
-    private boolean onChangeType=true;
-    private boolean canRemove=true;
-    private boolean onChangeParam=true;
     private String phoneCreator;
 
 
@@ -63,14 +58,6 @@ public class Tontine {
         this.id = id;
     }
 
-    public String getNb_membre() {
-        return nb_membre;
-    }
-
-    public void setNb_membre(String nb_membre) {
-        this.nb_membre = nb_membre;
-    }
-
     public String getTontineName() {
         return tontineName;
     }
@@ -79,19 +66,19 @@ public class Tontine {
         this.tontineName = tontineName;
     }
 
-    public LocalDate getCreationDate() {
+    public Date getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(LocalDate creationDate) {
+    public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
     }
 
-    public String getType() {
+    public TypeTontine getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(TypeTontine type) {
         this.type = type;
     }
 
@@ -141,38 +128,6 @@ public class Tontine {
 
     public void setPhoneValidator2(String phoneValidator2) {
         this.phoneValidator2 = phoneValidator2;
-    }
-
-    public boolean isDeletable() {
-        return isDeletable;
-    }
-
-    public void setDeletable(boolean deletable) {
-        isDeletable = deletable;
-    }
-
-    public boolean isOnChangeType() {
-        return onChangeType;
-    }
-
-    public void setOnChangeType(boolean onChangeType) {
-        this.onChangeType = onChangeType;
-    }
-
-    public boolean isCanRemove() {
-        return canRemove;
-    }
-
-    public void setCanRemove(boolean canRemove) {
-        this.canRemove = canRemove;
-    }
-
-    public boolean isOnChangeParam() {
-        return onChangeParam;
-    }
-
-    public void setOnChangeParam(boolean onChangeParam) {
-        this.onChangeParam = onChangeParam;
     }
 
     public String getPhoneCreator() {

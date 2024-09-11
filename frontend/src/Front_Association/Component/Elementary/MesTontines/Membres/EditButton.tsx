@@ -15,7 +15,8 @@ import LabelField from "../../../MuiCustomComponent/LabelField";
 import TextFieldSimple from "../../../MuiCustomComponent/TextFieldSimple";
 import { FileUpload, FileUploadHandlerEvent } from "primereact/fileupload";
 import { DocumentModel } from "../../../../../Services/Types/DocumetType";
-import { MembresAssociationModel } from "./MembresAssociaiton";
+import { membreAssoModel } from "../../../../../Services/Types";
+
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -27,8 +28,8 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 }));
 
 interface props{
-    handleSave:(member:MembresAssociationModel)=>void;
-    member:MembresAssociationModel
+    handleSave:(member:membreAssoModel)=>void;
+    member:membreAssoModel
 }
 
 export default function EditButton({handleSave, member}:props) {

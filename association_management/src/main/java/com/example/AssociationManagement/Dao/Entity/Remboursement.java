@@ -31,4 +31,36 @@ public class Remboursement {
     private Dette dette;
 
     // Getters and Setters
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public BigDecimal getMontant() {
+        return montant;
+    }
+
+    public void setMontant(BigDecimal montant) {
+        this.montant = montant;
+    }
+
+    public LocalDate getDateRemboursement() {
+        return dateRemboursement;
+    }
+
+    public void setDateRemboursement(LocalDate dateRemboursement) {
+        this.dateRemboursement = dateRemboursement;
+    }
+
+    public Dette getDette() {
+        return dette;
+    }
+
+    public void setDette(Dette dette) {
+        this.dette = dette;
+    }
 }

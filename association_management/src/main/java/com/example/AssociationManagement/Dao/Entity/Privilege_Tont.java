@@ -20,4 +20,20 @@ public class Privilege_Tont {
 
     @ManyToMany(mappedBy = "privileges_tont")
     private List<Role_Tont> roles;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public List<Role_Tont> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role_Tont> roles) {
+        this.roles = roles;
+    }
 }

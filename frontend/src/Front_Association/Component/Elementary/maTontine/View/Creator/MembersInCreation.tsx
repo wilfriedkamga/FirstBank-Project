@@ -17,7 +17,7 @@ import AssociationServices from "../../../../../../Services/AssociationServices"
 import { useLocation } from "react-router-dom";
 import Variable from "../../../../../../Variable";
 import { rolesData } from "../../../../../../Services/data";
-import { setDate } from "date-fns";
+
 
 interface Props {
   data: membreAssoModel[];
@@ -26,7 +26,6 @@ interface Props {
 }
 const MembersInCreation = ({ data, handleAction, handleAddMember}: Props) => {
   const [open, setOpen] = useState<boolean>(false);
-  const [localData, setLocalData] = useState<membreAssoModel[]>(data);
   const [contact, setContact] = useState<string>("");
   const [role, setRole] = useState<string>("");
   const [fullName, setFullName] = useState<string>("");
@@ -44,20 +43,13 @@ const MembersInCreation = ({ data, handleAction, handleAddMember}: Props) => {
       phone: contact,
       role: rolesData.find((role1) => role1.id == role)?.label,
     };
-    console.log(temp);
+    
     handleAddMember(temp)
-    setOpen(false);
+    setTimeout(() => {
+      setOpen(false);
+    }, 2000);
     
   };
-
-  const handleDelete = (memb: membreAssoModel) => {
-    console.log("supprimer ce membre");
-    setLocalData(localData.filter((mem) => mem.id != memb.id));
-  };
-
-  useEffect(() => {
-    setLocalData(data);
-  }, []);
 
   return (
     <div>
@@ -120,7 +112,7 @@ const MembersInCreation = ({ data, handleAction, handleAddMember}: Props) => {
             <DialogActions sx={{ padding: 1 }}>
               <Button
                 variant="contained"
-                onClick={() => handleAddMemberLocal()}
+                onClick={() =>{ handleAddMemberLocal();}}
                 sx={{
                   backgroundColor: "#c00",
                   "&:hover": { backgroundColor: "#a00" },

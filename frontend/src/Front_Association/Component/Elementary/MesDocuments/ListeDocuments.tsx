@@ -122,6 +122,7 @@ const ListeDocuments = ({ data, handleDelete }: Props) => {
   return (
     <div>
       <div className="">
+     
         <MUIDatatable<DocumentModel> columns={columns} data={data} />
       </div>
     </div>
